@@ -297,7 +297,8 @@ export const Urls = {
   ApproverPageDataForm:'/rtwsGetFormsData',
   PtwApproverPage:'/getPtwApprover',
   PtwRejectionPage:"/show/ptw/rejectionreason",
-  PtwApproverPageAlert:"/getPtwApprover"
+  PtwApproverPageAlert:"/getPtwApprover",
+  AssignVendorList:"/getVendorCostList",
  
 
 

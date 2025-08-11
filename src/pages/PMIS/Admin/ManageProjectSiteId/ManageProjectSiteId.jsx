@@ -38,7 +38,7 @@ import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
 import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
 import VendorGroupTaskAllocation from "./VendorGroupTaskAllocation";
-import { UilColumns, UilExclamationTriangle}  from "@iconscout/react-unicons";
+import { UilColumns, UilExclamationTriangle } from "@iconscout/react-unicons";
 
 const ManageProjectSiteId = () => {
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -64,6 +64,7 @@ const ManageProjectSiteId = () => {
   const [old, setOld] = useState(<></>);
   const [subProjectId, setSubProjectId] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [itemData, setItemData] = useState({})
 
   const {
     register,
@@ -209,6 +210,7 @@ const ManageProjectSiteId = () => {
                     return [...prev];
                   });
                 }
+                setItemData(itm);
               }}
             />
           </>
@@ -651,7 +653,7 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-
+console.log(dbConfigList,"__dbCOndig")
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
@@ -696,12 +698,13 @@ const ManageProjectSiteId = () => {
       {
         name: "Site ID",
         value: "siteIdLink",
-        style:"min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+        style:
+          "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "System ID",
         value: "systemId",
-        style:"min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Sub Project",
@@ -788,10 +791,10 @@ const ManageProjectSiteId = () => {
             "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center z-20",
         },
         {
-        name: "System ID",
-        value: "",
-        style:"min-w-[140px] max-w-[200px] text-center",
-      },
+          name: "System ID",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "Sub Project",
           value: "SubProject",
@@ -927,7 +930,7 @@ const ManageProjectSiteId = () => {
         () => {
           dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
           setmodalOpen(false);
-          setShowDeleteModal(false)
+          setShowDeleteModal(false);
           setparentsite([]);
           setmultiSelect([]);
         }
@@ -965,7 +968,7 @@ const ManageProjectSiteId = () => {
       })
     );
   };
-console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
+  console.log(fileOpenlink, "___fileOpenlinkasfdasd_");
   return (
     <>
       <AdvancedTableExpandable
@@ -1061,6 +1064,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                       <VendorGroupTaskAllocation
                         from={"bulktask"}
                         listsite={parentsite}
+                        itemData={itemData}
                         projectuniqueId={projectuniqueId}
                         isOpen={modalOpen}
                         setIsOpen={setmodalOpen}
@@ -1126,7 +1130,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
                         checkbox={setchildsite}
                         parentcheckbox={setparentsite}
                         subId={uniqueArr[0]}
-                        formName = {"Deallocate Task"}
+                        formName={"Deallocate Task"}
                       />
                     );
                   } else {
@@ -1351,7 +1355,7 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
         heading={"Total Sites:-"}
-        TableHeight = "h-[70vh]"
+        TableHeight="h-[70vh]"
       />
 
       <Modal
@@ -1405,9 +1409,16 @@ console.log(fileOpenlink,"___fileOpenlinkasfdasd_")
               parentsite.length > 1 ? "these rows" : "this row"
             }?`}</p>
             <div className="mt-6 flex justify-center space-x-4">
-              <Button name="Delete" classes="w-auto bg-rose-500" onClick={handleBulkDelte} />
-              <Button name="Cancel" classes="w-auto" onClick={() => setShowDeleteModal(false)} />
-              
+              <Button
+                name="Delete"
+                classes="w-auto bg-rose-500"
+                onClick={handleBulkDelte}
+              />
+              <Button
+                name="Cancel"
+                classes="w-auto"
+                onClick={() => setShowDeleteModal(false)}
+              />
             </div>
           </div>
         </div>
