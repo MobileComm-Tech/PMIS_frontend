@@ -55,12 +55,14 @@ const AdvancedTableExpandableOneRow = ({
 
 
                     
-                    if (["Vendor Item Code", "Vendor Rate", "PO eligibility (Yes/No)"].includes(innerItem?.name)) {
+                    if (["Vendor Item Code", "Vendor Rate", "PO eligibility (Yes/No)","Quantity","Vendor Code Description","PO Value"].includes(innerItem?.name)) {
                         if (getRowSpan(item)) {
                             // data.push(<td rowSpan={`${getRowSpan(item)}`} className="text-[35px] text-center whitespace-nowrap pl-1 text-white border-[#0e8670] border-[0.1px] bg-[#475058] text-primaryLine">{innerItem.name === "Vendor Item Code" ? finalData[item?.workDescription]?.[0]?.["itemCode"] : innerItem.name === "Vendor Rate" ? finalData[item?.workDescription]?.[0]?.["rate"] : innerItem.name === "PO eligibility (Yes/No)" ? finalData[item?.workDescription]?.[0]?.["POEligibility"] : item[innerItem?.value]}</td>)
                             data.push(<td rowSpan={`${getRowSpan(item)}`} className="text-[12px] text-center whitespace-nowrap pl-1 text-white border-[#0e8670] border-[0.1px] bg-[#475058] text-primaryLine">
-                                {innerItem.name === "Vendor Item Code" ? finalData[item?.workDescription]?.[0]?.["itemCode"] : innerItem.name === "Vendor Rate" ? finalData[item?.workDescription]?.[0]?.["rate"] : innerItem.name === "PO eligibility (Yes/No)" ? <span className="px-4 py-[2px] bg-[#1cb99c] rounded-md"> {finalData[item?.workDescription]?.[0]?.["POEligibility"] }</span> : item[innerItem?.value]}
-                            </td>)
+                                {innerItem.name === "Vendor Item Code" ? finalData[item?.workDescription]?.[0]?.["itemCode"] : innerItem.name === "Vendor Rate" ? finalData[item?.workDescription]?.[0]?.["rate"] : innerItem.name === "PO eligibility (Yes/No)" ? <span className="px-4 py-[2px] bg-[#1cb99c] rounded-md"> {finalData[item?.workDescription]?.[0]?.["POEligibility"] }</span>:innerItem.name === "Quantity" ? finalData[item?.workDescription]?.[0]?.["quantity"] : innerItem.name === "Vendor Code Description"? finalData[item?.workDescription]?.[0]?.["vendorCodeDescription"] :innerItem.name === "PO Value"? finalData[item?.workDescription]?.[0]?.["poValue"] : item[innerItem?.value]}
+                            </td>
+                            
+                        )
                         } else {
                             return
                         }

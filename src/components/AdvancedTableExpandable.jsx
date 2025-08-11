@@ -298,11 +298,15 @@ const AdvancedTableExpandable = ({
                             itm={itm}
                             hide={hide}
                             finalData={(() =>
-                              itm?.milestoneArray?.reduce((acc = {}, ele) => {
+                              itm?.milestoneArray?.reduce((acc = {}, ele, index) => {
                                 if (!acc[ele['workDescription']]) {
                                   acc[ele['workDescription']] = [];
                                 }
+                                
                                 acc[ele['workDescription']].push(ele)
+                                if( index == 0){
+                                  console.log(ele,"||",acc,"__element")
+                                }
                                 return acc;
                               }, {})
                             )()

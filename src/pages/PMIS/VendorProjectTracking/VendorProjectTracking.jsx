@@ -1179,8 +1179,23 @@ const VendorProjectTracking = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Vendor Code Description",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+       {
+          name: "Quantity",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
+      {
         name: "Vendor Rate",
         value: "vendorRate2",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "PO Value",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
@@ -1313,11 +1328,26 @@ const VendorProjectTracking = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
+         {
+        name: "Vendor Code Description",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+        {
+          name: "Quantity",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "Vendor Rate",
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
+         {
+        name: "PO Value",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
         {
           name: "PO eligibility (Yes/No)",
           value: "",
