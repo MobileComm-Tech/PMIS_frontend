@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const InputDropdown = ({ setQuantity,onChange, value, ...props }) => {
+const InputDropdown = ({ quantity, setQuantity,onChange, value, ...props }) => {
   const [selectedOption, setSelectedOption] = useState(value || "");
   const [customNumber, setCustomNumber] = useState("");
   
   const selectRef = useRef(null);
+ console.log(quantity,"__quantity___")
 
   const dropdownnumber = {};
   for (let i = 1; i <= 10; i++) {
@@ -56,9 +57,12 @@ console.log(selectedOption,"||",customNumber,"___customNumber___")
   };
 
   return (
-    <div className="">
+
+    <div className="px-2 ">
+      <label className="text-white pl-2 ">Quantity</label>
       {selectedOption === "custom" ? (
-        <div className="relative w-[504px] ">
+        <div className="relative w-[100%] ">
+          
           <input
             type="number"
             placeholder="Enter your number"
@@ -74,16 +78,17 @@ console.log(selectedOption,"||",customNumber,"___customNumber___")
           </div>
         </div>
       ) : (
+        
         <select
           ref={selectRef}
           id="number-select"
-          className="block w-[504px] px-3 py-2 border border-black rounded-md shadow-sm"
+          className="block w-[96%] px-3 py-2 border border-black rounded-md shadow-sm"
           value={selectedOption}
           onChange={handleSelectChange}
         >
-          <option value="" disabled>
+          {/* <option value="" disabled>
             Select a number
-          </option>
+          </option> */}
           {Object.entries(dropdownnumber).map(([key, value]) => (
             <option key={key} value={value}>
               {value}

@@ -672,13 +672,13 @@ const VendorGroupTaskAllocation = ({
 
   const onTableViewSubmit = (data) => {
     console.log("Form submission data:", data);
-
+    console.log(quantity,"__-quantity")
     let allData = {};
     allData["workDescription"] = data["workDescription"].split(":;")[0];
     allData["groupMilestone"] = data["groupMilestone"];
     allData["vendorId"] = data["vendorId"];
     allData["siteId"] = listsite;
-    allData["quantity"]=quantity;
+    allData["quantity"]=quantity===""? "1":quantity;
   
     if (data["vendorListId"]) {
       allData["vendorListId"] = data["vendorListId"];
@@ -749,7 +749,7 @@ const VendorGroupTaskAllocation = ({
       />
 
       <div className="">
-        <InputDropdown setQuantity={setQuantity}/>
+        
         <CommonForm
           classes={""}
           Form={Form}
@@ -758,6 +758,7 @@ const VendorGroupTaskAllocation = ({
           setValue={setValue}
           getValues={getValues}
         />
+        <InputDropdown quantity={quantity} setQuantity={setQuantity}/>
 
         <Button
           classes={"mt-2 w-sm text-center flex mx-auto"}
