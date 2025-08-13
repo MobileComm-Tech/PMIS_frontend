@@ -26,17 +26,24 @@ const InputDropdown = ({
 
   const handleSelectChange = (e) => {
     const newValue = e.target.value;
-    console.log(newValue , 'asdfasdfasdfasdfasdfasdf')
+    console.log(newValue ,customNumber, 'asdfasdfasdfasdfasdfasdf')
     
     setSelectedOption(newValue);
+    // if(selectedOption!=="custom"){
+    //   setQuantity(newValue)
+    // }
    
     setError("");
 
     if (newValue !== "custom") {
       setCustomNumber("");
+      setQuantity(selectedOption)
       if (onChange) {
         onChange(newValue);
       }
+    }
+   if(newValue === "custom"){
+      setQuantity("custom")
     }
   };
 

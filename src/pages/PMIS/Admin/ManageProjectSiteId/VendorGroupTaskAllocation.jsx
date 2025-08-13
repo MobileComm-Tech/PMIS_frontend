@@ -290,8 +290,8 @@ const VendorGroupTaskAllocation = ({
 
   const onTableViewSubmit = (data) => {
     console.log("Form submission data:", data);
-    console.log(quantity, "__-quantity");
-    if (!quantity) {
+    console.log(quantity, "___quantity");
+    if (quantity==="custom") {
       alert("Please fill quantity");
       return;
     }
@@ -300,7 +300,7 @@ const VendorGroupTaskAllocation = ({
     allData["groupMilestone"] = data["groupMilestone"];
     allData["vendorId"] = data["vendorId"];
     allData["siteId"] = listsite;
-    allData["quantity"] = !quantity ? 1 : +quantity;
+    allData["quantity"] = quantity==="" ? 1 : +quantity;
 
     if (data["vendorListId"]) {
       allData["vendorListId"] = data["vendorListId"];

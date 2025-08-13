@@ -54,7 +54,7 @@ const VendorProjectTracking = () => {
 
   // console.log(permission?.pmpermission,"permission")
   // console.log(permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")!=-1&&permission?.pmpermission[permission?.pmpermission.findIndex(prev=>prev.moduleName=="Add Site")],"permission")
-  const [assignDate, setAssignDate] = useState()
+  const [assignDate, setAssignDate] = useState();
   // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
   const [ValGm, setValGm] = useState("Month");
@@ -65,7 +65,7 @@ const VendorProjectTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [year, setyear] = useState(currrentYear);
   const [globalData, setGlobalData] = useState({});
-  const [extraColumns, setExtraColumns] = useState("")
+  const [extraColumns, setExtraColumns] = useState("");
   const [SiteId, setSiteId] = useState("Add");
   const [parentsite, setparentsite] = useState([]);
   const [childsite, setchildsite] = useState([]);
@@ -75,12 +75,9 @@ const VendorProjectTracking = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
-  const [filters, setFilters] = useState({
-
-  })
+  const [filters, setFilters] = useState({});
   const [old, setOld] = useState(<></>);
   const navigate = useNavigate();
-
 
   let Month = [
     { id: 1, name: "Jan" },
@@ -94,8 +91,8 @@ const VendorProjectTracking = () => {
     { id: 9, name: "Sep" },
     { id: 10, name: "Oct" },
     { id: 11, name: "Nov" },
-    { id: 12, name: "Dec" }
-  ]
+    { id: 12, name: "Dec" },
+  ];
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
@@ -114,11 +111,9 @@ const VendorProjectTracking = () => {
       { id: 9, name: "Sep" },
       { id: 10, name: "Oct" },
       { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" }
+      { id: 12, name: "Dec" },
     ],
   };
-
-
 
   const {
     register,
@@ -132,8 +127,6 @@ const VendorProjectTracking = () => {
   } = useForm();
   let dispatch = useDispatch();
 
-
-
   let showTypeforAction = getAccessType("Actions(Site)");
 
   let shouldIncludeEditColumn = false;
@@ -142,31 +135,30 @@ const VendorProjectTracking = () => {
     shouldIncludeEditColumn = true;
   }
 
-
-
-
   const handleAddActivity = (data) => {
-    setExtraColumns(data['Month'])
-    setValue("viewBy", data['Month'])
+    setExtraColumns(data["Month"]);
+    setValue("viewBy", data["Month"]);
     if (assignDate) {
-      const { start, end } = assignDate
-      data["start"] = start?.split("T")[0]
-      data["end"] = end?.split("T")[0]
+      const { start, end } = assignDate;
+      data["start"] = start?.split("T")[0];
+      data["end"] = end?.split("T")[0];
     }
 
     setFilters({
       ...filters,
-      ...data
-    })
-    dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
+      ...data,
+    });
+    dispatch(
+      VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+    );
   };
 
-  const projectType = useSelector(state => {
-    return state.vendorData.getProjectType.map(item => ({
+  const projectType = useSelector((state) => {
+    return state.vendorData.getProjectType.map((item) => ({
       label: item?.projectType,
-      value: item?.uid?.join(",")
-    }))
-  })
+      value: item?.uid?.join(","),
+    }));
+  });
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.vendorData?.getvendorProjectTracking || [];
@@ -216,18 +208,20 @@ const VendorProjectTracking = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${100 -
+            percent={`${
+              100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Closed"
                 ).length) /
                 itm?.milestoneArray?.length) *
-              100
-              }`}
-            text={`${itm?.milestoneArray?.filter(
-              (iewq) => iewq?.mileStoneStatus == "Closed"
-            ).length
-              } / ${itm?.milestoneArray?.length}`}
+                100
+            }`}
+            text={`${
+              itm?.milestoneArray?.filter(
+                (iewq) => iewq?.mileStoneStatus == "Closed"
+              ).length
+            } / ${itm?.milestoneArray?.length}`}
           />
         ),
 
@@ -307,17 +301,17 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                  itwsw.assignerName.trim().split(" ").length > 1
+                                itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                    ? itwsw.assignerName
+                                  ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                    : ""}
+                                  : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -355,9 +349,7 @@ const VendorProjectTracking = () => {
             ),
             VendorName: (
               <div className="flex">
-                <p
-
-                >
+                <p>
                   {iewq.assignerResult ? (
                     <>
                       <div class="">
@@ -371,17 +363,17 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                  itwsw.assignerName.trim().split(" ").length > 1
+                                itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                    .split(" ")[0]
-                                    .substr(0, 1)}${itwsw.assignerName
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                    ? itwsw.assignerName
+                                  ? itwsw.assignerName
                                       .split(" ")[0]
                                       .substr(0, 1)
-                                    : ""}
+                                  : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -419,9 +411,7 @@ const VendorProjectTracking = () => {
             ),
             VendorId: (
               <div className="flex">
-                <p
-
-                >
+                <p>
                   {iewq.assignerResult ? (
                     <>
                       <div class="">
@@ -435,17 +425,15 @@ const VendorProjectTracking = () => {
                               >
                                 {" "}
                                 {itwsw.vendorCode &&
-                                  itwsw.vendorCode.trim().split(" ").length > 1
+                                itwsw.vendorCode.trim().split(" ").length > 1
                                   ? `${itwsw.vendorCode
-                                    .split(" ")[0]
-                                    .substr(0, 1)}${itwsw.vendorCode
+                                      .split(" ")[0]
+                                      .substr(0, 1)}${itwsw.vendorCode
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.vendorCode
-                                    ? itwsw.vendorCode
-                                      .split(" ")[0]
-                                      .substr(0, 1)
-                                    : ""}
+                                  ? itwsw.vendorCode.split(" ")[0].substr(0, 1)
+                                  : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -991,7 +979,7 @@ const VendorProjectTracking = () => {
         value: itm?.uniqueId,
       };
     });
-  })
+  });
 
   let dbConfigTotalCount =
     useSelector((state) => {
@@ -1006,7 +994,7 @@ const VendorProjectTracking = () => {
       label: "Year",
       name: "year",
       value: "Select",
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -1034,7 +1022,7 @@ const VendorProjectTracking = () => {
           label: dasd?.name,
         };
       }),
-      minWidth:"min-w-[260px]",
+      minWidth: "min-w-[260px]",
       props: {
         selectType: selectType,
       },
@@ -1050,8 +1038,8 @@ const VendorProjectTracking = () => {
       bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       required: false,
       onChange: (data) => {
-        setAssignDate(data)
-      }
+        setAssignDate(data);
+      },
     },
   ];
 
@@ -1062,6 +1050,11 @@ const VendorProjectTracking = () => {
         value: "siteIdLink",
         style:
           "min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
+      },
+      {
+        name: "SSID",
+        value: "systemId",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
         name: "Customer",
@@ -1089,11 +1082,7 @@ const VendorProjectTracking = () => {
         value: "subProject",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "SSID",
-        value: "systemId",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+
       {
         name: "Vendor Name",
         value: "",
@@ -1140,7 +1129,6 @@ const VendorProjectTracking = () => {
         style: "min-w-[240px] max-w-[240px] text-center",
       },
 
-
       //   {
       //     name: "Owner",
       //     value: "PMName",
@@ -1184,15 +1172,15 @@ const VendorProjectTracking = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Vendor Code Description",
+        name: "Vendor Item Code Description",
         value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-       {
-          name: "Quantity",
-          value: "",
-          style: "min-w-[140px] max-w-[200px] text-center",
-        },
+      {
+        name: "Quantity",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
       {
         name: "Vendor Rate",
         value: "vendorRate2",
@@ -1208,6 +1196,7 @@ const VendorProjectTracking = () => {
         value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
+
       // {
       //   name: "Billing Status",
       //   value: "siteBillingStatus",
@@ -1252,6 +1241,11 @@ const VendorProjectTracking = () => {
           style:
             "min-w-[140px] max-w-[200px] sticky left-0 bg-[#3e454d] text-center  z-20",
         },
+         {
+        name: "SSID",
+        value: "systemId",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
         {
           name: "Customer",
           value: "customer",
@@ -1333,11 +1327,11 @@ const VendorProjectTracking = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-         {
-        name: "Vendor Code Description",
-        value: "",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+        {
+          name: "Vendor Code Description",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "Quantity",
           value: "",
@@ -1348,11 +1342,11 @@ const VendorProjectTracking = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
-         {
-        name: "PO Value",
-        value: "",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+        {
+          name: "PO Value",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
+        },
         {
           name: "PO eligibility (Yes/No)",
           value: "",
@@ -1380,9 +1374,6 @@ const VendorProjectTracking = () => {
         //   value: "CompletionBar",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
-
-
-
 
         // {
         //   name: "Billing Status",
@@ -1428,13 +1419,12 @@ const VendorProjectTracking = () => {
         option: customerList,
         props: {
           onChange: (e) => {
-            if (e.target.value){
-              setSelectedCustomer(e?.target?.value)
-              dispatch(VendorActions.getProjectType(true, e.target.value))
-            }
-            else{
-              setSelectedCustomer(null)
-              dispatch(GET_PROJECT_TYPE({dataAll:[],reset:true}))
+            if (e.target.value) {
+              setSelectedCustomer(e?.target?.value);
+              dispatch(VendorActions.getProjectType(true, e.target.value));
+            } else {
+              setSelectedCustomer(null);
+              dispatch(GET_PROJECT_TYPE({ dataAll: [], reset: true }));
             }
           },
         },
@@ -1482,14 +1472,16 @@ const VendorProjectTracking = () => {
     setstrVal(strVal);
     setFilters({
       ...filters,
-      ...data
-    })
-    dispatch(VendorActions.getVendorProjectTracking(true, objectToQueryString(data)));
+      ...data,
+    });
+    dispatch(
+      VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+    );
   };
 
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
-    dispatch(VendorActions.getVendorProjectTracking())
+    dispatch(VendorActions.getVendorProjectTracking());
   }, []);
 
   return (
@@ -1556,7 +1548,8 @@ const VendorProjectTracking = () => {
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
-                    "/export/vendor-project-tracking?" + objectToQueryString(filters),
+                    "/export/vendor-project-tracking?" +
+                      objectToQueryString(filters),
                     "Vendor-Project-Tracking.xlsx"
                   )
                 );
