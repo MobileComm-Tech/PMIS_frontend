@@ -8,7 +8,10 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
-import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import ExpenseAdvanceActions from "../../../../store/actions/expenseAdvance-actions";
@@ -22,7 +25,6 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import PopupMenu from "../../../../components/PopupMenu";
 
 const ClaimAndAdvance = () => {
-
   const expenseRef = useRef("");
   const [modalOpen, setmodalOpen] = useState(false);
   const [claimByNumber, setClaimByNumber] = useState([]);
@@ -62,7 +64,7 @@ const ClaimAndAdvance = () => {
       interdata2 = interdata[0]?.data || [];
     }
     return interdata2?.map((item) => {
-      console.log('itemitemitem',item)
+      console.log("itemitemitem", item);
       const itm = { ...item };
       itm["debitExpense"] = 0;
       itm.advanceExpense = 0;
@@ -200,14 +202,14 @@ const ClaimAndAdvance = () => {
       {
         name: "Customer",
         value: "customerName",
-        style:"min-w-[130px] max-w-[200px] text-center",
+        style: "min-w-[130px] max-w-[200px] text-center",
       },
       {
         name: "Cost Center",
         value: "costCenter",
         style: "min-w-[130px] max-w-[450px] text-center",
       },
-      
+
       {
         name: "Expanse/Advance/Settlement ID",
         value: "name",
@@ -225,8 +227,7 @@ const ClaimAndAdvance = () => {
         value: "submissionDate",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
-      
-      
+
       {
         name: "Credit(Expanse)",
         value: "debitExpense",
@@ -278,63 +279,59 @@ const ClaimAndAdvance = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
-      <p className="p-2 text-white font-extrabold">
-            Opening balance :{" "}
-            <span className={`font-extrabold ${Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"}`}>
-            {Amounts?.Openingbalance > 0 
-              ? `${Amounts?.Openingbalance} Dr` 
-              : Amounts?.Openingbalance < 0 
-              
+      {/* <div className="flex flex-col md:flex-row text-sm space-y-2 md:space-y-0 md:space-x-2">
+        <p className="p-2 text-white font-extrabold">
+          Opening balance :{" "}
+          <span
+            className={`font-extrabold ${
+              Amounts?.Openingbalance > 0 ? "text-pcol" : "text-rose-400"
+            }`}
+          >
+            {Amounts?.Openingbalance > 0
+              ? `${Amounts?.Openingbalance} Dr`
+              : Amounts?.Openingbalance < 0
               ? `${Math.abs(Amounts?.Openingbalance)} Cr`
               : Amounts?.Openingbalance}
-            </span>
+          </span>
         </p>
-        
+
         <p className="p-2 text-white font-extrabold">
           Expanse Approved :{" "}
-          <span className={`font-extrabold ${Amounts?.ExpenseAmountTotal ? "text-rose-400" : "text-pcol"}`}>
-           
+          <span
+            className={`font-extrabold ${
+              Amounts?.ExpenseAmountTotal ? "text-rose-400" : "text-pcol"
+            }`}
+          >
             {`${Amounts?.ExpenseAmountTotal} Cr`}
           </span>
         </p>
         <p className="p-2 text-white font-extrabold">
           Advance Approved/Reimbursed :{" "}
-          <span className={`font-extrabold ${Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-400"}`}>
-            
+          <span
+            className={`font-extrabold ${
+              Amounts?.AdvanceAmountTotal > 0 ? "text-pcol" : "text-rose-400"
+            }`}
+          >
             {`${Amounts?.AdvanceAmountTotal} Dr`}
           </span>
         </p>
-        
+
         <p className="p-2 text-white font-extrabold">
           Current Balance :{" "}
-          {/* <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
-            {Amounts?.finalAmount}
-          </span> */}
-          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-pcol" : "text-rose-400"}`}>
-            {Amounts?.finalAmount < 0 
-              ? `${Math.abs(Amounts.finalAmount)} Cr` 
-              : `${Amounts?.finalAmount} Dr`
-            }
+         
+          <span
+            className={`font-extrabold ${
+              Amounts?.finalAmount > 0 ? "text-pcol" : "text-rose-400"
+            }`}
+          >
+            {Amounts?.finalAmount < 0
+              ? `${Math.abs(Amounts.finalAmount)} Cr`
+              : `${Amounts?.finalAmount} Dr`}
           </span>
         </p>
 
-
-        {/* <p className="p-2 text-white font-extrabold">
-        Settlement Amount:{" "}
-          <span className={`font-extrabold ${Amounts?.finalAmount > 0 ? "text-rose-400" : "text-pcol"}`}>
-            {Amounts?.finalAmount}
-          </span>
-          <span className={`font-extrabold ${Amounts?.SettleAmountTotal > 0 ? "text-pcol" : "text-pcol"}`}>
-            {Amounts?.SettleAmountTotal < 0 
-              ? `${Math.abs(Amounts.SettleAmountTotal)}` 
-              : `${Amounts?.SettleAmountTotal}`
-            }
-          </span>
-        </p> */}
-        
-        
-      </div>
+       
+      </div> */}
 
       <div className="mb-20">
         <AdvancedTable
@@ -363,72 +360,70 @@ const ClaimAndAdvance = () => {
                 name={"Fill DA"}
               ></ConditionalButton>
 
-              
-
-
-
-
               <PopupMenu
-              name={"Export"}
-              icon={"Export"}
-              classes={"w-auto"}
-              bgColor={"bg-[#147b99]"}
-              
-              child={
-                <div classes="z-40 max-h-70 justify-ce0nter w-2">
-                  <Button
-                    name={"Export Expenses"}
-                    classes="w-auto m-3"
-                    onClick={() => {
-                      dispatch(
-                        CommonActions.commondownload3(
-                          "/export/UserExpenses",
-                          "Export_Expenses.xlsx"
-                        )
-                      );
-                    }}
-                    >
-                  </Button>
-                  <Button
-                    name={"Export Advances"}
-                    classes="w-auto m-3"
-                    onClick={() => {
-                      dispatch(
-                        CommonActions.commondownload3(
-                          "/export/userAdvances",
-                          "Export_Advances.xlsx"
-                        )
-                      );
-                    }}
-                    >
-                  </Button>
-                  <Button
-                showType={getAccessType("Export(CA & ADV)")}
-                classes="w-auto ml-1"
-                onClick={() => {
-                  dispatch(CommonActions.commondownload3("/export/ExpensesAndAdvance","Export_ExpensesAndAdvance.xlsx"))
-                }}
-                name={"Export Ledger Book"}
-              ></Button> 
-                <Button
-                showType={getAccessType("Export(CA & ADV)")}
-                classes="w-auto ml-1"
-                onClick={() => {
-                  dispatch(CommonActions.commondownload3("/export/currentBalance","Export_CurrentBalance.xlsx"))
-                }}
-                name={"Export Current Balance"}
-              ></Button>  
-                     
-                     
-                </div>
-              }
-            />
-
-
+                name={"Export"}
+                icon={"Export"}
+                classes={"w-auto"}
+                bgColor={"bg-[#147b99]"}
+                child={
+                  <div classes="z-40 max-h-70 justify-ce0nter w-2">
+                    <Button
+                      name={"Export Expenses"}
+                      classes="w-auto m-3"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload3(
+                            "/export/UserExpenses",
+                            "Export_Expenses.xlsx"
+                          )
+                        );
+                      }}
+                    ></Button>
+                    <Button
+                      name={"Export Advances"}
+                      classes="w-auto m-3"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload3(
+                            "/export/userAdvances",
+                            "Export_Advances.xlsx"
+                          )
+                        );
+                      }}
+                    ></Button>
+                    <Button
+                      showType={getAccessType("Export(CA & ADV)")}
+                      classes="w-auto ml-1"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload3(
+                            "/export/ExpensesAndAdvance",
+                            "Export_ExpensesAndAdvance.xlsx"
+                          )
+                        );
+                      }}
+                      name={"Export Ledger Book"}
+                    ></Button>
+                    <Button
+                      showType={getAccessType("Export(CA & ADV)")}
+                      classes="w-auto ml-1"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.commondownload3(
+                            "/export/currentBalance",
+                            "Export_CurrentBalance.xlsx"
+                          )
+                        );
+                      }}
+                      name={"Export Current Balance"}
+                    ></Button>
+                  </div>
+                }
+              />
             </>
           }
           table={table}
-          TableHeight = "h-[65vh]" 
+          TableHeight="h-[65vh]"
           filterAfter={onSubmit}
           tableName={"UserListTable"}
           handleSubmit={handleSubmit}
@@ -438,7 +433,7 @@ const ClaimAndAdvance = () => {
           setValue={setValue}
           getValues={getValues}
           totalCount={dbConfigTotalCount}
-          showTotalCount = {false}
+          showTotalCount={false}
           getaccessExport={"Export(Claim&Advance)"}
         />
       </div>

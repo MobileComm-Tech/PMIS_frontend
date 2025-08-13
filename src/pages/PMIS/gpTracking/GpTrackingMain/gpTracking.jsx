@@ -9,7 +9,10 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 // import { getAccessType, objectToQueryString } from "../../../../../utils/commonFunnction";
-import { getAccessType, objectToQueryString } from "../../../../utils/commonFunnction";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../../utils/commonFunnction";
 
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
@@ -29,7 +32,6 @@ import CommonForm from "../../../../components/CommonForm";
 import { UilSearch } from "@iconscout/react-unicons";
 
 const GPTracking = () => {
-  
   const currentMonth = new Date().getMonth() + 1;
   const currrentYear = new Date().getFullYear();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -42,17 +44,19 @@ const GPTracking = () => {
   const [extraColumns, setExtraColumns] = useState("");
   const [newColumns, setNewColumns] = useState([]);
   const [selectType, setSelectType] = useState("");
-  const [fileOpen, setFileOpen] = useState(false)
-  const saveQuery = useRef("")
+  const [fileOpen, setFileOpen] = useState(false);
+  const saveQuery = useRef("");
   // const Data = useRef("")
 
-  let zoneList = useSelector(state => state?.gpTrackingReducer?.getZoneByCustomerId.map((itm) => {
-    return {
-      label: itm?.zone,
-      value: itm?.zoneId,
-      zoneName: itm?.zone
-    };
-  }))
+  let zoneList = useSelector((state) =>
+    state?.gpTrackingReducer?.getZoneByCustomerId.map((itm) => {
+      return {
+        label: itm?.zone,
+        value: itm?.zoneId,
+        zoneName: itm?.zone,
+      };
+    })
+  );
 
   const monthss = [
     { label: "Jan", value: 1 },
@@ -71,10 +75,7 @@ const GPTracking = () => {
 
   let dispatch = useDispatch();
 
-
-
   let costCenterList = useSelector((state) => {
-
     return state?.gpTrackingReducer?.getCostCenter.map((itm) => {
       return {
         label: itm?.costCenter,
@@ -83,38 +84,33 @@ const GPTracking = () => {
     });
   });
 
-  let showType = getAccessType("Actions(P&L)")
-  let shouldIncludeEditColumn = false
+  let showType = getAccessType("Actions(P&L)");
+  let shouldIncludeEditColumn = false;
 
   if (showType === "visible") {
-    shouldIncludeEditColumn = true
+    shouldIncludeEditColumn = true;
   }
 
-
   let dbConfigList = useSelector((state) => {
-    
     let interdata = state?.gpTrackingReducer?.getGPTrackingMain || [];
 
     return interdata?.map((itm) => {
       // let vendorCostTemp = 0
       let updateditm = {
         ...itm,
-        // vendorCostTemp: (
-        //   totalRevenuer=itm?.total_Amount || 0,
-        //   TotalAmountvendorCosttemp=itm?.TotalAmountvendorCost || 0,
-        //   totalOtherFixedCostTemp=itm?.totalOtherFixedCost || 0,
-        //   vendorCostTemp=totalRevenuer(TotalAmountvendorCosttemp+totalOtherFixedCostTemp)
-
-        // ),
         total_Amount: itm?.total_Amount?.toFixed(2),
         totalSalary: itm?.totalSalary?.toFixed(2),
         TotalAmountvendorCost: itm?.TotalAmountvendorCost?.toFixed(2),
+        TotalAmountpoCost: itm?.TotalAmountpoCost?.toFixed(2),
         totalOtherFixedCost: itm?.totalOtherFixedCost?.toFixed(2),
         ApprovedAmount: itm?.ApprovedAmount?.toFixed(2),
         COGS: itm?.COGS?.toFixed(2),
-        GROSSPROFITINR: ("₹ " + (itm?.GROSSPROFITINR?.toFixed(2) || 0)),
-        GROSSRevenuePer: (itm?.GPRevenuePercentage ? itm?.GPRevenuePercentage?.toFixed(2) : "0") + " %",
-        monthName: itm?.Month
+        GROSSPROFITINR: "₹ " + (itm?.GROSSPROFITINR?.toFixed(2) || 0),
+        GROSSRevenuePer:
+          (itm?.GPRevenuePercentage
+            ? itm?.GPRevenuePercentage?.toFixed(2)
+            : "0") + " %",
+        monthName: itm?.Month,
         // edit: (
         //   <CstmButton
         //     className={"p-2"}
@@ -254,13 +250,7 @@ const GPTracking = () => {
     listYear.push({ label: ywq, value: ywq });
   }
 
-
-
-
-
-
   let listDict = {
-
     Month: [
       { id: 1, name: "Jan" },
       { id: 2, name: "Feb" },
@@ -273,50 +263,52 @@ const GPTracking = () => {
       { id: 9, name: "Sep" },
       { id: 10, name: "Oct" },
       { id: 11, name: "Nov" },
-      { id: 12, name: "Dec" }
+      { id: 12, name: "Dec" },
     ],
   };
 
-
-
-
   const onSubmit = (data) => {
     // alert('dhdjjdjjjd')
-    console.log("hello_printed")
+    console.log("hello_printed");
     let value = data.reseter;
     delete data.reseter;
-    const customerName = customerList.find(item => item.value == data.customer)?.customerName
-    const costCenterName = data["Cost Center"].split(",").map(costCenterId => costCenterList.find(item => item.value == costCenterId)?.label)
-    const zoneName = data.Zone.split(",").map(zoneId => zoneList.find(item => item.value == zoneId)?.zoneName)
-    data.customer = customerName
-    data.costCenter = costCenterName
-    data.zoneName = zoneName
-    delete data["Cost Center"]
-    delete data["Zone"]
+    const customerName = customerList.find(
+      (item) => item.value == data.customer
+    )?.customerName;
+    const costCenterName = data["Cost Center"]
+      .split(",")
+      .map(
+        (costCenterId) =>
+          costCenterList.find((item) => item.value == costCenterId)?.label
+      );
+    const zoneName = data.Zone.split(",").map(
+      (zoneId) => zoneList.find((item) => item.value == zoneId)?.zoneName
+    );
+    data.customer = customerName;
+    data.costCenter = costCenterName;
+    data.zoneName = zoneName;
+    delete data["Cost Center"];
+    delete data["Zone"];
     let strVal = objectToQueryString(data);
-    saveQuery.current = data
-    dispatch(gpTrackingActions.getGPTrackingMain(true, strVal))
+    saveQuery.current = data;
+    dispatch(gpTrackingActions.getGPTrackingMain(true, strVal));
   };
 
-
-  
   useEffect(() => {
     // dispatch(FormssActions.getProfiltLoss())
-     dispatch(gpTrackingActions.getGPTrackingMain())
+    dispatch(gpTrackingActions.getGPTrackingMain());
 
     // dispatch(CurrentuserActions.getcurrentuserCostCenter(true,"",0))
     // dispatch(gpTrackingActions.getGPProjectGroup())
-    dispatch(gpTrackingActions.getGPCustomer())
-
+    dispatch(gpTrackingActions.getGPCustomer());
   }, []);
-
 
   let formD = [
     {
       label: "Year",
       name: "year",
       value: "Select",
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       type: "select",
       option: listYear.map((itmYr) => {
         return {
@@ -352,7 +344,7 @@ const GPTracking = () => {
       classes: "col-span-1 h-10",
     },
     {
-      label: 'Cost Center',
+      label: "Cost Center",
       name: "costCenter",
       value: "select",
       type: "newmuitiSelect2",
@@ -394,23 +386,22 @@ const GPTracking = () => {
   //   dispatch(gpTrackingActions.getGPSalaryDB(true, res))
   // };
 
-
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "ManageSalaryDB"
-    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-      setFileOpen(false)
-      dispatch(gpTrackingActions.getGPSalaryDB())
-    }))
-  }
+    data["fileType"] = "ManageSalaryDB";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false);
+        dispatch(gpTrackingActions.getGPSalaryDB());
+      })
+    );
+  };
 
   let customerList = useSelector((state) => {
-
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
-
       return {
         label: itm?.customer,
         value: itm?.uniqueId,
-        customerName: itm?.customerName
+        customerName: itm?.customerName,
       };
     });
   });
@@ -423,7 +414,6 @@ const GPTracking = () => {
     dispatch(gpTrackingActions.getGPCostCenter(selectedValue, true));
     dispatch(gpTrackingActions.getZoneByCustomerId(selectedValue, true));
   };
-
 
   let Form = [
     {
@@ -464,117 +454,119 @@ const GPTracking = () => {
       option: costCenterList,
       required: false,
     },
-
   ];
-
 
   const table = useMemo(() => {
     return {
       columns: [
-
         {
           name: "Customer",
           value: "customer",
           style: "min-w-[140px] max-w-[200px] text-center",
-          bg: "bg-sky-500"
+          bg: "bg-sky-500",
         },
         {
           name: "Cost Center",
           value: "costCenter",
           style: "min-w-[90px] max-w-[90px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200",
         },
         {
           name: "Zone",
           value: "zone",
           style: "min-w-[90px] max-w-[90px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200",
         },
         {
           name: "Year",
           value: "year",
           style: "min-w-[70px] max-w-[90px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200",
         },
         {
           name: "Month",
           value: "monthName",
           style: "min-w-[100px] max-w-[90px] text-center",
-          bg: "bg-sky-200"
+          bg: "bg-sky-200",
         },
         {
           name: "Revenue",
           value: "total_Amount",
           style: "min-w-[90px] max-w-[90px] text-center",
-          bg: "bg-orange-400 whitespace-nowrap px-2"
+          bg: "bg-orange-400 whitespace-nowrap px-2",
         },
         {
           name: "Salary",
           value: "totalSalary",
           style: "min-w-[90px] max-w-[90px] text-center",
-          bg: "bg-green-600 whitespace-nowrap px-2"
+          bg: "bg-green-600 whitespace-nowrap px-2",
         },
 
         {
           name: "Vendor Cost",
           value: "TotalAmountvendorCost",
           style: "min-w-[90px] max-w-[150px] text-center",
-          bg: "bg-green-600 whitespace-nowrap px-2"
+          bg: "bg-green-600 whitespace-nowrap px-2",
         },
+        // {
+        //   name: "PO Value",
+        //   value: "TotalAmountpoCost",
+        //   style: "min-w-[90px] max-w-[150px] text-center",
+        //   bg: "bg-green-600 whitespace-nowrap px-2",
+        // },
         {
           name: "Other Fixed Cost",
           value: "totalOtherFixedCost",
           style: "min-w-[90px] max-w-[150px] text-center",
-          bg: "bg-green-600 whitespace-nowrap px-2"
+          bg: "bg-green-600 whitespace-nowrap px-2",
         },
         {
           name: "Employee Expanse",
           value: "ApprovedAmount",
           style: "min-w-[90px] max-w-[150px] text-center",
-          bg: "bg-green-600 whitespace-nowrap px-2"
+          bg: "bg-green-600 whitespace-nowrap px-2",
         },
         {
           name: "COGS",
           value: "COGS",
           style: "min-w-[90px] max-w-[150px] text-center",
-          bg: "bg-green-600 whitespace-nowrap px-2"
+          bg: "bg-green-600 whitespace-nowrap px-2",
         },
         {
           name: "GROSS PROFIT",
           value: "GROSSPROFITINR",
           style: "min-w-[90px] max-w-[150px] text-center",
-          bg: "bg-sky-200 whitespace-nowrap px-2"
+          bg: "bg-sky-200 whitespace-nowrap px-2",
         },
         {
           name: "GROSS MARGIN",
           value: "GROSSRevenuePer",
           style: "min-w-[90px] max-w-[200px] text-center",
-          bg: "bg-sky-200 whitespace-nowrap"
+          bg: "bg-sky-200 whitespace-nowrap",
         },
 
         ...newColumns,
         ...(shouldIncludeEditColumn
           ? [
-            // {
-            //   name: "Edit",
-            //   value: "edit",
-            //   style: "min-w-[100px] max-w-[200px] text-center",
-            // },
-            // {
-            //   name: "Delete",
-            //   value: "delete",
-            //   style: "min-w-[100px] max-w-[200px] text-center",
-            // },
-          ]
-          : [])
+              // {
+              //   name: "Edit",
+              //   value: "edit",
+              //   style: "min-w-[100px] max-w-[200px] text-center",
+              // },
+              // {
+              //   name: "Delete",
+              //   value: "delete",
+              //   style: "min-w-[100px] max-w-[200px] text-center",
+              // },
+            ]
+          : []),
       ],
       properties: {
         rpp: [10, 20, 50, 100],
       },
       filter: [],
-    }
-  }, [handleCustomerChange])
-
+    };
+  }, [handleCustomerChange]);
 
   let formFields = [
     {
@@ -584,8 +576,7 @@ const GPTracking = () => {
       type: "select",
       option: listYear,
       required: true,
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
     },
     {
       label: "Month",
@@ -599,14 +590,13 @@ const GPTracking = () => {
       },
       hasSelectAll: true,
       classes: "col-span-1 h-10",
-
     },
     {
       label: "Customer",
       value: "",
       name: "customer",
       type: "select",
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       option: customerList,
       props: {
         onChange: (e) => {
@@ -614,7 +604,6 @@ const GPTracking = () => {
         },
       },
       required: false,
-
     },
     {
       label: "Cost Center",
@@ -628,7 +617,6 @@ const GPTracking = () => {
       },
       hasSelectAll: true,
       classes: "col-span-1 h-10",
-
     },
     {
       label: "Zone",
@@ -660,13 +648,10 @@ const GPTracking = () => {
     //   required: false,
     //   classes: "col-span-1 h-10",
     // },
-
   ];
-
 
   return (
     <>
-
       <div className="col-span-1 flex space-x-2 md:col-span-1">
         <CommonForm
           classes="grid grid-cols-5 w-[900px] overflow-y-hidden p-2"
@@ -687,7 +672,7 @@ const GPTracking = () => {
       </div>
 
       <AdvancedTableGpTracking
-      totalHeads={true}
+        totalHeads={true}
         headerButton={
           <>
             <div className="flex justify-between">
@@ -705,11 +690,21 @@ const GPTracking = () => {
                 }}>
             </Button> */}
 
-              <Button name={"Export"} classes='w-auto mr-1 !h-10' onClick={(e) => {
-                dispatch(CommonActions.commondownloadpost("/export/gpTracking", "GP_Tracking.xlsx", "POST", saveQuery?.current))
-              }}>
-              </Button>
-             {/* <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {
+              <Button
+                name={"Export"}
+                classes="w-auto mr-1 !h-10"
+                onClick={(e) => {
+                  dispatch(
+                    CommonActions.commondownloadpost(
+                      "/export/gpTracking",
+                      "GP_Tracking.xlsx",
+                      "POST",
+                      saveQuery?.current
+                    )
+                  );
+                }}
+              ></Button>
+              {/* <Button name={"Export2"} classes='w-auto mr-1 !h-10' onClick={(e) => {
                 dispatch(CommonActions.commondownloadpost("/gpTracking/Test", "GP_Tracking.xlsx", "POST", saveQuery.current))
               }}>
               </Button>*/}
@@ -719,7 +714,7 @@ const GPTracking = () => {
         table={table}
         filterAfter={onSubmit}
         tableName={"Salary DB Form"}
-        TableHeight = "h-[54vh]" 
+        TableHeight="h-[54vh]"
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -736,7 +731,14 @@ const GPTracking = () => {
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <FileUploader isOpen={fileOpen} fileUploadUrl={""} onTableViewSubmit={onTableViewSubmit} setIsOpen={setFileOpen} tempbtn={true} tempbtnlink={["/template/SalaryDb.xlsx", "Salary_DB.xlsx"]} />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={["/template/SalaryDb.xlsx", "Salary_DB.xlsx"]}
+      />
     </>
   );
 };

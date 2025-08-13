@@ -1090,6 +1090,11 @@ const VendorProjectTracking = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "SSID",
+        value: "systemId",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Vendor Name",
         value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
