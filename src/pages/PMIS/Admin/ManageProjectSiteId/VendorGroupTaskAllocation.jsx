@@ -295,6 +295,8 @@ const VendorGroupTaskAllocation = ({
       alert("Please fill quantity");
       return;
     }
+
+    
     let allData = {};
     allData["workDescription"] = data["workDescription"].split(":;")[0];
     allData["groupMilestone"] = data["groupMilestone"];

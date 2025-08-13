@@ -1243,7 +1243,7 @@ const VendorProjectTracking = () => {
         },
          {
         name: "SSID",
-        value: "systemId",
+        value: "",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
         {
