@@ -2,6 +2,7 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
 import { 
+    GET_PO_ELIGIBILITY,
     GET_PROJECT_TYPE,
     GET_VENDOR_COST_MILESTONE,
     GET_VENDOR_COST_MILESTONE_LIST,
@@ -46,6 +47,15 @@ const VendorActions = {
             
         } catch (error) {
             return;
+        }
+    },
+    getPoEligibility:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.PoEligibility}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PO_ELIGIBILITY({dataAll,reset}))
+        } catch (error) {
         }
     },
 

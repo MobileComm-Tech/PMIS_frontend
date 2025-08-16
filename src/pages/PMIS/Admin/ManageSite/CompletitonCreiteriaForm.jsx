@@ -16,9 +16,13 @@ import { GET_GLOBAL_COMPLAINCE_TYPE_DATA } from "../../../../store/reducers/proj
 import ManageComplianceTemplateApproverForm from "../ManageCompliance/ManageComplinaceTemplateApproverForm";
 import ManageComplianceDegrowTemplateForm from "../ManageCompliance/ManageComplianceDegrowTemplateForm";
 import ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm from "../ManageCompliance/ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm";
+import Api from "../../../../utils/api";
+import { Watch } from "react-loader-spinner";
+import { range } from "../../../../components/CommonObjectsAndVariables";
 
 const CompletitonCreiteriaForm = ({
   siteCompleteData,
+  projectTypeUniqueId,
   mileStone,
   projectuniqueId,
   setmodalFullOpen,
@@ -35,32 +39,121 @@ const CompletitonCreiteriaForm = ({
   // const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
-
+  const [itemCodeAllInputs, setItemCodeAllInputs] = useState([])
   const projectTypeName = siteCompleteData['projectType']
   const subProjectName = siteCompleteData['subProject']
-
+  const [custom,setCustom] = useState([])
+  const [selectedCustomValue, setSelectedCustomValue] = useState("")
 
 
   const checkmilestone = mileStone["Completion Criteria"].split(",")
   const checkmilestoneStatus = mileStone['mileStoneStatus']
   const milestoneName = mileStone['Name']
 
-
-
-
-
-
-
-
-
-  const {
+   const {
     register: register,
     handleSubmit: handleSubmit,
     setValue: setValue,
     getValues: getValues,
+    watch,
     formState: { errors: errors },
   } = useForm();
 
+
+  let quantity = []
+  let temp={}
+  for (let i = 1; i <= 11; i++) {
+    if(i<11){
+       temp = {
+      label: i,
+      value: i
+    }
+    }else{
+      temp = {
+      label: "Custom Value",
+      value: "custom"
+    }
+    }
+    quantity.push(temp);
+
+  }
+console.log(selectedCustomValue,"__selectedCustomValue__")
+
+  const customSelection = watch(selectedCustomValue);
+
+  // useEffe
+
+  console.log(customSelection,"__customSelection__")
+
+  const getdataAll = async () => {
+    const res = await Api.get({
+      url: `/get/vendorCode/${customeruniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.SubProjectId}`,
+    });
+
+    console.log(res?.data?.data[0], "__reshjhads");
+
+    const itemCodeData = res?.data?.data[0];
+    const itemCodeInputs = []
+    const tempQuantity = []
+    for (let i = range.start; i <= range.end; i++) {
+
+      const key = `itemCode0${i}`
+      if (itemCodeData[key]?.length > 0) {
+
+        const tempData = {
+          label: `Item Code- 0${i}`,
+          name: `itemCode0${i}`,
+          required: i === 1 ? true : false,
+          type: "select",
+          option: itemCodeData[key]?.map((itm) => {
+            return {
+              label: itm,
+              value: itm
+            }
+          }),
+          props: {
+            onChange: (e) => {
+
+            },
+          },
+
+          classes: "col-span-2",
+        }
+
+        const quantityObj = {
+          label: `Quantity-0${i}`,
+          name: `quantity0${i}`,
+          required: i === 1 ? true : false,
+          type: "number",
+          // option: quantity,
+          props: {
+            onChange: (e) => {
+              setSelectedCustomValue(`quantity0${i}`)
+            },
+          },
+
+          classes: "col-span-2",
+        }
+
+        itemCodeInputs.push(tempData);
+        itemCodeInputs.push(quantityObj)
+        
+      }
+    }
+      
+
+
+    setItemCodeAllInputs([...itemCodeInputs, ...tempQuantity]);
+
+  }
+
+  console.log(itemCodeAllInputs, "___itemCodeAllInputs__")
+
+
+
+
+
+ 
   let mileStoneprops = {
     "Completion Date": {
       maxSelectableDate: new Date(),
@@ -166,31 +259,92 @@ const CompletitonCreiteriaForm = ({
     });
   });
 
+  if (mileStoneCompletion[0]?.name?.includes("CC_")) {
+    mileStoneCompletion = [...mileStoneCompletion, ...itemCodeAllInputs];
+  }
+
   let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId, filterView);
   if (myTaskPage === "Yes") {
     backgeturl = MyHomeActions.getMyTask();
   }
 
 
+  // useEffect(()=>{
+  //   for(let i = 0; i< mileStoneCompletion.length;i++){
+  //     setValue(mileStoneCompletion[i]?.name,"")
+  //   }
+  // },[])
+
   const onsubmiting = (data) => {
+
+    console.log(data,"__Data")
     if (checkmilestone.includes("Forms & Checklist")) {
       data['Checklist'] = "Yes"
       data['siteuid'] = siteCompleteData.uniqueId
       data['mName'] = mileStone['Name']
       data['projectTypeName'] = projectTypeName
       data['subProjectTypeName'] = subProjectName
+    }else{
+      let falseKey = false;
+        for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
+            const itemCode = data[`itemCode0${i+1}`]?.trim();
+            const quantityCode = data[`quantity0${i+1}`]?.trim();
+
+            if (
+                (itemCode && !quantityCode) ||
+                (!itemCode && quantityCode)
+            ) {
+                falseKey = true;
+                break;
+            }
+        }
+        console.log(falseKey,"___falslee")
+        if (falseKey) {
+            alert("Please select the Quantity Code for all the filled ItemCodes (and vice versa).");
+            return;
+        }
+
+           for (let i = range.start; i <= range.end; i++) {
+            const quantityKey = `quantity0${i}`;
+            const quantityValue = data[quantityKey];
+
+            if (quantityValue && quantityValue.trim() !== "") {
+                const numbericQuantity = Number(quantityValue);
+
+
+                if (isNaN(numbericQuantity)) {
+                    alert(`Quantity ${i} must be a valid number.`);
+                    return;
+                }
+
+                if (numbericQuantity < 0 ) {
+                    alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
+                    return;
+                }else if(numbericQuantity>50000 ){
+                    alert(`Quantity ${i} should be less than 50000`);
+                    return;
+                }
+
+
+                data[quantityKey] = numbericQuantity;
+            }
+        }
     }
-    dispatch(
-      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
-        setmodalOpen(false);
-        setmodalFullOpen(false);
-        dispatch(backgeturl);
-      }
-      )
-    );
+
+
+    // dispatch(
+    //   projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+    //     setmodalOpen(false);
+    //     setmodalFullOpen(false);
+    //     dispatch(backgeturl);
+    //   }
+    //   )
+    // );
   };
 
   useEffect(() => {
+    console.log("running")
+    getdataAll()
   }, []);
 
   return (

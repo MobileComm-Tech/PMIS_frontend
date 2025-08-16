@@ -170,7 +170,7 @@ const ManageMilestoneSite = ({
 
     return dataOlder;
   });
-
+console.log(dataOfProject,"___dataOfProject__")
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};
 
@@ -330,8 +330,9 @@ const ManageMilestoneSite = ({
                   if (assignedToCount != 0) {
                     setmodalBody(
                       <CompletitonCreiteriaForm
+                        projectTypeUniqueId={dataOfProject?._id}
                         siteCompleteData={siteCompleteData}
-                        customeruniqueId={customeruniqueId}
+                        customeruniqueId={dataOfProject?.custId}
                         projectuniqueId={projectuniqueId}
                         setmodalFullOpen={setmodalFullOpen}
                         setmodalOpen={setmodalOpen}

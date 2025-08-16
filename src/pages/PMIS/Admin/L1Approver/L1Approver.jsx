@@ -15,7 +15,8 @@ import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import pagination from "../../../../components/CommonObjectsAndVariables";
+// import {pagination} from "../../../../components/CommonObjectsAndVariables";
+import { pagination } from "../../../../components/CommonObjectsAndVariables";
 const L1Approver = () => {
   const dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);

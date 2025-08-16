@@ -7,16 +7,19 @@ const TextBox = ({
   setValue,
   getValues,
   register,
+  
 }) => {
 
   console.log(register,"___itm")
   console.log(document.getElementById("ppp")?.innerHTML,"__inereHTLN")
 
+ console.log(itm,"__itm__")
+ 
   return (
     <>
 
-      <div className="flex flex-col h-full w-full">  
-
+      <div className={`flex flex-col h-full w-full ${itm?.visible==false? 'hidden':''}`}>  
+      
         <input
           type={itm.type}
           disabled={itm.disabled ? true : false}

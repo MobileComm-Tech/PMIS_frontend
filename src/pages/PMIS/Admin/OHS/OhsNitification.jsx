@@ -9,7 +9,8 @@ import { baseUrl } from '../../../../utils/url';
 import { ALERTS } from '../../../../store/reducers/component-reducer';
 import { useDispatch } from 'react-redux';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
-import pagination from '../../../../components/CommonObjectsAndVariables';
+// import {pagination} from '../../../../components/CommonObjectsAndVariables';
+import { pagination } from "../../../../components/CommonObjectsAndVariables";
 
 const OhsNitification = () => {
   const {

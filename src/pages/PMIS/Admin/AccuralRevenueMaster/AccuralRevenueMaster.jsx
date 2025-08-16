@@ -16,6 +16,7 @@ import FilterActions from '../../../../store/actions/filter-actions';
 import EditButton from '../../../../components/EditButton';
 import AccuralRevenueMasterForm from './AccuralRevenueMasterForm';
 import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
+import AccuralRevenueMasterRateForm from './AccuralRevenueMasterRateForm';
 const AccuralRevenueMaster = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -23,6 +24,7 @@ const AccuralRevenueMaster = () => {
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     const [strValFil, setstrVal] = useState(false);
+    
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
         let interdata = state?.adminData?.getAccuralRevenueMasterProject
@@ -91,6 +93,23 @@ const AccuralRevenueMaster = () => {
 
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
+    const dynamicColumns=[];
+
+    for( let i = 1; i<=7; i++){
+        const itemCode=  {
+                name: `Item Code-0${i}`,
+                value: `itemCode0${i}`,
+                style: "min-w-[140px] max-w-[200px] text-center"
+            }
+        const rateCode=  {
+                name: `Rate Code-0${i}`,
+                value: `rateCode0${i}`,
+                style: "min-w-[140px] max-w-[200px] text-center"
+            }
+            dynamicColumns.push(itemCode);
+            dynamicColumns.push(rateCode);
+    }
+
     let table = {
         columns: [
             {
@@ -128,51 +147,52 @@ const AccuralRevenueMaster = () => {
                 value: "rate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            {
-                name: "Item Code-01",
-                value: "itemCode01",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-02",
-                value: "itemCode02",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-03",
-                value: "itemCode03",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-04",
-                value: "itemCode04",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-05",
-                value: "itemCode05",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-06",
-                value: "itemCode06",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },
-            {
-                name: "Item Code-07",
-                value: "itemCode07",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },        
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
+            ...dynamicColumns
+            // {
+            //     name: "Item Code-01",
+            //     value: "itemCode01",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-02",
+            //     value: "itemCode02",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-03",
+            //     value: "itemCode03",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-04",
+            //     value: "itemCode04",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-05",
+            //     value: "itemCode05",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-06",
+            //     value: "itemCode06",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Item Code-07",
+            //     value: "itemCode07",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },        
+            // {
+            //     name: "Edit",
+            //     value: "edit",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
@@ -236,7 +256,7 @@ const AccuralRevenueMaster = () => {
           })
         );
     };
-
+   
     return <>
         <AdvancedTable
             headerButton={
@@ -246,7 +266,7 @@ const AccuralRevenueMaster = () => {
                         classes="w-auto"
                         onClick={(e) => {setmodalOpen((prev) => !prev)
                         setmodalHead("Add Master Rate") 
-                        setmodalBody(<AccuralRevenueMasterForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
+                        setmodalBody( <AccuralRevenueMasterForm  isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />) 
                         }}>
                     </Button>
                     <Button

@@ -7,41 +7,42 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
 import FilterActions from '../../../../store/actions/filter-actions';
 import { GET_ACCURAL_REVENUE_MASTER_PROJECTID, GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE, GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE } from '../../../../store/reducers/admin-reducer';
-
+import { range } from '../../../../components/CommonObjectsAndVariables';
 
 const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
 
-
+    const [rateForm, setRateForm] = useState([])
+    const [dynamicFormData, setDynamicFormData] = useState([])
 
 
     let subProjectTypelist = useSelector((state) => {
         return state?.adminData?.getAccuralRevenueMasterSubProject?.map((itm) => {
-          return {
-            label: itm?.subProjectName,
-            value: itm?.subProject,
-            
-          };
+            return {
+                label: itm?.subProjectName,
+                value: itm?.subProject,
+
+            };
         });
     });
-    
+
     let ProjectTypelist = useSelector((state) => {
         return state?.adminData?.getAccuralRevenueMasterProjectType?.map((itm) => {
-          return {
-            label: itm?.projectTypeName,
-            value: itm?.projectType,
-            
-          };
-        });
-      });
+            return {
+                label: itm?.projectTypeName,
+                value: itm?.projectType,
 
-      let Projectlist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProjectId?.map((itm) => {
-          return {
-            label: itm?.projectId,
-            value: itm?.project,
-          };
+            };
         });
-      });
+    });
+
+    let Projectlist = useSelector((state) => {
+        return state?.adminData?.getAccuralRevenueMasterProjectId?.map((itm) => {
+            return {
+                label: itm?.projectId,
+                value: itm?.project,
+            };
+        });
+    });
 
     let customerList = useSelector((state) => {
         return state?.adminData?.getManageCustomer.map((itm) => {
@@ -57,24 +58,64 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
     let dispatch = useDispatch()
 
+    useEffect(() => {
+        let dynamicForm = [];
+        for (let i = range.start; i <= range.end; i++) {
+
+            const tempItem = {
+                label: `Item Code-0${i}`,
+                value: "",
+                name: `itemCode0${i}`,
+                type: "text",
+                filter: true,
+                props: {
+                    onChange: ((e) => {
+                    }),
+                },
+                classes: "col-span-1"
+            }
+
+            const rateItem = {
+                label: `Rate Code-0${i}`,
+                value: "",
+                name: `rateCode0${i}`,
+                type: "number",
+                filter: true,
+                props: {
+                    onChange: ((e) => {
+                    }),
+                },
+                classes: "col-span-1"
+            }
+            dynamicForm.push(tempItem);
+            dynamicForm.push(rateItem);
+        }
+
+        setDynamicFormData(dynamicForm)
+    }, [])
+
+
+
+
+
     let Form = [
         {
             label: "Customer",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "customerName" : "customer",
+            name: Object.entries(formValue).length > 0 ? "customerName" : "customer",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: customerList,
             props: {
-              onChange: (e)=>{
-                if (e.target.value){
-                    dispatch(AdminActions.getAccuralRevenueMasterProjectType(true,"",e.target.value));
-                }
-                else{
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
-                }
-              },
+                onChange: (e) => {
+                    if (e.target.value) {
+                        dispatch(AdminActions.getAccuralRevenueMasterProjectType(true, "", e.target.value));
+                    }
+                    else {
+                        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll: [], reset: true }));
+                        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll: [], reset: true }));
+                        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll: [], reset: true }));
+                    }
+                },
             },
             required: true,
             classes: "col-span-1",
@@ -82,22 +123,22 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         {
             label: "Project Type",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "projectTypeName" : "projectType",
+            name: Object.entries(formValue).length > 0 ? "projectTypeName" : "projectType",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: ProjectTypelist,
             props: {
-              onChange: (e)=>{
-                if (e.target.value){
-                    dispatch(AdminActions.getAccuralRevenueMasterProjectID(true,"",e.target.value));
-                    dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true,"",e.target.value));
-                }
-                else{
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
-                }
-                
-              },
-              
+                onChange: (e) => {
+                    if (e.target.value) {
+                        dispatch(AdminActions.getAccuralRevenueMasterProjectID(true, "", e.target.value));
+                        dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true, "", e.target.value));
+                    }
+                    else {
+                        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll: [], reset: true }));
+                        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll: [], reset: true }));
+                    }
+
+                },
+
             },
             required: true,
             classes: "col-span-1",
@@ -105,14 +146,14 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         {
             label: "Project",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "projectId" : "project",
+            name: Object.entries(formValue).length > 0 ? "projectId" : "project",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: Projectlist,
             props: {
-                onChange: (e)=>{
-                
+                onChange: (e) => {
+
                 },
-                
+
             },
             required: true,
             classes: "col-span-1",
@@ -120,12 +161,12 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         {
             label: "Sub Project",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "subProjectName" : "subProject",
+            name: Object.entries(formValue).length > 0 ? "subProjectName" : "subProject",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             option: subProjectTypelist,
             props: {
-              onChange: (e)=>{
-              },
+                onChange: (e) => {
+                },
             },
             required: true,
             classes: "col-span-1",
@@ -154,103 +195,104 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             },
             classes: "col-span-1"
         },
-        {
-            label: "Rate",
-            value: "",
-            name: "rate",
-            type: "number",
-            required: true,
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-01",
-            value: "",
-            name: "itemCode01",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-02",
-            value: "",
-            name: "itemCode02",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-03",
-            value: "",
-            name: "itemCode03",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-04",
-            value: "",
-            name: "itemCode04",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-05",
-            value: "",
-            name: "itemCode05",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-06",
-            value: "",
-            name: "itemCode06",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-07",
-            value: "",
-            name: "itemCode07",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
+        // {
+        //     label: "Rate",
+        //     value: "",
+        //     name: "rate",
+        //     type: "number",
+        //     required: true,
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        ...dynamicFormData
+        // {
+        //     label: "Item Code-01",
+        //     value: "",
+        //     name: "itemCode01",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-02",
+        //     value: "",
+        //     name: "itemCode02",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-03",
+        //     value: "",
+        //     name: "itemCode03",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-04",
+        //     value: "",
+        //     name: "itemCode04",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-05",
+        //     value: "",
+        //     name: "itemCode05",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-06",
+        //     value: "",
+        //     name: "itemCode06",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-07",
+        //     value: "",
+        //     name: "itemCode07",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
     ]
 
 
@@ -264,11 +306,67 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         formState: { errors },
     } = useForm()
 
+
+    
+    
+
     const onTableViewSubmit = (data) => {
+
+        console.log(data, "__data")
+        let falseKey = false;
+
+        for (let i = range.start; i <= range.end; i++) {
+            const itemCode = data[`itemCode0${i}`]?.trim();
+            const rateCode = data[`rateCode0${i}`]?.trim();
+
+            if (
+                (itemCode && !rateCode) ||
+                (!itemCode && rateCode)
+            ) {
+                falseKey = true;
+                break;
+            }
+        }
+
+        if (falseKey) {
+            alert("Please select the Rate Code for all the filled ItemCodes (and vice versa).");
+            return;
+        }
+
+        let sum = 0;
+        for (let i = range.start; i <= range.end; i++) {
+            const rateKey = `rateCode0${i}`;
+            const rateValue = data[rateKey];
+
+            if (rateValue && rateValue.trim() !== "") {
+                const numericRate = Number(rateValue);
+
+
+                if (isNaN(numericRate)) {
+                    alert(`Rate Code ${i} must be a valid number.`);
+                    return;
+                }
+
+                if (numericRate < 0 ) {
+                    alert(`Rate Code ${i} cannot be less than ${numericRate}.`);
+                    return;
+                }else if(numericRate>50000 ){
+                    alert(`Rate Code ${i} should be less than 50000`);
+                    return;
+                }
+
+
+                data[rateKey] = numericRate;
+            }
+        }
+
+        data = { ...data, rate: sum }
+
+
         if (formValue.uniqueId) {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject(true,filtervalue))
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true, filtervalue))
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
@@ -278,23 +376,26 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         }
     }
 
+
+
+
     useEffect(() => {
-        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
-        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
-        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
-      if (!isOpen) {
-        reset({});
-        Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
-      } else {
-        reset({});
-      }
-    }, [isOpen,formValue,resetting]);
+        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll: [], reset: true }));
+        dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll: [], reset: true }));
+        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll: [], reset: true }));
+        if (!isOpen) {
+            reset({});
+            Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+        } else {
+            reset({});
+        }
+    }, [isOpen, formValue, resetting]);
 
 
 
 
     return <>
-        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={rateForm?.length > 0 ? rateForm : Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
