@@ -49,9 +49,9 @@ const VendorActions = {
             return;
         }
     },
-    getPoEligibility:(reset=true,args="") => async (dispatch, _) => {
+    getPoEligibility:(data,reset=true,args="") => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.PoEligibility}${args!=""?"?"+args:""}`, reset })
+            const res = await Api.post({ data,url:`${Urls.PoEligibility}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_PO_ELIGIBILITY({dataAll,reset}))

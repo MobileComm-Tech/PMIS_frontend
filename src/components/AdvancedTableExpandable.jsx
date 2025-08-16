@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import PopupMenu from "./PopupMenu";
 import { current } from "@reduxjs/toolkit";
@@ -53,7 +53,7 @@ const AdvancedTableExpandable = ({
   });
 
 
-  console.log("data___data", data)
+  const poSiteIdsRef = useRef([])
 
   const handleRPPChange = (value) => {
     setRPP(value);
@@ -286,16 +286,18 @@ const AdvancedTableExpandable = ({
                 <tbody>
                   {
                     mergedRows ?
-                      finalData.map((itm) => {
+                      finalData.map((itm,itmIndex) => {
                         return (
                           <AdvancedTableExpandableOneRowMerged
                             getmultiSelect={getmultiSelect}
                             setmultiSelect={setmultiSelect}
                             multiSelect={multiSelect}
+                            poSiteIdsRef={poSiteIdsRef}
                             setModalBody={setModalBody}
                             setOpenModal={setOpenModal}
                             table={table}
                             itm={itm}
+                            itmIndex={itmIndex}
                             hide={hide}
                             finalData={(() =>
                               itm?.milestoneArray?.reduce((acc = {}, ele, index) => {

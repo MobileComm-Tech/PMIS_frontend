@@ -1478,7 +1478,9 @@ const VendorProjectTracking = () => {
       VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
     );
   };
-
+useEffect(()=>{
+  console.log("runhjdsfk")
+})
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     dispatch(VendorActions.getVendorProjectTracking());

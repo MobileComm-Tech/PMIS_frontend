@@ -13,12 +13,16 @@ const AdvancedTableExpandableOneRow = ({
   setModalBody,
   table,
   itm,
+  poSiteIdsRef,
+  itmIndex,
   hide,
   finalData,
 }) => {
   const [expand, setExpand] = useState(false);
 
   const dispatch = useDispatch();
+  const [poSiteIds,setPoSitIds] = useState([])
+//   const poSiteIdsRef = useRef([])
   const countRef = useRef({});
 
   function getRowSpan(itm) {
@@ -35,7 +39,7 @@ const AdvancedTableExpandableOneRow = ({
           ...countRef.current,
           [itm.workDescription]: true,
         };
-        console.log("countRef.current", countRef.current);
+        // console.log("countRef.current", countRef.current);
       } else {
         count = 0;
       }
@@ -43,13 +47,17 @@ const AdvancedTableExpandableOneRow = ({
     return count;
   }
   const poData = useSelector((state)=>state?.vendorData?.getPoEligibility);
-  console.log(poData,"___poData")
+//   console.log(poData,"___poData")
+//   console.log(itm,"___itm__")
   function expendedRows() {
     const rows = [];
     console.log(finalData,"__FinalData")
+    const keys = poData?.length>0 ? Object.keys(poData[0]):[];
     Object.keys(finalData).map((key) => {
         console.log(key,"__key")
-      finalData[key].forEach((item) => {
+      finalData[key].forEach((item,index) => {
+            console.log("1:",finalData[item?.workDescription][0]?.siteId,"2:",Object.keys(poData[0])[0],"____fajsbhdjvadskmbj")
+        console.log(finalData[item?.workDescription],"__itmIndex")
         const data = [];
         table?.childs?.milestoneArray.map((innerItem) => {
           if (
@@ -75,7 +83,7 @@ const AdvancedTableExpandableOneRow = ({
                   ) : innerItem.name === "PO eligibility (Yes/No)" ? (
                     <span className="px-4 py-[2px] bg-[#1cb99c] rounded-md">
                       {" "}
-                      {poData?.length>0 ? poData[0]?.poeligibility : finalData[item?.workDescription]?.[0]?.["POEligibility"]}
+                      {poData?.length>0 && keys?.includes(finalData[item?.workDescription]?.[0]?.siteId) ? poData[0]?.[itm?.uniqueId] : finalData[item?.workDescription]?.[0]?.["POEligibility"]}
                       {/* {finalData[item?.workDescription]?.[0]?.["POEligibility"]} */}
                     </span>
                   ) : innerItem.name === "Quantity" ? (
@@ -107,26 +115,48 @@ const AdvancedTableExpandableOneRow = ({
     });
     return rows;
   }
+//   console.log(poSiteIds,"__kbfbjdsd")
 
+  const handleAddId = (siteId) => {
+  if (!poSiteIdsRef.current.includes(siteId)) {
+    poSiteIdsRef.current.push(siteId);
+  }
+
+
+
+//   console.log([...poSiteIdsRef.current], "___poSiteIdsRef.current___");
+  dispatch(VendorActions.getPoEligibility(poSiteIdsRef.current, true));
+};
+  const handleRemoveSiteId =(siteId)=>{
+    if (poSiteIdsRef.current.includes(siteId)) {
+      poSiteIdsRef.current=  poSiteIdsRef.current.filter((itm)=>itm!==siteId)
+    }
+    if(poSiteIdsRef.current?.length===1){
+        poSiteIdsRef.current=[]
+    }
+    // console.log([...poSiteIdsRef.current], "___poSiteIdsRef.current___");
+  }
   return (
     <>
       <tr>
         <td className="text-[12px] pl-1 !h-[10px] border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine">
           <span
-            onClick={() => {
-              console.log(expand, "__c_");
-              if (!expand) {
-                const siteId =
-                  itm?.siteId || itm?.site_id || itm?.id || itm?._id || "";
-                console.log("SiteId______", siteId);
-                dispatch(
-                  VendorActions.getPoEligibility(true, `siteId=${siteId}`)
-                );
-              }
+          onClick={() => {
+            
+            const siteId =
+                itm?.siteId || itm?.site_id || itm?.id || itm?._id || "";
+            // console.log(expand, siteId, "__c_");
+            if (!expand) {
 
-              console.log("object ...", "called");
+                handleAddId(siteId)
+                
+            }else{
+                handleRemoveSiteId(siteId)
+            }
+
+            //   console.log("object ...", "called");
               setExpand((prev) => !prev);
-            }}
+            }}else
           >
             {expand ? <UilAngleUp /> : <UilAngleDown />}
           </span>
@@ -160,6 +190,8 @@ const AdvancedTableExpandableOneRow = ({
 
 export default AdvancedTableExpandableOneRow;
 
+
+
 // //////////////////////////////////////////////////////////////////OLD Code
 // import React, { useEffect, useRef, useState } from "react";
 // import { UilAngleDown, UilAngleUp } from "@iconscout/react-unicons";
@@ -177,8 +209,8 @@ export default AdvancedTableExpandableOneRow;
 //     finalData
 // }) => {
 //     const [expand, setExpand] = useState(false);
-//     // console.log("called_____")
-//     // console.log("finalData___", finalData)
+    // console.log("called_____")
+    // console.log("finalData___", finalData)
 
 
 //     const countRef = useRef({})
@@ -200,7 +232,7 @@ export default AdvancedTableExpandableOneRow;
 //                     ...countRef.current,
 //                     [itm.workDescription]: true
 //                 }
-//                 console.log("countRef.current", countRef.current)
+                console.log("countRef.current", countRef.current)
 //             }
 //             else {
 //                 count = 0
@@ -246,7 +278,7 @@ export default AdvancedTableExpandableOneRow;
 //                 <td className="text-[12px] pl-1 !h-[10px] border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine">
 //                     <span
 //                         onClick={() => {
-//                             console.log('object ...' , 'called')
+                            console.log('object ...' , 'called')
 //                             setExpand((prev) => !prev);
 //                         }}
 //                     >
@@ -296,7 +328,7 @@ export default AdvancedTableExpandableOneRow;
 //                                 </td>
 
 //                                 {table?.childs[onewq[0]]?.map((itts, index) => {
-//                                     console.log("itts.name", itts.name)
+                                    console.log("itts.name", itts.name)
 //                                     return (
 //                                         // !countRef.current[onewqq?.workDescription] ? (
 //                                         ["Vendor Item Code", "Vendor Rate", "PO eligibility (Yes/No)"].includes(itts.name) ? (
