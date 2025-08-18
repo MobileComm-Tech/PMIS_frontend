@@ -232,7 +232,7 @@ export default AdvancedTableExpandableOneRow;
 //                     ...countRef.current,
 //                     [itm.workDescription]: true
 //                 }
-                console.log("countRef.current", countRef.current)
+                // console.log("countRef.current", countRef.current)
 //             }
 //             else {
 //                 count = 0
@@ -278,7 +278,7 @@ export default AdvancedTableExpandableOneRow;
 //                 <td className="text-[12px] pl-1 !h-[10px] border-[#0e8670] h-[10px] border-[0.1px] text-primaryLine">
 //                     <span
 //                         onClick={() => {
-                            console.log('object ...' , 'called')
+                            // console.log('object ...' , 'called')
 //                             setExpand((prev) => !prev);
 //                         }}
 //                     >
@@ -328,7 +328,7 @@ export default AdvancedTableExpandableOneRow;
 //                                 </td>
 
 //                                 {table?.childs[onewq[0]]?.map((itts, index) => {
-                                    console.log("itts.name", itts.name)
+                                    // console.log("itts.name", itts.name)
 //                                     return (
 //                                         // !countRef.current[onewqq?.workDescription] ? (
 //                                         ["Vendor Item Code", "Vendor Rate", "PO eligibility (Yes/No)"].includes(itts.name) ? (

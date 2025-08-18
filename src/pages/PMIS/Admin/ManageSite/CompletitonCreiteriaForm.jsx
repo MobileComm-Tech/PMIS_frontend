@@ -332,14 +332,14 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
     }
 
 
-    // dispatch(
-    //   projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
-    //     setmodalOpen(false);
-    //     setmodalFullOpen(false);
-    //     dispatch(backgeturl);
-    //   }
-    //   )
-    // );
+    dispatch(
+      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+        setmodalOpen(false);
+        setmodalFullOpen(false);
+        dispatch(backgeturl);
+      }
+      )
+    );
   };
 
   useEffect(() => {
