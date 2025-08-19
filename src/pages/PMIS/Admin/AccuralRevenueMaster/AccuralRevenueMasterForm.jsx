@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonForm from '../../../../components/CommonForm';
@@ -13,6 +13,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
     const [rateForm, setRateForm] = useState([])
     const [dynamicFormData, setDynamicFormData] = useState([])
+    const [ammount, setAmmount] = useState({})
 
 
     let subProjectTypelist = useSelector((state) => {
@@ -59,6 +60,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     let dispatch = useDispatch()
 
     useEffect(() => {
+        
         let dynamicForm = [];
         for (let i = range.start; i <= range.end; i++) {
 
@@ -67,9 +69,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 value: "",
                 name: `itemCode0${i}`,
                 type: "text",
+
                 filter: true,
                 props: {
                     onChange: ((e) => {
+
                     }),
                 },
                 classes: "col-span-1"
@@ -82,8 +86,15 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 type: "number",
                 filter: true,
                 props: {
-                    onChange: ((e) => {
-                    }),
+                    onChange: (e) => {
+                        const { name, value } = e.target;
+
+                        setValue(name, value);
+                        setAmmount((prev) => ({
+                            ...prev,
+                            [name]: +value
+                        }));
+                    },
                 },
                 classes: "col-span-1"
             }
@@ -95,10 +106,18 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     }, [])
 
 
+    useEffect(() => {
+        setValue('rate' , Object.values(ammount).reduce((sum, val) => sum + Number(val), 0))
+    }, [ammount]);
+    useEffect(() => {
+        setAmmount({})
+        setValue('rate' , 0)
+    } , [modalOpen])
 
 
+// const totalAmount = Object.values(ammount).reduce((sum, val) => sum + Number(val), 0);
 
-    let Form = [
+    let Form = useMemo(() => [
         {
             label: "Customer",
             value: "",
@@ -184,6 +203,20 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1"
         },
         {
+            label: "Ammount",
+            
+           
+            name: "rate",
+            type: "sdisabled",
+            required : true,
+            
+            props: {
+                onChange: ((e) => {
+                }),
+            },
+            classes: "col-span-1"
+        },
+        {
             label: "Activity",
             value: "",
             name: "activity",
@@ -193,21 +226,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 onChange: ((e) => {
                 }),
             },
-            classes: "col-span-1"
+            classes: "col-span-2"
         },
-        // {
-        //     label: "Rate",
-        //     value: "",
-        //     name: "rate",
-        //     type: "number",
-        //     required: true,
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
+        
         ...dynamicFormData
         // {
         //     label: "Item Code-01",
@@ -293,7 +314,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         //     },
         //     classes: "col-span-1"
         // },
-    ]
+    ] , [ammount, dynamicFormData])  
 
 
     const {
@@ -307,8 +328,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
     } = useForm()
 
 
-    
-    
+
+
 
     const onTableViewSubmit = (data) => {
 
@@ -347,10 +368,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                     return;
                 }
 
-                if (numericRate < 0 ) {
+                if (numericRate < 0) {
                     alert(`Rate Code ${i} cannot be less than ${numericRate}.`);
                     return;
-                }else if(numericRate>50000 ){
+                } else if (numericRate > 50000) {
                     alert(`Rate Code ${i} should be less than 50000`);
                     return;
                 }

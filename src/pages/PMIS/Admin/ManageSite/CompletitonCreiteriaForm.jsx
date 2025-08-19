@@ -99,25 +99,32 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
 
       const key = `itemCode0${i}`
       if (itemCodeData[key]?.length > 0) {
-
+        const filteredData = itemCodeData[key]?.filter((item) => {
+            if(item?.rate) return item
+          })
         const tempData = {
           label: `Item Code- 0${i}`,
           name: `itemCode0${i}`,
           required: i === 1 ? true : false,
           type: "select",
-          option: itemCodeData[key]?.map((itm) => {
-            return {
-              label: itm,
-              value: itm
+          option: filteredData?.map((itm,index) => {
+            if(itm?.rate !== undefined || itm?.rate !== ''){
+              
+              
+              return {
+              label: itm?.value+"-("+itm?.rate+")",
+              value: itm?.value,
+              rate:itm?.rate
             }
-          }),
+            }
+          }) ,
           props: {
             onChange: (e) => {
 
             },
           },
 
-          classes: "col-span-2",
+          classes: "col-span-1",
         }
 
         const quantityObj = {
@@ -132,11 +139,13 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
             },
           },
 
-          classes: "col-span-2",
+          classes: "col-span-1",
         }
-
-        itemCodeInputs.push(tempData);
+        if(filteredData?.length){
+itemCodeInputs.push(tempData);
         itemCodeInputs.push(quantityObj)
+        }
+        
         
       }
     }
@@ -342,10 +351,15 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
     );
   };
 
+
+  console.log(mileStone , 'asdfkahsdfkjashdkjfhaskjdfh')
+
   useEffect(() => {
     console.log("running")
-    getdataAll()
-  }, []);
+    if(['MS1' , "MS2"].includes(mileStone?.Name)){
+        getdataAll()
+    }
+  }, [modalFullOpen1]);
 
   return (
     <>
@@ -358,7 +372,7 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
       />
 
       <CommonForm
-        classes={"grid-cols-1 gap-1"}
+        classes={"grid-cols-2 gap-1"}
         Form={mileStoneCompletion}
         errors={errors}
         register={register}

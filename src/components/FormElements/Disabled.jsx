@@ -12,6 +12,7 @@ const Disabled = ({ itm,errors, handleSubmit, setValue, getValues, register}) =>
     
     return <>
         <input type={itm.type}
+        value={itm?.value || ''}
             disabled={true}
             {...register(itm.name, {
                 required: itm.required ? "This " + " Field is required" : false,
