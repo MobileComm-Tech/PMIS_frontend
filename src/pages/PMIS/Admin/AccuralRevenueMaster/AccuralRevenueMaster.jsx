@@ -34,6 +34,7 @@ const AccuralRevenueMaster = () => {
             let updateditm = {
                 ...itm,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                    
                     setmodalOpen(true)
                     setmodalHead("Edit Master Rate")
                     setmodalBody(<>

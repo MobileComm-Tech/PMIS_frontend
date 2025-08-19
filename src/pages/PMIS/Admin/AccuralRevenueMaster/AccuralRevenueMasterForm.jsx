@@ -372,10 +372,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 if (numericRate < 0) {
                     alert(`Item Rate ${i} cannot be less than ${numericRate}.`);
                     return;
-                } else if (numericRate > 50000) {
-                    alert(`Item Rate ${i} should be less than 50000`);
-                    return;
-                }
+                } 
+                // else if (numericRate > 50000) {
+                //     alert(`Item Rate ${i} should be less than 50000`);
+                //     return;
+                // }
 
 
                 data[rateKey] = numericRate;
@@ -409,9 +410,19 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll: [], reset: true }));
         dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll: [], reset: true }));
         dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll: [], reset: true }));
-        if (!isOpen) {
+       if (!isOpen) {
             reset({});
-            Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+            Form.forEach(key => { setValue(key.name, formValue[key.name] || "")
+                // console.log(key , 'sdfjksdhfkjhasdkfasdkjfakjsdfkasjdfhkajsdfhlkasdhfkashd')
+                if(['itemRate01','itemRate02','itemRate03','itemRate04','itemRate05','itemRate06','itemRate07'].includes(key.name)&& formValue[key.name]){
+                setAmmount((prev) => ({
+                            ...prev,
+                            [key.name]: +formValue[key.name]
+                        }));
+            }
+
+            });
+            
         } else {
             reset({});
         }

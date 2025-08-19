@@ -46,10 +46,11 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
                 if (numbericQuantity < 0 ) {
                     alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
                     return;
-                }else if(numbericQuantity>50000 ){
-                    alert(`Quantity ${i} should be less than 50000`);
-                    return;
                 }
+                // else if(numbericQuantity>50000 ){
+                //     alert(`Quantity ${i} should be less than 50000`);
+                //     return;
+                // }
 
                 totalAmount+=Number(itemCodeRateData)*Number(quantityValue);
                 data[quantityKey] = numbericQuantity;

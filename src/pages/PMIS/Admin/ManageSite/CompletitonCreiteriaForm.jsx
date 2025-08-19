@@ -33,6 +33,8 @@ const CompletitonCreiteriaForm = ({
   filterView
 }) => {
 
+
+  console.log(modalOpen,"__modelOpen")
   const dispatch = useDispatch();
   const dateString = siteCompleteData["siteStartDate"];
   const [day, month, year] = dateString?.split("-")?.map(Number);
@@ -78,6 +80,7 @@ const CompletitonCreiteriaForm = ({
     quantity.push(temp);
 
   }
+  console.log(modalOpen,"__modalOpen__")
 console.log(selectedCustomValue,"__selectedCustomValue__")
 
   const customSelection = watch(selectedCustomValue);
@@ -182,6 +185,7 @@ itemCodeInputs.push(tempData);
   let mileStoneCompletion = useSelector((state) => {
 
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
+    console.log(mileStone["Completion Criteria"],"___sdfghjk")
     return mileStone["Completion Criteria"].split(",").map((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
       if (dta == "Forms & Checklist") {
@@ -277,7 +281,7 @@ itemCodeInputs.push(tempData);
   if (myTaskPage === "Yes") {
     backgeturl = MyHomeActions.getMyTask();
   }
-
+console.log(mileStoneCompletion,"__mileStoneCompletion_")
 
   // useEffect(()=>{
   //   for(let i = 0; i< mileStoneCompletion.length;i++){
@@ -314,11 +318,12 @@ itemCodeInputs.push(tempData);
 
   useEffect(() => {
     console.log("running_usefrer")
-    if(['MS1'].includes(mileStone?.Name)){
+    setItemCodeAllInputs([])
+    if(['MS1'].includes(mileStone?.Name)&& modalOpen){
         getdataAll()
     }
-  }, []);
-console.log(modalFullOpen1,"___setmodalOpen__")
+  }, [modalOpen]);
+
   return (
     <>
       <Modal

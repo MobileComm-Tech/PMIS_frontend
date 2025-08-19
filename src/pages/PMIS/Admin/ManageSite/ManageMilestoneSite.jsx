@@ -297,7 +297,18 @@ console.log(dataOfProject,"___dataOfProject__")
   return (
     <>
       <Modal
-        children={modalBody}
+        children={<CompletitonCreiteriaForm
+                        projectTypeUniqueId={dataOfProject?._id}
+                        siteCompleteData={siteCompleteData}
+                        customeruniqueId={dataOfProject?.custId}
+                        projectuniqueId={projectuniqueId}
+                        setmodalFullOpen={setmodalFullOpen}
+                        setmodalOpen={setmodalOpen}
+                        modalOpen={modalOpen}
+                        mileStone={mileStone}
+                        myTaskPage={myTaskPage}
+                        filterView = {filterView}
+                      />}
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
         size={"smsh"}
@@ -328,21 +339,9 @@ console.log(dataOfProject,"___dataOfProject__")
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
-                    setmodalBody(
-                      <CompletitonCreiteriaForm
-                        projectTypeUniqueId={dataOfProject?._id}
-                        siteCompleteData={siteCompleteData}
-                        customeruniqueId={dataOfProject?.custId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        modalOpen={modalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView = {filterView}
-                      />
-                    );
                     setmodalOpen(true);
+                    
+                    
                   } else {
                     let msgdata = {
                       show: true,
