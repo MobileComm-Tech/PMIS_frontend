@@ -18,7 +18,7 @@ import ManageComplianceDegrowTemplateForm from "../ManageCompliance/ManageCompli
 import ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm from "../ManageCompliance/ManageComplianceDegrowSRQ_Raise_And_DismantleTemplateForm";
 import Api from "../../../../utils/api";
 import { Watch } from "react-loader-spinner";
-import { range } from "../../../../components/CommonObjectsAndVariables";
+import { calculateCompletionCriteriaPaylaod, range } from "../../../../components/CommonObjectsAndVariables";
 
 const CompletitonCreiteriaForm = ({
   siteCompleteData,
@@ -113,7 +113,7 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
               
               return {
               label: itm?.value+"-("+itm?.rate+")",
-              value: itm?.value,
+              value: itm?.value+" "+itm?.rate,
               rate:itm?.rate
             }
             }
@@ -286,7 +286,7 @@ itemCodeInputs.push(tempData);
 
   const onsubmiting = (data) => {
 
-    console.log(data,"__Data")
+    
     if (checkmilestone.includes("Forms & Checklist")) {
       data['Checklist'] = "Yes"
       data['siteuid'] = siteCompleteData.uniqueId
@@ -294,53 +294,10 @@ itemCodeInputs.push(tempData);
       data['projectTypeName'] = projectTypeName
       data['subProjectTypeName'] = subProjectName
     }else{
-      let falseKey = false;
-        for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
-            const itemCode = data[`itemCode0${i+1}`]?.trim();
-            const quantityCode = data[`quantity0${i+1}`]?.trim();
-
-            if (
-                (itemCode && !quantityCode) ||
-                (!itemCode && quantityCode)
-            ) {
-                falseKey = true;
-                break;
-            }
-        }
-        console.log(falseKey,"___falslee")
-        if (falseKey) {
-            alert("Please select the Quantity Code for all the filled ItemCodes (and vice versa).");
-            return;
-        }
-
-           for (let i = range.start; i <= range.end; i++) {
-            const quantityKey = `quantity0${i}`;
-            const quantityValue = data[quantityKey];
-
-            if (quantityValue && quantityValue.trim() !== "") {
-                const numbericQuantity = Number(quantityValue);
-
-
-                if (isNaN(numbericQuantity)) {
-                    alert(`Quantity ${i} must be a valid number.`);
-                    return;
-                }
-
-                if (numbericQuantity < 0 ) {
-                    alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
-                    return;
-                }else if(numbericQuantity>50000 ){
-                    alert(`Quantity ${i} should be less than 50000`);
-                    return;
-                }
-
-
-                data[quantityKey] = numbericQuantity;
-            }
-        }
+       data = calculateCompletionCriteriaPaylaod(itemCodeAllInputs,data);
     }
-
-
+   
+    
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
         setmodalOpen(false);
@@ -356,7 +313,7 @@ itemCodeInputs.push(tempData);
 
   useEffect(() => {
     console.log("running")
-    if(['MS1' , "MS2"].includes(mileStone?.Name)){
+    if(['MS1'].includes(mileStone?.Name)){
         getdataAll()
     }
   }, [modalFullOpen1]);

@@ -17,6 +17,7 @@ import EditButton from '../../../../components/EditButton';
 import AccuralRevenueMasterForm from './AccuralRevenueMasterForm';
 import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
 import AccuralRevenueMasterRateForm from './AccuralRevenueMasterRateForm';
+import { range } from '../../../../components/CommonObjectsAndVariables';
 const AccuralRevenueMaster = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -95,15 +96,15 @@ const AccuralRevenueMaster = () => {
 
     const dynamicColumns=[];
 
-    for( let i = 1; i<=7; i++){
+    for( let i = range.start; i<=range.end; i++){
         const itemCode=  {
                 name: `Item Code-0${i}`,
                 value: `itemCode0${i}`,
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
         const rateCode=  {
-                name: `Rate Code-0${i}`,
-                value: `rateCode0${i}`,
+                name: `Item Rate-0${i}`,
+                value: `itemRate0${i}`,
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
             dynamicColumns.push(itemCode);

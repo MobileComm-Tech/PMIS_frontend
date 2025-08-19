@@ -80,9 +80,9 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             }
 
             const rateItem = {
-                label: `Rate Code-0${i}`,
+                label: `Item Rate-0${i}`,
                 value: "",
-                name: `rateCode0${i}`,
+                name: `itemRate0${i}`,
                 type: "number",
                 filter: true,
                 props: {
@@ -314,7 +314,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         //     },
         //     classes: "col-span-1"
         // },
-    ] , [ammount, dynamicFormData])  
+    ] , [ammount, dynamicFormData,ProjectTypelist])  
 
 
     const {
@@ -338,11 +338,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
         for (let i = range.start; i <= range.end; i++) {
             const itemCode = data[`itemCode0${i}`]?.trim();
-            const rateCode = data[`rateCode0${i}`]?.trim();
+            const itemRate = data[`itemRate0${i}`]?.trim();
 
             if (
-                (itemCode && !rateCode) ||
-                (!itemCode && rateCode)
+                (itemCode && !itemRate) ||
+                (!itemCode && itemRate)
             ) {
                 falseKey = true;
                 break;
@@ -350,13 +350,13 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         }
 
         if (falseKey) {
-            alert("Please select the Rate Code for all the filled ItemCodes (and vice versa).");
+            alert("Please select the Item Rate for all the filled ItemCodes (and vice versa).");
             return;
         }
 
         let sum = 0;
         for (let i = range.start; i <= range.end; i++) {
-            const rateKey = `rateCode0${i}`;
+            const rateKey = `itemRate0${i}`;
             const rateValue = data[rateKey];
 
             if (rateValue && rateValue.trim() !== "") {
@@ -364,15 +364,15 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
 
                 if (isNaN(numericRate)) {
-                    alert(`Rate Code ${i} must be a valid number.`);
+                    alert(`Item Rate ${i} must be a valid number.`);
                     return;
                 }
 
                 if (numericRate < 0) {
-                    alert(`Rate Code ${i} cannot be less than ${numericRate}.`);
+                    alert(`Item Rate ${i} cannot be less than ${numericRate}.`);
                     return;
                 } else if (numericRate > 50000) {
-                    alert(`Rate Code ${i} should be less than 50000`);
+                    alert(`Item Rate ${i} should be less than 50000`);
                     return;
                 }
 

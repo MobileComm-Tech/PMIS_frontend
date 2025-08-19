@@ -195,7 +195,7 @@ const VendorCost = () => {
       },
 
       {
-        name: "Activity Name",
+        name: "Work Description",
         value: "activityName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },

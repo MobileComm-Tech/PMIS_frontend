@@ -17,7 +17,7 @@ export const Loaders = () => {
         // console.log(interdata.buttons, "interdatainterdatadsadassadsadas")
         return interdata
     })
-
+    
     const [swalProps, setSwalProps] = useState({
         show: true,
         title: 'Example',
