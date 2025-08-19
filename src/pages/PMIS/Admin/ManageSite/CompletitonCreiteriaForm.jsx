@@ -27,6 +27,7 @@ const CompletitonCreiteriaForm = ({
   projectuniqueId,
   setmodalFullOpen,
   setmodalOpen,
+  modalOpen,
   customeruniqueId,
   myTaskPage,
   filterView
@@ -312,12 +313,12 @@ itemCodeInputs.push(tempData);
   console.log(mileStone , 'asdfkahsdfkjashdkjfhaskjdfh')
 
   useEffect(() => {
-    console.log("running")
+    console.log("running_usefrer")
     if(['MS1'].includes(mileStone?.Name)){
         getdataAll()
     }
-  }, [modalFullOpen1]);
-
+  }, []);
+console.log(modalFullOpen1,"___setmodalOpen__")
   return (
     <>
       <Modal

@@ -148,7 +148,7 @@ const AccuralRevenueMaster = () => {
                 value: "rate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            ...dynamicColumns
+            ...dynamicColumns,
             // {
             //     name: "Item Code-01",
             //     value: "itemCode01",
@@ -184,16 +184,16 @@ const AccuralRevenueMaster = () => {
             //     value: "itemCode07",
             //     style: "min-w-[140px] max-w-[200px] text-center"
             // },        
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[200px] text-center"
-            // },
+            {
+                name: "Edit",
+                value: "edit",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
+            {
+                name: "Delete",
+                value: "delete",
+                style: "min-w-[100px] max-w-[200px] text-center"
+            },
         ],
         properties: {
             rpp: [10, 20, 50, 100]

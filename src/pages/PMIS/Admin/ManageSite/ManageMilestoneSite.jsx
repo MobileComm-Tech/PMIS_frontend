@@ -336,6 +336,7 @@ console.log(dataOfProject,"___dataOfProject__")
                         projectuniqueId={projectuniqueId}
                         setmodalFullOpen={setmodalFullOpen}
                         setmodalOpen={setmodalOpen}
+                        modalOpen={modalOpen}
                         mileStone={mileStone}
                         myTaskPage={myTaskPage}
                         filterView = {filterView}

@@ -203,7 +203,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1"
         },
         {
-            label: "Ammount",
+            label: "Amount",
             
            
             name: "rate",
@@ -229,7 +229,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-2"
         },
         
-        ...dynamicFormData
+        ...dynamicFormData,
+        
         // {
         //     label: "Item Code-01",
         //     value: "",
@@ -379,10 +380,14 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
                 data[rateKey] = numericRate;
             }
-        }
-
+            console.log(ammount[rateKey],"___aksjvdbka")
+            if(ammount[rateKey]!==undefined){
+                sum+=ammount[rateKey]
+            }
+        }   
+            
         data = { ...data, rate: sum }
-
+        setAmmount(prev=>prev=0)
 
         if (formValue.uniqueId) {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
