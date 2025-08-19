@@ -56,8 +56,8 @@ const AdvancedTableExpandableOneRow = ({
     Object.keys(finalData).map((key) => {
         console.log(key,"__key")
       finalData[key].forEach((item,index) => {
-            console.log("1:",finalData[item?.workDescription][0]?.siteId,"2:",Object.keys(poData[0])[0],"____fajsbhdjvadskmbj")
-        console.log(finalData[item?.workDescription],"__itmIndex")
+            // console.log("1:",finalData[item?.workDescription][0]?.siteId,"2:",Object.keys(poData[0])[0],"____fajsbhdjvadskmbj")
+        // console.log(finalData[item?.workDescription],"__itmIndex")
         const data = [];
         table?.childs?.milestoneArray.map((innerItem) => {
           if (

@@ -89,7 +89,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                     onChange: (e) => {
                         const { name, value } = e.target;
 
-                        setValue(name, value);
+                        setValue(name, +value);
                         setAmmount((prev) => ({
                             ...prev,
                             [name]: +value
@@ -338,8 +338,8 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         let falseKey = false;
 
         for (let i = range.start; i <= range.end; i++) {
-            const itemCode = data[`itemCode0${i}`]?.trim();
-            const itemRate = data[`itemRate0${i}`]?.trim();
+            const itemCode = data[`itemCode0${i}`];
+            const itemRate = data[`itemRate0${i}`];
 
             if (
                 (itemCode && !itemRate) ||
@@ -360,7 +360,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             const rateKey = `itemRate0${i}`;
             const rateValue = data[rateKey];
 
-            if (rateValue && rateValue.trim() !== "") {
+            if (rateValue && rateValue !== "") {
                 const numericRate = Number(rateValue);
 
 
