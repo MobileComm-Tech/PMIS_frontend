@@ -100,7 +100,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             }
 
             const itemCodeDescription = {
-                label: `Item Code Description-0${i}`,
+                label: `Description-0${i}`,
                 value: "",
                 name: `itemCodeDescription0${i}`,
                 type: "text",
@@ -111,7 +111,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
                     }),
                 },
-                classes: "col-span-1"
+                classes: "col-span-2"
             }
             dynamicForm.push(tempItem);
             dynamicForm.push(rateItem);
@@ -352,22 +352,25 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
         console.log(data, "__data")
         let falseKey = false;
+        
 
-        for (let i = range.start; i <= range.end; i++) {
-            const itemCode = data[`itemCode0${i}`];
-            const itemRate = data[`itemRate0${i}`];
-            const itemCodeDesc = data[`itemCodeDescription0${i}`];
+       for (let i = range.start; i <= range.end; i++) {
+    const itemCode = data[`itemCode0${i}`];
+    const itemRate = data[`itemRate0${i}`];
+    const itemCodeDesc = data[`itemCodeDescription0${i}`];
 
-            if (
-                (!itemCode && !itemRate && !itemCodeDesc) 
-            ) {
-                falseKey = true;
-                break;
-            }
-        }
+    const allEmpty = !itemCode && !itemRate && !itemCodeDesc;
+    const allFilled = itemCode && itemRate && itemCodeDesc;
+
+    
+    if (!allEmpty && !allFilled) {
+        falseKey=true;
+        break;
+    }
+}
 
         if (falseKey) {
-            alert("Please select the Item Rate for all the filled ItemCodes (and vice versa).");
+            alert(`Please select the itemCode , itemRate and itemCodeDescription for all the filled ItemCodes (and vice versa).`);
             return;
         }
 
@@ -421,7 +424,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
 
 
 
-
+    console.log(formValue,"___formValue___")
     useEffect(() => {
         dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll: [], reset: true }));
         dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll: [], reset: true }));
@@ -429,7 +432,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
        if (!isOpen) {
             reset({});
             Form.forEach(key => { setValue(key.name, formValue[key.name] || "")
-                // console.log(key , 'sdfjksdhfkjhasdkfasdkjfakjsdfkasjdfhkajsdfhlkasdhfkashd')
+                console.log(key.name,formValue[key.name] , 'sdfjksdhfkjhasdkfasdkjfakjsdfkasjdfhkajsdfhlkasdhfkashd')
                 if(['itemRate01','itemRate02','itemRate03','itemRate04','itemRate05','itemRate06','itemRate07'].includes(key.name)&& formValue[key.name]){
                 setAmmount((prev) => ({
                             ...prev,
@@ -442,7 +445,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         } else {
             reset({});
         }
-    }, [isOpen, formValue, resetting]);
+    }, [isOpen, formValue, resetting,dynamicFormData]);
 
 
 

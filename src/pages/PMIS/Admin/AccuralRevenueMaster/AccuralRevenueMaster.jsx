@@ -109,7 +109,7 @@ const AccuralRevenueMaster = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
         const itemCodeDescription=  {
-                name: `Item Code Desc.-0${i}`,
+                name: `Description-0${i}`,
                 value: `itemCodeDescription0${i}`,
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
