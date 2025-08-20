@@ -134,7 +134,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
           alert("Please submit all form first.");
           return;
         }
-        
+      
         subFormRef.current[itm] = res?.data?.data[0][itm]?.map((item) => {
           return {
             ...item,

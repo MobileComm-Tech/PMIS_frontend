@@ -186,7 +186,7 @@ itemCodeInputs.push(tempData);
 
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
     console.log(mileStone["Completion Criteria"],"___sdfghjk")
-    return mileStone["Completion Criteria"].split(",").map((dta) => {
+    return mileStone["Completion Criteria"]?.split(",").map((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
       if (dta == "Forms & Checklist") {
         return {
