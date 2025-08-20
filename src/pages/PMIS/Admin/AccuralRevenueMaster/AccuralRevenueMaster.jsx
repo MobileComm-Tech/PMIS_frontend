@@ -104,12 +104,18 @@ const AccuralRevenueMaster = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
         const rateCode=  {
-                name: `Item Rate-0${i}`,
+                name: `Rate-0${i}`,
                 value: `itemRate0${i}`,
+                style: "min-w-[140px] max-w-[200px] text-center"
+            }
+        const itemCodeDescription=  {
+                name: `Item Code Desc.-0${i}`,
+                value: `itemCodeDescription0${i}`,
                 style: "min-w-[140px] max-w-[200px] text-center"
             }
             dynamicColumns.push(itemCode);
             dynamicColumns.push(rateCode);
+            dynamicColumns.push(itemCodeDescription);
     }
 
     let table = {
@@ -145,7 +151,7 @@ const AccuralRevenueMaster = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Rate",
+                name: "Amount",
                 value: "rate",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },

@@ -104,7 +104,7 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
       const key = `itemCode0${i}`
       if (itemCodeData[key]?.length > 0) {
         const filteredData = itemCodeData[key]?.filter((item) => {
-            if(item?.rate) return item
+            if(item?.rate&& item?.itemCodeDescription) return item
           })
         const tempData = {
           label: `Item Code- 0${i}`,
@@ -116,7 +116,7 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
               
               
               return {
-              label: itm?.value+"-("+itm?.rate+")",
+              label: itm?.value+"-("+itm?.itemCodeDescription+")",
               value: itm?.value+" "+itm?.rate,
               rate:itm?.rate
             }
@@ -356,7 +356,7 @@ itemCodeInputs.push(tempData);
             classes="w-auto"
           />
         )}
-        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process'].includes(checkmilestoneStatus) && (
+        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process']?.includes(checkmilestoneStatus) && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}

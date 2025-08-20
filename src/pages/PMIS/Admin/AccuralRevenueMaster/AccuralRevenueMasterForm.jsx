@@ -80,7 +80,7 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             }
 
             const rateItem = {
-                label: `Item Rate-0${i}`,
+                label: `Rate-0${i}`,
                 value: "",
                 name: `itemRate0${i}`,
                 type: "number",
@@ -98,8 +98,24 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 },
                 classes: "col-span-1"
             }
+
+            const itemCodeDescription = {
+                label: `Item Code Description-0${i}`,
+                value: "",
+                name: `itemCodeDescription0${i}`,
+                type: "text",
+
+                filter: true,
+                props: {
+                    onChange: ((e) => {
+
+                    }),
+                },
+                classes: "col-span-1"
+            }
             dynamicForm.push(tempItem);
             dynamicForm.push(rateItem);
+            dynamicForm.push(itemCodeDescription);
         }
 
         setDynamicFormData(dynamicForm)
@@ -340,10 +356,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         for (let i = range.start; i <= range.end; i++) {
             const itemCode = data[`itemCode0${i}`];
             const itemRate = data[`itemRate0${i}`];
+            const itemCodeDesc = data[`itemCodeDescription0${i}`];
 
             if (
-                (itemCode && !itemRate) ||
-                (!itemCode && itemRate)
+                (!itemCode && !itemRate && !itemCodeDesc) 
             ) {
                 falseKey = true;
                 break;
