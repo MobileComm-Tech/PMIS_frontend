@@ -49,7 +49,7 @@ const CompletitonCreiteriaForm = ({
   const [selectedCustomValue, setSelectedCustomValue] = useState("")
 
 
-  const checkmilestone = mileStone["Completion Criteria"].split(",")
+  const checkmilestone = mileStone["Completion Criteria"]?.split(",")
   const checkmilestoneStatus = mileStone['mileStoneStatus']
   const milestoneName = mileStone['Name']
 
@@ -272,16 +272,19 @@ itemCodeInputs.push(tempData);
       }
     });
   });
+  if(Array.isArray(mileStoneCompletion)){
+    console.log(mileStoneCompletion,"__mileStoneCompletion_")
 
-  if (mileStoneCompletion[0]?.name?.includes("CC_")) {
-    mileStoneCompletion = [...mileStoneCompletion, ...itemCodeAllInputs];
+    if (mileStoneCompletion[0]?.name?.includes("CC_")) {
+        mileStoneCompletion = [...mileStoneCompletion, ...itemCodeAllInputs];
+      }
+
   }
-
+ 
   let backgeturl = projectListActions.getProjectTypeAll(projectuniqueId, filterView);
   if (myTaskPage === "Yes") {
     backgeturl = MyHomeActions.getMyTask();
   }
-console.log(mileStoneCompletion,"__mileStoneCompletion_")
 
   // useEffect(()=>{
   //   for(let i = 0; i< mileStoneCompletion.length;i++){
@@ -346,14 +349,14 @@ console.log(mileStoneCompletion,"__mileStoneCompletion_")
       />
 
       <div className="flex justify-center">
-        {!checkmilestone.includes("Forms & Checklist") && (
+        {!checkmilestone?.includes("Forms & Checklist") && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}
             classes="w-auto"
           />
         )}
-        {checkmilestone.includes("Forms & Checklist") && ['Open', 'In Process'].includes(checkmilestoneStatus) && (
+        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process'].includes(checkmilestoneStatus) && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}
