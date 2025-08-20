@@ -38,7 +38,7 @@ const ManageMilestoneSite = ({
   let rolename = user?.roleName;
 
 
-
+console.log(siteCompleteData,"___siteCompleteData__")
 
 
 
@@ -297,7 +297,17 @@ const ManageMilestoneSite = ({
   return (
     <>
       <Modal
-        children={modalBody}
+        children={<CompletitonCreiteriaForm
+                        siteCompleteData={siteCompleteData}
+                        customeruniqueId={siteCompleteData?.milestoneArray[0]?.customerId}
+                        projectuniqueId={projectuniqueId}
+                        setmodalFullOpen={setmodalFullOpen}
+                        setmodalOpen={setmodalOpen}
+                        modalOpen={modalOpen}
+                        mileStone={mileStone}
+                        myTaskPage={myTaskPage}
+                        filterView = {filterView}
+                      />}
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
         size={"smsh"}
@@ -328,18 +338,9 @@ const ManageMilestoneSite = ({
                 name={"Completion Criteria"}
                 onClick={() => {
                   if (assignedToCount != 0) {
-                    setmodalBody(
-                      <CompletitonCreiteriaForm
-                        siteCompleteData={siteCompleteData}
-                        customeruniqueId={customeruniqueId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView = {filterView}
-                      />
-                    );
+                    // setmodalBody(
+                      
+                    // );
                     setmodalOpen(true);
                   } else {
                     let msgdata = {

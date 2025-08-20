@@ -34,7 +34,7 @@ const CompletitonCreiteriaForm = ({
 }) => {
 
 
-  console.log(modalOpen,"__modelOpen")
+ 
   const dispatch = useDispatch();
   const dateString = siteCompleteData["siteStartDate"];
   const [day, month, year] = dateString?.split("-")?.map(Number);
@@ -319,10 +319,12 @@ console.log(mileStoneCompletion,"__mileStoneCompletion_")
   useEffect(() => {
     console.log("running_usefrer")
     setItemCodeAllInputs([])
-    if(['MS1'].includes(mileStone?.Name)&& modalOpen){
+    if(['MS1']?.includes(mileStone?.Name)&& modalOpen){
         getdataAll()
     }
   }, [modalOpen]);
+
+  console.log(modalOpen,"__modalOpen__")
 
   return (
     <>
