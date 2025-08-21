@@ -45,8 +45,8 @@ const CompletitonCreiteriaForm = ({
   const [itemCodeAllInputs, setItemCodeAllInputs] = useState([])
   const projectTypeName = siteCompleteData['projectType']
   const subProjectName = siteCompleteData['subProject']
-  const [custom,setCustom] = useState([])
-  const [selectedCustomValue, setSelectedCustomValue] = useState("")
+  // const [totalAmount,setAmount] = useState([])
+  const [quantityValue, setQuantityValue] = useState({})
 
 
   const checkmilestone = mileStone["Completion Criteria"]?.split(",")
@@ -80,14 +80,8 @@ const CompletitonCreiteriaForm = ({
     quantity.push(temp);
 
   }
-  console.log(modalOpen,"__modalOpen__")
-console.log(selectedCustomValue,"__selectedCustomValue__")
 
-  const customSelection = watch(selectedCustomValue);
 
-  // useEffe
-
-  console.log(customSelection,"__customSelection__")
 
   const getdataAll = async () => {
     const res = await Api.get({
@@ -95,6 +89,9 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
     });
 
     console.log(res?.data?.data[0], "__reshjhads");
+
+
+    
 
     const itemCodeData = res?.data?.data[0];
     const itemCodeInputs = []
@@ -122,15 +119,26 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
             }
             }
           }) ,
+          
           props: {
             onChange: (e) => {
-
-            },
+                 const  key  = `itemCodeRate0${i}`
+                 console.log(e?.target?.value,"__sdfghjk")
+                //  if(e?.target?.value?.split(" ")[-1]!=="" || e?.target?.value?.split(" ")[1]!==undefined){
+                const n  = e?.target?.value?.split(" ")?.length
+                console.log(e?.target?.value?.split(" ")[n-1],"__qwertyuiop")
+                   setQuantityValue(prev => ({
+                                  ...prev,
+                                  [key]: Number(e?.target?.value?.split(" ")[n-1])
+                                }));
+            // }
+                 }
+             
           },
 
           classes: "col-span-1",
         }
-
+       
         const quantityObj = {
           label: `Quantity-0${i}`,
           name: `quantity0${i}`,
@@ -139,12 +147,33 @@ console.log(selectedCustomValue,"__selectedCustomValue__")
           // option: quantity,
           props: {
             onChange: (e) => {
-              setSelectedCustomValue(`quantity0${i}`)
+              const  key  = `quantity0${i}`
+              setQuantityValue(prev => ({
+                                  ...prev,
+                                  [key]: Number(e?.target?.value)
+                                }));
             },
           },
 
           classes: "col-span-1",
         }
+         if (["MS1"]?.includes(mileStone?.Name)&& i===1){
+             const totalAmountField = {
+            label: "Total Amount",
+            name: "amount",
+            type: "number",
+            required: false,
+            props: {
+              onChange: (e) => {
+              
+            },
+              readOnly: true,
+              style: { backgroundColor: '#f0f8ff', fontWeight: 'bold' }
+            },
+            classes: "col-span-1",
+          };
+          itemCodeInputs.push(totalAmountField)
+          }
         if(filteredData?.length){
 itemCodeInputs.push(tempData);
         itemCodeInputs.push(quantityObj)
@@ -160,7 +189,23 @@ itemCodeInputs.push(tempData);
 
   }
 
-  console.log(itemCodeAllInputs, "___itemCodeAllInputs__")
+  useEffect(()=>{
+    let total=0;
+    for (let i = range.start; i <= range?.end; i++) { 
+  const rateKey = `itemCodeRate0${i}`;
+  const qtyKey = `quantity0${i}`;
+
+  if (quantityValue[rateKey] !== undefined || NaN && quantityValue[qtyKey] !== undefined || NaN ) {
+    console.log(quantityValue[rateKey],quantityValue[qtyKey],"___fghjk")
+    total += quantityValue[rateKey] * quantityValue[qtyKey];
+  }
+}
+
+setValue("amount",total)
+
+  },[quantityValue])
+
+  console.log(quantityValue, "quantityValue")
 
 
 
@@ -286,11 +331,14 @@ itemCodeInputs.push(tempData);
     backgeturl = MyHomeActions.getMyTask();
   }
 
-  // useEffect(()=>{
-  //   for(let i = 0; i< mileStoneCompletion.length;i++){
-  //     setValue(mileStoneCompletion[i]?.name,"")
-  //   }
-  // },[])
+  useEffect(()=>{
+    if(Array.isArray(mileStoneCompletion)&& mileStoneCompletion?.length>0){
+      for(let i = 0; i< mileStoneCompletion.length;i++){
+      setValue(mileStoneCompletion[i]?.name,"")
+    }
+    }
+    setQuantityValue({})
+  },[itemCodeAllInputs])
 
   const onsubmiting = (data) => {
 
@@ -304,16 +352,20 @@ itemCodeInputs.push(tempData);
     }else{
        data = calculateCompletionCriteriaPaylaod(itemCodeAllInputs,data);
     }
+
+    if(data===false){
+      return;
+    }
    
-    
-    dispatch(
-      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
-        setmodalOpen(false);
-        setmodalFullOpen(false);
-        dispatch(backgeturl);
-      }
-      )
-    );
+      console.log(data,"___newjbjsd")
+    // dispatch(
+    //   projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+    //     setmodalOpen(false);
+    //     setmodalFullOpen(false);
+    //     dispatch(backgeturl);
+    //   }
+    //   )
+    // );
   };
 
 
@@ -327,7 +379,7 @@ itemCodeInputs.push(tempData);
     }
   }, [modalOpen]);
 
-  console.log(modalOpen,"__modalOpen__")
+
 
   return (
     <>

@@ -19,7 +19,7 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
         
         if (falseKey) {
             alert("Please select the Quantity Code for all the filled ItemCodes (and vice versa).");
-            return;
+            return false;
         }
             let totalAmount= 0;
            for (let i = range.start; i <= range.end; i++) {
@@ -40,12 +40,12 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
 
                 if (isNaN(numbericQuantity)) {
                     alert(`Quantity ${i} must be a valid number.`);
-                    return;
+                    return false;
                 }
 
                 if (numbericQuantity < 0 ) {
                     alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
-                    return;
+                    return false;
                 }
                 // else if(numbericQuantity>50000 ){
                 //     alert(`Quantity ${i} should be less than 50000`);

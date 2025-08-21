@@ -113,9 +113,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
                 },
                 classes: "col-span-2"
             }
+            dynamicForm.push(itemCodeDescription);
             dynamicForm.push(tempItem);
             dynamicForm.push(rateItem);
-            dynamicForm.push(itemCodeDescription);
+            
         }
 
         setDynamicFormData(dynamicForm)
@@ -406,8 +407,10 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             }
         }   
             
-        data = { ...data, rate: sum }
+        data = { ...data, rate: sum,subProject:formValue?.subProject,customer:formValue?.customer, projectType:formValue?.projectType,project:formValue?.project}
         setAmmount(prev=>prev=0)
+
+        console.log(data,"____data__")
 
         if (formValue.uniqueId) {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {

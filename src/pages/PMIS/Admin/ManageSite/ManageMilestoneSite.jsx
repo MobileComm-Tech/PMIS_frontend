@@ -81,6 +81,7 @@ console.log(siteCompleteData,"___siteCompleteData__")
   const [modalHead, setmodalHead] = useState(<></>);
   const [modalBody, setmodalBody] = useState(<></>);
   const [invoiceData, setinvoiceData] = useState([]);
+  const [uniqueIdSiteEngg,setUniqueIdSiteEngg] = useState("")
   const dispatch = useDispatch();
 
   let showType = getAccessType("Financial button under Template");
@@ -138,7 +139,13 @@ console.log(siteCompleteData,"___siteCompleteData__")
 
             setValueForm1("CELL ID", cellidlistt?.split("-")?.join(","));
           }else{
+            console.log(iytm["fieldName"], datew[0][iytm["fieldName"]],"___datew")
             setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
+            
+          }
+
+          if(iytm["fieldName"]==="Unique ID"){
+            setUniqueIdSiteEngg(datew[0][iytm["fieldName"]])
           }
           console.log(
             iytm["fieldName"],
@@ -170,6 +177,8 @@ console.log(siteCompleteData,"___siteCompleteData__")
 
     return dataOlder;
   });
+
+  console.log(uniqueIdSiteEngg,"___DatatofProjec")
 
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};
@@ -294,6 +303,7 @@ console.log(siteCompleteData,"___siteCompleteData__")
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
   ];
+  console.log(dataOfOldProject,"___dataOfOldProject__")
   return (
     <>
       <Modal
@@ -389,7 +399,7 @@ console.log(siteCompleteData,"___siteCompleteData__")
                   Form={
                     dataOfProject
                       ? dataOfProject["t_sengg"]
-                        ? dataOfProject["t_sengg"].map((its) => {
+                        ? dataOfProject["t_sengg"]?.map((its) => {
                             let type = dtype[its.dataType];
                             let option = its.dropdownValue
                               ? its.dropdownValue.split(",").map((itm) => {
@@ -431,6 +441,20 @@ console.log(siteCompleteData,"___siteCompleteData__")
                                   };
                                 })
                               : [];
+                            }
+
+                            if(its["fieldName"]=== "Unique ID"){
+                              return {
+                              label: its.fieldName,
+                              value:uniqueIdSiteEngg!==undefined? uniqueIdSiteEngg: "",
+                              required: its.required == "Yes" ? true : false,
+                              option: option,
+                              name: its.fieldName,
+                              type: type,
+                              props: {
+                                maxSelectableDate: today,
+                              },
+                            };
                             }
 
                             return {

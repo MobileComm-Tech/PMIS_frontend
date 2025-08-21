@@ -10,6 +10,7 @@ import ConditionalButton from "../../../../components/ConditionalButton";
 import moment from "moment";
 import { useParams } from "react-router-dom";
 import { GET_POWORKDONE_BASED } from "../../../../store/reducers/finance-reducer";
+import { range } from "../../../../components/CommonObjectsAndVariables";
 
 const WorkDone = () => {
 
@@ -17,6 +18,7 @@ const WorkDone = () => {
   const endDate = moment().format("Y");
   let dispatch = useDispatch();
   const {customerId} = useParams()
+  const [itemColumns,setItemColumns] = useState([])
 
   let showType = getAccessType("Actions(Workdone)");
   let shouldIncludeEditColumn = false;
@@ -67,6 +69,42 @@ const WorkDone = () => {
     getValues,
     formState: { errors },
   } = useForm();
+
+
+  useEffect(()=>{
+
+    let allItemInputsColums=[]
+    for(let i =range.start; i<=range.end;i++){
+      
+      const itemCodes= {
+        name: `Item Code ${i}`,
+        value: `code0${i}`,
+        style: "min-w-[140px] max-w-[200px] text-center",
+      }
+
+      const itemDescriptions= {
+        name: `Description ${i}`,
+        value: `description0${i}`,
+        style: "min-w-[140px] max-w-[200px] text-center",
+      }
+      const itemQuantity= {
+        name: `Quantity ${i}`,
+        value: `msQuantity0${i}`,
+        style: "min-w-[140px] max-w-[200px] text-center",
+      }
+      const itemRate= {
+        name: `Rate ${i}`,
+        value: `rate0${i}`,
+        style: "min-w-[140px] max-w-[200px] text-center",
+      }
+        allItemInputsColums.push(itemCodes)
+        allItemInputsColums.push(itemDescriptions)
+        allItemInputsColums.push(itemQuantity)
+        allItemInputsColums.push(itemRate)
+
+    }
+    setItemColumns(allItemInputsColums)
+  })
 
   let table = {
     columns: [
@@ -150,41 +188,42 @@ const WorkDone = () => {
         value: "final_amount",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
-      {
-        name: "Item Code 1",
-        value: "itemCode01",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 2",
-        value: "itemCode02",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 3",
-        value: "itemCode03",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 4",
-        value: "itemCode04",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 5",
-        value: "itemCode05",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 6",
-        value: "itemCode06",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Item Code 7",
-        value: "itemCode07",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      ...itemColumns
+      // {
+      //   name: "Item Code 1",
+      //   value: "itemCode01",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 2",
+      //   value: "itemCode02",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 3",
+      //   value: "itemCode03",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 4",
+      //   value: "itemCode04",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 5",
+      //   value: "itemCode05",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 6",
+      //   value: "itemCode06",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Item Code 7",
+      //   value: "itemCode07",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
     ],
     properties: {
       rpp: [10, 20, 50, 100],

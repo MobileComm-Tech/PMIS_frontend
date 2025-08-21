@@ -32,7 +32,7 @@ const ManageProjectSiteIdForm = ({
   const [mile, setMile] = useState("Add");
   const [old, setOld] = useState({});
 
-  const[projectType,setProjectType] = useState("");
+  const[projectType,setProjectType] = useState({});
   const[subProjectType,setSubProjectType] = useState("");
 
   const [globalData, setGlobalData] = useState({
@@ -51,6 +51,7 @@ const ManageProjectSiteIdForm = ({
     if (old["_id"] != oldata["_id"]) {
       setOld(oldata)
       setProjectType(oldata["projectType"])
+      // setProjectType(oldata["projectType"])
       console.log(oldata["projectType"],"___sdfghjkl")
       setValue("ptype", oldata["projectType"])
 
@@ -61,7 +62,7 @@ const ManageProjectSiteIdForm = ({
 
 
 
-console.log(old,"__old__")
+console.log(projectType,subProjectType,"__old__")
   let Form = [
 
     {
@@ -99,7 +100,7 @@ console.log(old,"__old__")
         <p className="cursor-pointer" 
           onClick={() => {
             setmodalFullOpen(prev => !prev)
-            setmodalFullBody(<ManageSite oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
+            setmodalFullBody(<ManageSite projectType={projectType} subProjectType={subProjectType} oldgetvalue={getValues} setGlobalData={setGlobalData} setSiteId={setSiteId} setmodalFullOpen={setmodalFullOpen} projectuniqueId={projectuniqueId}  />)
           }}>
           <NewLookBadge text={SiteId} notifyType={"info"} />
         </p>,

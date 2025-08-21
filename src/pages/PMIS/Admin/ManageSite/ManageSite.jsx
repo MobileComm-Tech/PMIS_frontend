@@ -36,6 +36,8 @@ const ManageSite = ({
   projectuniqueId,
   setmodalFullOpen,
   setSiteId,
+  projectType,
+  subProjectType
 }) => {
   const { customeruniqueId } = useParams();
   const today = moment().format("YYYY-MM-DD");
@@ -50,7 +52,7 @@ const ManageSite = ({
     reset,
     formState: { errors },
   } = useForm();
-
+console.log(subProjectType,projectType,"___projs")
   const {
     register: registerForm1,
     setValue: setValueForm1,
@@ -450,14 +452,14 @@ const ManageSite = ({
                         ? [
                             {
                               label: "Project Type",
-                              value: "",
+                              value: projectType!==undefined? projectType:"",
                               name: "project",
                               type: "sdisabled",
                               classes: "col-span-1",
                             },
                             {
                               label: "Sub Project",
-                              value: "",
+                              value:subProjectType!==undefined?subProjectType: "",
                               name: "subProject",
                               type: "sdisabled",
                               classes: "col-span-1",
