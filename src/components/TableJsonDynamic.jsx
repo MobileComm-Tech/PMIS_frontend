@@ -15,7 +15,7 @@ const RowHandler = SortableHandle(() => <div className="handle text-center text-
 const TableRow = ({ data, columns, editing, tabHead, indexing, className }) => {
 
     const dispatch = useDispatch()
-    console.log(data, columns, indexing, "data, columns")
+    // console.log(data, columns, indexing, "data, columns")
     return <tr>
         <td>
             <div className="firstElement">
@@ -44,7 +44,7 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
     const dispatch = useDispatch()
 
-    console.log(columns, "columnscolumnscolumns")
+    // console.log(columns, "columnscolumnscolumns")
     const [items, setItems] = useState([
         "", "", "", ""
     ]);
@@ -53,7 +53,7 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
 
 
 
-        console.log(oldIndex, newIndex, "oldIndex, newIndex")
+        // console.log(oldIndex, newIndex, "oldIndex, newIndex")
 
         dispatch(SET_DYNAMIC_FORM_MOVE({ label: tabHead, oldIndex: oldIndex, newIndex: newIndex }))
 
@@ -127,7 +127,7 @@ const TableJsonDynamic = ({ editing, headers, functioning, tabHead, listing, col
                 >
                     {columns.map((value, index) => {
 
-                        console.log(value, index, "value, index")
+                        // console.log(value, index, "value, index")
                         return <SortableItem
                             key={`item-${index}`}
                             index={index}

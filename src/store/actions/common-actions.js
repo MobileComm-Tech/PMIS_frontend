@@ -49,7 +49,7 @@ const CommonActions = {
       }
       cb();
     } catch (error) {
-      console.log(error, "shubham errorerror 37");
+      // console.log(error, "shubham errorerror 37");
     }
     // finally {
     //     store.dispatch(ComponentActions.loaders(false));
@@ -84,13 +84,13 @@ const CommonActions = {
     },
   getApiCaller: (urls, cb) => async (dispatch, _) => {
     try {
-      console.log("CommonPostActions.postApiCaller");
+      // console.log("CommonPostActions.postApiCaller");
       const res = await Api.get({ url: urls });
       if (res?.status !== 201 && res?.status !== 200) return;
 
       cb();
     } catch (error) {
-      console.log(error, "shubham errorerror 37");
+      // console.log(error, "shubham errorerror 37");
     }
   },
 
@@ -110,7 +110,7 @@ const CommonActions = {
         cb();
       }
     } catch (error) {
-      console.log(error, "shubham errorerror 37");
+      // console.log(error, "shubham errorerror 37");
     }
   },
   deleteApiCallerBulk: (urls, data, cb) => async (dispatch, _) => {
@@ -131,7 +131,7 @@ const CommonActions = {
         cb();
       }
     } catch (error) {
-      console.log(error, "shubham errorerror 37");
+      // console.log(error, "shubham errorerror 37");
 
       // dispatch(Notify.error('something went wrong! please try again after a while'))
     }
@@ -166,7 +166,7 @@ const CommonActions = {
   //             dispatch(ALERTS(msgdata));
   //             cb()
   //         } else {
-  //             console.log(res, "resresresrescommondownload")
+              // console.log(res, "resresresrescommondownload")
   //             dispatch(SET_FILE_BLOB(new Blob([res?.data])))
   //             const url = window.URL.createObjectURL(new Blob([res.data]));
   //             const link = document.createElement('a');
@@ -214,7 +214,7 @@ const CommonActions = {
           link.click();
         }
       } catch (error) {
-        console.log(error, "shubham errorerror 37");
+        // console.log(error, "shubham errorerror 37");
       } finally {
         store.dispatch(ComponentActions.loaders(false));
       }
@@ -249,7 +249,7 @@ const CommonActions = {
           link.click();
         }
       } catch (error) {
-        console.log(error, "amit errorerror 37");
+        // console.log(error, "amit errorerror 37");
       } finally {
         store.dispatch(ComponentActions.loaders(false));
       }
@@ -284,7 +284,7 @@ const CommonActions = {
           link.click();
         }
       } catch (error) {
-        console.log(error, "amit errorerror 37");
+        // console.log(error, "amit errorerror 37");
       } finally {
         store.dispatch(ComponentActions.loaders(false));
       }
@@ -293,7 +293,7 @@ const CommonActions = {
     (urls, filename, method = "POST", data = {}, cb = () => {}) =>
     async (dispatch, _) => {
       try {
-        console.log(data,"__Data")
+        // console.log(data,"__Data")
         store.dispatch(ComponentActions.loaders(true));
         const res = await Api.blobFile({
           url: urls,
@@ -311,7 +311,7 @@ const CommonActions = {
           dispatch(ALERTS(msgdata));
           cb();
         } else {
-          console.log(res, "resresresrescommondownload");
+          // console.log(res, "resresresrescommondownload");
           dispatch(SET_FILE_BLOB(new Blob([res?.data])));
           const url = window.URL.createObjectURL(new Blob([res.data]));
           const link = document.createElement("a");
@@ -321,7 +321,7 @@ const CommonActions = {
           link.click();
         }
       } catch (error) {
-        console.log(error, "shubhamThakur errorerror 37");
+        // console.log(error, "shubhamThakur errorerror 37");
       } finally {
         store.dispatch(ComponentActions.loaders(false));
       }

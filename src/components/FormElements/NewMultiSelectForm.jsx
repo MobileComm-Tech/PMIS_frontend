@@ -12,7 +12,7 @@ const NewMultiSelectsForm = ({
 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
 
-  console.log(itm,"_________itmitm")
+  // console.log(itm,"_________itmitm")
 
   const SelectAllOption = { name: "Select All", id: "select-all" };
   let datew = [];
@@ -36,17 +36,17 @@ const NewMultiSelectsForm = ({
   const handleSelect = (e) => {
     let finalselection = e.map((itm) => itm.id);
     setSelectedValues(e);
-    console.log("asasfasfasfafasfadsaf__onSelect",e);
+    // console.log("asasfasfasfafasfadsaf__onSelect",e);
     setValue(itm.name, finalselection.join());
   };
 
   const handleRemove = (e) => {
     let finalselection = e.map((itm) => itm.id);
     setSelectedValues(e);
-    console.log("afafafafasdfadsasfasdf__onRemove",e);
+    // console.log("afafafafasdfadsasfasdf__onRemove",e);
     setValue(itm.name, finalselection.join());
   };
-  console.log("asdfasadfsasafasfadsfadf__selectedValues",selectedValues);
+  // console.log("asdfasadfsasafasfadsfadf__selectedValues",selectedValues);
   return (
         <div className={`max-w-[180px] min-w-[180px]  relative p-0 z-50  w-full`}>
             <MultiSelect

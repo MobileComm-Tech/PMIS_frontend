@@ -213,15 +213,15 @@ const ManageComplianceForm = ({
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
-        console.log(fieldName, "fieldNamefieldNamefieldName");
+        // console.log(fieldName, "fieldNamefieldNamefieldName");
         setValue(fieldName["name"], fieldName["value"]);
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

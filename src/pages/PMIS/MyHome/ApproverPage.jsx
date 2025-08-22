@@ -118,14 +118,14 @@ const ApproverPage = () => {
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`,
     })
-    console.log(item, "___itemdata")
+    // console.log(item, "___itemdata")
     if (res?.status === 200) {
 
-      console.log(res?.data?.data, 'afsdfasdfasdfasdfasdfs')
+      // console.log(res?.data?.data, 'afsdfasdfasdfasdfasdfs')
 
       const formType = res?.data?.data?.formType
       const formData = res?.data?.data?.formData
-      console.log(formType, "__FormType")
+      // console.log(formType, "__FormType")
 
 
       setmodalBody(<PTWApproverFormEdit formType={formType} formData={formData} setmodalOpen={setmodalOpen} flowType={res?.data?.data?.flow} itemData={item} setmodalHead={setmodalHead} />)
@@ -331,7 +331,7 @@ const ApproverPage = () => {
         value: "action",
         style: "text-center min-w-[100px]",
         render: (value, rowData) => {
-          console.log("Rendering buttons for row:", rowData);
+          // console.log("Rendering buttons for row:", rowData);
           return (
             <div className="flex justify-center gap-2">
               <button
@@ -414,12 +414,12 @@ const ApproverPage = () => {
   };
 
   const handleApprover = (rowData) => {
-    console.log(rowData, "___rowadsdad");
+    // console.log(rowData, "___rowadsdad");
     
     setmodalHead(rowData?.ptwNumber || "Select Approver");
 
     let modalBodyData = <></>;
-    console.log(type, "___type");
+    // console.log(type, "___type");
     if (type === "l1Approver") {
       setmodalBody(
         <>
@@ -476,14 +476,14 @@ const ApproverPage = () => {
       assignedDate: new Date().toISOString(),
     };
 
-    console.log("Assigning approver:", data);
+    // console.log("Assigning approver:", data);
 
     handleModalClose();
     dataAll();
   };
 
   const handlePdfDownload = (rowData) => {
-    console.log("Downloading PDF for:", rowData);
+    // console.log("Downloading PDF for:", rowData);
 
     const extractedData = extractRowData(rowData);
     const exportType = "PDF";
@@ -496,8 +496,8 @@ const ApproverPage = () => {
 
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
-    console.log("PDF Download endpoint:", endpoint);
-    console.log("Row data being sent:", extractedData);
+    // console.log("PDF Download endpoint:", endpoint);
+    // console.log("Row data being sent:", extractedData);
 
     dispatch(
       CommonActions.commondownloadpost(
@@ -510,7 +510,7 @@ const ApproverPage = () => {
   };
 
   const handleExcelDownload = (rowData) => {
-    console.log("Downloading Excel for:", rowData);
+    // console.log("Downloading Excel for:", rowData);
 
     const extractedData = extractRowData(rowData);
     const exportType = "EXCEL";
@@ -524,8 +524,8 @@ const ApproverPage = () => {
 
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
-    console.log("Excel Download endpoint:", endpoint);
-    console.log("Row data being sent:", extractedData);
+    // console.log("Excel Download endpoint:", endpoint);
+    // console.log("Row data being sent:", extractedData);
 
     dispatch(
       CommonActions.commondownloadpost(
@@ -551,7 +551,7 @@ const ApproverPage = () => {
   // // const approverTypeList = state
   //   })
   const approverList = useSelector((state) => {
-    console.log("Redux state:", state);
+    // console.log("Redux state:", state);
     const interdata = state?.ptwData?.getApproverPage || [];
     return interdata.map((itm) => ({
       ...itm,
@@ -628,7 +628,7 @@ const ApproverPage = () => {
             <AiOutlineEdit size={28} />
 
           </button>}
-          {console.log(type, 'fasdfasdfasdfasdfasdf')}
+          {/* {console.log(type, 'fasdfasdfasdfasdfasdf')} */}
           {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
             onClick={(e) => {
               e.stopPropagation();
@@ -705,7 +705,7 @@ const ApproverPage = () => {
 
     return <div className="flex flex-wrap gap-1">{buttons}</div>;
   };
-  console.log(modalOpen, "__modalOpen");
+  // console.log(modalOpen, "__modalOpen");
   const handleApproveReject = (item, status) => {
     if (status === "REJECTED") {
       setSelectedRow(item);
@@ -810,7 +810,7 @@ const ApproverPage = () => {
   };
 
   const submitLog = (item) => {
-    console.log("Submitting log for:", item);
+    // console.log("Submitting log for:", item);
     handleModalClose();
   };
 

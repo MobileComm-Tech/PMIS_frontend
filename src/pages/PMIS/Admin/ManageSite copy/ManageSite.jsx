@@ -76,7 +76,7 @@ const ManageSite = ({projectuniqueId}) => {
     })
 
 
-    console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
+    // console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
 
 
     const handleSiteEnggSubmit = (data) => {
@@ -102,14 +102,14 @@ const ManageSite = ({projectuniqueId}) => {
 
 
 
-        console.log(data,dataOfProject["uniqueId"], "dasugdjsahj")
+        // console.log(data,dataOfProject["uniqueId"], "dasugdjsahj")
 
     }
 
     const handleTrackingSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         
         let final_data={
             "SubProjectId":dataOfProject["uniqueId"],
@@ -129,7 +129,7 @@ const ManageSite = ({projectuniqueId}) => {
     const handleIssuesSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         
         let final_data={
             "SubProjectId":dataOfProject["uniqueId"],
@@ -149,7 +149,7 @@ const ManageSite = ({projectuniqueId}) => {
     const handleFinancialsSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         
         let final_data={
             "SubProjectId":dataOfProject["uniqueId"],
@@ -172,7 +172,7 @@ const ManageSite = ({projectuniqueId}) => {
     }
     
     const handleAddActivity = (res, targ, itm) => {
-        console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
+        // console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
 
         let newdata = {
             [targ]: res

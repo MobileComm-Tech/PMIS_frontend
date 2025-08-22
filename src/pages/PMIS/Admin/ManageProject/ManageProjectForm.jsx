@@ -92,7 +92,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
   });
 
   useSelector((state) => {
-    console.log(circlewq, getValues(), circleList.length, "getValues");
+    // console.log(circlewq, getValues(), circleList.length, "getValues");
 
     if (circlewq && circleList.length > 0) {
       setValue("circle", getValues()["circle"]);
@@ -143,7 +143,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
             "label"
             ]
           );
-          console.log(e.target.value, "e geeter");
+          // console.log(e.target.value, "e geeter");
           setValue("projectType", e.target.value);
         },
       },
@@ -215,11 +215,11 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
           if (filteredData.length > 0) {
             setValue("PMId", filteredData[0]["value"]);
           }
-          console.log(
-            pmempList.filter((itm) => itm.label == e.target.value),
-            e.target.value,
-            "e.target.value"
-          );
+          // console.log(
+          //   pmempList.filter((itm) => itm.label == e.target.value),
+          //   e.target.value,
+          //   "e.target.value"
+          // );
         },
       },
       required: true,
@@ -239,7 +239,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     },
   ];
   const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
+    // console.log(data, "datadatadatadata");
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -344,7 +344,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
             (itq) => itq.label == formValue[key.name]
           );
 
-          console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
+          // console.log(dtwq, key.name, formValue[key.name], "dtwqdtwqdtwq");
           if (dtwq.length > 0) {
             setValue(key.name, dtwq[0]["value"]);
           } else {

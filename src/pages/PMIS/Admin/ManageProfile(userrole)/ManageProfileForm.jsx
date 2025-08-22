@@ -23,7 +23,7 @@ const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => 
             filter: true,
             props: {
                 onChange: ((e) => {
-                    // console.log(e.target.value, "e geeter")
+                    console.log(e.target.value, "e geeter")
                     // setValue("queries",e.target.name)
                 }),
             },
@@ -40,13 +40,13 @@ const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => 
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
+        // console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageProfile(data, () => {
@@ -60,7 +60,7 @@ const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => 
             }))
         }
     }
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageProfile())
         if (resetting) {
@@ -70,10 +70,10 @@ const ManageProfileForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => 
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 

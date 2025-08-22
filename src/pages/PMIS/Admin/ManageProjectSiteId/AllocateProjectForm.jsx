@@ -79,11 +79,11 @@ const AllocateProjectForm = ({
       },
 
       onSelecting: (e) => {
-        console.log("onRemovings user", e);
+        // console.log("onRemovings user", e);
         setValue("vendorId", "");
       },
       onRemoving: (e) => {
-        console.log("onRemoving  user", e);
+        // console.log("onRemoving  user", e);
         setValue("vendorId", "");
       },
       required: true,
@@ -108,15 +108,15 @@ const AllocateProjectForm = ({
         onChange: (e) => {
           alert("dasdasdas");
           // dispatch(AdminActions.getProjectTypeDyform(dataGetterOld?.custId + "/" + e.target.value))
-          console.log(e.target.value, "e.target.value");
+          // console.log(e.target.value, "e.target.value");
         },
       },
       onSelecting: (e) => {
-        console.log("onRemovings vendor", e);
+        // console.log("onRemovings vendor", e);
         setValue("userId", "");
       },
       onRemoving: (e) => {
-        console.log("onRemoving vendor", e);
+        // console.log("onRemoving vendor", e);
         setValue("userId", "");
       },
       required: true,
@@ -125,7 +125,7 @@ const AllocateProjectForm = ({
     },
   ];
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const onTableViewSubmit = (data) => {

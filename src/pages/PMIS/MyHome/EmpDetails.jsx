@@ -483,7 +483,7 @@ const EmpDetails = (props) => {
       option: stateList,
       props: {
         onChange: (e) => {
-          console.log(e.target.value, "e_geeter");
+          // console.log(e.target.value, "e_geeter");
 
           setValue("state1", e.target.value);
 

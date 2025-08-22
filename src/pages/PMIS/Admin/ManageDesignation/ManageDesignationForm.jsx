@@ -18,14 +18,14 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
     let dispatch = useDispatch()
 
     let roleList = useSelector((state) => {
-        console.log(state, "state state")
+        // console.log(state, "state state")
         return state?.adminManagement?.roleList
     })
     let databaseList = useSelector((state) => {
-        console.log(state, "state")
+        // console.log(state, "state")
         let interdata = state?.customQuery?.databaseList
 
-        console.log(interdata, "interdatainterdata")
+        // console.log(interdata, "interdatainterdata")
         return state?.customQuery?.databaseList
     })
 
@@ -78,29 +78,29 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
+        // console.log(data, "datadata")
         // dasdsadsadasdas
         if (formValue.uniqueId) {
             dispatch(AdminActions.postManageDesignation(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+                // console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageDesignation())
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageDesignation(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+                // console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageDesignation())
             }))
         }
     }
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
         if (resetting) {
@@ -110,16 +110,16 @@ const ManageDesignationForm = ({ isOpen, setIsOpen, resetting, formValue = {} })
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 
 
                 } else {
-                    console.log("formValuekey", key, key)
+                    // console.log("formValuekey", key, key)
                     setValue(key.name, formValue[key.name]);
                 }
             })

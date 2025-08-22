@@ -358,7 +358,7 @@ const PersonalInfo = (props) => {
       option: stateList,
       props: {
         onChange: (e) => {
-          console.log(e.target.value, "e_geeter");
+          // console.log(e.target.value, "e_geeter");
 
           setValue("state", e.target.value);
 
@@ -1051,7 +1051,7 @@ const PersonalInfo = (props) => {
                               type: itm.name == "formovalue" ? nestfilter["wherecondition" + "_" + val + "_form"] == "joins" ? "muitiSelect" : "text" : itm.type,
                               props: itm.label == "Select Column" || (itm.label == "Value" && nestfilter["wherecondition" + "_" + val + "_form"] == "joins") ? {
                                 ...itm.props, onSelect: (a, b) => {
-                                  console.log("gamecall", a, b, "column" + "_" + val + "_form")
+                                  // console.log("gamecall", a, b, "column" + "_" + val + "_form")
                                   setValue(itm.label == "Select Column" ? "wherecolumn" + "_" + val + "_form" : "formovalue" + "_" + val + "_form", b.category + "smartGame" + b.name)
                                 }
                               } : { ...itm.props },
@@ -1081,7 +1081,7 @@ const PersonalInfo = (props) => {
                         } else {
                           finval = sval + 1
                         }
-                        console.log(finval, "finval", val, prev)
+                        // console.log(finval, "finval", val, prev)
                         return [...prev, finval]
                       })
                       setnestfilter(newprev => ({

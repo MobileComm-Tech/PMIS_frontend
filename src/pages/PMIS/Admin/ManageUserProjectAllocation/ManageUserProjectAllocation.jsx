@@ -51,7 +51,7 @@ const ManageUserProjectAllocation = () => {
 
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getProjectAllocation
-        console.log(interdata,"1234567890")
+        // console.log(interdata,"1234567890")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {

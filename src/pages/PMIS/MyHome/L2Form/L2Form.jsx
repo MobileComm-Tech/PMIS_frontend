@@ -544,8 +544,8 @@ const L2Form = () => {
 
     keys.forEach((key) => {
       const item = dbConfigList.find((item) => item.uniqueId === key);
-      console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
-      console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
+      // console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
+      // console.log(item,"=afdfadfsdfgfdgdgfddfgsddfassfadf=" ,amount);
       if (item) {
         amountRemark.push({
           _id: key,
@@ -560,7 +560,7 @@ const L2Form = () => {
     data.expenseId = expenseRef.current?.ExpenseNo;
     data.addedFor = expenseRef.current?.addedFor;
 
-    console.log("kjhgfdghkjl;khgfdsfghjkljhgfdsfghjkjhgfdsdgjhk",data)
+    // console.log("kjhgfdghkjl;khgfdsfghjkljhgfdsfghjkjhgfdsdgjhk",data)
     dispatch(
       ExpenseAdvanceActions.postApprovalStatus(true, data, () => {
         // setIsOpen(false);
@@ -737,7 +737,7 @@ const L2Form = () => {
             tableName={"UserListTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList?.map((item, index) => {
-              console.log("nkwjdwoiekjdlkdmalkdmlksamdlksamdlks=", item);
+              // console.log("nkwjdwoiekjdlkdmalkdmlksamdlksamdlks=", item);
               return {
                 ...item,
                 amount: (

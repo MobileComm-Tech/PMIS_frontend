@@ -71,7 +71,7 @@ const VendorProjectAllocation = () => {
             let updateditm = {
                 ...itm,
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
+                    // console.log(e.target.checked, "e.target.checked")
                     let data = {
                         "enabled": e.target.checked ? 1 : 0
                     }
@@ -85,7 +85,7 @@ const VendorProjectAllocation = () => {
                     //     itm.enabled=0
                     // }
                     // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
+                    // console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {

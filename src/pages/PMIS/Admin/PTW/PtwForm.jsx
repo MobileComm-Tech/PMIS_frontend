@@ -66,7 +66,7 @@ const PtwForm = () => {
   }
 
   useEffect(() => {
-    console.log('called...........................')
+    // console.log('called...........................')
       getPtwFormData()
   } , [page])
 
@@ -182,7 +182,7 @@ const PtwForm = () => {
 
   const handleAddActivity = (datas, head) => {
 
-    console.log(datas , head , 'data........')
+    // console.log(datas , head , 'data........')
     if(data?._id){
       dispatch(PTWActions.managePtwApiPatch(datas , `/admin/ptw/${page}/${head.toLowerCase()}` , '' , data?._id , () =>{
       getPtwFormData()

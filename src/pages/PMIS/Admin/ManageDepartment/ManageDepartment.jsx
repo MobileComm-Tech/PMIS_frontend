@@ -32,7 +32,7 @@ const ManageDepartment = () => {
             child={
               <ToggleButton
                 onChange={(e) => {
-                  console.log(e.target.checked, "e.target.checked");
+                  // console.log(e.target.checked, "e.target.checked");
                   let data = {
                     enabled: e.target.checked ? 1 : 0,
                   };
@@ -46,7 +46,7 @@ const ManageDepartment = () => {
                       itm.id
                     )
                   );
-                  console.log(itm.enabled, "itm.enabled");
+                  // console.log(itm.enabled, "itm.enabled");
                 }}
                 defaultChecked={itm.enabled == 1 ? true : false}
               ></ToggleButton>
@@ -75,7 +75,7 @@ const ManageDepartment = () => {
                       {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>
                   );
-                  console.log("ahshshhs", itm);
+                  // console.log("ahshshhs", itm);
                   //setmodalOpen(false)
                 }}
               ></EditButton>
@@ -111,7 +111,7 @@ const ManageDepartment = () => {
                       <Button
                         classes="w-auto"
                         onClick={() => {
-                          console.log("snnsnsnsns");
+                          // console.log("snnsnsnsns");
                           dispatch(ALERTS({ show: false }));
                         }}
                         name={"Cancel"}
@@ -132,7 +132,7 @@ const ManageDepartment = () => {
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageDepartment;
-    console.log(interdata, "1234567890");
+    // console.log(interdata, "1234567890");
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

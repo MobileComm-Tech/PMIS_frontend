@@ -8,7 +8,7 @@ const ToggleButton = ({ onChange, showinfo = [], defaultChecked, classes = "" })
     const [state, setstate] = useState("")
     const [lclstate, setlclstate] = useState(defaultChecked)
 
-    console.log("lclstate",lclstate,"state",state,"defaultChecked",defaultChecked,"state, setstate")
+    // console.log("lclstate",lclstate,"state",state,"defaultChecked",defaultChecked,"state, setstate")
     if (state != defaultChecked) {
         setstate(defaultChecked)
         setlclstate(defaultChecked)

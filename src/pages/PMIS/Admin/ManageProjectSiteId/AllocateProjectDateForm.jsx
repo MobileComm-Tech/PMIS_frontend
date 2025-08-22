@@ -57,7 +57,7 @@ const AllocateProjectDateForm = ({
 
     }
 
-    console.log(oldata, "olddataolddataolddata")
+    // console.log(oldata, "olddataolddataolddata")
     return oldata
   })
 
@@ -113,7 +113,7 @@ const AllocateProjectDateForm = ({
   // });
 
 
-  console.log(old, "dataGetterOlddataGetterOlddataGetterOld")
+  // console.log(old, "dataGetterOlddataGetterOlddataGetterOld")
   let Form = [
 
     {
@@ -161,7 +161,7 @@ const AllocateProjectDateForm = ({
 
   ];
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -180,7 +180,7 @@ const AllocateProjectDateForm = ({
       }
     }
 
-    console.log(finaldata, formValue, data, "globalDataglobalDataglobalData")
+    // console.log(finaldata, formValue, data, "globalDataglobalDataglobalData")
     dispatch(projectListActions.globalProjectTypeDataPatch(Urls.projectList_globalSaver, projectuniqueId, finaldata, () => {
       dispatch(projectListActions.getProjectTypeAll(projectuniqueId))
       setIsOpen(false)

@@ -34,7 +34,7 @@ const ManageProjectGroup = () => {
                 ...itm,
                 // projectGroupId: `${itm.costCenter || ''}-${itm.shortName || ''}-${itm.shortCode || ''}`,
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
+                    // console.log(e.target.checked, "e.target.checked")
                     let data = {
                         "enabled": e.target.checked ? 1 : 0
                     }
@@ -48,7 +48,7 @@ const ManageProjectGroup = () => {
                     //     itm.enabled=0
                     // }
                     // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
+                    // console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "ed it": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
@@ -58,7 +58,7 @@ const ManageProjectGroup = () => {
                         <ManageProjectGroupForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
+                    // console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
@@ -74,7 +74,7 @@ const ManageProjectGroup = () => {
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
+                                // console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],

@@ -76,7 +76,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
     })
 
 
-    console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
+    // console.log(dataOfProject, "dataOfProjectdataOfProjectdataOfProject")
 
 
     const handleSiteEnggSubmit = (data) => {
@@ -114,14 +114,14 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
 
 
 
-        console.log(data, dataOfProject["uniqueId"], "dasugdjsahj")
+        // console.log(data, dataOfProject["uniqueId"], "dasugdjsahj")
 
     }
 
     const handleTrackingSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         setSiteId(data["siteid"]?data["siteid"]:"Add")
 
         let final_data = {
@@ -146,7 +146,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
     const handleIssuesSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         setSiteId(data["siteid"]?data["siteid"]:"Add")
 
         let final_data = {
@@ -171,7 +171,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
     const handleFinancialsSubmit = (data) => {
 
 
-        console.log(data, "dasugdjsahj")
+        // console.log(data, "dasugdjsahj")
         setSiteId(data["siteid"]?data["siteid"]:"Add")
 
         let final_data = {
@@ -199,7 +199,7 @@ const EditingManageSite = ({setGlobalData, projectuniqueId, setmodalFullOpen, se
     }
 
     const handleAddActivity = (res, targ, itm) => {
-        console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
+        // console.log(res, "uniqueness", itm.uniqueId, "uniqueness", "handleAddActivity");
 
         let newdata = {
             [targ]: res

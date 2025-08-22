@@ -28,7 +28,7 @@ const ManageVendorForm = (props) => {
   } = useForm();
 
   const { empuid } = useParams();
-  console.log(empuid, "formValueformValueformValue");
+  // console.log(empuid, "formValueformValueformValue");
   const dispatch = useDispatch();
   const [oneLoad, setOneLoad] = useState({});
   const [dataQuery, SetdataQuery] = useState("Select * from values;");
@@ -40,7 +40,7 @@ const ManageVendorForm = (props) => {
 
     let data = state.vendorData.getManageVendorDetails || [];
 
-    console.log(data, "datadatadatadatadatadatadata");
+    // console.log(data, "datadatadatadatadatadatadata");
     if (data.length > 0 && oneLoad != data[0]) {
       setOneLoad(data[0]);
 
@@ -72,7 +72,7 @@ const ManageVendorForm = (props) => {
     return state.vendorData.getManageVendorDetails || "";
   });
 
-  console.log(getManageVendorDetails, "getManageVendorDetails");
+  // console.log(getManageVendorDetails, "getManageVendorDetails");
 
   const today = moment().format("DD-MM-yyyy");
 

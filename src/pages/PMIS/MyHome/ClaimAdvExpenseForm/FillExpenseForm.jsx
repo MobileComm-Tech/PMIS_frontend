@@ -315,7 +315,7 @@ const FillExpenseForm = ({
 
       props: {
         onChange: (e) => {
-          console.log(e.target.files, "e geeter");
+          // console.log(e.target.files, "e geeter");
           setValue("attachment", e.target.files[0]);
         },
         accept: ".img, .png, .jpg, .jpeg, .webp, .pdf",
@@ -413,7 +413,7 @@ const FillExpenseForm = ({
 
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -454,7 +454,7 @@ const FillExpenseForm = ({
       }
       dispatch(
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
-          console.log("CustomQueryActions.postDBConfig");
+          // console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(ExpenseAdvanceActions.getFillExpense());
         })
@@ -493,9 +493,9 @@ const FillExpenseForm = ({
       }
 
       
-      console.log(Object.keys(formValue),claimTypeList.filter((itm)=>itm.label==formValue["types"])[0],formValue,formValue["categories"], "Object.keys(formValue)");
+      // console.log(Object.keys(formValue),claimTypeList.filter((itm)=>itm.label==formValue["types"])[0],formValue,formValue["categories"], "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
-        console.log(key,"key. name")
+        // console.log(key,"key. name")
 
         if (["expenseDate"].indexOf(key) != -1) {
           const momentObj = moment(formValue[key],"DD-MM-yyyy");

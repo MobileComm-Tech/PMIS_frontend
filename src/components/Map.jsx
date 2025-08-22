@@ -8,8 +8,8 @@ export default function Map({ coords, display_name }) {
   
   const { latitude, longitude } = coords;
   
-  console.log(latitude);
-  console.log(longitude);
+  // console.log(latitude);
+  // console.log(longitude);
   // console.log(longitude );
   // const { lat, long } = coords;
 

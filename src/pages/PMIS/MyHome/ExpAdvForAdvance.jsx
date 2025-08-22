@@ -163,7 +163,7 @@ const ExpAdvForAdvance = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    console.log('statestatestate',state)
+    // console.log('statestatestate',state)
     let interdata = state?.expenseAdvanceData?.getHRAllAdvance;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];

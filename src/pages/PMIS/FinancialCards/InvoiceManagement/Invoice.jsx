@@ -137,7 +137,7 @@ const Invoice = () => {
                       <Button
                         classes="w-auto"
                         onClick={() => {
-                          console.log("snnsnsnsns");
+                          // console.log("snnsnsnsns");
                           dispatch(ALERTS({ show: false }));
                         }}
                         name={"Cancel"}
@@ -158,7 +158,7 @@ const Invoice = () => {
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.financeData?.getInvoice || [];
-    console.log(interdata,"_________interdata___________")
+    // console.log(interdata,"_________interdata___________")
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {

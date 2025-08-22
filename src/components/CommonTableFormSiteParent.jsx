@@ -49,12 +49,12 @@ const CommonTableFormSiteParent = ({
     // return () => {
     //   funcaller()
     //   setType(false)
-    //   console.log("component unmounted")
+      // console.log("component unmounted")
     // }
     beforeAnyChange();
   }, [activeTab]);
 
-  console.log(tabslist, "____tabslist__");
+  // console.log(tabslist, "____tabslist__");
   return (
     <div className="max-w-full mx-auto ">
       {tabslist && (

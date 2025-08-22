@@ -39,7 +39,7 @@ import AdvancedTableAOP from "../../../../components/AdvanceTableAOP";
 function Tabs({ data, enable, setEnable }) {
   const dispatch = useDispatch();
   const handleTab = (data) => {
-    console.log("======cmewfjklerfn=", data);
+    // console.log("======cmewfjklerfn=", data);
     setEnable(data);
     if (data == "Cumulative") {
       dispatch(tableAction.getTable(Urls.aop + "?Cumulative=true", SET_TABLE));
@@ -187,7 +187,7 @@ const AOPTracking = () => {
       ? state.table.tableContent.map((item) => {
           let index =
             isNaN(item.month) == false ? monthMap[item.month] : item.month;
-          console.log("hkjhkjhkjhkjhkjhkjh", isNaN(item.month));
+          // console.log("hkjhkjhkjhkjhkjhkjh", isNaN(item.month));
           // let pRev=item["planRevenue"]
           // let pCOGS=item["COGS"]
           // let pSGNA=item["SGNA"]
@@ -294,7 +294,7 @@ const AOPTracking = () => {
         })
       : [];
   });
-  console.log(rows, "dlidukdiuiduiduiujd");
+  // console.log(rows, "dlidukdiuiduiduiujd");
 
   let circleList = useSelector((state) => {
     return state?.adminData?.getManageCircle.map((itm) => {
@@ -326,7 +326,7 @@ const AOPTracking = () => {
   //   }))
   // );
   let bussinessUnit = useSelector((state) => {
-    console.log(state, "dkljdjdjijdijodiojoid");
+    // console.log(state, "dkljdjdjijdijodiojoid");
     return Array.isArray(state?.dropDown?.bussinessUnit)
       ? state?.dropDown?.bussinessUnit.map((itm) => {
           return {
@@ -442,7 +442,7 @@ const AOPTracking = () => {
       url: Urls.businessUnit,
       contentType: "application/json",
     });
-    console.log("================", res.data.data);
+    // console.log("================", res.data.data);
     dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.businessUnit));
   };
   useEffect(() => {
@@ -770,7 +770,7 @@ const AOPTracking = () => {
         )
       );
     }
-    console.log("Form Errors:", errors);
+    // console.log("Form Errors:", errors);
     return {};
   };
 
@@ -1031,7 +1031,7 @@ const AOPTracking = () => {
     );
   };
 
-  console.log("vkelmfvkfenfvkfd vev===", enable);
+  // console.log("vkelmfvkfenfvkfd vev===", enable);
 
   return (
     <>

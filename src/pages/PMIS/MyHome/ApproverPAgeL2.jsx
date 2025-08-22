@@ -43,7 +43,7 @@ const ApproverPageL2 = () => {
   };
 
   const approverList = useSelector((state) => {
-    console.log("Redux state:", state);
+    // console.log("Redux state:", state);
     const interdata = state?.ptwData?.getApproverPage || [];
     return interdata.map((itm) => ({
       ...itm,
@@ -73,7 +73,7 @@ const ApproverPageL2 = () => {
       // getActionButtons: getActionButtons(itm),
     }));
   });
-  console.log(approverList, "__approverLiust");
+  // console.log(approverList, "__approverLiust");
 
   const approverTotalCount = useSelector((state) => {
     const interdata = state?.ptwData?.getApproverPage || [];
@@ -226,7 +226,7 @@ const ApproverPageL2 = () => {
   };
 
   const submitLog = (item) => {
-    console.log("Submitting log for:", item);
+    // console.log("Submitting log for:", item);
     handleModalClose();
   };
 

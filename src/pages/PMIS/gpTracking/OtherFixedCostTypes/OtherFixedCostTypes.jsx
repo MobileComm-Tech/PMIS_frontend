@@ -65,7 +65,7 @@ const OtherFixedCostTypes = () => {
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
+                                // console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],

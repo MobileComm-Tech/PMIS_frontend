@@ -269,7 +269,7 @@ const GPTracking = () => {
 
   const onSubmit = (data) => {
     // alert('dhdjjdjjjd')
-    console.log("hello_printed");
+    // console.log("hello_printed");
     let value = data.reseter;
     delete data.reseter;
     const customerName = customerList.find(

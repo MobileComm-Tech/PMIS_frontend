@@ -77,7 +77,7 @@ const OtherFixedCostTypesForm = ({ isOpen, setIsOpen, resetting, formValue = {} 
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
@@ -105,12 +105,12 @@ const OtherFixedCostTypesForm = ({ isOpen, setIsOpen, resetting, formValue = {} 
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Object.keys(formValue).forEach((key) => {
 
 
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 

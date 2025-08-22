@@ -9,7 +9,7 @@ import { GET_MANAGE_ZONE } from '../../../../store/reducers/admin-reducer';
 
 const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
@@ -106,7 +106,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
     } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))

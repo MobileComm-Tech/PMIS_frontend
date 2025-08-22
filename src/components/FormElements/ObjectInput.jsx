@@ -9,7 +9,7 @@ const ObjectInput = ({
   register,
 }) => {
   // Serialize the object into a string
-  console.log('09090',itm)
+  // console.log('09090',itm)
   const fieldName = `${itm.name.name}:{id:${itm.name.id},value:"user input"}`;
 
   return (

@@ -74,13 +74,13 @@ const Expander = ({
 };
 
 const TreeStructure = ({ data }) => {
-console.log("____data__", data)
+// console.log("____data__", data)
   const navigate = useNavigate();
 
   return (
     <div className="px-4 flex space-x-4 h-[80vh] overflow-y-scroll mb-[300px]">
       {data.map((itm, index) => {
-        console.log(itm , 'asdfasdfasdfasdfsdfsdfgsdfgsdfgdsfds')
+        // console.log(itm , 'asdfasdfasdfasdfsdfsdfgsdfgsdfgdsfds')
         return (<div style={{
       display : getAccessType(itm.title) === 'invisible' ? 'none' : 'block'
     }} >

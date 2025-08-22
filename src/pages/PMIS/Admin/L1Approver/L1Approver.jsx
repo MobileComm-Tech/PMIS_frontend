@@ -53,7 +53,7 @@ const L1Approver = () => {
   
   
   const l1ApproverList = useSelector((state) => {
-    console.log("Redux state:", state);
+    // console.log("Redux state:", state);
     const interdata = state?.ptwData?.getL1ApproverData || [];
     return interdata.map((itm) => ({
       ...itm,
@@ -114,7 +114,7 @@ const L1Approver = () => {
   });
 
   const handleEditClick = (item) => {
-    console.log("Edit clicked for item:", item);
+    // console.log("Edit clicked for item:", item);
     setEditingItem(item);
     setmodalHead("Edit Approver");
 

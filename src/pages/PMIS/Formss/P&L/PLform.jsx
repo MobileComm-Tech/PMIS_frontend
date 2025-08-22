@@ -20,7 +20,7 @@ const PLform = ({
 }) => {
 
   let roleName = useSelector((state) => {
-    console.log(state,"++++state")
+    // console.log(state,"++++state")
     let role = state?.auth?.user?.roleName;
     return role;
   });
@@ -151,7 +151,7 @@ const PLform = ({
 
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const onTableViewSubmit = (data) => {
@@ -191,10 +191,10 @@ const PLform = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

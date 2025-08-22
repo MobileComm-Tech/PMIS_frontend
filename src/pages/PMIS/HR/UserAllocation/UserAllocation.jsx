@@ -24,13 +24,13 @@ const UserAllocation = () => {
         return interdata
     })
     let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
+        // console.log(state, "state statejjjj")
         let interdata = state?.OperationManagementReducer?.usersList
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
                 "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    console.log(e.target.checked, "e.target.checked")
+                    // console.log(e.target.checked, "e.target.checked")
                     let data = {
                         "enabled": e.target.checked ? 1 : 0
                     }
@@ -44,7 +44,7 @@ const UserAllocation = () => {
                     //     itm.enabled=0
                     // }
                     // itm.enabled=itm.enabled==0?1:0
-                    console.log(itm.enabled, "itm.enabled")
+                    // console.log(itm.enabled, "itm.enabled")
                 }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
@@ -54,7 +54,7 @@ const UserAllocation = () => {
                     //     <OperationManagementForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                     //     {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     // </>)
-                    console.log('ahshshhs',itm)
+                    // console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
@@ -70,7 +70,7 @@ const UserAllocation = () => {
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
+                                // console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],
@@ -147,7 +147,7 @@ const UserAllocation = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
+        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(OperationManagementActions.getOperationUserList(value, objectToQueryString(data)))

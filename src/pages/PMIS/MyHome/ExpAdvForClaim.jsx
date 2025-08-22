@@ -186,7 +186,7 @@ const ExpAdvForClaim = () => {
     });
   });
   let dbConfigTotalCount = useSelector((state) => {
-    console.log('statestatestate2',state)
+    // console.log('statestatestate2',state)
     let interdata = state?.expenseAdvanceData?.getHRAllExpenses;
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];

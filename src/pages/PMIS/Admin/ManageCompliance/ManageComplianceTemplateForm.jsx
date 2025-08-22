@@ -125,7 +125,7 @@ const ManageComplianceTemplateForm = ({
     setTimeout(() => {
     const value = isViewOnly()
     if (!value) {
-      console.log("____", `[value="${L1UserId}"]`)
+      // console.log("____", `[value="${L1UserId}"]`)
       const ele = document.querySelector(`[value="${L1UserId}"]`)
       if (!ele) return
       ele.setAttribute("selected", true)
@@ -140,7 +140,7 @@ const ManageComplianceTemplateForm = ({
     }, 0)
   }, [L1UserId, L1UserName]);
 
-  console.log(L1Approver,"___L1Approver__")
+  // console.log(L1Approver,"___L1Approver__")
   let dataOfOldProject = useSelector((state) => {
     let datew = state.projectList.globalComplianceTypeData;
 
@@ -772,7 +772,7 @@ const ManageComplianceTemplateForm = ({
   }
 
 
-  console.log(tabslist,activeTab[1],"____________tabslist____________")
+  // console.log(tabslist,activeTab[1],"____________tabslist____________")
 
 
 

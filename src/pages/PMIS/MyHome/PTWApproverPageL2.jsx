@@ -32,7 +32,7 @@ const PTWApproverPageL2 = () => {
     (state) => state?.ptwData?.getApproverPageDataForm || []
   );
 
-  console.log(approverPageData, "__approvePageData");
+  // console.log(approverPageData, "__approvePageData");
 
   const {
     register,
@@ -235,7 +235,7 @@ const PTWApproverPageL2 = () => {
 
   // Filter handler for AdvancedTable
   const onSubmit = (filters) => {
-    console.log("Filters applied:", filters);
+    // console.log("Filters applied:", filters);
     // Handle filtering logic here
   };
 
@@ -335,7 +335,7 @@ const PTWApproverPageL2 = () => {
           heading="Total Count :-"
           selectable={true}
           onSelectionChange={(selectedItems) => {
-            console.log("Selected items:", selectedItems);
+            // console.log("Selected items:", selectedItems);
           }}
         />
 

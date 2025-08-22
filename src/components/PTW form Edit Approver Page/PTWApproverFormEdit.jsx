@@ -76,7 +76,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
                 });
             }
 
-            console.log('jhgfhjk')
+            // console.log('jhgfhjk')
 
 
       if (res?.status === 200 || res?.status === 201) {
@@ -95,7 +95,7 @@ const PTWApproverFormEdit = ({ setmodalHead, setmodalOpen, formData, formType, f
       }
 
     } catch (e) {
-      console.log(e, '___submit error');
+      // console.log(e, '___submit error');
     }
   };
 

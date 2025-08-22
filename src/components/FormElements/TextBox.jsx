@@ -10,10 +10,10 @@ const TextBox = ({
   
 }) => {
 
-  console.log(register,"___itm")
-  console.log(document.getElementById("ppp")?.innerHTML,"__inereHTLN")
+  // console.log(register,"___itm")
+  // console.log(document.getElementById("ppp")?.innerHTML,"__inereHTLN")
 
- console.log(itm,"__itm__")
+//  console.log(itm,"__itm__")
  
   return (
     <>

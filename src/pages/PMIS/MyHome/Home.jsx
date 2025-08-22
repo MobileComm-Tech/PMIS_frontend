@@ -32,7 +32,7 @@ const MyHome = () => {
   let navigate = useNavigate();
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
+    // console.log(state, "state statejjjj");
     let interdata = state?.myHomeData?.getMyHome;
     return interdata?.map((itm) => {
       let updateditm = {

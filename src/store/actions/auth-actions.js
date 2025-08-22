@@ -31,7 +31,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     register: (data, cb) => async (dispatch, _) => {
@@ -50,7 +50,7 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     businessRegister: (data, cb) => async (dispatch, _) => {
@@ -69,7 +69,7 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -77,10 +77,10 @@ const AuthActions = {
 
     postsetupRegistration: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", data)
+            // console.log("AuthActions.signin", data)
             //const res = await Api.post({ data: data, url: uniqueId == null ? Urls.setupRegistration : Urls.setupRegistration + "/" + uniqueId,contentType:"multipart/form-data" })
             const res = await Api.post({ data: data, url: Urls.setupRegistration,contentType:"multipart/form-data" })
-            console.log(res,'jsjjjsjh')
+            // console.log(res,'jsjjjsjh')
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,
@@ -91,14 +91,14 @@ const AuthActions = {
                 };
                 dispatch(ALERTS(msgdata));
             }else{
-                console.log(res.data,'jdjhhjjdjd')
+                // console.log(res.data,'jdjhhjjdjd')
                 dispatch(SET_USER_ROLE(res?.data.role))
                 dispatch(SET_USER_BUSINESS(data))
                 cb()
             }
             
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
             
             // dispatch(Notify.error('something went wrong! please try again after a while'))
             return;
@@ -125,7 +125,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     kycregiter: (data, cb, failcb) => async (dispatch, _) => {
@@ -151,7 +151,7 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     profile: () => async (dispatch, _) => {
@@ -161,7 +161,7 @@ const AuthActions = {
             const dataAll = res?.data?.data[0]
             dispatch(USERS_PROFILE({ dataAll }))
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     sendMail: (data, cb) => async (dispatch, _) => {
@@ -186,20 +186,20 @@ const AuthActions = {
                 cb()
             }
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     postProfile: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
+            // console.log("AuthActions.signin", uniqueId)
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.profile : Urls.profile })
-            console.log(res, 'jsjjjsjh')
+            // console.log(res, 'jsjjjsjh')
             dtaa=res?.data
             if (res?.status !== 201 && res?.status !== 200) return
             dispatch(SET_USER_ROLE(dtaa?.role))
             cb()
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
     postProfileDocuments: (data, cb, uniqueId) => async (dispatch, _) => {
@@ -208,19 +208,19 @@ const AuthActions = {
             if (res?.status !== 201 && res?.status !== 200) return
             cb()
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
 
     getcountries: () => async (dispatch, _) => {
         try {
             const res = await Api.get({ url: Urls.getCountries })
-            console.log(res,'sjjdjdjhdhdh')
+            // console.log(res,'sjjdjdjhdhdh')
             if (res?.status !== 200) return
             const dataAll = res?.data?.data[0]
             dispatch(ALL_COUNTRIES({ dataAll }))
         } catch (error) {
-            console.log(error, "shubham errorerror 69")
+            // console.log(error, "shubham errorerror 69")
         }
     },
 

@@ -10,7 +10,7 @@ import { objectToQueryString } from "../../../utils/commonFunnction";
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
-  console.log(dataAll, "csddsffffdff");
+  // console.log(dataAll, "csddsffffdff");
 
   const ptwBackupData = useSelector(
     (state) => state?.ptwData?.getPtwLogBackup || []
@@ -32,7 +32,7 @@ const PTWLogBackup = () => {
   };
 
    const handleExcelDownload = (rowData) => {
-    console.log("Downloading Excel for:", rowData);
+    // console.log("Downloading Excel for:", rowData);
 
     const extractedData = extractRowData(rowData);
     const exportType = "EXCEL";
@@ -53,8 +53,8 @@ const PTWLogBackup = () => {
 
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
-    console.log("Excel Download endpoint:", endpoint);
-    console.log("Row data being sent:", extractedData);
+    // console.log("Excel Download endpoint:", endpoint);
+    // console.log("Row data being sent:", extractedData);
 
     dispatch(
       CommonActions.commondownloadpost(
@@ -73,7 +73,7 @@ const PTWLogBackup = () => {
   };
 
    const handlePdfDownload = (rowData) => {
-    console.log("Downloading PDF for:", rowData);
+    // console.log("Downloading PDF for:", rowData);
 
     const extractedData = extractRowData(rowData);
     const exportType = "PDF";
@@ -93,8 +93,8 @@ const PTWLogBackup = () => {
 
     const endpoint = `/ptw_export?${queryParams.toString()}`;
 
-    console.log("PDF Download endpoint:", endpoint);
-    console.log("Row data being sent:", extractedData);
+    // console.log("PDF Download endpoint:", endpoint);
+    // console.log("Row data being sent:", extractedData);
 
     dispatch(
       CommonActions.commondownloadpost(
@@ -137,7 +137,7 @@ const PTWLogBackup = () => {
     }
   })
 
-  console.log(ptwBackupData, "___ptwBackupData");
+  // console.log(ptwBackupData, "___ptwBackupData");
 
 
 
@@ -259,7 +259,7 @@ const PTWLogBackup = () => {
         value: "ptwFormStatus",
         style: "text-center min-w-[180px]",
         render: (value, rowData) => {
-          console.log("Rendering buttons for row:", rowData);
+          // console.log("Rendering buttons for row:", rowData);
           return (
             <div className="flex justify-center gap-2">
               <button
@@ -340,16 +340,16 @@ const PTWLogBackup = () => {
         // }else{
         //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
         // }
-        console.log(strVal,"___strVal__")
+        // console.log(strVal,"___strVal__")
     dispatch(PTWActions.getPtwLogBackup(true, strVal));
   };
 
   useEffect(() => {
     if (dataAll && dataAll.length > 0) {
-      console.log("PTW Data received:", dataAll);
-      console.log("Total items:", dataAll.length);
-      console.log("First item structure:", dataAll[0]);
-      console.log("Overall table count:", dataAll[0]?.overall_table_count);
+      // console.log("PTW Data received:", dataAll);
+      // console.log("Total items:", dataAll.length);
+      // console.log("First item structure:", dataAll[0]);
+      // console.log("Overall table count:", dataAll[0]?.overall_table_count);
     }
   }, [dataAll]);
 
@@ -413,7 +413,7 @@ export default PTWLogBackup;
 // const PTWLogBackup = () => {
 //   const dispatch = useDispatch();
 //   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
-//   console.log(dataAll, "csddsffffdff");
+  // console.log(dataAll, "csddsffffdff");
 
 //   const ptwBackupData = useSelector(
 //     (state) => state?.ptwData?.getPtwLogBackup || []

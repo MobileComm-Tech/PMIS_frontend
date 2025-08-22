@@ -74,7 +74,7 @@ const vendorProject = () => {
             setOld(oldata)
             setValue("ptype", oldata["projectType"])
         }
-        console.log(oldata, "olddataolddataolddata")
+        // console.log(oldata, "olddataolddataolddata")
         return state.projectList.getProjectTypeSub
     })
 
@@ -83,7 +83,7 @@ const vendorProject = () => {
         let interdata = state?.vendorData?.getVendorProjectList
         return interdata
     })
-    console.log(childsite, "childsitechildsite", parentsite, "parentsiteparentsite")
+    // console.log(childsite, "childsitechildsite", parentsite, "parentsiteparentsite")
     let dbConfigList = useSelector((state) => {
         let interdata = state?.vendorData?.getVendorProjectList
         return interdata?.map((itm) => {
@@ -180,7 +180,7 @@ const vendorProject = () => {
                                         handleSubmit(onTableViewSubmit)
                                     }} /></div> */}
                                 </>)
-                                console.log('ahshshhs', itm)
+                                // console.log('ahshshhs', itm)
                             }
                             }>{iewq.assignerResult ? <div className='flex flex-row justify-center'> {
                                 iewq.assignerResult.slice(0, 2).map((itwsw, index) => (<p className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}> {itwsw.assignerName.split(" ").length > 1 ? itwsw.assignerName.split(" ")[0].substr(0, 1) + itwsw.assignerName.split(" ")[1].substr(0, 1) : itwsw.assignerName.split(" ")[0].substr(0, 1)}</p>))
@@ -217,7 +217,7 @@ const vendorProject = () => {
                                         })
 
 
-                                        console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
+                                        // console.log(tkChaeck, "tkChaecktkChaecktkChaeck")
 
                                         if (tkChaeck && itm.totalCount == itm.milestoneCount) {
                                             setparentsite(prev => [...prev, itm.uniqueId])
@@ -226,7 +226,7 @@ const vendorProject = () => {
                                         return finalinzingdata
                                     })
 
-                                    console.log(childsite, "childsitechildsitechildsitechildsite")
+                                    // console.log(childsite, "childsitechildsitechildsitechildsite")
                                 } else {
 
                                     setchildsite(prev => {
@@ -298,7 +298,7 @@ const vendorProject = () => {
                         <ManageProjectSiteIdForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs', itm)
+                    // console.log('ahshshhs', itm)
                     //setmodalOpen(false)
                 }}></EditButton>} /></div>,
 
@@ -314,7 +314,7 @@ const vendorProject = () => {
                                 }))
                             }} name={"OK"} />,
                             <Button classes='w-auto' onClick={() => {
-                                console.log('snnsnsnsns')
+                                // console.log('snnsnsnsns')
                                 dispatch(ALERTS({ show: false }))
                             }} name={"Cancel"} />
                         ],

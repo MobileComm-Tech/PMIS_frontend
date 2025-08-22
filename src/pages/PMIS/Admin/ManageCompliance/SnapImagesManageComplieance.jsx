@@ -53,13 +53,13 @@ const Form = itemData?.map((itm,index)=>{
                     contentType: "multipart/form-data",
                     data: formDataSubmit,
                 });
-                console.log(res,"__res__")
+                // console.log(res,"__res__")
                 if(res?.status==200){
                     setmodalOpen((prev)=>!prev)
                 }
 
     } catch (e) {
-      console.log(e, '___submit error');
+      // console.log(e, '___submit error');
     }
   };
 

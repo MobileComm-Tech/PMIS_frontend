@@ -41,7 +41,7 @@ const Claim = () => {
 
 
     let dbConfigList = useSelector((state) => {
-        console.log(state, "state statejjjj")
+        // console.log(state, "state statejjjj")
         let interdata = state?.adminData?.getManageCustomer
         return interdata?.map((itm) => {
             let updateditm = {

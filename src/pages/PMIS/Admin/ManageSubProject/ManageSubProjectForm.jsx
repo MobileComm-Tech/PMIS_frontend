@@ -12,7 +12,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 const ManageSubProjectForm = ({ projecttypeuniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
     let dispatch = useDispatch()
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
@@ -98,7 +98,7 @@ const ManageSubProjectForm = ({ projecttypeuniqueId, isOpen, setIsOpen, resettin
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data, "datadatadatadata")
+        // console.log(data, "datadatadatadata")
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
@@ -116,7 +116,7 @@ const ManageSubProjectForm = ({ projecttypeuniqueId, isOpen, setIsOpen, resettin
             }))
         }
     }
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
         // dispatch(AdminActions.getManageProjectType())
         if (resetting) {
@@ -126,10 +126,10 @@ const ManageSubProjectForm = ({ projecttypeuniqueId, isOpen, setIsOpen, resettin
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 

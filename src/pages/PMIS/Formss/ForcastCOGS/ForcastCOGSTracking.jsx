@@ -368,7 +368,7 @@ const ForcastCOPGSTracking = () => {
   // }
   const bussiness = async () => {
     let res = await Api.get({ url: Urls.businessUnit, contentType: "application/json" })
-    console.log("================", res.data.data)
+    // console.log("================", res.data.data)
     dispatch(SET_BUSSINESS_UNIT(res.data?.data[0]?.bussinessUnit))
   }
   useEffect(() => {
@@ -677,7 +677,7 @@ const ForcastCOPGSTracking = () => {
     // setExtraColumns(res['Month'])
     Data.current = res['CostCenter']
     // FRERFER
-    console.log("============", res)
+    // console.log("============", res)
     if (enable == "Cumulative") {
 
       res['month'] = res['Month']

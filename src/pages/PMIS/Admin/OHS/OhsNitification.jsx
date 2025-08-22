@@ -49,7 +49,7 @@ const OhsNitification = () => {
   const [type, setType] = useState('text')
 
   const onSubmit = async (data) => {
-    console.log(data,"___datat")
+    // console.log(data,"___datat")
     let value = data.reseter;
     delete data.reseter;
     // const strVal = objectToQueryString(data);

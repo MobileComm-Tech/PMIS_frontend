@@ -42,7 +42,7 @@ const ClaimAdvanceForm = ({
     });
   });
 
-  console.log(claimTypeList, "claimTypeListclaimTypeList");
+  // console.log(claimTypeList, "claimTypeListclaimTypeList");
 
   let projectDetailsList = useSelector((state) => {
     return state?.expenseAdvanceData?.getExpADvPrjectDetails.map((itm) => {
@@ -181,7 +181,7 @@ const ClaimAdvanceForm = ({
 
       props: {
         onChange: (e) => {
-          console.log(e.target.files, "e geeter");
+          // console.log(e.target.files, "e geeter");
           setValue("attachment", e.target.files[0]);
         },
         accept: ".img, .png, .jpg, .jpeg, .webp, .pdf",
@@ -228,13 +228,13 @@ const ClaimAdvanceForm = ({
   }, [startKm, endKm, setValue]);
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
   };
   const onTableViewSubmit = (data) => {
-    console.log(data, "datadata");
+    // console.log(data, "datadata");
     // dasdsadsadasdas
     if (formValue.uniqueId) {
       dispatch(
@@ -259,7 +259,7 @@ const ClaimAdvanceForm = ({
       }
       dispatch(
         ExpenseAdvanceActions.postFillExpense(true, data, () => {
-          console.log("CustomQueryActions.postDBConfig");
+          // console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(
             ExpenseAdvanceActions.getClaimAndAdvancebyNumber(
@@ -271,7 +271,7 @@ const ClaimAdvanceForm = ({
       );
     }
   };
-  console.log(Form, "Form 11");
+  // console.log(Form, "Form 11");
 
   useEffect(() => {
     dispatch(GET_MANAGE_EXPENSE_ADVANCE({ dataAll: [], reset: true }));
@@ -284,10 +284,10 @@ const ClaimAdvanceForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

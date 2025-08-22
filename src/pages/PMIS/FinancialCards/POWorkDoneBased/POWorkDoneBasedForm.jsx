@@ -15,7 +15,7 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
 
     const { customeruniqueId } = useParams();
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false);
     const [pType, setpType] = useState("");
@@ -36,7 +36,7 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
     let circleList = useSelector((state) => {
         return state?.adminData?.getManageCircle
             .filter((itm) => {
-                console.log(itm.customerName == pType, "dasdsadsadas");
+                // console.log(itm.customerName == pType, "dasdsadsadas");
                 return itm.customerName == pType;
             })
             .map((itm) => {
@@ -339,22 +339,22 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data)
+        // console.log(data)
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
     }
     const onTableViewSubmit = (data) => {
-        console.log(data, "datadata")
+        // console.log(data, "datadata")
         if (formValue.uniqueId) {
             dispatch(FinanceActions.postPOWorkDoneBased(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+                // console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(FinanceActions.getPOWorkDoneBased())
             }, formValue.uniqueId))
         } else {
             dispatch(FinanceActions.postPOWorkDoneBased(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+                // console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(FinanceActions.getPOWorkDoneBased())
             }))
@@ -373,10 +373,10 @@ const POWorkDoneBasedForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) =
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 

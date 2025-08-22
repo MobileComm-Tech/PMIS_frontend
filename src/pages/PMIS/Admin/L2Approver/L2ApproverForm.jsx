@@ -16,7 +16,7 @@ const L2ApproverForm = ({
   formValue = {},
   onSuccess,
 }) => {
-  console.log(formValue, "formValueformValueformValue");
+  // console.log(formValue, "formValueformValueformValue");
 
   const dispatch = useDispatch();
   const [selectedCustomer, setSelectedCustomer] = useState("");
@@ -78,7 +78,7 @@ const L2ApproverForm = ({
       props: {
         onChange: (e) => {
           setSelectedCustomer(e?.target?.value);
-          console.log("selectedCustomerselectedCustomer", e?.target?.value);
+          // console.log("selectedCustomerselectedCustomer", e?.target?.value);
           dispatch(PTWActions.getPtwProjectType(true, e?.target?.value, ""));
           dispatch(PTWActions.getPtwProjectGroup(true, e?.target?.value, ""));
         },
@@ -127,7 +127,7 @@ const L2ApproverForm = ({
       props: {
         onChange: (e) => {
           setSelectedProjectGroup(e?.target?.value);
-          console.log("selectedProjectGroup", e?.target?.value);
+          // console.log("selectedProjectGroup", e?.target?.value);
           dispatch(
             PTWActions.getPtwCircle(
               true,
@@ -173,12 +173,12 @@ const L2ApproverForm = ({
         projectTypeName: selectedProjectTypeName,
       };
 
-      console.log("Form Data to Submit:", formData);
+      // console.log("Form Data to Submit:", formData);
 
       const submitAction = (actionCreator, ...args) => {
         return new Promise((resolve, reject) => {
           const callback = () => {
-            console.log("Action completed successfully");
+            // console.log("Action completed successfully");
             resolve();
           };
 
@@ -191,13 +191,13 @@ const L2ApproverForm = ({
       };
 
       if (isEditMode) {
-        console.log(
-          formValue?.projectTypeName,
-          typeof formValue?.projectTypeName,
-          formData?.projectTypeName,
-          typeof formData?.projectTypeName,
-          "djjhydyyueyutegvgh"
-        );
+        // console.log(
+        //   formValue?.projectTypeName,
+        //   typeof formValue?.projectTypeName,
+        //   formData?.projectTypeName,
+        //   typeof formData?.projectTypeName,
+        //   "djjhydyyueyutegvgh"
+        // );
         if (formValue?.projectTypeName && formData?.projectTypeName === "") {
           formData.projectTypeName = formValue.projectTypeName;
         }
@@ -240,7 +240,7 @@ const L2ApproverForm = ({
       });
     } else if (isEditMode) {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
 
       if (formValue?.customer) {
         setSelectedCustomer(formValue.customer);
@@ -263,7 +263,7 @@ const L2ApproverForm = ({
 
       Form.forEach((field) => {
         if (["endAt", "startAt"].indexOf(field.name) !== -1) {
-          console.log("date formValuekey", field.name, formValue[field.name]);
+          // console.log("date formValuekey", field.name, formValue[field.name]);
           const momentObj = moment(formValue[field.name]);
           setValue(field.name, momentObj.toDate());
         } else {

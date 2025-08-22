@@ -45,7 +45,7 @@ const AOPTrackerForm = ({
     });
   });
   let customerList = useSelector((state) => {
-    console.log("hjdjhbdbhehyukg", state);
+    // console.log("hjdjhbdbhehyukg", state);
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
       
       return {
@@ -103,7 +103,7 @@ const AOPTrackerForm = ({
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push({ label: ywq, value: ywq });
   }
- console.log(formValue,'sdujduiiudiudu')
+//  console.log(formValue,'sdujduiiudiudu')
   let Form = [
     {
       label: "Year",
@@ -364,7 +364,7 @@ const AOPTrackerForm = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const onTableViewSubmit =async (data) => {
@@ -414,10 +414,10 @@ const AOPTrackerForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

@@ -678,7 +678,7 @@ const AOPTrackingAirtel = () => {
       dispatch(CommonActions.commondownloadpost("/export/AOP?forAirtel=true&filter=true"+ (enable=="Cumulative"?"&Cumulative=true":""), "AOP.xlsx", "POST",{}))
 
     }
-    console.log("Form Errors:", errors);
+    // console.log("Form Errors:", errors);
     return {}
   };
 
@@ -919,12 +919,12 @@ const AOPTrackingAirtel = () => {
     // setExtraColumns(res['Month'])
     Data.current = res['CostCenter']
     // FRERFER
-    console.log("============", res)
+    // console.log("============", res)
     if (enable=="Cumulative"){
       setActionVisibility(false);
       res['month']=res['Month']
     }
-    console.log("kmjnhvghc vjklhuygv bnjlhbvj==",forExport)
+    // console.log("kmjnhvghc vjklhuygv bnjlhbvj==",forExport)
     if (forExport.current) {
       dispatch(
         CommonActions.commondownloadpost(

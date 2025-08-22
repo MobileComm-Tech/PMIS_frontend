@@ -49,7 +49,7 @@
 
 //   const [hasVendorListData, setHasVendorListData] = useState(false);
 
-//   console.log(quantity, "__projectuniqueId__");
+  // console.log(quantity, "__projectuniqueId__");
 //   const watchedVendorId = watch("vendorId");
 
 //   const dataGetterOld = useSelector((state) => {
@@ -497,7 +497,7 @@ const VendorGroupTaskAllocation = ({
 
   const fetchVendorList = async (vendorId, workDescription = null) => {
     if (!vendorId) {
-      console.log("No vendor ID provided");
+      // console.log("No vendor ID provided");
       return;
     }
 
@@ -551,13 +551,13 @@ const VendorGroupTaskAllocation = ({
         milestone: milestoneValue || itemData?.milestone,
       };
 
-      console.log("API data being sent:", data);
+      // console.log("API data being sent:", data);
 
       dispatch(
         projectListActions.VendorList(
           data,
           (response) => {
-            console.log("VendorList API response:", response);
+            // console.log("VendorList API response:", response);
 
             if (
               response &&
@@ -572,7 +572,7 @@ const VendorGroupTaskAllocation = ({
                 itemCodeDescription: item.itemCodeDescription,
               }));
 
-              console.log("Processed vendor options:", vendorOptions);
+              // console.log("Processed vendor options:", vendorOptions);
               setVendorListOptions(vendorOptions);
               setHasVendorListData(true);
             } else if (
@@ -618,7 +618,7 @@ const VendorGroupTaskAllocation = ({
     // console.log("Vendor ID changed:", watchedVendorId);
 
     if (watchedVendorId && watchedVendorId !== selectedVendor) {
-      console.log("Fetching vendor list for vendor:", watchedVendorId);
+      // console.log("Fetching vendor list for vendor:", watchedVendorId);
       setSelectedVendor(watchedVendorId);
       setValue("vendorListId", "");
 
@@ -665,7 +665,7 @@ const VendorGroupTaskAllocation = ({
 
   useEffect(()=>{
 
-    console.log(watchGroupMilestone,"Runningg_Again")
+    // console.log(watchGroupMilestone,"Runningg_Again")
       // console.log()
       if(watchGroupMilestone?.includes(":;")){
 
@@ -770,14 +770,14 @@ const VendorGroupTaskAllocation = ({
           : []
         : [],
       onSelecting: (selectedOption) => {
-        console.log("onSelecting vendor", selectedOption);
+        // console.log("onSelecting vendor", selectedOption);
         setValue("userId", "");
         setValue("vendorListId", "");
         setVendorListOptions([]);
         setHasVendorListData(false);
       },
       onRemoving: (removedOption) => {
-        console.log("onRemoving vendor", removedOption);
+        // console.log("onRemoving vendor", removedOption);
         setValue("userId", "");
         setValue("vendorListId", "");
         setVendorListOptions([]);
@@ -801,15 +801,15 @@ const VendorGroupTaskAllocation = ({
         disabled: isLoadingVendorList,
         placeholder: isLoadingVendorList ? "Loading..." : "Select a vendor",
         onSelecting: (selectedOption) => {
-          console.log("onSelecting from vendor list", selectedOption);
-          console.log("Selected item details:", {
-            id: selectedOption.value,
-            itemCode: selectedOption.itemCode,
-            description: selectedOption.itemCodeDescription,
-          });
+          // console.log("onSelecting from vendor list", selectedOption);
+          // console.log("Selected item details:", {
+          //   id: selectedOption.value,
+          //   itemCode: selectedOption.itemCode,
+          //   description: selectedOption.itemCodeDescription,
+          // });
         },
         onRemoving: (removedOption) => {
-          console.log("onRemoving from vendor list", removedOption);
+          // console.log("onRemoving from vendor list", removedOption);
         },
         required: true,
         classes: "col-span-1",
@@ -852,8 +852,8 @@ const VendorGroupTaskAllocation = ({
   };
 
   const onTableViewSubmit = (data) => {
-    console.log("Form submission data:", data);
-    console.log(quantity, "___quantity");
+    // console.log("Form submission data:", data);
+    // console.log(quantity, "___quantity");
 
     if (quantity === "custom") {
       alert("Please fill quantity");
@@ -890,15 +890,15 @@ const VendorGroupTaskAllocation = ({
         (option) => option.value === data["vendorListId"]
       );
       if (selectedVendorItem) {
-        console.log(selectedVendorItem, "___selectedVendorItem__");
+        // console.log(selectedVendorItem, "___selectedVendorItem__");
         allData["vendorMileStoneCostId"] = selectedVendorItem?.value;
         allData["itemCodeDescription"] =
           selectedVendorItem?.itemCodeDescription;
-        console.log("Selected vendor item details:", selectedVendorItem);
+        // console.log("Selected vendor item details:", selectedVendorItem);
       }
     }
 
-    console.log("Submitting data with milestone:", allData);
+    // console.log("Submitting data with milestone:", allData);
 
     if (formName !== "Deallocate Task") {
       dispatch(

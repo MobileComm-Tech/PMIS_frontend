@@ -34,14 +34,14 @@ const NewMuitiSelect007 = ({
   const handleSelect = (e) => {
     let finalselection = e.map((itm) => itm.id);
     setSelectedValues(e);
-    console.log("asasfasfasfafasfadsaf__onSelect",e);
+    // console.log("asasfasfasfafasfadsaf__onSelect",e);
     setValue(itm.name, finalselection.join());
   };
 
   const handleRemove = (e) => {
     let finalselection = e.map((itm) => itm.id);
     setSelectedValues(e);
-    console.log("afafafafasdfadsasfasdf__onRemove",e);
+    // console.log("afafafafasdfadsasfasdf__onRemove",e);
     setValue(itm.name, finalselection.join());
   };
 

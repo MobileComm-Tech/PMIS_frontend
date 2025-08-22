@@ -12,7 +12,7 @@ const AdvancedTableExpandableOneRow = ({
   hide,
 }) => {
   const [expand, setExpand] = useState(false);
-console.log("AdvancedTableExpandableOneRow")
+// console.log("AdvancedTableExpandableOneRow")
   return (
     <>
       <tr>

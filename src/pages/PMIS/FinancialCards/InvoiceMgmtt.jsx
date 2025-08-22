@@ -58,7 +58,7 @@ const InvoiceMgmt = () => {
                   onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
+                    // console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if ( getAccessType(itm[0]) == "visible") {
 
                       dispatch(

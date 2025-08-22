@@ -47,12 +47,12 @@ const ManageProjectSiteIdForm = ({
 
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub
-    console.log(old["_id"],oldata["_id"],old,"___datattag")
+    // console.log(old["_id"],oldata["_id"],old,"___datattag")
     if (old["_id"] != oldata["_id"]) {
       setOld(oldata)
       setProjectType(oldata["projectType"])
       // setProjectType(oldata["projectType"])
-      console.log(oldata["projectType"],"___sdfghjkl")
+      // console.log(oldata["projectType"],"___sdfghjkl")
       setValue("ptype", oldata["projectType"])
 
     }
@@ -62,7 +62,7 @@ const ManageProjectSiteIdForm = ({
 
 
 
-console.log(projectType,subProjectType,"__old__")
+// console.log(projectType,subProjectType,"__old__")
   let Form = [
 
     {

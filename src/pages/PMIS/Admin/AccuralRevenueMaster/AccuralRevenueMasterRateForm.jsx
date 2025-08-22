@@ -86,7 +86,7 @@ const AccuralRevenueMasterRateForm = ({setRateForm,isOpen, setIsOpen, resetting,
 
    
 
-    console.log(dynamicFormData,"__dynamicForm__")
+    // console.log(dynamicFormData,"__dynamicForm__")
     let Form = [
         {
             label: "Customer",
@@ -296,7 +296,7 @@ const AccuralRevenueMasterRateForm = ({setRateForm,isOpen, setIsOpen, resetting,
 
     const onTableViewSubmit = (data) => {
 
-        console.log(data,"__data")
+        // console.log(data,"__data")
         // setRateForm(true);
         // tempForm = data?.map((itm,index)=>{
         //     if(itm[`itemCode0${index}`]?.length>0){

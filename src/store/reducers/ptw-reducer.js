@@ -122,7 +122,7 @@ const ptwData = createSlice({
       }
     },
     GET_APPROVER_PAGE: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.getApproverPage = payload.dataAll;
       } else {
@@ -139,7 +139,7 @@ const ptwData = createSlice({
       }
     },
     GET_APPROVER_PAGE_DATA_FORM: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.getApproverPageDataForm = payload.dataAll;
       } else {
@@ -157,7 +157,7 @@ const ptwData = createSlice({
       }
     },
     GET_PTW_APPROVER_L1: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.PtwApproverPage = payload.dataAll;
       } else {
@@ -175,7 +175,7 @@ const ptwData = createSlice({
       }
     },
     GET_PTW_APPROVER_L1_PATCH: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.PtwApproverPage = payload.dataAll;
       } else {
@@ -193,7 +193,7 @@ const ptwData = createSlice({
       }
     },
     GET_PTW_REJECTION_L1: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.getPtwRejection = payload.dataAll;
       } else {
@@ -211,7 +211,7 @@ const ptwData = createSlice({
       }
     },
     GET_PTW_APPROVER_ALERT: (state, { payload }) => {
-      console.log(payload,"__payload")
+      // console.log(payload,"__payload")
       if (payload.reset) {
         state.PtwApproverPageAlert = payload.dataAll;
       } else {

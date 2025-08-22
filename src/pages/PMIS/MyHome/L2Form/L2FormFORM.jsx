@@ -65,7 +65,7 @@ const L2FormFORM = ({
         
     //     props: {
     //         onChange: ((e) => {
-    //             console.log(e.target.files, "e geeter")
+                // console.log(e.target.files, "e geeter")
     //             setValue("attachment",e.target.files[0])
     //         }),
     //         accept: '.img, .png, .jpg, .jpeg, .webp, .pdf',
@@ -85,13 +85,13 @@ const L2FormFORM = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
   };
   const onTableViewSubmit = (data) => {
-    console.log(data,"yyyyyyyyy")
+    // console.log(data,"yyyyyyyyy")
     data.approver = "L2-"+ data.status
     if (formValue.uniqueId) {
       dispatch(
@@ -114,7 +114,7 @@ const L2FormFORM = ({
       );
     }
   };
-  console.log(Form, "Form 11");
+  // console.log(Form, "Form 11");
 
   useEffect(() => {
     dispatch(ExpenseAdvanceActions.getExpADvPrjectDetails());
@@ -125,10 +125,10 @@ const L2FormFORM = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Object.keys(formValue).forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

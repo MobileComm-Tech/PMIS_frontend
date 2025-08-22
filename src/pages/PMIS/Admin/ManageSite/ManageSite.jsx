@@ -52,7 +52,7 @@ const ManageSite = ({
     reset,
     formState: { errors },
   } = useForm();
-console.log(subProjectType,projectType,"___projs")
+// console.log(subProjectType,projectType,"___projs")
   const {
     register: registerForm1,
     setValue: setValueForm1,
@@ -136,7 +136,7 @@ console.log(subProjectType,projectType,"___projs")
   let dataOfProject = useSelector((state) => {
 
     let dataOlder = state.adminData.getProjectTypeDyform[0];
-    console.log(dataOlder,"dataOlderdataOlder")
+    // console.log(dataOlder,"dataOlderdataOlder")
     return dataOlder;
     
     // if (dataOlder.length > 0 && dataOlder[0]["t_sengg"]) {
@@ -174,7 +174,7 @@ console.log(subProjectType,projectType,"___projs")
         filDataCount += 1;
         datamsg += itew["fieldName"] + ", ";
       }
-      console.log(itew["fieldName"], "nathnathamarnath");
+      // console.log(itew["fieldName"], "nathnathamarnath");
     });
 
     if (filDataCount != 0) {
@@ -217,7 +217,7 @@ console.log(subProjectType,projectType,"___projs")
       }
     });
 
-    console.log(final_data, "final_datafinal_data");
+    // console.log(final_data, "final_datafinal_data");
     setGlobalData((prev) => {
       return {
         ...prev,
@@ -376,13 +376,13 @@ console.log(subProjectType,projectType,"___projs")
   };
 
   const handleAddActivity = (res, targ, itm) => {
-    console.log(
-      res,
-      "uniqueness",
-      itm.uniqueId,
-      "uniqueness",
-      "handleAddActivity"
-    );
+    // console.log(
+    //   res,
+    //   "uniqueness",
+    //   itm.uniqueId,
+    //   "uniqueness",
+    //   "handleAddActivity"
+    // );
 
     let newdata = {
       [targ]: res,

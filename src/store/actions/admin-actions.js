@@ -637,7 +637,7 @@ const AdminActions = {
         const dataAll = res?.data?.data;
         dispatch(GET_CARD_PROJECT_TYPE({ dataAll, reset }));
       } catch (error) {
-        console.log("Vishal");
+        // console.log("Vishal");
       }
     },
 
@@ -1249,7 +1249,7 @@ const AdminActions = {
     (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
-        console.log("cities", args);
+        // console.log("cities", args);
         const res = await Api.get({
           url: `${Urls.admin_project_allocation}${
             args != "" ? "?" + args : ""
@@ -1292,7 +1292,7 @@ const AdminActions = {
     (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
-        console.log("cities", args);
+        // console.log("cities", args);
         const res = await Api.get({
           url: `${Urls.admin_vishal}${args != "" ? "?" + args : ""}`,
           reset,
@@ -1372,7 +1372,7 @@ const AdminActions = {
     (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
-        console.log("cities", args);
+        // console.log("cities", args);
         const res = await Api.get({
           url: `${Urls.vendor_project_allocation}${
             args != "" ? "?" + args : ""
@@ -1674,7 +1674,7 @@ const AdminActions = {
         const dataAll = res?.data?.data;
         dispatch(GET_CARD_COMPLIANCE_MILESTONE({ dataAll, reset }));
       } catch (error) {
-        console.log("Vishal");
+        // console.log("Vishal");
       }
     },
 
@@ -1815,11 +1815,11 @@ const AdminActions = {
     try {
       value = Math.abs(value);
 
-      console.log("tabName_value", value, tabName);
-      console.log(
-        `store_data`,
-        getStore().adminData.getComplianceDegrowTemplateData
-      );
+      // console.log("tabName_value", value, tabName);
+      // console.log(
+      //   `store_data`,
+      //   getStore().adminData.getComplianceDegrowTemplateData
+      // );
 
       if (value > 5) {
         let msgdata = {
@@ -1871,11 +1871,11 @@ const AdminActions = {
         );
       }
 
-      console.log("usedFields[tabName]", usedFields[tabName]);
+      // console.log("usedFields[tabName]", usedFields[tabName]);
 
       usedFields[tabName] = [formFields[0], ...actualFields, ...extraFields];
 
-      console.log("usedFields___tabName__", usedFields[tabName]);
+      // console.log("usedFields___tabName__", usedFields[tabName]);
 
       dispatch(
         GET_COMPLIANCE_DEGROW_TEMPLATE_DATA({
@@ -1885,7 +1885,7 @@ const AdminActions = {
         })
       );
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   },
   getDeliveryPVA:
@@ -1900,7 +1900,7 @@ const AdminActions = {
         const dataAll = res?.data?.data;
         dispatch(GET_ADMIN_DELIVERY_PVA({ dataAll, reset }));
       } catch (error) {
-        console.log("12345");
+        // console.log("12345");
       }
     },
   postDeliveryPVA: (data, cb, uniqueId) => async (dispatch, _) => {
@@ -1943,7 +1943,7 @@ const AdminActions = {
         const dataAll = res?.data?.data;
         dispatch(GET_ADMIN_SUB_PROJECT_DELIVERY_PVA({ dataAll, reset }));
       } catch (error) {
-        console.log("12345");
+        // console.log("12345");
       }
     },
 

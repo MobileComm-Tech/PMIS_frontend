@@ -79,7 +79,7 @@ const EmpDetailsTable = () => {
   }
 
   let dbConfigList = useSelector((state) => {
-    console.log(state, "state statejjjj");
+    // console.log(state, "state statejjjj");
     let interdata = state?.hrReducer?.getManageEmpDetails;
     return interdata?.map((itm) => {
       let updateditm = {
@@ -184,7 +184,7 @@ const EmpDetailsTable = () => {
   });
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.hrReducer?.getManageEmpDetails;
-    console.log(interdata,1234567)
+    // console.log(interdata,1234567)
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -319,7 +319,7 @@ const EmpDetailsTable = () => {
   };
   const onTableViewSubmit2 = (data) => {
     data["fileType"] = "UpgradeEmployee";
-    console.log('datadatadatadatadata',data)
+    // console.log('datadatadatadatadata',data)
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(HrActions.getManageEmpDetails());

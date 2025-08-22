@@ -10,10 +10,10 @@ const NestedDropdown = ({ filtering, SetgOpen, gopen, setDataValue, dataValue, i
     const [fakeOpen, setfakeOpen] = useState(false)
 
 
-    console.log(dataValue, "dataValuedataValue", gopen, "dataValuedataValue")
+    // console.log(dataValue, "dataValuedataValue", gopen, "dataValuedataValue")
     const onChangeData = (parent, target, value, label, parent_l) => {
 
-        console.log("onChangeData", parent, target, value, label)
+        // console.log("onChangeData", parent, target, value, label)
 
         if (target) {
 
@@ -23,7 +23,7 @@ const NestedDropdown = ({ filtering, SetgOpen, gopen, setDataValue, dataValue, i
 
             setDataValue(prev => {
 
-                console.log(prev[parent] + [label], "hasgjdaskl")
+                // console.log(prev[parent] + [label], "hasgjdaskl")
                 return {
                     ...prev,
                     [parent]: prev[parent] != undefined ? [...prev[parent], label] : [label]

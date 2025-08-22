@@ -22,7 +22,7 @@ const PowerBIDashboard = ({ setLoad, load, reportId, src }) => {
 
 
  useSelector((state) => {
-        console.log(state, "statestatestate")
+        // console.log(state, "statestatestate")
         return state?.customQuery?.databaseList
     })
 
@@ -35,20 +35,20 @@ const PowerBIDashboard = ({ setLoad, load, reportId, src }) => {
     })
 
 
-    console.log(sampleReportConfig, "sampleReportConfig")
+    // console.log(sampleReportConfig, "sampleReportConfig")
 
     // Map of event handlers to be applied to the embedding report
     const eventHandlersMap = new Map([
         [
             "loaded",
             function () {
-                console.log("Report has loaded");
+                // console.log("Report has loaded");
             }
         ],
         [
             "rendered",
             function () {
-                console.log("Report has rendered");
+                // console.log("Report has rendered");
 
                 // Update display message
                 // setMessage("The report is rendered");

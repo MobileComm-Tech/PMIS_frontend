@@ -259,7 +259,7 @@ const ClaimAdvanceOnclick = () => {
         data={
           claimByNumber?.length > 0
             ? claimByNumber?.map((item) => {
-              console.log('itemitemitem',item)
+              // console.log('itemitemitem',item)
                 return {
                   ...item,
                   edit: (

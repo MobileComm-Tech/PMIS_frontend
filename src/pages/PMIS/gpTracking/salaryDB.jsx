@@ -432,7 +432,7 @@ const SalaryDB = () => {
     setExtraColumns(res['Month'])
     Data.current  = res['Cost Center']
     // dispatch(FormssActions.postProfiltLossOnSearch(res, () => {}));
-    console.log(res,'lieoijejiejijied')
+    // console.log(res,'lieoijejiejijied')
     dispatch(gpTrackingActions.getGPSalaryDB(true,res))
   };
   

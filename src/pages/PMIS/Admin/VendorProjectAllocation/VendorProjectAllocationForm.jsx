@@ -69,7 +69,7 @@ const VendorProjectAllocationForm = ({
         AdminActions.postVendorProjectAllocation(
           data,
           () => {
-            console.log("CustomQueryActions.postDBConfig");
+            // console.log("CustomQueryActions.postDBConfig");
             setIsOpen(false);
             dispatch(AdminActions.getVendorProjectAllocation());
           },
@@ -79,7 +79,7 @@ const VendorProjectAllocationForm = ({
     } else {
       dispatch(
         AdminActions.postVendorProjectAllocation(data, () => {
-          console.log("CustomQueryActions.postDBConfig");
+          // console.log("CustomQueryActions.postDBConfig");
           setIsOpen(false);
           dispatch(AdminActions.getVendorProjectAllocation());
         })
@@ -96,10 +96,10 @@ const VendorProjectAllocationForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

@@ -85,10 +85,10 @@ const CompletitonCreiteriaForm = ({
 
   const getdataAll = async () => {
     const res = await Api.get({
-      url: `/get/vendorCode/${customeruniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.SubProjectId}`,
+      url: `/get/vendorCode/${customeruniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.projectuniqueId}/${siteCompleteData?.SubProjectId}?ACTIVITY=${siteCompleteData?.ACTIVITY}`,
     });
 
-    console.log(res?.data?.data[0], "__reshjhads");
+    // console.log(res?.data?.data[0], "__reshjhads");
 
 
     
@@ -123,10 +123,10 @@ const CompletitonCreiteriaForm = ({
           props: {
             onChange: (e) => {
                  const  key  = `itemCodeRate0${i}`
-                 console.log(e?.target?.value,"__sdfghjk")
+                //  console.log(e?.target?.value,"__sdfghjk")
                 //  if(e?.target?.value?.split(" ")[-1]!=="" || e?.target?.value?.split(" ")[1]!==undefined){
                 const n  = e?.target?.value?.split(" ")?.length
-                console.log(e?.target?.value?.split(" ")[n-1],"__qwertyuiop")
+                // console.log(e?.target?.value?.split(" ")[n-1],"__qwertyuiop")
                    setQuantityValue(prev => ({
                                   ...prev,
                                   [key]: Number(e?.target?.value?.split(" ")[n-1])
@@ -196,7 +196,7 @@ itemCodeInputs.push(tempData);
   const qtyKey = `quantity0${i}`;
 
   if (quantityValue[rateKey] !== undefined || NaN && quantityValue[qtyKey] !== undefined || NaN ) {
-    console.log(quantityValue[rateKey],quantityValue[qtyKey],"___fghjk")
+    // console.log(quantityValue[rateKey],quantityValue[qtyKey],"___fghjk")
     total += quantityValue[rateKey] * quantityValue[qtyKey];
   }
 }
@@ -205,7 +205,7 @@ setValue("amount",total)
 
   },[quantityValue])
 
-  console.log(quantityValue, "quantityValue")
+  // console.log(quantityValue, "quantityValue")
 
 
 
@@ -230,7 +230,7 @@ setValue("amount",total)
   let mileStoneCompletion = useSelector((state) => {
 
     let mtoneCompletion = state?.adminData?.getManageCompletionCriteria || [];
-    console.log(mileStone["Completion Criteria"],"___sdfghjk")
+    // console.log(mileStone["Completion Criteria"],"___sdfghjk")
     return mileStone["Completion Criteria"]?.split(",").map((dta) => {
       let geeter = mtoneCompletion.filter((itm) => itm.completion == dta);
       if (dta == "Forms & Checklist") {
@@ -318,7 +318,7 @@ setValue("amount",total)
     });
   });
   if(Array.isArray(mileStoneCompletion)){
-    console.log(mileStoneCompletion,"__mileStoneCompletion_")
+    // console.log(mileStoneCompletion,"__mileStoneCompletion_")
 
     if (mileStoneCompletion[0]?.name?.includes("CC_")) {
         mileStoneCompletion = [...mileStoneCompletion, ...itemCodeAllInputs];
@@ -341,7 +341,7 @@ setValue("amount",total)
   },[itemCodeAllInputs])
 
   const onsubmiting = (data) => {
-
+    console.log("comingHJer",data)
     
     if (checkmilestone.includes("Forms & Checklist")) {
       data['Checklist'] = "Yes"
@@ -357,22 +357,22 @@ setValue("amount",total)
       return;
     }
    
-      console.log(data,"___newjbjsd")
-    // dispatch(
-    //   projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
-    //     setmodalOpen(false);
-    //     setmodalFullOpen(false);
-    //     dispatch(backgeturl);
-    //   }
-    //   )
-    // );
+      // console.log(data,"___newjbjsd")
+    dispatch(
+      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+        setmodalOpen(false);
+        setmodalFullOpen(false);
+        dispatch(backgeturl);
+      }
+      )
+    );
   };
 
 
-  console.log(mileStone , 'asdfkahsdfkjashdkjfhaskjdfh')
+  // console.log(mileStone , 'asdfkahsdfkjashdkjfhaskjdfh')
 
   useEffect(() => {
-    console.log("running_usefrer")
+    // console.log("running_usefrer")
     setItemCodeAllInputs([])
     if(['MS1']?.includes(mileStone?.Name)&& modalOpen){
         getdataAll()

@@ -112,7 +112,7 @@ const ManageCompletionCriteriaForm = ({ isOpen, setIsOpen, resetting, formValue 
             reset({})
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 

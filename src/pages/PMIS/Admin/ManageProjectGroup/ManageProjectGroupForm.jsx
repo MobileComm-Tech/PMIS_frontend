@@ -116,14 +116,14 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             }, formValue.uniqueId))
         } else {
             dispatch(AdminActions.postManageProjectGroup(true, data, () => {
-                console.log("CustomQueryActions.postDBConfig")
+                // console.log("CustomQueryActions.postDBConfig")
                 setIsOpen(false)
                 dispatch(AdminActions.getManageProjectGroup())
             }))
         }
     }
 
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
         dispatch(AdminActions.getManageCustomer())
         dispatch(AdminActions.getManageZone())
@@ -138,10 +138,10 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
 
@@ -149,7 +149,7 @@ const ManageProjectGroupForm = ({ isOpen, setIsOpen, resetting, formValue = {} }
                 } else {
                     // console.log("formValuekey",key,key)
                     setValue(key.name, formValue[key.name]);
-                    console.log(key.name, "key.name", formValue[key.name])
+                    // console.log(key.name, "key.name", formValue[key.name])
                     // console.log(formValue[key.name],"formValue[key.name]")
 
                     dispatch(AdminActions.getManageCostCenter())

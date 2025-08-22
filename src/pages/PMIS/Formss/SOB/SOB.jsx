@@ -43,7 +43,7 @@ const SOB = () => {
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.formssData?.getSobdata || [];
-    console.log(interdata , 'asdfsdfsafdasdf' )
+    // console.log(interdata , 'asdfsdfsafdasdf' )
     return interdata?.map((itm) => {
       
       let updateditm = {
@@ -121,7 +121,7 @@ const SOB = () => {
           />
         ),
       };
-      console.log(updateditm , 'asdfsdfsafdasdf')
+      // console.log(updateditm , 'asdfsdfsafdasdf')
       return updateditm;
     });
   });
@@ -366,7 +366,7 @@ useEffect(() => {
     dispatch(FormssActions.getSobdataDynamic())
 }, [])
 
-console.log(table , dbConfigList , 'asdfasdfasdf')
+// console.log(table , dbConfigList , 'asdfasdfasdf')
 
 useEffect(() => {
 

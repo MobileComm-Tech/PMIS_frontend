@@ -281,30 +281,30 @@ const WorkDoneForm = ({
 
   let cForm = [];
 
-  console.log(
-    ["", "", "", "", "", "", ""].map((itwq, index) => {
-      return sForm.map((iets) => {
-        cForm.push({
-          ...iets,
-          label: iets.label + " " + (+index + 1),
-          name: iets.name + "" + (+index + 1),
-          props: {
-            ...iets.props,
-            onChange: (e) => {
-              console.log(
-                "sadsadsadas",
-                iets.name + (+index + 1),
-                e.target.value
-              );
-            },
-          },
-        });
-      });
-    }),
-    "dfghj"
-  );
+  // console.log(
+  //   ["", "", "", "", "", "", ""].map((itwq, index) => {
+  //     return sForm.map((iets) => {
+  //       cForm.push({
+  //         ...iets,
+  //         label: iets.label + " " + (+index + 1),
+  //         name: iets.name + "" + (+index + 1),
+  //         props: {
+  //           ...iets.props,
+  //           onChange: (e) => {
+  //             console.log(
+  //               "sadsadsadas",
+  //               iets.name + (+index + 1),
+  //               e.target.value
+  //             );
+  //           },
+  //         },
+  //       });
+  //     });
+  //   }),
+  //   "dfghj"
+  // );
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -352,7 +352,7 @@ const WorkDoneForm = ({
       Object.keys(formValue).forEach((key) => {
         // console.log(key, "keykeykeykeykey");
         if (key == "itemCodeArray") {
-          console.log(formValue["itemCodeArray"], "formValue");
+          // console.log(formValue["itemCodeArray"], "formValue");
         } else if (["endAt", "startAt"].indexOf(key.name) != -1) {
           // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
@@ -391,11 +391,11 @@ const WorkDoneForm = ({
         setIsOpen={setmodalOpen}
       />
 
-      {console.log(
+      {/* {console.log(
         [""].map((itw) => {
           return cForm;
         }, "cFormcFormcForm")
-      )}
+      )} */}
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}

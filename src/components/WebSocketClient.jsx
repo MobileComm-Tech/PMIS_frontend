@@ -26,25 +26,25 @@ const WebSocketClient = () => {
         })
 
         socket.on('disconnect', () => {
-            console.log("disconnected ho gya hai")
+            // console.log("disconnected ho gya hai")
         });
 
         socket.on('connect', () => {
-            console.log("connected ho gya hai")
+            // console.log("connected ho gya hai")
         });
 
         socket.on('reconnect', () => {
-            console.log("reconnected ho gya hai")
+            // console.log("reconnected ho gya hai")
         });
 
 
         socket.on('error', () => {
-            console.log("error ho gya hai")
+            // console.log("error ho gya hai")
         });
 
 
         socket.on("room_name_"+getUserId, (data) => {
-            console.log("data aa gya hai",data)
+            // console.log("data aa gya hai",data)
 
             dispatch(WebsocketActions.data_from_socket(data))
 

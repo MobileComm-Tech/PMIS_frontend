@@ -11,45 +11,45 @@ import { ALERTS } from "../reducers/component-reducer"
 const AdminManagementActions = {
     getUsersList: (reset=true,args="") => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin")
+            // console.log("AuthActions.signin")
             const res = await Api.get({ url: `${Urls.admin_userList}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             const dataAll = res.data.data
             dispatch(USERS_LIST({dataAll,reset}))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
         }
     },
     getDeckList: (reset=true,args="") => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin")
+            // console.log("AuthActions.signin")
             const res = await Api.get({ url: `${Urls.admin_userList}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
             const dataAll = res.data.data
             dispatch(USERS_LIST({dataAll,reset}))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     getRoleList: (reset=true,args="") => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin")
+            // console.log("AuthActions.signin")
             const res = await Api.get({ url: `${Urls.admin_roleList}${args!=""?"?"+args:""}`})
             if (res?.status !== 200) return
-            console.log(res.data, "res.data")
+            // console.log(res.data, "res.data")
             const dataAll = res.data.data
             dispatch(ROLE_LIST({dataAll,reset}))
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
     postUser: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
+            // console.log("AuthActions.signin", uniqueId)
             // if(reset){
             //     dispatch(GENERATED_SQL_QUERY({}))
             // }
@@ -68,7 +68,7 @@ const AdminManagementActions = {
 
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
         }
     },
     
@@ -93,13 +93,13 @@ const AdminManagementActions = {
 
             // }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
         }
     },
     
     postPitchDeck: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
+            // console.log("AuthActions.signin", uniqueId)
             // if(reset){
             //     dispatch(GENERATED_SQL_QUERY({}))
             // }
@@ -118,7 +118,7 @@ const AdminManagementActions = {
 
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
 
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
@@ -128,7 +128,7 @@ const AdminManagementActions = {
 
     postAgreement: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
+            // console.log("AuthActions.signin", uniqueId)
             let res
             if(uniqueId==null){
                 res = await Api.post({ data: data, url: Urls.agreementl })
@@ -149,13 +149,13 @@ const AdminManagementActions = {
 
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
         }
     },
 
     postRole: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
-            console.log("AuthActions.signin", uniqueId)
+            // console.log("AuthActions.signin", uniqueId)
             let res
             if(uniqueId==null){
                 res = await Api.post({ data: data, url: Urls.admin_roleList })
@@ -176,7 +176,7 @@ const AdminManagementActions = {
 
             }
         } catch (error) {
-            console.log(error, "amit errorerror 37")
+            // console.log(error, "amit errorerror 37")
         }
     }
 }

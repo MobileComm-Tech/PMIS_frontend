@@ -93,7 +93,7 @@ import Settlement from "../pages/PMIS/MyHome/SettlementForm/Settlement";
 import ActivityLogs from "../pages/PMIS/HR/ActivityLogs/ActivityLogs";
 import ApprovalLogs from "../pages/PMIS/HR/ActivityLogs/ApprovalLogs";
 import AdminLogs from "../pages/PMIS/HR/ActivityLogs/AdminLogs";
-import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
+// import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import AccuralRevenueMaster from "../pages/PMIS/Admin/AccuralRevenueMaster/AccuralRevenueMaster";
 import ManageCompliance from "../pages/PMIS/Admin/ManageCompliance/ManageCompliance";
 import ManageComplianceL1 from "../pages/PMIS/Admin/ManageComplianceL1Approver/ManageComplianceL1";
@@ -138,6 +138,7 @@ import PTWApproverPage from "../pages/PMIS/MyHome/PTWApproverPage";
 import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
 import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
 import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
+import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 
 
 let user = JSON.parse(localStorage.getItem("user"));

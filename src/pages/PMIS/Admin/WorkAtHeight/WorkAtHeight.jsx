@@ -36,7 +36,7 @@ const WorkAtHeight = () => {
         name: itm.completion,
         id: itm.completion,
       };
-      console.log(data, "datadatadatadata");
+      // console.log(data, "datadatadatadata");
 
       return data;
     });
@@ -160,7 +160,7 @@ const WorkAtHeight = () => {
         "post",
         "json",
         () => {
-          console.log("Activity Added");
+          // console.log("Activity Added");
         }
       )
     );

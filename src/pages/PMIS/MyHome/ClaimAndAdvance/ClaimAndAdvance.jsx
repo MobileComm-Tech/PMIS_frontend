@@ -53,18 +53,18 @@ const ClaimAndAdvance = () => {
 
   let dbConfigList = useSelector((state) => {
     let interdata = state?.expenseAdvanceData?.getClaimAndAdvance || [""];
-    console.log(
-      state?.expenseAdvanceData,
-      "stateexpenseAdvanceData",
-      interdata[0]?.data,
-      typeof interdata[0]
-    );
+    // console.log(
+    //   state?.expenseAdvanceData,
+    //   "stateexpenseAdvanceData",
+    //   interdata[0]?.data,
+    //   typeof interdata[0]
+    // );
     let interdata2 = [];
     if (interdata.length > 0) {
       interdata2 = interdata[0]?.data || [];
     }
     return interdata2?.map((item) => {
-      console.log("itemitemitem", item);
+      // console.log("itemitemitem", item);
       const itm = { ...item };
       itm["debitExpense"] = 0;
       itm.advanceExpense = 0;

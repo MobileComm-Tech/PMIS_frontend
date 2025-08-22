@@ -767,7 +767,7 @@ const   ManageProjectType = () => {
                       reseter: true,
                     })
                   );
-                  console.log(itm, "setmodalHeadsetmodalHead");
+                  // console.log(itm, "setmodalHeadsetmodalHead");
                   setmodalBody(
                     <>
                       <div className="flex flex-col justify-between p-2">

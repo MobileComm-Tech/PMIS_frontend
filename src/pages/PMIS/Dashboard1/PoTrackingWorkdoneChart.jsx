@@ -46,7 +46,7 @@ const PoTrackingWorkdoneChart = () => {
     });
   });
 
-  console.log(itemCodeList,"itemCodeList")
+  // console.log(itemCodeList,"itemCodeList")
 
   
 

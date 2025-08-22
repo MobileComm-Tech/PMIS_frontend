@@ -10,7 +10,7 @@ import { WebSocketUrls } from '../utils/url';
 const SiteAnalyticsCard = ({ AllDataShowing, innerkey, ckey, fetchBackend = false,headers }) => {
 
 
-    console.log(ckey, "AllDataShowing, innerkey, key")
+    // console.log(ckey, "AllDataShowing, innerkey, key")
 
     const dispatch = useDispatch()
 
@@ -31,7 +31,7 @@ const SiteAnalyticsCard = ({ AllDataShowing, innerkey, ckey, fetchBackend = fals
                     // Object.keys(AllDataShowing[ckey][innerkey]).map((lowerinnerkey, index) => {
                     Object.keys(AllDataShowing[ckey]).map((lowerinnerkey, index) => {
 
-                        console.log("common_socketcommon_socket")
+                        // console.log("common_socketcommon_socket")
                         if (fetchBackend) {
                             // dispatch(WebsocketActions.send_to_socket(WebSocketUrls.siteAnalytics, AllDataShowing[ckey][innerkey][lowerinnerkey]))
 

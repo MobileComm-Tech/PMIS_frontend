@@ -14,7 +14,7 @@ const CurrentuserActions = {
             dispatch(GET_CURRENT_USER_PG({dataAll,reset}))
         } 
         catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     },
     getcurrentuserPT:(reset=true,args="") => async (dispatch, _) => {

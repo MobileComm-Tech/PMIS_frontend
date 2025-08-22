@@ -40,7 +40,7 @@ const POWorkDoneBased = () => {
                         <POWorkDoneBasedForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
+                    // console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 

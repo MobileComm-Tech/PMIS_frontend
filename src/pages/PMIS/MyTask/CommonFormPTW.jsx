@@ -92,7 +92,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
     roadsafetychecklist4wheeler: [],
   });
 
-  console.log(subFormRef.current, "||", subFormRef.current[which], "||", which, "__newWHeeler")
+  // console.log(subFormRef.current, "||", subFormRef.current[which], "||", which, "__newWHeeler")
   useEffect(() => {
     setPtwModalHead({
       title: which
@@ -110,7 +110,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
       })
     } else {
       subFormRef.current[which]?.forEach((item) => {
-        console.log(item, '987654323456789876545678765')
+        // console.log(item, '987654323456789876545678765')
         if (['checklist', 'photo'].includes(which)) {
           setValue(item?.fieldName, formData[item?.fieldName])
         }
@@ -119,7 +119,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
 
   }, [which])
 
-  console.log(isPtwRaise, fillData, formData, 'fasdfasdfasfasdfsgfdsagmvxczasetwyjghnb')
+  // console.log(isPtwRaise, fillData, formData, 'fasdfasdfasfasdfsgfdsagmvxczasetwyjghnb')
 
   const getForm = async () => {
     const res = await Api.get({ url: `/show/ptw/${formName}` });
@@ -199,7 +199,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
-    console.log(which, data, 'fasdfasdfsadfasdfasdfasdf')
+    // console.log(which, data, 'fasdfasdfsadfasdfasdfasdf')
 
     try {
       // Handle normal (non-photo/vehicle) forms
@@ -377,7 +377,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
 
   };
 
-  console.log(allFormType, 'asfasdfasdfsdfgretwertwer2342')
+  // console.log(allFormType, 'asfasdfasdfsdfgretwertwer2342')
 
 
 
@@ -395,7 +395,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
     });
   };
   useEffect(() => {
-    console.log(errors, 'asdfsdfasdfasdfasdf')
+    // console.log(errors, 'asdfsdfasdfasdfasdf')
     if (Object.keys(errors).length > 0) {
       alert(` ${errors[Object.keys(errors)[0]]?.message} :- ${Object.keys(errors)[0]} `)
     }
@@ -433,7 +433,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
     if (res?.status === 200) {
       reset(); // If you use one useForm
       setPtwDriveTest(false);
-      console.log(selectedItems, isMultiStep, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
+      // console.log(selectedItems, isMultiStep, currentStepIndex, 'ásdfasdfasdfasdfasdfasdfasdfasdgsdfgghdgfasdfsd')
       if (selectedItems?.map((item) => item.id).includes('ptwphoto')) {
         setPtwDriveTest(false)
         setPtwDriveModel(true)
@@ -463,7 +463,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
         } else {
           if (isMultiStep) {
             const nextIndex = currentStepIndex + 1;
-            console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
+            // console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
             setVehicleType('')
             if (nextIndex < selectedItems.length) {
               setCurrentStepIndex(nextIndex);
@@ -487,7 +487,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
       }
     }
   };
-  console.log(currentStepIndex, "__nextIndex")
+  // console.log(currentStepIndex, "__nextIndex")
 
   const handleVehiclePhoto = async (formDataInput, subForm) => {
     const formKeys = (subFormRef.current[subForm] || []).map(f => f.fieldName);
@@ -504,7 +504,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
     formDataV.append("mileStoneId", formData?.mileStoneId);
     formDataV.append("Milestone", formData?.Milestone);
 
-    console.log(formKeys, 'asdfasdfasdfadsfadsfasd')
+    // console.log(formKeys, 'asdfasdfasdfadsfadsfasd')
     // Only selected form's fields
     formKeys?.filter((key) => {
       if (Object.keys(formDataInput).includes(key)) {
@@ -531,7 +531,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
 
       if (isMultiStep) {
         const nextIndex = currentStepIndex + 1;
-        console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
+        // console.log(isMultiStep, selectedItems, nextIndex, 'asdfasdfasdfsadfgsdfgsdfgsdfasdfsdfgsdf')
         setVehicleType('')
         if (nextIndex < selectedItems.length) {
           setCurrentStepIndex(nextIndex);
@@ -563,7 +563,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
 
 
   const checkOptionList = (type = '') => {
-    console.log(allFormType, 'lkjhgjkhghjkhgfhjgh')
+    // console.log(allFormType, 'lkjhgjkhghjkhgfhjgh')
     if (type && (allFormType.includes('roadsafetychecklist4wheeler') || allFormType.includes('roadsafetychecklist2wheeler'))) {
       return ['roadSafetyChecklist']
     }
@@ -671,7 +671,7 @@ const CommonFormPTW = ({ formName, getApprovalsData, isPtwRaise, fillData = null
           </h2>
 
           <div className="space-y-3 mb-6">
-            {console.log(options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)), '9676876876876876876876876')}
+            {/* {console.log(options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)), '9676876876876876876876876')} */}
             {options?.filter((item) => [...allFormType, ...checkOptionList('photo'), ...checkOptionList()]?.includes(item.id)).map((option) => (
 
               <label
@@ -859,14 +859,14 @@ export default CommonFormPTW;
 //     roadsafetychecklist4wheeler: [],
 //   });
 
-//   console.log(subFormRef.current, "||", subFormRef.current[which], "||", which, "__newWHeeler")
+  // console.log(subFormRef.current, "||", subFormRef.current[which], "||", which, "__newWHeeler")
 //   useEffect(() => {
 //     setPtwModalHead({
 //       title: which
 //     })
 //     if (isPtwRaise) {
 //       subFormRef.current[which]?.forEach((item) => {
-//         console.log(item, '987654323456789876545678765')
+        // console.log(item, '987654323456789876545678765')
 //         if (['checklist', 'photo']?.includes(which) && fillData!==null  && Object.keys(fillData)?.includes(which)) {
 //           setValue(item?.fieldName, item?.dataType === 'img' ? baseUrl + fillData[which][item?.fieldName] : fillData[which][item?.fieldName])
 //         }

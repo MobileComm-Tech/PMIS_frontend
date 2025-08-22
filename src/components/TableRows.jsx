@@ -7,12 +7,12 @@ import CreateFormField from "./CreateFormField";
 const TableRows = ({listing,Form}) => {
 
 
-    console.log(listing,Form,"listing,Formlisting,Form")
+    // console.log(listing,Form,"listing,Formlisting,Form")
 
     
     return listing.map((itm, indexes) => {
         return Form.map((its, innerIndex) => {
-            console.log(its, "indexes", indexes, "innerIndex", innerIndex, "itsitsitsits")
+            // console.log(its, "indexes", indexes, "innerIndex", innerIndex, "itsitsitsits")
             return {
                 [its.label]: <CreateFormField itm={{
                     ...its,

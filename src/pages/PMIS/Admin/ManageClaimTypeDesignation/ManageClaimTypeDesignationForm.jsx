@@ -93,7 +93,7 @@ const ManageClaimTypeDesignationForm = ({
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
@@ -131,9 +131,9 @@ const ManageClaimTypeDesignationForm = ({
     } else {
       reset({});
       Object.keys(formValue).forEach((key) => {
-        console.log(key, formValue[key], "Object.keys(formValue)");
+        // console.log(key, formValue[key], "Object.keys(formValue)");
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

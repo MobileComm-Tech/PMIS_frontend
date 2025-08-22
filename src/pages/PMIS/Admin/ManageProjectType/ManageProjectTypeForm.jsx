@@ -12,7 +12,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting, formValue = {} }) => {
     let dispatch = useDispatch()
 
-    console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
+    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
 
     const [modalOpen, setmodalOpen] = useState(false)
 
@@ -101,7 +101,7 @@ const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting,
         formState: { errors },
     } = useForm()
     const onSubmit = (data) => {
-        console.log(data, "datadatadatadata")
+        // console.log(data, "datadatadatadata")
         // dispatch(AuthActions.signIn(data, () => {
         //     navigate('/authenticate')
         // }))
@@ -120,7 +120,7 @@ const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting,
             }))
         }
     }
-    console.log(Form, "Form 11")
+    // console.log(Form, "Form 11")
     useEffect(() => {
         // dispatch(AdminActions.getManageProjectType())
 
@@ -128,15 +128,15 @@ const ManageProjectTypeForm = ({ customeruniqueId, isOpen, setIsOpen, resetting,
         if (resetting) {
             reset({})
             Form.map((fieldName) => {
-                console.log(fieldName, "fieldNamefieldNamefieldName")
+                // console.log(fieldName, "fieldNamefieldNamefieldName")
                 setValue(fieldName["name"], fieldName["value"]);
             });
         } else {
             reset({})
-            console.log(Object.keys(formValue), "Object.keys(formValue)")
+            // console.log(Object.keys(formValue), "Object.keys(formValue)")
             Form.forEach((key) => {
                 if (["endAt", "startAt"].indexOf(key.name) != -1) {
-                    console.log("date formValuekey", key.name, formValue[key.name])
+                    // console.log("date formValuekey", key.name, formValue[key.name])
                     const momentObj = moment(formValue[key.name]);
                     setValue(key.name, momentObj.toDate());
                 } else {

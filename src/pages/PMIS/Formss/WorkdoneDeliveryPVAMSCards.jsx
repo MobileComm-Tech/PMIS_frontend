@@ -48,7 +48,7 @@ const WorkdoneDeliveryPVAMSCards = () => {
                   onClick={() => {
 
 
-                    console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
+                    // console.log(getAccessType(itm[0]), "getAccessType(itm[0])")
                     if (1 == 1 || getAccessType(itm[0]) == "visible") {
 
                       dispatch(

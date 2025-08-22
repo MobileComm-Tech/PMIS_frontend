@@ -11,7 +11,7 @@ const ComponentActions = {
     try {
       dispatch(POP_MENU({ data, tkn }));
     } catch (error) {
-      console.log(error, "amit errorerror 390");
+      // console.log(error, "amit errorerror 390");
     }
   },
   breadcrumb: (data, link, index, tkn) => async (dispatch, _) => {
@@ -19,7 +19,7 @@ const ComponentActions = {
     try {
       dispatch(BREADCRUMB({ data, link, index, tkn }));
     } catch (error) {
-      console.log(error, "amit errorerror 37");
+      // console.log(error, "amit errorerror 37");
     }
   },
 
@@ -27,14 +27,14 @@ const ComponentActions = {
     try {
       dispatch(GLOBAL_VALUE({ name, value }));
     } catch (error) {
-      console.log(error, "amit errorerror 37");
+      // console.log(error, "amit errorerror 37");
     }
   },
   alerts: (data) => async (dispatch, _) => {
     try {
     
     } catch (error) {
-      console.log(error, "amit errorerror 37");
+      // console.log(error, "amit errorerror 37");
  
     }
   },
@@ -42,7 +42,7 @@ const ComponentActions = {
     try {
       dispatch(LOADERS(data));
     } catch (error) {
-      console.log(error, "amit errorerror 37");
+      // console.log(error, "amit errorerror 37");
       
     }
   },

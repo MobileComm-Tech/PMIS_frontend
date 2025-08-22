@@ -85,14 +85,14 @@ const ManageSubProjectMultiDynamicFormTask = ({ isOpen, setIsOpen, resetting, fo
   ];
 
   const onSubmit = (data) => {
-    console.log(data, "datadatadatadata");
+    // console.log(data, "datadatadatadata");
     // dispatch(AuthActions.signIn(data, () => {
     //     navigate('/authenticate')
     // }))
   };
   
   const onTableViewSubmit = (data) => {
-    console.log('datadatadata',typeof(selectedSubproject2),data,formValue,selectedSubproject2,)
+    // console.log('datadatadata',typeof(selectedSubproject2),data,formValue,selectedSubproject2,)
     dispatch(
       CommonActions.commondownload(
         "/export/siteWithTask2" +'/'+`${customeruniqueId}`,

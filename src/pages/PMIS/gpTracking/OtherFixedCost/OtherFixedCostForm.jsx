@@ -31,7 +31,7 @@ const OtherFixedCostForm = ({
     });
   });
   let gpCostTypesList = useSelector((state) => {
-    console.log("ygsgdygyegyedygygu",state)
+    // console.log("ygsgdygyegyedygygu",state)
     return state?.gpTrackingReducer?.getOtherFixedCostTypes.map((itm) => {
       return {
         label: itm?.costType,
@@ -40,7 +40,7 @@ const OtherFixedCostForm = ({
     });
   });
   let customerList = useSelector((state) => {
-    console.log("hjdjhbdbhehyukg", state);
+    // console.log("hjdjhbdbhehyukg", state);
     return state?.gpTrackingReducer?.getCustomer.map((itm) => {
       
       return {
@@ -173,7 +173,7 @@ const OtherFixedCostForm = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   const onTableViewSubmit = (data) => {
@@ -219,10 +219,10 @@ const OtherFixedCostForm = ({
       });
     } else {
       reset({});
-      console.log(Object.keys(formValue), "Object.keys(formValue)");
+      // console.log(Object.keys(formValue), "Object.keys(formValue)");
       Form.forEach((key) => {
         if (["endAt", "startAt"].indexOf(key.name) != -1) {
-          console.log("date formValuekey", key.name, formValue[key.name]);
+          // console.log("date formValuekey", key.name, formValue[key.name]);
           const momentObj = moment(formValue[key.name]);
           setValue(key.name, momentObj.toDate());
         } else {

@@ -109,7 +109,7 @@ const MyTask = () => {
     riskassessment: [],
 
   });
-  console.log(isRaiseFormData.current, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
+  // console.log(isRaiseFormData.current, 'asdfafasdfsadfasdfadddddddddasdfasdfasdfas')
 
   const [modalHead, setmodalHead] = useState(<></>);
 
@@ -273,7 +273,7 @@ const MyTask = () => {
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
-    console.log(ptwModalHead.value, 'fasdfasdfsadfasdfasdfasdf')
+    // console.log(ptwModalHead.value, 'fasdfasdfsadfasdfasdfasdf')
 
     try {
       // Handle normal (non-photo/vehicle) forms
@@ -292,7 +292,7 @@ const MyTask = () => {
           [ptwModalHead.value]: {},
         };
 
-        console.log('called ..............', newData, '123456789876543212345678765432')
+        // console.log('called ..............', newData, '123456789876543212345678765432')
 
         Object.keys(data)?.forEach((key) => {
           if (data[key]) {
@@ -333,7 +333,7 @@ const MyTask = () => {
           }
         });
 
-        console.log(data, 'adfasdfasdfsadf')
+        // console.log(data, 'adfasdfasdfsadf')
 
         const url = isPtwRaise ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}` : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid") ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") ? "?operation_id="+sessionStorage.getItem("operationId"):""}` : ""
           }`;
@@ -346,7 +346,7 @@ const MyTask = () => {
       }
 
       // Handle response
-      console.log(res?.data?.operation_id,"___res___")
+      // console.log(res?.data?.operation_id,"___res___")
       if (res?.status === 200 || res?.status === 201) {
         sessionStorage.setItem(
           "opid",
@@ -459,7 +459,7 @@ const MyTask = () => {
   useEffect(() => {
     if (!isPtwRaise) {
       subFormRef.current[ptwModalHead.value === 'vehicle' ? vehicleType : ptwModalHead.value]?.forEach(item => {
-        console.log(item, 'asdfasdfasdfasdfa')
+        // console.log(item, 'asdfasdfasdfasdfa')
         if (item?.dataType === "AutoFill") {
           setValue(
             item?.fieldName,
@@ -562,7 +562,7 @@ const MyTask = () => {
             // ...(item?.dataType === 'img' ? {
             //   props: {
             //     onChange: (e) => {
-            //       console.log(e.target.files, "e geeter");
+                  // console.log(e.target.files, "e geeter");
             //       setValue(item?.fieldName, e.target.files[0]);
             //     },
 
@@ -609,8 +609,8 @@ const MyTask = () => {
           <p
             className="text-[#13b497] font-extrabold"
             onClick={() => {
-              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
-              console.log("asdfasdfasdfasdfasdfasdf.......", "called");
+              // console.log("asdfasdfasdfasdfasdfasdf.......", "called");
+              // console.log("asdfasdfasdfasdfasdfasdf.......", "called");
               setmodalFullOpen((prev) => !prev);
               setmodalHead("Update Site:-" + itm["Site Id"]);
               dispatch(
@@ -987,7 +987,7 @@ const MyTask = () => {
                       <div
                         onClick={() => {
                           clearAllFields()
-                          console.log(itm, user, "asdfasdfasdfasd");
+                          // console.log(itm, user, "asdfasdfasdfasd");
                           mileStoneItemRef.current = {
                             ...itm,
                             Customer: itm?.customerName,
@@ -1185,7 +1185,7 @@ const MyTask = () => {
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log("snnsnsnsns");
+                                  // console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
                                 name={"Cancel"}
@@ -1301,7 +1301,7 @@ const MyTask = () => {
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log("snnsnsnsns");
+                                  // console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
                                 name={"Cancel"}
@@ -1349,10 +1349,10 @@ const MyTask = () => {
       let interdata = state?.myHomeData?.getmyTask || 0;
       // console.log("afdsdasfasfasfasfadfs", interdata[0]);
       if (interdata.length > 0) {
-        console.log(
-          "asdfas0fjasofnafsdna",
-          interdata[0]["overall_table_count"]
-        );
+        // console.log(
+        //   "asdfas0fjasofnafsdna",
+        //   interdata[0]["overall_table_count"]
+        // );
         return interdata[0]["overall_table_count"];
       }
     }) || [];
@@ -1707,7 +1707,7 @@ const MyTask = () => {
   }
 
   const isForDriveTest = (isPhoto = false) => {
-    console.log(allFormType, formName, 'fasdfasdfasdfasdfsadfasdfasdfasdfasdfas')
+    // console.log(allFormType, formName, 'fasdfasdfasdfasdfsadfasdfasdfasdfasdfas')
     if (isPhoto) {
       if (((allFormType?.includes('ptwphoto4wheeler') || allFormType?.includes('ptwphoto2wheeler')))) {
         return true
@@ -1847,7 +1847,7 @@ const MyTask = () => {
               </h2>
 
               <div className="space-y-3 mb-6">
-                {console.log(options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []), ...(isForDriveTest(true) ? ['ptwphoto'] : [])].includes(item.id)), '0987654323456789876')}
+                {/* {console.log(options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []), ...(isForDriveTest(true) ? ['ptwphoto'] : [])].includes(item.id)), '0987654323456789876')} */}
                 {options?.filter((item) => [...allFormType, ...(isForDriveTest() ? ['roadSafetyChecklist'] : []), ...(isForDriveTest(true) ? ['ptwphoto'] : [])].includes(item.id)).map((option) => (
 
                   <label

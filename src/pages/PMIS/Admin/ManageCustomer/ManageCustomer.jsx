@@ -334,9 +334,9 @@ const ManageCustomer = () => {
 
       
           approveddata={[...dbConfiglist2]?.sort((a,b) => +a.index - +b.index).map((itm,index) => {
-            if(index==0){
-              console.log(itm,"__itm__")
-            }
+            // if(index==0){
+            //   console.log(itm,"__itm__")
+            // }
             return (
               <>
                 <div

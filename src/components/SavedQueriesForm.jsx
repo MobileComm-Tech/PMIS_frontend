@@ -7,17 +7,17 @@ import { useSelector } from 'react-redux';
 const SavedQueriesForm = ({ itm, Form, errors, register, setValue, getValues, handleSubmit, onTableView }) => {
 
     let runQuery = useSelector((state) => {
-        console.log(state, "statestatestate")
+        // console.log(state, "statestatestate")
 
         let interdata = state?.customQuery?.runQuery
 
-        console.log(interdata, "interdatainterdata")
+        // console.log(interdata, "interdatainterdata")
         return state?.customQuery?.runQuery
     })
 
 
 
-    console.log(errors, "errorserrorserrorserrors")
+    // console.log(errors, "errorserrorserrorserrors")
 
 
 

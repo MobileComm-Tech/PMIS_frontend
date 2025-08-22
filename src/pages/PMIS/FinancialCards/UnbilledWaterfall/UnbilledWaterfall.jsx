@@ -40,7 +40,7 @@ const Unbilled = () => {
                         <InvoiceBased isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                         {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
                     </>)
-                    console.log('ahshshhs',itm)
+                    // console.log('ahshshhs',itm)
                     //setmodalOpen(false)
                 }}></EditButton>} />,
                 
@@ -177,7 +177,7 @@ const Unbilled = () => {
         ]
     }
     const onSubmit = (data) => {
-        console.log("jsjsjsjss", data)
+        // console.log("jsjsjsjss", data)
         let value = data.reseter
         delete data.reseter
         dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))

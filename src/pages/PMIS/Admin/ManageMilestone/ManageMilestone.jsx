@@ -27,7 +27,7 @@ const ManageMilestone = ({ setGlobalData,projectuniqueId, setmodalFullOpen, setS
     let Mlength = dataOfProject["MileStone"]?.length
     let Clength = check?.length
 
-    console.log(Mlength,Clength,"Clength")
+    // console.log(Mlength,Clength,"Clength")
 
 
 

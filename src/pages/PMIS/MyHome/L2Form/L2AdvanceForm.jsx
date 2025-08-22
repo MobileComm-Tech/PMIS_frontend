@@ -562,7 +562,7 @@ const L2AdvanceForm = () => {
     };
   }),[dbConfigList])
 
-  console.log("data___",data)
+  // console.log("data___",data)
 
   return (
     <>

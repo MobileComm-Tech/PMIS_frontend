@@ -38,7 +38,7 @@ const ManageMilestoneSite = ({
   let rolename = user?.roleName;
 
 
-console.log(siteCompleteData,"___siteCompleteData__")
+// console.log(siteCompleteData,"___siteCompleteData__")
 
 
 
@@ -139,7 +139,7 @@ console.log(siteCompleteData,"___siteCompleteData__")
 
             setValueForm1("CELL ID", cellidlistt?.split("-")?.join(","));
           }else{
-            console.log(iytm["fieldName"], datew[0][iytm["fieldName"]],"___datew")
+            // console.log(iytm["fieldName"], datew[0][iytm["fieldName"]],"___datew")
             setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
             
           }
@@ -147,11 +147,11 @@ console.log(siteCompleteData,"___siteCompleteData__")
           if(iytm["fieldName"]==="Unique ID"){
             setUniqueIdSiteEngg(datew[0][iytm["fieldName"]])
           }
-          console.log(
-            iytm["fieldName"],
-            datew[0][iytm["fieldName"]],
-            "iytmiytmiytmiytm"
-          );
+          // console.log(
+          //   iytm["fieldName"],
+          //   datew[0][iytm["fieldName"]],
+          //   "iytmiytmiytmiytm"
+          // );
 
         });
 
@@ -178,7 +178,7 @@ console.log(siteCompleteData,"___siteCompleteData__")
     return dataOlder;
   });
 
-  console.log(uniqueIdSiteEngg,"___DatatofProjec")
+  // console.log(uniqueIdSiteEngg,"___DatatofProjec")
 
   const handleSiteEnggSubmit = (data) => {
     let final_data = {};

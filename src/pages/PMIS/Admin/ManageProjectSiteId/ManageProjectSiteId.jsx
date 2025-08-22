@@ -518,7 +518,7 @@ const ManageProjectSiteId = () => {
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log("snnsnsnsns");
+                                  // console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
                                 name={"Cancel"}
@@ -637,7 +637,7 @@ const ManageProjectSiteId = () => {
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log("snnsnsnsns");
+                                  // console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
                                 name={"Cancel"}
@@ -661,7 +661,7 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-console.log(dbConfigList,"__dbCOndig")
+// console.log(dbConfigList,"__dbCOndig")
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
@@ -976,7 +976,7 @@ console.log(dbConfigList,"__dbCOndig")
       })
     );
   };
-  console.log(fileOpenlink, "___fileOpenlinkasfdasd_");
+  // console.log(fileOpenlink, "___fileOpenlinkasfdasd_");
   return (
     <>
       <AdvancedTableExpandable
@@ -986,7 +986,7 @@ console.log(dbConfigList,"__dbCOndig")
           <>
             <SearchBarView
               onblur={(e) => {
-                console.log("SearchBarView onblur", e.target.value);
+                // console.log("SearchBarView onblur", e.target.value);
                 dispatch(
                   projectListActions.getProjectTypeAll(
                     projectuniqueId,
