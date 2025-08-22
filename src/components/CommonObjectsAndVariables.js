@@ -2,6 +2,7 @@ export const pagination = { page: 1, limit: 50 };
 export const range = { start: 1, end: 7 };
 
 
+
 export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
      let falseKey = false;
         for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
@@ -58,4 +59,28 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
         }
          data['amount'] = totalAmount;
          return data;
+}
+
+export const  quantitySelectTypeOptions =()=>{
+    console.log("callingtime")
+    const optionQuantityArray=[]
+    for( let i=1;i<=11;i++){
+
+        let quantityIndexOptions={}
+        if(i<11){
+            quantityIndexOptions={
+            label:i,
+            value:i
+        }
+        }else{
+              quantityIndexOptions={
+            label:"Custom Quantity",
+            value:"customQuantity"
+        }
+        }
+        optionQuantityArray.push(quantityIndexOptions);
+    }
+    console.log(optionQuantityArray,"___optionQuantityArray__")
+
+    return optionQuantityArray
 }

@@ -133,6 +133,8 @@ const VendorCost = () => {
     });
   });
 
+  console.log(projectTypeList,"___projectTypeList__")
+
   let projectGroupList = useSelector((state) => {
     return state?.vendorData?.getVendorCostProjetGroupList.map((itm) => {
       return {
