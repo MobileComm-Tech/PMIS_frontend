@@ -95,7 +95,7 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
             const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
             console.log(itemCodeValueData,itemCodeRateData,itemCodeDescription,"____itemCodeDescription")
             const itemRate=`itemRate0${i}`;
-            data[itemRate] = itemCodeRateData;
+            data[itemRate] = Number(itemCodeRateData);
             data[itemCodeKey]=itemCodeValueData;
             data[itemDescriptionKey] = itemCodeDescription
             const quantityValue = data[quantityKey];
