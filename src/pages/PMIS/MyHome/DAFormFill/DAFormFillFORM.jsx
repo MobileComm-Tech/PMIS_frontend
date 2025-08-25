@@ -100,17 +100,17 @@ const DAFormFillFORM = ({
         // required: true,
         classes: "col-span-1",
     },
-    {
-      label: "DA Date",
-      value: "",
-      name: "Claim_Date",
-      type: "datetime",
-      required: true,
-      props: {
-        maxSelectableDate: today,
-      },
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "DA Date",
+    //   value: "",
+    //   name: "Claim_Date",
+    //   type: "datetime",
+    //   required: true,
+    //   props: {
+    //     maxSelectableDate: today,
+    //   },
+    //   classes: "col-span-1",
+    // },
     {
         label: "Employee",
         value: "",
@@ -157,7 +157,7 @@ const DAFormFillFORM = ({
               );
             },
           },
-        // required: true,
+        required: true,
         classes: "col-span-1",
     },
     {
@@ -168,6 +168,48 @@ const DAFormFillFORM = ({
         option: CostCenterList,
         // required: true,
         classes: "col-span-1",
+    },
+    {
+      label: "DA Applied Date",
+      value: "",
+      name: "Claim_Date",
+      type: "datetime",
+      required: true,
+      props: {
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Start Date",
+      value: "",
+      name: "startAt",
+      type: "datetime",
+      props: {
+        onChange: (e) => {
+        },
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "End Date",
+      value: "",
+      name: "endAt",
+      type: "datetime",
+      props: {
+        onChange: (e) => {
+        },
+        maxSelectableDate: today,
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Total DA Days",
+      value: "",
+      name: "totalDays",
+      type: "sdisabled",
+      classes: "col-span-1",
     },
     {
         label: "DA Amount",
@@ -208,6 +250,17 @@ const DAFormFillFORM = ({
     getValues,
     formState: { errors },
   } = useForm();
+
+    const startDate = watch("startAt")
+  const endDate = watch("endAt")
+ 
+ 
+  useEffect(() => {
+    if (startDate && endDate) {
+      const totalDays = moment(endDate).diff(moment(startDate), 'days');
+      setValue("totalDays", totalDays >= 0 ? totalDays : 0);
+    }
+  }, [startDate, endDate, setValue]);
 
   const onSubmit = (data) => {
     // console.log(data);

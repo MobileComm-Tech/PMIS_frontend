@@ -31,6 +31,7 @@ import NewMuitiSelect007 from "./NewMuitiSelect007";
 import DateRangePicking from "./FormElements/DateRangePicking";
 import NewSingleSelectForm50 from "./FormElements/NewSingleSelectForm50";
 import DateTime from "./FormElements/DateTime";
+import CustomSelectDropDown from "./CustomSelectDropDown";
 
 const CommonForm = ({
   classes,
@@ -38,11 +39,13 @@ const CommonForm = ({
   Form,
   errors,
   handleSubmit,
-  
+  changeTo,
   setValue,
   getValues,
   register,
   reset = true,
+  setQuantityValue,
+  quantityValue={}
   
 }) => {
   const [value, onChange] = useState(new Date());
@@ -67,9 +70,7 @@ const CommonForm = ({
         encType="multipart/form-data"
       >
         {Form?.map((itm) => {
-          if(itm?.label==="Item Code-01"){
-                          console.log(itm?.visible,"__vosible")
-                        }
+          
           return (
             <>
               {itm.type == "heading" ? (
@@ -241,6 +242,24 @@ const CommonForm = ({
                           setValue={setValue}
                           getValues={getValues}
                           register={register}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
+                     {itm.type == "customSelect" ? (
+                      <>
+                        <CustomSelectDropDown
+                          itm={itm}
+                          errors={errors}
+                          changeTo={changeTo}
+                          handleSubmit={handleSubmit}
+                          setValue={setValue}
+                          getValues={getValues}
+                          register={register}
+                          quantityValue={quantityValue}
+                          setQuantityValue={setQuantityValue}
                         />
                       </>
                     ) : (

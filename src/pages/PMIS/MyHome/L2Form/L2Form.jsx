@@ -368,6 +368,7 @@ const L2Form = () => {
         value: "categories",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
+      
       ...(!hide
         ? []
         : [
@@ -421,6 +422,11 @@ const L2Form = () => {
       {
         name: "Bill Number",
         value: "billNumber",
+        style: "min-w-[170px] max-w-[450px] text-center",
+      },
+      {
+        name: "Total Days",
+        value: "totalDays",
         style: "min-w-[170px] max-w-[450px] text-center",
       },
       {

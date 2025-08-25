@@ -88,7 +88,7 @@ const InputDropdown = ({
   };
 
   return (
-    <div className="px-2">
+    <div className="px-2 grid-cols-2 gap-1">
       <label className="text-white p-2">Quantity</label>
       {selectedOption === "custom" ? (
         <div className="relative  w-[100%]">
