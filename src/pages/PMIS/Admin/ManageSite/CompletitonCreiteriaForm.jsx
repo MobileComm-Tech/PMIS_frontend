@@ -608,7 +608,7 @@ const CompletitonCreiteriaForm = ({
               
               return {
               label: itm?.value+"-("+itm?.itemCodeDescription+")",
-              value: itm?.value+" "+itm?.rate,
+              value: itm?.value+","+itm?.rate+","+itm?.itemCodeDescription,
               rate:itm?.rate
             }
             }
@@ -620,10 +620,10 @@ const CompletitonCreiteriaForm = ({
                 //  console.log(e?.target?.value,"__sdfghjk")
                 //  if(e?.target?.value?.split(" ")[-1]!=="" || e?.target?.value?.split(" ")[1]!==undefined){
                 const n  = e?.target?.value?.split(" ")?.length
-                // console.log(e?.target?.value?.split(" ")[n-1],"__qwertyuiop")
+                console.log(e?.target?.value?.split(","),"__qwertyuiop")
                    setQuantityValue(prev => ({
                                   ...prev,
-                                  [key]: Number(e?.target?.value?.split(" ")[n-1])
+                                  [key]: Number(e?.target?.value?.split(",")[1])
                                 }));
             // }
                  }
@@ -852,7 +852,7 @@ setValue("amount",total)
       return;
     }
    
-      // console.log(data,"___newjbjsd")
+      console.log(data,"___newjbjsd")
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
         setmodalOpen(false);

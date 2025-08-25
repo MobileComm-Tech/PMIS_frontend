@@ -26,13 +26,16 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
            for (let i = range.start; i <= range.end; i++) {
             const quantityKey = `quantity0${i}`;
             const itemCodeKey = `itemCode0${i}`;
+            const itemDescriptionKey=`itemCodeDescription0${i}`
 
-            const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(" ")[0]:""
-            const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(" ")[1]:""
-
+            const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[0]:""
+            const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[1]:""
+            const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
+            console.log(itemCodeValueData,itemCodeRateData,itemCodeDescription,"____itemCodeDescription")
             const itemRate=`itemRate0${i}`;
             data[itemRate] = itemCodeRateData;
             data[itemCodeKey]=itemCodeValueData;
+            data[itemDescriptionKey] = itemCodeDescription
             const quantityValue = data[quantityKey];
 
             if (quantityValue && quantityValue.trim() !== "") {
