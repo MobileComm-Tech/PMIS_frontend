@@ -14,7 +14,7 @@ const InputDropdown = ({
   const [error, setError] = useState("");
 
   const selectRef = useRef(null);
-  console.log(quantity, "__quantity___");
+  // console.log(quantity, "__quantity___");
 
   const dropdownnumber = {};
   for (let i = 1; i <= 10; i++) {

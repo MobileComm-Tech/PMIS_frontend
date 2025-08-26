@@ -531,6 +531,7 @@ const CompletitonCreiteriaForm = ({
 
       const key = `itemCode0${i}`
       if (itemCodeData[key]?.length > 0) {
+       
         const filteredData = itemCodeData[key]?.filter((item) => {
             if(item?.rate&& item?.itemCodeDescription) return item
           })
@@ -590,7 +591,7 @@ const CompletitonCreiteriaForm = ({
 
           classes: "col-span-1",
         }
-         if (["MS1"]?.includes(mileStone?.Name)&& i===1){
+         if (["MS1"]?.includes(mileStone?.Name)&& i===1&& filteredData[0]?.value!==undefined){
              const totalAmountField = {
             label: "Total Amount",
             name: "amount",
@@ -612,7 +613,7 @@ itemCodeInputs.push(tempData);
         itemCodeInputs.push(quantityObj)
         }
         
-        
+         
       }
     }
       
@@ -639,7 +640,6 @@ setValue("amount",total)
 
   },[quantityValue])
 
-  console.log(quantityValue, "quantityValue")
 
 
 
@@ -775,7 +775,7 @@ setValue("amount",total)
   },[itemCodeAllInputs])
 
   const onsubmiting = (data) => {
-    console.log("comingHJer",data)
+   
     
     if (checkmilestone.includes("Forms & Checklist")) {
       data['Checklist'] = "Yes"
@@ -785,7 +785,7 @@ setValue("amount",total)
       data['subProjectTypeName'] = subProjectName
     }else{
          let tempData={}
-              console.log(quantityValue,"__valueofQa")
+            
                   for (let i = range.start; i <= range.end; i++) {
                 const quantityKey = `quantity0${i}`;
 
@@ -804,7 +804,7 @@ setValue("amount",total)
       return;
     }
    
-      console.log(data,"___newjbjsd")
+      
     dispatch(
       projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
         setmodalOpen(false);

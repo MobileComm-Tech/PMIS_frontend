@@ -25,13 +25,13 @@ const CustomInputDropdown = ({
   const [error, setError] = useState("");
 
   const selectRef = useRef(null);
-  console.log(quantityValue, label,"__quantity___");
+  // console.log(quantityValue, label,"__quantity___");
 
   const dropdownnumber = {};
   for (let i = 1; i <= 10; i++) {
     dropdownnumber[i] = i;
   }
-  console.log(selectedOption, "||", customNumber, "___customNumber___");
+  // console.log(selectedOption, "||", customNumber, "___customNumber___");
 
  
 

@@ -303,7 +303,7 @@ const ManageMilestoneSite = ({
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
   ];
-  console.log(dataOfOldProject,"___dataOfOldProject__")
+  // console.log(dataOfOldProject,"___dataOfOldProject__")
   return (
     <>
       <Modal
