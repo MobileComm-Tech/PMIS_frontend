@@ -8,7 +8,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
 import FilterActions from '../../../../store/actions/filter-actions';
 import { GET_ACCURAL_REVENUE_MASTER_PROJECTID, GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE, GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE } from '../../../../store/reducers/admin-reducer';
-import { range } from '../../../../components/CommonObjectsAndVariables';
+import { masterUnitRateWithActivityFilter, range } from '../../../../components/CommonObjectsAndVariables';
 
 const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
 
@@ -417,13 +417,13 @@ const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, fo
             data = { ...data, rate: sum,subProject:formValue?.subProject,customer:formValue?.customer, projectType:formValue?.projectType,project:formValue?.project}
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject(true, filtervalue!=false ? filtervalue:"isActivity=True"))
-            }, formValue.uniqueId+"?isActivity=True"))
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true, filtervalue!=false ? filtervalue+"&"+masterUnitRateWithActivityFilter:masterUnitRateWithActivityFilter))
+            }, formValue.uniqueId+"?"+masterUnitRateWithActivityFilter))
         } else {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject(true,"isActivity=True"))
-            },"?isActivity=True"))
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter))
+            },"?"+masterUnitRateWithActivityFilter))
         }
     }
 

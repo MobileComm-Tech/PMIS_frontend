@@ -15,7 +15,7 @@ import AdminActions from '../../../../store/actions/admin-actions';
 import FilterActions from '../../../../store/actions/filter-actions';
 import EditButton from '../../../../components/EditButton';
 import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
-import { range } from '../../../../components/CommonObjectsAndVariables';
+import { masterUnitRateWithActivityFilter, range } from '../../../../components/CommonObjectsAndVariables';
 import AccuralRevenueMasterWithActivityForm from './AccuralRevenueMasterWithActivityForm';
 const AccuralRevenueMasterWithActivity = () => {
 
@@ -48,7 +48,7 @@ const AccuralRevenueMasterWithActivity = () => {
                         buttons: [
                             <Button classes='w-15 bg-rose-400' onClick={() => {
                                 dispatch(CommonActions.deleteApiCaller(`${Urls.get_accural_revenue_master_project}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getAccuralRevenueMasterProject())
+                                    dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter))
                                     dispatch(ALERTS({ show: false }))
                                 }))
                             }} name={"OK"} />,
@@ -243,12 +243,12 @@ const AccuralRevenueMasterWithActivity = () => {
         delete data.reseter
         let strVal = objectToQueryString(data);
         setstrVal(strVal);
-        dispatch(AdminActions.getAccuralRevenueMasterProject(true,strVal))
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true,strVal+"&"+masterUnitRateWithActivityFilter))
     }
 
     
     useEffect(() => {
-        dispatch(AdminActions.getAccuralRevenueMasterProject(true,"isActivity=True"));
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter));
         dispatch(AdminActions.getManageCustomer())
         dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
     }, []);
@@ -258,7 +258,7 @@ const AccuralRevenueMasterWithActivity = () => {
         dispatch(
           CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
             setFileOpen(false);
-            dispatch(AdminActions.getAccuralRevenueMasterProject());
+            dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter));
             resetting("");
           })
         );
