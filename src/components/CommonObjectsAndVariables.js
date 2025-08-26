@@ -89,12 +89,13 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
             const quantityKey = `quantity0${i}`;
             const itemCodeKey = `itemCode0${i}`;
             const itemDescriptionKey=`itemCodeDescription0${i}`
+            const itemRate=`itemRate0${i}`;
 
             const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[0]:""
             const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[1]:""
             const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
-            console.log(itemCodeValueData,itemCodeRateData,itemCodeDescription,"____itemCodeDescription")
-            const itemRate=`itemRate0${i}`;
+
+            
             data[itemRate] = Number(itemCodeRateData);
             data[itemCodeKey]=itemCodeValueData;
             data[itemDescriptionKey] = itemCodeDescription
@@ -126,26 +127,26 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
          return data;
 }
 
-export const  quantitySelectTypeOptions =(changeTo)=>{
-    console.log("callingtime")
-    const optionQuantityArray=[]
-    for( let i=1;i<=11;i++){
+// export const  quantitySelectTypeOptions =(changeTo)=>{
+//     console.log("callingtime")
+//     const optionQuantityArray=[]
+//     for( let i=1;i<=11;i++){
 
-        let quantityIndexOptions={}
-        if(i<11){
-            quantityIndexOptions={
-            label:i,
-            value:i
-        }
-        }else{
-              quantityIndexOptions={
-            label:"Custom Quantity",
-            value:changeTo
-        }
-        }
-        optionQuantityArray.push(quantityIndexOptions);
-    }
-    console.log(optionQuantityArray,"___optionQuantityArray__")
+//         let quantityIndexOptions={}
+//         if(i<11){
+//             quantityIndexOptions={
+//             label:i,
+//             value:i
+//         }
+//         }else{
+//               quantityIndexOptions={
+//             label:"Custom Quantity",
+//             value:changeTo
+//         }
+//         }
+//         optionQuantityArray.push(quantityIndexOptions);
+//     }
+//     console.log(optionQuantityArray,"___optionQuantityArray__")
 
-    return optionQuantityArray
-}
+//     return optionQuantityArray
+// }

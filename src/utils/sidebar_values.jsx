@@ -139,6 +139,7 @@ import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
 import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
 import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
+import AccuralRevenueMasterWithActivity from "../pages/PMIS/Admin/Accural Revenue Master With Activit/AccuralRevenueMasterWithActivity";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -822,6 +823,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/MasterUnitRate",
       component: <AccuralRevenueMaster />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/MasterUnitRateWithActivity",
+      component: <AccuralRevenueMasterWithActivity />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

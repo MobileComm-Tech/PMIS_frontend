@@ -94,6 +94,12 @@ const SuperAdmin = () => {
             "/hr/superAdmin/MasterUnitRate",
             "border-b-[#b8e0d2]",
           ],
+           [
+            "Master Unit Rate With Activity",
+            "bg-pcol",
+            "/hr/superAdmin/MasterUnitRateWithActivity",
+            "border-b-[#b8e0d2]",
+          ],
           [
             "Activity Logs",
             "bg-pcol",
