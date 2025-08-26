@@ -417,13 +417,13 @@ const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, fo
             data = { ...data, rate: sum,subProject:formValue?.subProject,customer:formValue?.customer, projectType:formValue?.projectType,project:formValue?.project}
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject(true, filtervalue))
-            }, formValue.uniqueId))
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true, filtervalue!=false ? filtervalue:"isActivity=True"))
+            }, formValue.uniqueId+"?isActivity=True"))
         } else {
             dispatch(AdminActions.postAccuralRevenueMasterProject(data, () => {
                 setIsOpen(false)
-                dispatch(AdminActions.getAccuralRevenueMasterProject())
-            }))
+                dispatch(AdminActions.getAccuralRevenueMasterProject(true,"isActivity=True"))
+            },"?isActivity=True"))
         }
     }
 

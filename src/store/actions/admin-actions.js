@@ -906,7 +906,7 @@ const AdminActions = {
         const res = await Api.post({
           data: data,
           url:
-            uniqueId == null
+           uniqueId==="?isActivity=True" ? Urls.get_accural_revenue_master_project+uniqueId: uniqueId == null
               ? Urls.get_accural_revenue_master_project
               : Urls.get_accural_revenue_master_project + "/" + uniqueId,
         });
