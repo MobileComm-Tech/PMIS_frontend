@@ -261,78 +261,7 @@ const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, fo
         //     },
         //     classes: "col-span-1"
         // },
-        // {
-        //     label: "Item Code-02",
-        //     value: "",
-        //     name: "itemCode02",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
-        // {
-        //     label: "Item Code-03",
-        //     value: "",
-        //     name: "itemCode03",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
-        // {
-        //     label: "Item Code-04",
-        //     value: "",
-        //     name: "itemCode04",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
-        // {
-        //     label: "Item Code-05",
-        //     value: "",
-        //     name: "itemCode05",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
-        // {
-        //     label: "Item Code-06",
-        //     value: "",
-        //     name: "itemCode06",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
-        // {
-        //     label: "Item Code-07",
-        //     value: "",
-        //     name: "itemCode07",
-        //     type: "text",
-        //     filter: true,
-        //     props: {
-        //         onChange: ((e) => {
-        //         }),
-        //     },
-        //     classes: "col-span-1"
-        // },
+      
     ] , [ammount, dynamicFormData,ProjectTypelist])  
 
 
@@ -409,7 +338,7 @@ const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, fo
         }   
             
         data = { ...data, rate: sum,}
-        setAmmount(prev=>prev=0)
+        setAmmount(prev=>prev=0);
 
         // console.log(data,"____data__")
 
@@ -456,7 +385,7 @@ const AccuralRevenueMasterWithActivityForm = ({ isOpen, setIsOpen, resetting, fo
 
 
     return <>
-        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={rateForm?.length > 0 ? rateForm : Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        <Modal size={"xl"} children={<><CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} /></>} isOpen={modalOpen} setIsOpen={setmodalOpen} />
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 

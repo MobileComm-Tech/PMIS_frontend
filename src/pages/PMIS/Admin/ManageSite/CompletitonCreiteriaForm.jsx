@@ -557,8 +557,8 @@ const CompletitonCreiteriaForm = ({
                  const  key  = `itemCodeRate0${i}`
                 //  console.log(e?.target?.value,"__sdfghjk")
                 //  if(e?.target?.value?.split(" ")[-1]!=="" || e?.target?.value?.split(" ")[1]!==undefined){
-                const n  = e?.target?.value?.split(" ")?.length
-                console.log(e?.target?.value?.split(","),"__qwertyuiop")
+                // const n  = e?.target?.value?.split(" ")?.length
+                // console.log(e?.target?.value?.split(","),"__qwertyuiop")
                    setQuantityValue(prev => ({
                                   ...prev,
                                   [key]: Number(e?.target?.value?.split(",")[1])
@@ -578,6 +578,7 @@ const CompletitonCreiteriaForm = ({
           type: "customSelect",
           selectedOption:selectedOption,
           option: quantity,
+          // changeTo:"text",
           props: {
             onChange: (e) => {
               const  key  = `quantity0${i}`
@@ -591,7 +592,7 @@ const CompletitonCreiteriaForm = ({
 
           classes: "col-span-1",
         }
-         if (["MS1"]?.includes(mileStone?.Name)&& i===1&& filteredData[0]?.value!==undefined){
+         if (["MS1"]?.includes(mileStone?.Name)&& i===1&& filteredData[0]?.rate!==undefined){
              const totalAmountField = {
             label: "Total Amount",
             name: "amount",
@@ -609,8 +610,8 @@ const CompletitonCreiteriaForm = ({
           itemCodeInputs.push(totalAmountField)
           }
         if(filteredData?.length){
-itemCodeInputs.push(tempData);
-        itemCodeInputs.push(quantityObj)
+            itemCodeInputs.push(tempData);
+            itemCodeInputs.push(quantityObj)
         }
         
          
