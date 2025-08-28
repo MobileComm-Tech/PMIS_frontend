@@ -38,9 +38,9 @@ const InputDropdown = ({
     if (newValue !== "custom") {
       setCustomNumber("");
       setQuantity(selectedOption)
-      if (onChange) {
-        onChange(newValue);
-      }
+      // if (onChange) {
+      //   onChange(newValue);
+      // }
     }
    if(newValue === "custom"){
       setQuantity("custom")
@@ -69,10 +69,10 @@ const InputDropdown = ({
     }
 
     setCustomNumber(newValue);
-    setQuantity(newValue);
-    if (onChange) {
-      onChange(newValue);
-    }
+    // setQuantity(newValue);
+    // if (onChange) {
+    //   onChange(newValue);
+    // }
   };
 
   const handleArrowClick = () => {
