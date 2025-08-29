@@ -490,8 +490,9 @@ const VendorGroupTaskAllocation = ({
     setValue("vendorListId", "");
     setValue("workDescription", "");
     setValue("groupMilestone", "");
+    setValue("quantity","")
   };
-
+  console.log(quantityValue?.quantity,"___quantity__quantitu")
   const onTableViewSubmit = (data) => {
     // console.log("Form submission data:", data);
     // console.log(quantityValue, "___quantity");

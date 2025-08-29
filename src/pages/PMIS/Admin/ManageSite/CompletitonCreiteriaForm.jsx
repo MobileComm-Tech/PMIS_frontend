@@ -631,17 +631,23 @@ const CompletitonCreiteriaForm = ({
   const rateKey = `itemCodeRate0${i}`;
   const qtyKey = `quantity0${i}`;
 
-  if (quantityValue[rateKey] !== undefined || NaN && quantityValue[qtyKey] !== undefined || NaN ) {
-    // console.log(quantityValue[rateKey],quantityValue[qtyKey],"___fghjk")
+  if ((quantityValue[rateKey] !== undefined && !isNaN(quantityValue[rateKey])) &&
+    (quantityValue[qtyKey] !== undefined && !isNaN(quantityValue[qtyKey]))) {
+    
     total += quantityValue[rateKey] * quantityValue[qtyKey];
-  }
+    console.log(quantityValue[rateKey], quantityValue[qtyKey], total, "___total__");
 }
+}
+ if(total===NaN){
+  setValue("amount",0)
+ }else{
+  setValue("amount",total)
+ }
 
-setValue("amount",total)
 
   },[quantityValue])
 
-
+console.log(quantityValue,"____quantityValue__")
 
 
 
@@ -804,16 +810,16 @@ setValue("amount",total)
     if(data===false){
       return;
     }
-   
+    // console.log(data,"___datatFlow")
       
-    dispatch(
-      projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
-        setmodalOpen(false);
-        setmodalFullOpen(false);
-        dispatch(backgeturl);
-      }
-      )
-    );
+    // dispatch(
+    //   projectListActions.postSubmit(Urls.projectList_closeMilestone + mileStone["uniqueId"], data, () => {
+    //     setmodalOpen(false);
+    //     setmodalFullOpen(false);
+    //     dispatch(backgeturl);
+    //   }
+    //   )
+    // );
   };
 
 
