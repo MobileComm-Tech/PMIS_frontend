@@ -65,7 +65,7 @@ export const masterUnitRateWithActivityFilter="isActivity=True"
 // }
 
 
-export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
+export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{
      let falseKey = false;
         for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
             const itemCode = data[`itemCode0${i+1}`]?.trim();
@@ -93,12 +93,12 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
 
             const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[0]:""
             const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[1]:""
-            const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
+            // const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
+            const itemCodeDescription =data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",").slice(2).join(",") :""
+
 
             
-            data[itemRate] = Number(itemCodeRateData);
-            data[itemCodeKey]=itemCodeValueData;
-            data[itemDescriptionKey] = itemCodeDescription
+            
             const quantityValue = data[quantityKey];
 
             if (quantityValue && quantityValue !== "") {
@@ -120,7 +120,12 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
                 // }
 
                 totalAmount+=Number(itemCodeRateData)*Number(quantityValue);
+                if(['MS1']?.includes(mileStoneName)){
+                data[itemRate] = Number(itemCodeRateData);
+                data[itemCodeKey]=itemCodeValueData;
+                data[itemDescriptionKey] = itemCodeDescription
                 data[quantityKey] = numbericQuantity;
+                }
             }
         }
          data['amount'] = totalAmount;

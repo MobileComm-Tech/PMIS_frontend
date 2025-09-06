@@ -282,11 +282,17 @@ const VendorCost = () => {
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
     dispatch(
-      AdminActions.getAccuralRevenueMasterProject(
+      VendorActions.getVendorCostMilestone(
         true,
         objectToQueryString(data)
       )
     );
+    // dispatch(
+    //   AdminActions.getAccuralRevenueMasterProject(
+    //     true,
+    //     objectToQueryString(data)
+    //   )
+    // );
   };
 
   useEffect(() => {
