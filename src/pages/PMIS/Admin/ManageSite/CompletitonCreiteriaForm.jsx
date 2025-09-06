@@ -592,23 +592,23 @@ const CompletitonCreiteriaForm = ({
 
           classes: "col-span-1",
         }
-         if (["MS1"]?.includes(mileStone?.Name)&& i===1&& filteredData[0]?.rate!==undefined){
-             const totalAmountField = {
-            label: "Total Amount",
-            name: "amount",
-            type: "number",
-            required: false,
-            props: {
-              onChange: (e) => {
+        //  if (["MS1"]?.includes(mileStone?.Name)&& i===1&& filteredData[0]?.rate!==undefined){
+        //      const totalAmountField = {
+        //     label: "Total Amount",
+        //     name: "amount",
+        //     type: "number",
+        //     required: false,
+        //     props: {
+        //       onChange: (e) => {
               
-            },
-              readOnly: true,
-              style: { backgroundColor: '#f0f8ff', fontWeight: 'bold' }
-            },
-            classes: "col-span-1",
-          };
-          itemCodeInputs.push(totalAmountField)
-          }
+        //     },
+        //       readOnly: true,
+        //       style: { backgroundColor: '#f0f8ff', fontWeight: 'bold' }
+        //     },
+        //     classes: "col-span-1",
+        //   };
+        //   itemCodeInputs.push(totalAmountField)
+        //   }
         if(filteredData?.length){
             itemCodeInputs.push(tempData);
             itemCodeInputs.push(quantityObj)
@@ -753,6 +753,7 @@ console.log(quantityValue,"____quantityValue__")
               value: itm,
             };
           }) : [],
+          classes: "col-span-2",
           props: mileStoneprops[dta] || {},
         };
       }
