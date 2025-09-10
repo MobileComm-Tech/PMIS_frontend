@@ -1489,6 +1489,19 @@ const VendorProjectTracking = () => {
         name: "vendorCode",
         type: "text",
       },
+       {
+        label: "Activity Month",
+        value: "",
+        name: "completionMonth",
+        type: "datetimeRange",
+        // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        required: false,
+        props: {
+          onChange: (date) => {
+            setAssignDate(date);
+          },
+        },
+      },
     ],
   };
 
