@@ -2,6 +2,7 @@ import Api from "../../utils/api"
 import { Urls } from "../../utils/url"
 import { ALERTS } from "../reducers/component-reducer"
 import { 
+    GET_FILTER_POELIGIBILITY,
     GET_PO_ELIGIBILITY,
     GET_PROJECT_TYPE,
     GET_VENDOR_COST_MILESTONE,
@@ -58,6 +59,16 @@ const VendorActions = {
         } catch (error) {
         }
     },
+    getFilterPOEligibility:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.filterPoEligibility}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FILTER_POELIGIBILITY({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
 
     getManageVendorDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {

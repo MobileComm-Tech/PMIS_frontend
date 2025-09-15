@@ -299,7 +299,8 @@ export const Urls = {
   PtwRejectionPage:"/show/ptw/rejectionreason",
   PtwApproverPageAlert:"/getPtwApprover",
   AssignVendorList:"/getVendorCostList",
-  PoEligibility:"/getPoEligibility"
+  PoEligibility:"/getPoEligibility",
+    filterPoEligibility:"/poEligibility",
  
 
 

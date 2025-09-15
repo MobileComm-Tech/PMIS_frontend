@@ -1049,9 +1049,19 @@ const VendorProjectTracking = () => {
       },
     },
   ];
+    const poEligibility =
+    useSelector((state) => {
+      console.log(state?.vendorData?.getfilterPOEligibility, "gffdgdgfdgfd");
+      return state?.vendorData?.getfilterPOEligibility;
+    }) || [];
+
+  const poEligibilityOptions = poEligibility?.map((item) => ({
+    label: item, 
+    value: item, 
+  }));
 
   let table = {
-    columns: [
+     columns: [
       {
         name: "Site ID",
         value: "siteIdLink",
@@ -1061,7 +1071,8 @@ const VendorProjectTracking = () => {
       {
         name: "SSID",
         value: "systemId",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style:
+          "min-w-[140px]  max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-[140px] bg-[#3e454d] z-20 cursor-pointer",
       },
       {
         name: "Customer",
@@ -1077,7 +1088,7 @@ const VendorProjectTracking = () => {
         name: "Project ID",
         value: "projectId",
         style:
-          "min-w-[140px] max-w-[200px] text-center sticky left-[140px] bg-[#3e454d] z-20",
+          "min-w-[140px] max-w-[200px] text-center sticky  bg-[#3e454d] ",
       },
       {
         name: "Project Type",
@@ -1468,7 +1479,7 @@ const VendorProjectTracking = () => {
         label: "Site Id",
         value: "",
         name: "siteId",
-  
+
         type: "text",
       },
       {
@@ -1489,7 +1500,7 @@ const VendorProjectTracking = () => {
         name: "vendorCode",
         type: "text",
       },
-       {
+      {
         label: "Activity Month",
         value: "",
         name: "completionMonth",
@@ -1502,6 +1513,52 @@ const VendorProjectTracking = () => {
           },
         },
       },
+      {
+        label: "PO Eligibility",
+        value: "",
+        type: "select",
+        name: "poEligibility",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        option: poEligibilityOptions,
+        // props: {
+        //   onChange: (e) => {
+        //     if (e.target.value) {
+        //       setSelectedPoEligibility(e?.target?.value);
+        //       dispatch(
+        //         VendorActions.getFilterPOEligibility(
+        //           true,
+        //           `eligibility=${e.target.value}`
+        //         )
+        //       );
+        //     } else {
+        //       setSelectedPoEligibility(null);
+        //       dispatch(VendorActions.getFilterPOEligibility(true, ""));
+        //     }
+        //   },
+        // },
+        // required: false,
+      },
+
+      // {
+      //   label: "PO eligibility (Yes/No)",
+      //   value: "",
+      //   name: "completionMonth",
+      //   type: "select",
+      //   bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      //   option: activityList,
+      //   props: {
+      //     onChange: (e) => {
+      //       if (e.target.value) {
+      //         setSelectedCustomer(e?.target?.value);
+      //         dispatch(VendorActions.getProjectType(true, e.target.value));
+      //       } else {
+      //         setSelectedCustomer(null);
+      //         dispatch(GET_PROJECT_TYPE({ dataAll: [], reset: true }));
+      //       }
+      //     },
+      //   },
+      //   required: false,
+      // },
     ],
   };
 
@@ -1525,6 +1582,7 @@ const VendorProjectTracking = () => {
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     dispatch(VendorActions.getVendorProjectTracking());
+     dispatch(VendorActions.getFilterPOEligibility(true, ""));
   }, []);
 
   return (
