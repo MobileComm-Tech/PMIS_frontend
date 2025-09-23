@@ -1,9 +1,8 @@
-export const baseUrl = "https://devapi.mcpspmis.com"
-export const backendassetUrl = "https://devapi.mcpspmis.com/"
+export const baseUrl = "https://devapi.mcpspmis.com";
+export const backendassetUrl = "https://devapi.mcpspmis.com/";
 
 // export const baseUrl = "https://api.mcpspmis.com"
 // export const backendassetUrl = "https://api.mcpspmis.com/"
-
 
 // export const baseUrl="https://androidapi.mcpspmis.com"
 // export const backendassetUrl="https://androidapi.mcpspmis.com/"
@@ -94,12 +93,13 @@ export const Urls = {
   vendor_project_allocation: "/vendorProjectAllocation",
   vendor_project_list: "/vendorSiteId",
   vendor_project_tracking: "/vendor/myTask",
-  getZoneByCustomerId:"/gp/zone2",
-  vendorProjects:"/vendor/ProjectType",
+  getZoneByCustomerId: "/gp/zone2",
+  vendorProjects: "/vendor/ProjectType",
   filter_vendor_subProject: "/filter/vendor/subProject",
   get_vendorCostMilestone: "/vendor/milestone",
   get_vendortCostMilestoeList: "/vendor/milestoneList",
   get_vendortCostProjectGroupList: "/vendorCost/projectGroupList",
+  get_vendortCostProjectIdList: "/vendorCost/projectIdList",
   get_vendortCostSubProjectTypeList: "/vendorCost/projectTypeList",
   get_vendortCostVendorsList: "/vendorCost/vendorsList",
   filter_vendorActivity_subProject: "filter/vendorActivity/projectType",
@@ -247,8 +247,8 @@ export const Urls = {
   current_user_PID: "/currentuser/ProjectId",
   current_user_circle_projectId: "/currentuser/Circle/projectId",
   current_user_cost_center: "/currentuser/CostCenter",
-  current_user_customer:"/currentuser/customer",
-  current_user_business_unit:"/currentuser/businessUnit",
+  current_user_customer: "/currentuser/customer",
+  current_user_business_unit: "/currentuser/businessUnit",
 
   // super admin compiliance starts  -----
 
@@ -260,14 +260,13 @@ export const Urls = {
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
   admin_ComplianceL2List: "/admin/getOneComplianceL2List",
-  compliance_globalSaver: '/compliance/globalSaver',
-  compliance_globalSaver_Approver: '/compliance/globalSaver/Approved',
+  compliance_globalSaver: "/compliance/globalSaver",
+  compliance_globalSaver_Approver: "/compliance/globalSaver/Approved",
   complianceMilestoneL1Approver: "/admin/complianceMilestoneL1Approver",
   complianceMilestoneL2Approver: "/admin/complianceMilestoneL2Approver",
   approverAction: "/admin/approverAction",
   complianceLog: "/complianceLog",
   complianceDegrowTemplateData: "/admin/complianceDegrowTemplateData",
-
 
   // super admin compiliance  ends -----
 
@@ -285,25 +284,21 @@ export const Urls = {
   patchEvmActual: "/forms/EVMActual",
   getPvaData: "/forms/EVMActual",
 
-
-  ptwCustomers:'/Ptw/customers',
-  ptwEmployee:'/Ptw/employee',
-  ptwProjectType:'/Ptw/projectType',
-  PtwProjectGroup:'/Ptw/projectGroup',
-  PtwCircle:'/Ptw/circleList',
-  l1ApproverSubmit:'/Ptw/MDBApprover',
-  PTWBackup:'/ptw/backupLog',
-  ApproverPageData:'/approverData',
-  ApproverPageDataForm:'/rtwsGetFormsData',
-  PtwApproverPage:'/getPtwApprover',
-  PtwRejectionPage:"/show/ptw/rejectionreason",
-  PtwApproverPageAlert:"/getPtwApprover",
-  AssignVendorList:"/getVendorCostList",
-  PoEligibility:"/getPoEligibility",
-    filterPoEligibility:"/poEligibility",
- 
-
-
+  ptwCustomers: "/Ptw/customers",
+  ptwEmployee: "/Ptw/employee",
+  ptwProjectType: "/Ptw/projectType",
+  PtwProjectGroup: "/Ptw/projectGroup",
+  PtwCircle: "/Ptw/circleList",
+  l1ApproverSubmit: "/Ptw/MDBApprover",
+  PTWBackup: "/ptw/backupLog",
+  ApproverPageData: "/approverData",
+  ApproverPageDataForm: "/rtwsGetFormsData",
+  PtwApproverPage: "/getPtwApprover",
+  PtwRejectionPage: "/show/ptw/rejectionreason",
+  PtwApproverPageAlert: "/getPtwApprover",
+  AssignVendorList: "/getVendorCostList",
+  PoEligibility: "/getPoEligibility",
+  filterPoEligibility: "/poEligibility",
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };
