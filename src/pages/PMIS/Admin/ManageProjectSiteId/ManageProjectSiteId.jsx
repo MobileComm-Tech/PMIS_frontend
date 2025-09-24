@@ -1041,7 +1041,7 @@ const ManageProjectSiteId = () => {
                 //   name={"Delete"}
                 // ></Button>
               )}
-            {/* {Array.isArray(parentsite) && parentsite?.length > 0 && (
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
                 classes="mr-1 bg-[#ebad5d]"
@@ -1097,7 +1097,7 @@ const ManageProjectSiteId = () => {
                 }}
                 name={"Allocate to Partner"}
               ></ConditionalButton>
-            )} */}
+            )}
             {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
