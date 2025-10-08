@@ -23,6 +23,7 @@ import PersonalInfo from "../pages/PMIS/MyHome/PersonalInfo";
 import EmpDetailsTable from "../pages/PMIS/MyHome/EmpDetailsTable";
 import HRHomeView from "../pages/PMIS/HR";
 import ManageSite from "../pages/PMIS/Admin/ManageSite/ManageSite";
+import { MdOutlineAppShortcut } from "react-icons/md";
 // import Home from "../pages/PMIS/MyHome/Home"
 
 import Claim from "../pages/PMIS/MyHome/Claim";
@@ -140,6 +141,10 @@ import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
 import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import AccuralRevenueMasterWithActivity from "../pages/PMIS/Admin/Accural Revenue Master With Activit/AccuralRevenueMasterWithActivity";
+import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeamForm";
+import { routesObjects } from "./url";
+import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeam";
+import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -368,6 +373,18 @@ export const Sidebar_content = {
       link: "/vendorForm",
       subMenu: [],
       component: <ManageVendorForm />,
+    },
+      {
+      name: "",
+      link:`${routesObjects?.partnerTeamForm}/:empuid` ,
+      subMenu: [],
+      component: <ManageVendorPartnerTeamForm />,
+    },
+       {
+      name: "",
+      link: `${routesObjects?.partnerTeamForm}`,
+      subMenu: [],
+      component: <ManageVendorPartnerTeamForm />,
     },
     {
       name: "",
@@ -601,6 +618,13 @@ export const Sidebar_content = {
       link: "/vendor/projectTracking",
       // component: <VendorProject />,
       component: <VendorProjectTracking />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+       {
+      name: "",
+      link: "/vendor/partnerTeam",
+      component: <ManageVendorPartnerTeam />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -987,6 +1011,13 @@ export const Sidebar_content = {
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+    // {
+    //   name: "App Build",
+    //   link: "/appbuild",
+    //   component:<AppBuild/> ,
+    //   icon: <MdOutlineAppShortcut className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
 
     {
       name: "PTW",

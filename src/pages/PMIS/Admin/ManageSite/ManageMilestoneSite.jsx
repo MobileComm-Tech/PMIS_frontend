@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
-import {getAccessType,labelToValue} from "../../../../utils/commonFunnction";
+import { getAccessType, labelToValue } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
-import { Urls} from "../../../../utils/url";
+import { Urls } from "../../../../utils/url";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { useParams } from "react-router-dom";
 import CommonForm from "../../../../components/CommonForm";
@@ -16,7 +16,6 @@ import CompletitonCreiteriaForm from "./CompletitonCreiteriaForm";
 import ConditionalButton from "../../../../components/ConditionalButton";
 import moment from "moment";
 
-
 const ManageMilestoneSite = ({
   siteCompleteData,
   uid,
@@ -26,21 +25,18 @@ const ManageMilestoneSite = ({
   setmodalFullOpen,
   setSiteId,
   myTaskPage,
-  filterView
+  filterView,
 }) => {
-
   const { customeruniqueId } = useParams;
   const today = moment().format("YYYY-MM-DD");
   let assignedToCount = mileStone?.assignerResult?.length || 0;
-  let milestoneStatus = mileStone?.mileStoneStatus
-  let milestonName = mileStone?.Name
+  let milestoneStatus = mileStone?.mileStoneStatus;
+  let milestonName = mileStone?.Name;
   let user = JSON.parse(localStorage.getItem("user"));
+  console.log(user,"___maggi")
   let rolename = user?.roleName;
 
-
-// console.log(siteCompleteData,"___siteCompleteData__")
-
-
+  // console.log(siteCompleteData,"___siteCompleteData__")
 
   const {
     register,
@@ -75,13 +71,12 @@ const ManageMilestoneSite = ({
     formState: { errors: errorsForm3 },
   } = useForm();
 
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [type, settype] = useState(true);
   const [modalHead, setmodalHead] = useState(<></>);
   const [modalBody, setmodalBody] = useState(<></>);
   const [invoiceData, setinvoiceData] = useState([]);
-  const [uniqueIdSiteEngg,setUniqueIdSiteEngg] = useState("")
+  const [uniqueIdSiteEngg, setUniqueIdSiteEngg] = useState("");
   const dispatch = useDispatch();
 
   let showType = getAccessType("Financial button under Template");
@@ -128,37 +123,32 @@ const ManageMilestoneSite = ({
 
       dtresult["t_sengg"] &&
         dtresult["t_sengg"].map((iytm) => {
-
-          if(iytm["fieldName"]=="BAND"){
-            let bandlistt=datew[0]["BAND"]
+          if (iytm["fieldName"] == "BAND") {
+            let bandlistt = datew[0]["BAND"];
 
             setValueForm1("BAND", bandlistt?.split("-")?.join(","));
-          }
-          else if(iytm["fieldName"]=="CELL ID"){
-            let cellidlistt=datew[0]["CELL ID"]
+          } else if (iytm["fieldName"] == "CELL ID") {
+            let cellidlistt = datew[0]["CELL ID"];
 
             setValueForm1("CELL ID", cellidlistt?.split("-")?.join(","));
-          }else{
+          } else {
             // console.log(iytm["fieldName"], datew[0][iytm["fieldName"]],"___datew")
             setValueForm1(iytm["fieldName"], datew[0][iytm["fieldName"]]);
-            
           }
 
-          if(iytm["fieldName"]==="Unique ID"){
-            setUniqueIdSiteEngg(datew[0][iytm["fieldName"]])
+          if (iytm["fieldName"] === "Unique ID") {
+            setUniqueIdSiteEngg(datew[0][iytm["fieldName"]]);
           }
           // console.log(
           //   iytm["fieldName"],
           //   datew[0][iytm["fieldName"]],
           //   "iytmiytmiytmiytm"
           // );
-
         });
 
       dtresult["t_tracking"] &&
         dtresult["t_tracking"].map((iytm) => {
           setValueForm2(iytm["fieldName"], datew[0][iytm["fieldName"]]);
-
         });
       dtresult["t_issues"] &&
         dtresult["t_issues"].map((iytm) => {
@@ -184,18 +174,13 @@ const ManageMilestoneSite = ({
     let final_data = {};
 
     dataOfProject["t_sengg"].map((itew) => {
-
       let fieldNaming = labelToValue(itew.fieldName);
-      
-      if(fieldNaming=="BAND"){
-          final_data["BAND"] = data["BAND"]?.split(",")?.join("-");
-      }
 
-      else if(fieldNaming=="CELL ID"){
+      if (fieldNaming == "BAND") {
+        final_data["BAND"] = data["BAND"]?.split(",")?.join("-");
+      } else if (fieldNaming == "CELL ID") {
         final_data["CELL ID"] = data["CELL ID"]?.split(",")?.join("-");
-      }
-
-      else{
+      } else {
         final_data[fieldNaming] = data[fieldNaming];
       }
     });
@@ -221,7 +206,6 @@ const ManageMilestoneSite = ({
   };
 
   const handleTrackingSubmit = (data) => {
-    
     let final_data = {};
 
     dataOfProject["t_tracking"].map((itew) => {
@@ -242,13 +226,14 @@ const ManageMilestoneSite = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {dispatch(projectListActions.getProjectTypeAll(projectuniqueId))}
+        () => {
+          dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+        }
       )
     );
   };
 
   const handleIssuesSubmit = (data) => {
-
     let final_data = {};
 
     dataOfProject["t_issues"].map((itew) => {
@@ -269,17 +254,16 @@ const ManageMilestoneSite = ({
         Urls.projectList_globalSaver,
         projectuniqueId,
         fdata,
-        () => {dispatch(projectListActions.getProjectTypeAll(projectuniqueId))}
+        () => {
+          dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
+        }
       )
     );
   };
 
-
   const funcaller = () => {
     reset({});
   };
-
-
 
   useEffect(() => {
     dispatch(projectListActions.getCircleWithPGData(projectuniqueId));
@@ -287,7 +271,6 @@ const ManageMilestoneSite = ({
     settype(true);
     dispatch(AdminActions.getManageCompletionCriteria());
   }, [uid]);
-
 
   let dtype = {
     Decimal: "number",
@@ -298,7 +281,6 @@ const ManageMilestoneSite = ({
     "Auto Created": "sdisabled",
   };
 
-
   const filesUploadForm = [
     { label: "file", value: "", name: "file", required: true, type: "file" },
     { label: "Note", value: "", name: "note", required: true, type: "text" },
@@ -307,17 +289,19 @@ const ManageMilestoneSite = ({
   return (
     <>
       <Modal
-        children={<CompletitonCreiteriaForm
-                        siteCompleteData={siteCompleteData}
-                        customeruniqueId={siteCompleteData?.milestoneArray[0]?.customerId}
-                        projectuniqueId={projectuniqueId}
-                        setmodalFullOpen={setmodalFullOpen}
-                        setmodalOpen={setmodalOpen}
-                        modalOpen={modalOpen}
-                        mileStone={mileStone}
-                        myTaskPage={myTaskPage}
-                        filterView = {filterView}
-                      />}
+        children={
+          <CompletitonCreiteriaForm
+            siteCompleteData={siteCompleteData}
+            customeruniqueId={siteCompleteData?.milestoneArray[0]?.customerId}
+            projectuniqueId={projectuniqueId}
+            setmodalFullOpen={setmodalFullOpen}
+            setmodalOpen={setmodalOpen}
+            modalOpen={modalOpen}
+            mileStone={mileStone}
+            myTaskPage={myTaskPage}
+            filterView={filterView}
+          />
+        }
         setIsOpen={setmodalOpen}
         isOpen={modalOpen}
         size={"smsh"}
@@ -329,7 +313,9 @@ const ManageMilestoneSite = ({
           <div className="flex flex-row">
             <div className="w-full">
               <div className="w-auto flex text-[#13b497] font-extrabold pl-2 gap-2">
-                <h1>Milestone Status <span className="text-[#f4d3a8]"> :</span></h1>
+                <h1>
+                  Milestone Status <span className="text-[#f4d3a8]"> :</span>
+                </h1>
                 {
                   <p
                     className={`px-3.5 rounded-xl text-center text-yellow-400 bg-slate-500 border-[0.01px] border-[#f4d3a8] whitespace-nowrap ${
@@ -342,39 +328,49 @@ const ManageMilestoneSite = ({
               </div>
             </div>
             <div className="w-full">
-              { (milestoneStatus != "Closed" || (rolename=="Admin" || rolename=="PMO")) ? <ConditionalButton
-                showType={getAccessType("Task Completion Criteria")}
-                classes="w-auto"
-                name={"Completion Criteria"}
-                onClick={() => {
-                  if (assignedToCount != 0) {
-                    // setmodalBody(
-                      
-                    // );
-                    setmodalOpen(true);
-                  } else {
+              
+              {milestoneStatus != "Closed" ||
+              rolename == "Admin" ||
+              rolename == "PMO" ||
+              rolename == "Partner Team" ? (
+                <ConditionalButton
+                  showType={getAccessType("Task Completion Criteria")}
+                  classes="w-auto"
+                  name={"Completion Criteria"}
+                  onClick={() => {
+                    if (assignedToCount != 0) {
+                      // setmodalBody(
+
+                      // );
+                      setmodalOpen(true);
+                    } else {
+                      let msgdata = {
+                        show: true,
+                        icon: "error",
+                        buttons: [],
+                        type: 1,
+                        text: "To close this task, you need to assign it first.",
+                      };
+                      dispatch(ALERTS(msgdata));
+                    }
+                  }}
+                ></ConditionalButton>
+              ) : (
+                <Button
+                  name={"Completion Criteria"}
+                  onClick={() => {
                     let msgdata = {
                       show: true,
                       icon: "error",
                       buttons: [],
                       type: 1,
-                      text: "To close this task, you need to assign it first.",
+                      text: "Task is already Closed",
                     };
                     dispatch(ALERTS(msgdata));
-                  }
-                }}
-              ></ConditionalButton>:<Button name={"Completion Criteria"} onClick={()=>{
-                
-                let msgdata = {
-                  show: true,
-                  icon: "error",
-                  buttons: [],
-                  type: 1,
-                  text: "Task is already Closed",
-                };
-                dispatch(ALERTS(msgdata));
-              }} classes="w-18"></Button>
-}
+                  }}
+                  classes="w-18"
+                ></Button>
+              )}
             </div>
           </div>
         ) : (
@@ -422,39 +418,42 @@ const ManageMilestoneSite = ({
                             if (its["fieldName"] === "CELL ID") {
                               type = "muitiSelect";
                               option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    id: itm,
-                                    name: itm,
-                                  };
-                                })
-                              : [];
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      id: itm,
+                                      name: itm,
+                                    };
+                                  })
+                                : [];
                             }
 
                             if (its["fieldName"] === "PARENT PROJECT ID") {
                               type = "newSingleSelect45";
                               option = its.dropdownValue
-                              ? its.dropdownValue.split(",").map((itm) => {
-                                  return {
-                                    label: itm,
-                                    value: itm,
-                                  };
-                                })
-                              : [];
+                                ? its.dropdownValue.split(",").map((itm) => {
+                                    return {
+                                      label: itm,
+                                      value: itm,
+                                    };
+                                  })
+                                : [];
                             }
 
-                            if(its["fieldName"]=== "Unique ID"){
+                            if (its["fieldName"] === "Unique ID") {
                               return {
-                              label: its.fieldName,
-                              value:uniqueIdSiteEngg!==undefined? uniqueIdSiteEngg: "",
-                              required: its.required == "Yes" ? true : false,
-                              option: option,
-                              name: its.fieldName,
-                              type: type,
-                              props: {
-                                maxSelectableDate: today,
-                              },
-                            };
+                                label: its.fieldName,
+                                value:
+                                  uniqueIdSiteEngg !== undefined
+                                    ? uniqueIdSiteEngg
+                                    : "",
+                                required: its.required == "Yes" ? true : false,
+                                option: option,
+                                name: its.fieldName,
+                                type: type,
+                                props: {
+                                  maxSelectableDate: today,
+                                },
+                              };
                             }
 
                             return {
@@ -499,7 +498,7 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
-                              option:its.dropdownValue
+                              option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
                                       value: itm,
@@ -544,7 +543,7 @@ const ManageMilestoneSite = ({
                               value: "abc",
                               name: its.fieldName,
                               type: dtype[its.dataType],
-                              option:its.dropdownValue
+                              option: its.dropdownValue
                                 ? its.dropdownValue.split(",").map((itm) => {
                                     return {
                                       value: itm,

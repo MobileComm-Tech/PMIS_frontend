@@ -55,6 +55,11 @@ const VendorCards = () => {
               "bg-pcol",
               "/vendor/managePartner",
             ],
+             [
+              "Partner Team",
+              "bg-pcol",
+              "/vendor/partnerTeam",
+            ],
             [
               "Project Tracking",
               "bg-pcol",

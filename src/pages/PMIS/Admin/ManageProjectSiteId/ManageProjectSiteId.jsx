@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
@@ -72,7 +64,7 @@ const ManageProjectSiteId = () => {
   const [old, setOld] = useState(<></>);
   const [subProjectId, setSubProjectId] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [itemData, setItemData] = useState({})
+  const [itemData, setItemData] = useState({});
 
   const {
     register,
@@ -661,7 +653,7 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-// console.log(dbConfigList,"__dbCOndig")
+  // console.log(dbConfigList,"__dbCOndig")
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
@@ -1098,7 +1090,7 @@ const ManageProjectSiteId = () => {
                 name={"Allocate to Partner"}
               ></ConditionalButton>
             )}
-            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+            {/* {Array.isArray(parentsite) && parentsite?.length > 0 && (
               <ConditionalButton
                 showType={getAccessType("Task Allocation")}
                 classes="mr-1 bg-[#4b8085]"
@@ -1154,8 +1146,89 @@ const ManageProjectSiteId = () => {
                 }}
                 name={"Deallocate Task"}
               ></ConditionalButton>
-            )}
+            )} */}
+           
+            {Array.isArray(parentsite) && parentsite?.length > 0 && (
+              <ConditionalButton
+                showType={getAccessType("Task Allocation")}
+                classes="mr-1 bg-[#4b8085]"
+                onClick={(e) => {
+                  const uniqueArr = [...new Set(subProjectId)];
+                  if (uniqueArr.length === 1) {
+                    // Selected sites से milestone data extract करें
+                    const selectedMilestoneData = [];
+                    dbConfigList.forEach((site) => {
+                      if (parentsite.includes(site.uniqueId)) {
+                        site.milestoneArray?.forEach((milestone) => {
+                          if (childsite.includes(milestone.uniqueId)) {
+                            selectedMilestoneData.push({
+                              milestoneId: milestone.uniqueId,
+                              milestoneName: milestone.Name,
+                              assignerResult: milestone.assignerResult || [],
+                              workDescription: milestone.workDescription || "",
+                              siteData: {
+                                siteId: site["Site Id"],
+                                uniqueId: site.uniqueId,
+                                subProjectId: site.SubProjectId,
+                              },
+                            });
+                          }
+                        });
+                      }
+                    });
 
+                    setmodalOpen((prev) => !prev);
+                    dispatch(
+                      GET_USER_ALLLOCATED_PROJECT({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      GET_PARTNER_ACTIVITY({ dataAll: [], reset: true })
+                    );
+                    dispatch(
+                      AdminActions.getPartnerActivity(
+                        true,
+                        `subProjectId=${uniqueArr[0]}`
+                      )
+                    );
+                    dispatch(
+                      projectListActions.getUserAllocatedProject(
+                        true,
+                        projectuniqueId
+                      )
+                    );
+                    setmodalHead("Deallocate Task");
+                    setmodalBody(
+                      <VendorGroupTaskAllocation
+                        from={"bulktask"}
+                        listsite={parentsite}
+                        projectuniqueId={projectuniqueId}
+                        isOpen={modalOpen}
+                        setIsOpen={setmodalOpen}
+                        resetting={false}
+                        formValue={{}}
+                        filtervalue={strValFil}
+                        checkbox={setchildsite}
+                        parentcheckbox={setparentsite}
+                        subId={uniqueArr[0]}
+                        formName={"Deallocate Task"}
+                        selectedMilestoneData={selectedMilestoneData} // Pass milestone data with assigners
+                        itemData={itemData}
+                      />
+                    );
+                  } else {
+                    let msgdata = {
+                      show: true,
+                      icon: "error",
+                      buttons: [],
+                      type: 1,
+                      text: "Kindly select Site's from the same Sub-Project.",
+                    };
+                    dispatch(ALERTS(msgdata));
+                  }
+                }}
+                name={"Deallocate Task"}
+              ></ConditionalButton>
+            )}
             <ConditionalButton
               showType={getAccessType("Add Site")}
               classes="mr-1"
@@ -1174,7 +1247,6 @@ const ManageProjectSiteId = () => {
               }}
               name={"Add Site"}
             ></ConditionalButton>
-
             <ConditionalButton
               showType={getAccessType("Task Allocation")}
               classes="mr-1"
@@ -1219,7 +1291,6 @@ const ManageProjectSiteId = () => {
               }}
               name={"Allocate to In-house"}
             ></ConditionalButton>
-
             {/* <ConditionalButton
               showType={getAccessType("Site Allocation")}
               classes="w-auto"
@@ -1258,7 +1329,6 @@ const ManageProjectSiteId = () => {
               }}
               name={"Site Allocate"}
             ></ConditionalButton> */}
-
             <ConditionalButton
               name={"Upload"}
               showType={getAccessType("Upload(Site Page)")}
@@ -1267,7 +1337,6 @@ const ManageProjectSiteId = () => {
                 setbulkfileOpen((prev) => !prev);
               }}
             ></ConditionalButton>
-
             {upgradepopupShowType && (
               <PopupMenu
                 name={"Upgrade"}

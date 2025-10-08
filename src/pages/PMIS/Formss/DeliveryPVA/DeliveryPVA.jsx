@@ -160,7 +160,7 @@ function getProjectRowsTotalForAchievement(subProjectType, data) {
       achievementTotal += achievement?.value || 0;
       targetTotal += target?.value || 0;
     });
-    if (achievementTotal && targetTotal) {
+    if (achievementTotal || targetTotal) {
       totalAChivement += achievementTotal;
       totalTarget += targetTotal;
       rowsTotal = Math.round((achievementTotal / targetTotal) * 100) || 0;

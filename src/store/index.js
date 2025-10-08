@@ -21,6 +21,7 @@ import gpTrackingReducer from "./reducers/gpTracking-reducer"
 import tableReducer from "./reducers/table-reducer"
 import dropDownReducer from "./reducers/dropDown-reducer"
 import globalFiltersReducer from "./reducers/globalFilter-reducer";
+import appUpdateReducer from "./reducers/appUpdateReducer";
 
 const store = configureStore({
     reducer: {
@@ -45,7 +46,11 @@ const store = configureStore({
         currentuserData,
         repository,
         gpTrackingReducer,
-        globalFiltersReducer
+        globalFiltersReducer,
+        appUpdateReducer,
+        
+        
+       
     },
     devTools: true
 })

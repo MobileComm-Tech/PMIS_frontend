@@ -3,11 +3,14 @@ export const range = { start: 1, end: 7 };
 export const masterUnitRateWithActivityFilter="isActivity=True"
 
 
-// export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data)=>{
+
+
+// old function
+// export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{
 //      let falseKey = false;
 //         for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
 //             const itemCode = data[`itemCode0${i+1}`]?.trim();
-//             const quantityCode = data[`quantity0${i+1}`]?.trim();
+//             const quantityCode = data[`quantity0${i+1}`];
 
 //             if (
 //                 (itemCode && !quantityCode) ||
@@ -27,18 +30,19 @@ export const masterUnitRateWithActivityFilter="isActivity=True"
 //             const quantityKey = `quantity0${i}`;
 //             const itemCodeKey = `itemCode0${i}`;
 //             const itemDescriptionKey=`itemCodeDescription0${i}`
+//             const itemRate=`itemRate0${i}`;
 
 //             const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[0]:""
 //             const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[1]:""
-//             const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
-//             console.log(itemCodeValueData,itemCodeRateData,itemCodeDescription,"____itemCodeDescription")
-//             const itemRate=`itemRate0${i}`;
-//             data[itemRate] = itemCodeRateData;
-//             data[itemCodeKey]=itemCodeValueData;
-//             data[itemDescriptionKey] = itemCodeDescription
+//             // const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
+//             const itemCodeDescription =data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",").slice(2).join(",") :""
+
+
+            
+            
 //             const quantityValue = data[quantityKey];
 
-//             if (quantityValue && quantityValue.trim() !== "") {
+//             if (quantityValue && quantityValue !== "") {
 //                 const numbericQuantity = Number(quantityValue);
 
 
@@ -57,13 +61,48 @@ export const masterUnitRateWithActivityFilter="isActivity=True"
 //                 // }
 
 //                 totalAmount+=Number(itemCodeRateData)*Number(quantityValue);
+//                 if(['MS1']?.includes(mileStoneName)){
+//                 data[itemRate] = Number(itemCodeRateData);
+//                 data[itemCodeKey]=itemCodeValueData;
+//                 data[itemDescriptionKey] = itemCodeDescription
 //                 data[quantityKey] = numbericQuantity;
+//                 }
 //             }
 //         }
 //          data['amount'] = totalAmount;
 //          return data;
 // }
 
+
+
+
+
+// export const  quantitySelectTypeOptions =(changeTo)=>{
+//     console.log("callingtime")
+//     const optionQuantityArray=[]
+//     for( let i=1;i<=11;i++){
+
+//         let quantityIndexOptions={}
+//         if(i<11){
+//             quantityIndexOptions={
+//             label:i,
+//             value:i
+//         }
+//         }else{
+//               quantityIndexOptions={
+//             label:"Custom Quantity",
+//             value:changeTo
+//         }
+//         }
+//         optionQuantityArray.push(quantityIndexOptions);
+//     }
+//     console.log(optionQuantityArray,"___optionQuantityArray__")
+
+//     return optionQuantityArray
+// }
+
+
+//New function
 
 export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{
      let falseKey = false;
@@ -72,8 +111,8 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileSto
             const quantityCode = data[`quantity0${i+1}`];
 
             if (
-                (itemCode && !quantityCode) ||
-                (!itemCode && quantityCode)
+                ((itemCode && !quantityCode) ||
+                (!itemCode && quantityCode))&& i===0
             ) {
                 falseKey = true;
                 break;
@@ -101,6 +140,7 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileSto
             
             const quantityValue = data[quantityKey];
 
+
             if (quantityValue && quantityValue !== "") {
                 const numbericQuantity = Number(quantityValue);
 
@@ -127,31 +167,16 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileSto
                 data[quantityKey] = numbericQuantity;
                 }
             }
+            if(i==2){
+                console.log(data[itemCodeKey],"___itemCodeKey__")
+            }
+            if(data[itemCodeKey]===""){
+                delete  data[itemCodeKey]
+                delete  data[quantityKey]
+                delete  data[itemDescriptionKey]
+                delete  data[itemRate]
+            }
         }
          data['amount'] = totalAmount;
          return data;
 }
-
-// export const  quantitySelectTypeOptions =(changeTo)=>{
-//     console.log("callingtime")
-//     const optionQuantityArray=[]
-//     for( let i=1;i<=11;i++){
-
-//         let quantityIndexOptions={}
-//         if(i<11){
-//             quantityIndexOptions={
-//             label:i,
-//             value:i
-//         }
-//         }else{
-//               quantityIndexOptions={
-//             label:"Custom Quantity",
-//             value:changeTo
-//         }
-//         }
-//         optionQuantityArray.push(quantityIndexOptions);
-//     }
-//     console.log(optionQuantityArray,"___optionQuantityArray__")
-
-//     return optionQuantityArray
-// }

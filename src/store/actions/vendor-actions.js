@@ -257,6 +257,10 @@ import {
     GET_VENDOR_SUBPROJECT,
     GET_VENDORACTIVITY_SUBPROJECT_LIST,
     GET_VENDOR_COST_PROJECTID_LIST,
+    GET_VENDOR_PARTNER_TEAM_DATA,
+    GET_VENDOR_PARTNER_TABLE_DATA,
+    GET_VENDOR_PARTNER_TEAM_LEAD_DATA,
+    GET_PARTNER_TEAM_ROLE,
 } from "../reducers/vendor-reducer"
 
 
@@ -267,6 +271,15 @@ const VendorActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_EMPLOYEE_DETAILS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getPartnerTeam:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.partnerTeamRole}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PARTNER_TEAM_ROLE({dataAll,reset}))
         } catch (error) {
         }
     },
@@ -342,6 +355,79 @@ const VendorActions = {
             return;
         }
     },
+    // Partner Team 
+    getVendorPartnerTeam:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.vendorPartnerTeamData}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VENDOR_PARTNER_TEAM_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    
+    getVendorPartnerTeamData:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.partnerTeamData}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VENDOR_PARTNER_TABLE_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    partnerTeamLeadData:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.teamLeadDataAPI}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_VENDOR_PARTNER_TEAM_LEAD_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    postPartnerTeamLeadAllocation: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.teamLeadDataAPI : Urls.teamLeadDataAPI + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+    postPartnerTeamData: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.partnerTeamData : Urls.partnerTeamData + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+
+// Partner Team  
 
     getVendorProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {

@@ -145,7 +145,8 @@ const initialState = {
     getVendorCostSubProjectTypeList: [],
     getVendorCostVendorsList: [],
     getProjectType: [],
-    getfilterPOEligibility:[]
+    getfilterPOEligibility:[],
+    getPartnerTeamRole:[],
 }
 
 const vendorData = createSlice({
@@ -262,8 +263,38 @@ const vendorData = createSlice({
                 state.getProjectType = [...state.getProjectType, ...payload.dataAll]
             }
         },
+             GET_VENDOR_PARTNER_TEAM_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.getVendorPartnerTeamList = payload.dataAll
+            } else {
+                state.getVendorPartnerTeamList = [...state.getVendorPartnerTeamList, ...payload.dataAll]
+            }
+        },
+        GET_VENDOR_PARTNER_TEAM_LEAD_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.getVendorPartnerTeamLeadData = payload.dataAll
+            } else {
+                state.getVendorPartnerTeamLeadData = [...state.getVendorPartnerTeamLeadData, ...payload.dataAll]
+            }
+        },
+        GET_VENDOR_PARTNER_TABLE_DATA: (state, { payload }) => {
+            if (payload.reset) {
+                state.getVendorPartnerTableList = payload.dataAll
+            } else {
+                state.getVendorPartnerTableList = [...state.getVendorPartnerTableList, ...payload.dataAll]
+            }
+        },
+        GET_PARTNER_TEAM_ROLE: (state, { payload }) => {
+            if (payload.reset) {
+                state.getPartnerTeamRole = payload.dataAll
+            } else {
+                state.getPartnerTeamRole = [...state.getPartnerTeamRole, ...payload.dataAll]
+            }
+        },
     }
 })
 
-export const { GET_VENDOR_DETAILS,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST,GET_VENDOR_COST_PROJECTID_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
+// export const { GET_VENDOR_DETAILS,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST,GET_VENDOR_COST_PROJECTID_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
+// export default vendorData.reducer
+export const { GET_VENDOR_DETAILS,GET_VENDOR_PARTNER_TEAM_LEAD_DATA,GET_PARTNER_TEAM_ROLE,GET_VENDOR_PARTNER_TABLE_DATA,GET_VENDOR_PARTNER_TEAM_DATA,GET_VENDOR_COST_PROJECTID_LIST,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
 export default vendorData.reducer

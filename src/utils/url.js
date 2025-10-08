@@ -1,5 +1,10 @@
 export const baseUrl = "https://devapi.mcpspmis.com";
 export const backendassetUrl = "https://devapi.mcpspmis.com/";
+export const routesObjects ={
+    partnerTeamForm:"/vendorPartnerForm",
+    partnerTeam:"/vendor/partnerTeam"
+
+}
 
 // export const baseUrl = "https://api.mcpspmis.com"
 // export const backendassetUrl = "https://api.mcpspmis.com/"
@@ -299,6 +304,13 @@ export const Urls = {
   AssignVendorList: "/getVendorCostList",
   PoEligibility: "/getPoEligibility",
   filterPoEligibility: "/poEligibility",
+   // PArtner Name
+  vendorPartnerTeamData: "/hr/VendorName",
+  partnerTeamData:"/hr/subVendor",
+  teamLeadDataAPI:"/myHome/allocateSubOwner",
+  partnerTeamRole:"/hr/manageProfile/partnerTeam",
+  AppUpdate:"/appUpdate"
+  // PArtner Name
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };
