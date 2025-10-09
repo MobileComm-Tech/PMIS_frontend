@@ -1011,13 +1011,13 @@ export const Sidebar_content = {
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    // {
-    //   name: "App Build",
-    //   link: "/appbuild",
-    //   component:<AppBuild/> ,
-    //   icon: <MdOutlineAppShortcut className="hover:text-heading cursor-pointer" />,
-    //   subMenu: [],
-    // },
+    {
+      name: "App Build",
+      link: "/appbuild",
+      component:<AppBuild/> ,
+      icon: <MdOutlineAppShortcut className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
 
     {
       name: "PTW",
