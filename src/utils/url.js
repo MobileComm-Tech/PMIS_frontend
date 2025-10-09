@@ -15,6 +15,7 @@ export const routesObjects ={
 // export const backendassetUrl = "http://192.168.1.9:7980";
 // export const baseUrl = "http://192.168.1.10:82/";
 // export const backendassetUrl = "http://192.168.1.10:82/";
+//fddddfdfdfddfddf
 
 export const Urls = {
   login: "/login",
