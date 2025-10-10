@@ -165,6 +165,7 @@ export const Urls = {
   expAdv_hr_all_expenses: "/expenses/AllExpenses",
   expAdv_hr_all_advance: "/Advance/AllAdvance",
   expAdv_user_limit: "/expenses/userLimit",
+  expAdv_user_ptwData:"/expenses/ptwData",
   admin_claim_type_Expenses: "/expenses/expensesClaimType",
   admin_claim_type_Advances: "/expenses/AdvanceClaimType",
   /// GPTRACKING

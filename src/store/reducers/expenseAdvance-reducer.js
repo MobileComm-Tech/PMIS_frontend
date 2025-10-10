@@ -25,6 +25,7 @@ const initialState = {
     getHRAllExpenses:[],
     getHRAllAdvance:[],
     getUserLimit:[],
+    getPtwData:[],
     getSettlementAmount:[],
    
 }
@@ -241,6 +242,13 @@ const ExpenseAdvanceReducer = createSlice({
                 state.getUserLimit  = [...state.getUserLimit,...payload.dataAll]
             }
         },
+        GET_PTW_DATA:(state,{payload}) => {
+            if(payload.reset){
+                state.getPtwData = payload.dataAll
+            }else{
+                state.getPtwData  = [...state.getPtwData,...payload.dataAll]
+            }
+        },
 
         
     }
@@ -273,6 +281,7 @@ export const {
     GET_HR_ALL_ADVANCE,
     CLEAR_GET_CLAIM_AND_ADVANCE,
     GET_USER_LIMIT,
+    GET_PTW_DATA,
     GET_SETTLEMENT_AMOUNT
 } = ExpenseAdvanceReducer.actions
 export default ExpenseAdvanceReducer.reducer

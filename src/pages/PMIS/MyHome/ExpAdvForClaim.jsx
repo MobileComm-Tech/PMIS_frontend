@@ -290,6 +290,11 @@ const ExpAdvForClaim = () => {
             style: "min-w-[150px] max-w-[450px] text-center",
         },
         {
+            name: "PTW Number",
+            value: "ptwNumber",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
+        {
             name: "Amount",
             value: "Amount",
             style: "min-w-[100px] max-w-[200px] text-center",

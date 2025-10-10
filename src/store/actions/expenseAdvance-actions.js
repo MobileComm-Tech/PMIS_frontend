@@ -27,6 +27,7 @@ import {
     GET_HR_ALL_EXPENSES,
     GET_HR_ALL_ADVANCE,
     GET_USER_LIMIT,
+    GET_PTW_DATA,
     GET_SETTLEMENT_AMOUNT
 } from "../reducers/expenseAdvance-reducer"
 
@@ -469,6 +470,19 @@ const ExpenseAdvanceActions = {
                 if (res?.status !== 200) return
                 let dataAll = res?.data?.data
                 dispatch(GET_USER_LIMIT({dataAll,reset}))
+                cb()
+            }
+            
+        } catch (error) {
+        }
+    },
+    getPtwData:(id,reset=true,args="" , cb = () => {}) => async (dispatch, _) => {
+        try {
+            if (id!=null){
+                const res = await Api.get({ url:`${Urls.expAdv_user_ptwData}?${id}${args!=""?"?"+args:""}`, reset })
+                if (res?.status !== 200) return
+                let dataAll = res?.data?.data
+                dispatch(GET_PTW_DATA({dataAll,reset}))
                 cb()
             }
             

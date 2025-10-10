@@ -18,38 +18,34 @@ const HomeCards = () => {
 
   let navigate = useNavigate();
   const { customeruniqueId } = useParams();
-  const [viewMoreGraphs, setViewMoreGraphs] = useState(2); 
+  const [viewMoreGraphs, setViewMoreGraphs] = useState(2);
 
   const viewMore = () => {
-    setViewMoreGraphs((prev) => prev + 2); 
+    setViewMoreGraphs((prev) => prev + 2);
   };
 
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
   }, []);
 
-  const graphs = [
-    ExpenseApprovalStatus,
-    AdvanceApprovalStatus,
-    MileStoneChart,
-  ];
+  const graphs = [ExpenseApprovalStatus, AdvanceApprovalStatus, MileStoneChart];
 
-  let showType1 = getAccessType("MS Status(Graph)")
-  let showType2 = getAccessType("Expanse Approval Status(Graph)")
-  let showType3 = getAccessType("Advance Approval Status(Graph)")
+  let showType1 = getAccessType("MS Status(Graph)");
+  let showType2 = getAccessType("Expanse Approval Status(Graph)");
+  let showType3 = getAccessType("Advance Approval Status(Graph)");
 
-  let graph1 = false
-  let graph2 = false
-  let graph3 = false
+  let graph1 = false;
+  let graph2 = false;
+  let graph3 = false;
 
-  if (showType1 === "visible"){
-    graph1 = true
+  if (showType1 === "visible") {
+    graph1 = true;
   }
-  if (showType2 === "visible"){
-    graph2 = true
+  if (showType2 === "visible") {
+    graph2 = true;
   }
-  if (showType3 === "visible"){
-    graph3 = true
+  if (showType3 === "visible") {
+    graph3 = true;
   }
 
   return (
@@ -71,12 +67,14 @@ const HomeCards = () => {
               "/home/myTask",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
+            
             [
               "My Entitlement",
               "bg-pcol",
               "/home/myPolicy",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
+           
             [
               "Claim & Advance",
               "bg-pcol",
@@ -96,16 +94,20 @@ const HomeCards = () => {
               "/home/Approval",
               <Unicons.UilCheckCircle size="40" color="" />,
             ],
-            ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
-            
+            [
+              "PTW Log Backup",
+              "bg-pcol",
+              "/superAdmin/ptw/PtwLogBackup",
+              <Unicons.UilFileAlt size="40" color="" />,
+            ],
+            // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
             
           ].map((itm) => (
             <>
-              {(
-              getAccessType(itm[0]) == "visible" ||
-              getAccessType(itm[0]) == "disabled") ? (
+              {getAccessType(itm[0]) == "visible" ||
+              getAccessType(itm[0]) == "disabled" ? (
                 <div
-                 className={`${itm[1]} bg-pcol text-white text-center text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
+                  className={`${itm[1]} bg-pcol text-white text-center text-[14px] shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-5/6 lg:w-3/4 xl:w-11/12 flex h-12 cursor-pointer rounded-lg hover:scale-[102%] transition-all duration-500 font-oxygen font-bold hover:text-[15px] hover:text-[#444c54] hover:bg-pcolhover`}
                   onClick={() => {
                     if (getAccessType(itm[0]) == "visible") {
                       dispatch(ComponentActions.globalUrlStore(itm[0], itm[2]));
@@ -151,7 +153,7 @@ const HomeCards = () => {
         {graph2 && <ExpenseApprovalStatus />}
         {graph3 && <AdvanceApprovalStatus />}
       </div>
-       {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
+      {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
         {graphs.slice(0, viewMoreGraphs)?.map((AllGraphs, index) => (
           <AllGraphs key={index} customeruniqueId={customeruniqueId} />
         ))}

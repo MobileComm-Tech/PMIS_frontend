@@ -350,6 +350,11 @@ const FillExpense = () => {
         value: "Task",
         style: "min-w-[200px] max-w-[450px] text-center",
       },
+       {
+            name: "PTW Number",
+            value: "ptwNumber",
+            style: "min-w-[150px] max-w-[450px] text-center",
+        },
       
       {
         name: "Amount",

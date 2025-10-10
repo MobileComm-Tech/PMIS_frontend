@@ -331,8 +331,8 @@ const ManageMilestoneSite = ({
               
               {milestoneStatus != "Closed" ||
               rolename == "Admin" ||
-              rolename == "PMO" ||
-              rolename == "Partner Team" ? (
+              rolename == "PMO" 
+               ? (
                 <ConditionalButton
                   showType={getAccessType("Task Completion Criteria")}
                   classes="w-auto"
