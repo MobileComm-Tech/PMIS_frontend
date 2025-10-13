@@ -649,6 +649,8 @@ const CommonForm = ({
                     />
                   ) : null}
 
+                   {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
+
                   {itm.type === "radio" && (
                     <Radio {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
                   )}

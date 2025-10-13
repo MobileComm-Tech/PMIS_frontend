@@ -97,7 +97,7 @@ const HomeCards = () => {
             [
               "PTW Log Backup",
               "bg-pcol",
-              "/superAdmin/ptw/PtwLogBackup",
+              "/home/PtwLogBackup",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
             // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],

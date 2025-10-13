@@ -395,6 +395,13 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/home/PtwLogBackup",
+      subMenu: [],
+      component: <PTWLogBackup/>,
+    },
+
+    {
+      name: "",
       link: "/home/Approval/:type",
       subMenu: [],
       component: <ApproverPage/>,

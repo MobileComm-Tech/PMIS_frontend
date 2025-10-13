@@ -1336,6 +1336,8 @@
 
 // export default FillExpenseForm;
 
+
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import moment from "moment";
@@ -1750,33 +1752,47 @@ const FillExpenseForm = ({
   //   );
   // }
 
-  // Get the selected project ID label to check if it includes "AIR"
+  
   const selectedProjectLabel = projectDetailsList?.find(
     (proj) => proj.value === selectedProjectId
   )?.label || "";
 
+  // if ( selectedProjectLabel.includes("AIR")) {
+  //   const taskIndex = Form.findIndex((item) => item.label === "Task Name");
 
-  ////ikkiikkikikiki
-  // Show PTW Number field if label is "PTW NUMBER" OR project ID includes "AIR"
-  if (selectedLabel === "PTW NUMBER" && selectedProjectLabel.includes("AIR")) {
-    const taskIndex = Form.findIndex((item) => item.label === "Task Name");
+  //   if (taskIndex !== -1) {
+  //     Form.splice(taskIndex + 1, 0, {
+  //       label: "PTW Number",
+  //       value: "",
+  //       name: "ptwNumber",
+  //       type: "sdisabled",
+  //       required: true,
+  //       props: { readOnly: true },
+  //       classes: "col-span-1",
+  //     });
+  //   }
+  // }
 
-    if (taskIndex !== -1) {
-      Form.splice(taskIndex + 1, 0, {
-        label: "PTW Number",
-        value: "",
-        name: "ptwNumber",
-        type: "sdisabled",
-        required: true,
-        props: { readOnly: true },
-        classes: "col-span-1",
-      });
-    }
+
+const taskIndex = Form.findIndex((item) => item.label === "Task Name");
+const ptwIndex = Form.findIndex((item) => item.label === "PTW Number");
+if (ptwIndex !== -1) {
+  Form.splice(ptwIndex, 1);
+}
+if (taskIndex !== -1) {
+ 
+  if (selectedProjectLabel === "" || selectedProjectLabel.includes("AIR")) {
+    Form.splice(taskIndex + 1, 0, {
+      label: "PTW Number",
+      value: "",
+      name: "ptwNumber",
+      type: "sdisabled",
+      required: true,
+      props: { readOnly: true },
+      classes: "col-span-1",
+    });
   }
-
-  
-
-   
+}
 
   const startKm = watch("startKm");
   const endKm = watch("endKm");
