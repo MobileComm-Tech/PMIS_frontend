@@ -1774,12 +1774,34 @@ const FillExpenseForm = ({
   // }
 
 
+// const taskIndex = Form.findIndex((item) => item.label === "Task Name");
+// const ptwIndex = Form.findIndex((item) => item.label === "PTW Number");
+// if (ptwIndex !== -1) {
+//   Form.splice(ptwIndex, 1);
+// }
+// if (taskIndex !== -1) {
+ 
+//   if (selectedProjectLabel === "" || selectedProjectLabel.includes("AIR")) {
+//     Form.splice(taskIndex + 1, 0, {
+//       label: "PTW Number",
+//       value: "",
+//       name: "ptwNumber",
+//       type: "sdisabled",
+//       required: true,
+//       props: { readOnly: true },
+//       classes: "col-span-1",
+//     });
+//   }
+// }
+
 const taskIndex = Form.findIndex((item) => item.label === "Task Name");
 const ptwIndex = Form.findIndex((item) => item.label === "PTW Number");
-if (ptwIndex !== -1) {
+const exists = claimTypeList.some(item => item.label === "PTW NUMBER");
+// console.log(exists,"lsdjhfkghksdhfklgjdslfk")
+if (ptwIndex !== -1 &&  !exists) {
   Form.splice(ptwIndex, 1);
 }
-if (taskIndex !== -1) {
+if (taskIndex !== -1 && exists) {
  
   if (selectedProjectLabel === "" || selectedProjectLabel.includes("AIR")) {
     Form.splice(taskIndex + 1, 0, {
@@ -1890,7 +1912,7 @@ if (taskIndex !== -1) {
     }
 
     const onSuccess = () => {
-      setIsOpen(false);      
+      setIsOpen(false);
       reset({});            
       setKm(false);          
       setSelectedLabel("");  
