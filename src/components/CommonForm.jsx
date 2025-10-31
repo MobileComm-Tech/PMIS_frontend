@@ -593,7 +593,7 @@ const CommonForm = ({
                       itm?.visible === false ? "hidden" : ""
                     }`}
                   >
-                    <label className="block text-sm font-medium text-black ml-3 break-words">
+                    <label className="block text-sm font-medium text-white ml-3 break-words">
                       {itm.label}
                       {itm?.required && (
                         <span className="text-rose-500 ml-1">*</span>

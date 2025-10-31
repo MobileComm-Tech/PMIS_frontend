@@ -50,7 +50,7 @@
         formState: { errors },
     } = useForm();
 
-    let showType = getAccessType("Actions(Partner On-Board)");
+    let showType = getAccessType("Actions(Partner Team)");
 
     let shouldIncludeEditColumn = false;
 
@@ -345,7 +345,7 @@
             <div className="flex">
                 {" "}
                 <ConditionalButton
-                showType={getAccessType("Add New(Partner On-Board)")}
+                showType={getAccessType("Add New(Partner Team)")}
                 classes="w-auto mr-1"
                 onClick={() => {
                     dispatch(GET_VENDOR_DETAILS({ dataAll: [], reset: true }));
@@ -354,7 +354,7 @@
                 name={"Add New"}
                 ></ConditionalButton>
                 <ConditionalButton
-                showType={getAccessType("Upload(Partner On-Board)")}
+                showType={getAccessType("Upload File(Partner Team)")}
                 name={"Upload File"}
                 classes="w-auto mr-1"
                 onClick={(e) => {
