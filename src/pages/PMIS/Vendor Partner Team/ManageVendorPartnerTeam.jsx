@@ -51,12 +51,27 @@
     } = useForm();
 
     let showType = getAccessType("Actions(Partner Team)");
-
+    // console.log(showType,"__showowo")
     let shouldIncludeEditColumn = false;
+    let actionColumns=[]
 
     if (showType === "visible") {
         shouldIncludeEditColumn = true;
+        actionColumns=[{
+            name: "Edit",
+            value: "edit",
+            style: "min-w-[100px] max-w-[200px] text-center",
+        },
+        {
+            name: "Delete",
+            value: "delete",
+            style: "min-w-[100px] max-w-[100px] text-center",
+        },]
     }
+
+    // if(shouldIncludeEditColumn===false){
+        
+    // }
 
     let dbConfigList = useSelector((state) => {
         let interdata = state?.vendorData?.getVendorPartnerTableList || [];
@@ -253,16 +268,8 @@
             value: "status",
             style: "min-w-[150px] max-w-[450px] text-center font-extrabold",
         },
-        {
-            name: "Edit",
-            value: "edit",
-            style: "min-w-[100px] max-w-[200px] text-center",
-        },
-        {
-            name: "Delete",
-            value: "delete",
-            style: "min-w-[100px] max-w-[100px] text-center",
-        },
+        ...actionColumns
+        
         ],
         properties: {
         rpp: [10, 20, 50, 100],
