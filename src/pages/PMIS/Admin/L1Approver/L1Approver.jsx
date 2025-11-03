@@ -16,6 +16,7 @@ import { Urls } from "../../../../utils/url";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 // import {pagination} from "../../../../components/CommonObjectsAndVariables";
+import AdminActions from "../../../../store/actions/admin-actions";
 import { pagination } from "../../../../components/CommonObjectsAndVariables";
 const L1Approver = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const L1Approver = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [strValFil, setstrVal] = useState(false);
   const Data = useRef("");
 
   const [year] = useState(new Date().getFullYear());
@@ -51,7 +53,16 @@ const L1Approver = () => {
 
 
   
-  
+  let empList = useSelector((state) => {
+      console.log(state?.adminData)
+         return state?.adminData?.getEmpNameList?.map((itm) => {
+             return {
+                 label: itm?.empName,
+                 value: itm?.empName
+             }
+         })
+     })
+
   const l1ApproverList = useSelector((state) => {
     // console.log("Redux state:", state);
     const interdata = state?.ptwData?.getL1ApproverData || [];
@@ -166,7 +177,16 @@ const L1Approver = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [],
+    filter: [
+{
+                label: "Employee Name",
+                type: "select",
+                name: "empName",
+                option:empList,
+                props: {
+                }
+            },
+    ],
   };
 
   const onSubmit = (data) => {
@@ -179,7 +199,8 @@ const L1Approver = () => {
         }else{
           strVal =objectToQueryString({ ApproverType: "L1-Approver" })
         }
-    dispatch(
+        setstrVal(strVal)
+      dispatch(
       PTWActions.getL1ApproverData(
         true,
         strVal,
@@ -224,6 +245,7 @@ const L1Approver = () => {
 
   useEffect(() => {
     refreshData();
+        dispatch(AdminActions.getEmpNameList(true,"approverType=L1-Approver"))
   }, [dispatch]);
 
   return (
@@ -261,8 +283,8 @@ const L1Approver = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownloadpost(
-                    "/Export/ptwMDB",
+                 CommonActions.commondownloadpost(
+                    "/Export/ptwMDB?"+strValFil,
                     "Export_L1Approval.xlsx",
                     "POST",
                     { ApproverType: "L1-Approver" }

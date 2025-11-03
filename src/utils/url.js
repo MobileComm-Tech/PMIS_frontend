@@ -311,8 +311,10 @@ export const Urls = {
   partnerTeamData:"/hr/subVendor",
   teamLeadDataAPI:"/myHome/allocateSubOwner",
   partnerTeamRole:"/hr/manageProfile/partnerTeam",
-  AppUpdate:"/appUpdate"
+  AppUpdate:"/appUpdate",
   // PArtner Name
+  getPtwSiteId : '/ptw/getSiteId',
+  getEmpNameList:'/ptw/getApproverFilter',
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };

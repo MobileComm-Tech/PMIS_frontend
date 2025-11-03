@@ -43,6 +43,18 @@ const FilterActions = {
         } catch (error) {
         }
     },
+    
+
+getEmpNameL1:(reset=true,args="",show=1,customerId) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.l1ApproverSubmit}/${customerId}${args!=""?"?"+args:""}`, reset, show : show})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll,reset}))
+        } catch (error){
+
+        }
+    },
 
     getProjectProjectType:(customeruniqueId,reset=true,args="") => async (dispatch, _) => {
         try {

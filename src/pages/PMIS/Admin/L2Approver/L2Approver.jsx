@@ -17,6 +17,7 @@ import { objectToQueryString } from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 // import {pagination} from "../../../../components/CommonObjectsAndVariables";
 import { pagination } from "../../../../components/CommonObjectsAndVariables";
+import AdminActions from "../../../../store/actions/admin-actions";
 const L2Approver = () => {
   const dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
@@ -24,6 +25,7 @@ const L2Approver = () => {
   const [modalHead, setmodalHead] = useState(<></>);
   const [fileOpen, setFileOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+   const [strValFil, setstrVal] = useState(false);
   const Data = useRef("");
 
   const [year] = useState(new Date().getFullYear());
@@ -51,7 +53,15 @@ const L2Approver = () => {
   };
 
 
-  
+  let empList = useSelector((state) => {
+      console.log(state?.adminData)
+         return state?.adminData?.getEmpNameList.map((itm) => {
+             return {
+                 label: itm?.empName,
+                 value: itm?.empName
+             }
+         })
+     })
   
   const l1ApproverList = useSelector((state) => {
     // console.log("Redux state:", state);
@@ -167,7 +177,16 @@ const L2Approver = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [],
+     filter: [
+      {
+                label: "Employee Name",
+                type: "select",
+                name: "empName",
+                option:empList,
+                props: {
+                }
+            },
+    ],
   };
 
   const onSubmit = (data) => {
@@ -180,7 +199,7 @@ const L2Approver = () => {
     }else{
       strVal =objectToQueryString({ ApproverType: "L2-Approver" })
     }
-    
+    setstrVal(strVal)
     dispatch(
       PTWActions.getL1ApproverData(
         true,
@@ -226,6 +245,7 @@ const L2Approver = () => {
 
   useEffect(() => {
     refreshData();
+      dispatch(AdminActions.getEmpNameList(true,"approverType=L2-Approver"))
   }, [dispatch]);
 
   return (
@@ -263,8 +283,8 @@ const L2Approver = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 dispatch(
-                  CommonActions.commondownloadpost(
-                    "/Export/ptwMDB",
+                 CommonActions.commondownloadpost(
+                    "/Export/ptwMDB?"+strValFil,
                     "Export_L2Approval.xlsx",
                     "POST",
                     { ApproverType: "L2-Approver" }

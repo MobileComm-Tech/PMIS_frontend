@@ -562,6 +562,28 @@ const adminData = createSlice({
         ];
       }
     },
+    GET_MANAGE_SITE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getManageSite = payload.dataAll;
+      } else {
+        state.getManageSite = [
+          ...state.getManageSite,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
+
+    GET_EMP_NAME_LIST: (state, { payload }) => {
+      if (payload.reset) {
+        state.getEmpNameList = payload.dataAll;
+      } else {
+        state.getEmpNameList = [
+          ...state.getEmpNameList,
+          ...payload.dataAll,
+        ];
+      }
+    },
     GET_SUB_PROJECT_TYPE_COMPLIANCE: (state, { payload }) => {
       if (payload.reset) {
         state.getSubProjectTypeCompliance = payload.dataAll;
@@ -730,7 +752,8 @@ export const {
   GET_MANAGE_DEPARTMENT,
   GET_MANAGE_DESIGNATION,
   GET_MANAGE_PROFILE,
-
+  GET_EMP_NAME_LIST ,
+  GET_MANAGE_SITE,
   GET_STATE,
   GET_CITIES,
   GET_PROJECT_ALLLOCATION,

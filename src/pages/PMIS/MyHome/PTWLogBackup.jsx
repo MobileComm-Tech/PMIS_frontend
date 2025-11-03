@@ -6,12 +6,12 @@ import PTWActions from "../../../store/actions/ptw-actions";
 import CommonActions from "../../../store/actions/common-actions";
 import Button from "../../../components/Button";
 import { objectToQueryString } from "../../../utils/commonFunnction";
-
+import AdminActions from "../../../store/actions/admin-actions";
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
   // console.log(dataAll, "csddsffffdff");
-
+const [strValFil, setstrVal] = useState(false);
   const ptwBackupData = useSelector(
     (state) => state?.ptwData?.getPtwLogBackup || []
     
@@ -30,6 +30,23 @@ const PTWLogBackup = () => {
 
     return extractedData;
   };
+
+
+  useEffect(() => {
+    const defaultPagination = objectToQueryString({"page":1, "limit":50})
+    dispatch(AdminActions.getManageSite())
+    fetchPTWLogBackupData(true,defaultPagination);
+  }, []);
+
+
+  let siteList = useSelector((state) => {
+         return state?.adminData?.getManageSite?.map((itm) => {
+             return {
+                 label: itm?.siteId,
+                 value: itm?.siteId
+             }
+         })
+     })
 
    const handleExcelDownload = (rowData) => {
     // console.log("Downloading Excel for:", rowData);
@@ -51,7 +68,7 @@ const PTWLogBackup = () => {
     //   }
     // });
 
-    const endpoint = `/ptw_export?${queryParams.toString()}`;
+    const endpoint = `/ptw_export?${queryParams?.toString()}`;
 
     // console.log("Excel Download endpoint:", endpoint);
     // console.log("Row data being sent:", extractedData);
@@ -312,7 +329,18 @@ const PTWLogBackup = () => {
       rpp: [10, 20, 50, 100],
     },
 
-    filter: [],
+    filter: [
+
+             {
+                label: "Site ID",
+                type: "select",
+                name: "siteId",
+                option:siteList,
+                props: {
+                }
+            },
+
+    ],
   };
 
   const onSubmit = (data) => {
@@ -334,14 +362,22 @@ const PTWLogBackup = () => {
      let value = data.reseter;
         delete data.reseter;
         // const strVal = objectToQueryString(data);
-        const strVal = objectToQueryString(data);
+        // const strVal = objectToQueryString(data);
         // if(strVal?.length>0){
         //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
         // }else{
         //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
         // }
         // console.log(strVal,"___strVal__")
-    dispatch(PTWActions.getPtwLogBackup(true, strVal));
+  
+
+    const strVal = objectToQueryString(data);
+        setstrVal(strVal);
+
+          dispatch(PTWActions.getPtwLogBackup(true, strVal));
+
+      
+
   };
 
   useEffect(() => {
@@ -364,15 +400,15 @@ const PTWLogBackup = () => {
                 name={"Export"}
                 classes="w-auto bg-teal-500 hover:bg-teal-600"
                 onClick={(e) => {
-                  dispatch(
-                    CommonActions.commondownloadpost(
-                      "/ptwTableExport?exportTableName=ptwLogBackup",
+               dispatch(
+                   CommonActions.commondownloadpost(
+                      "/ptwTableExport?exportTableName=ptwLogBackup&"+strValFil,
                       // {exportTableName:"ptwBackupData"},
                       "New_file.xlsx",
                       "GET",
                      
                     )
-                  );
+               )
                 }}
               />
             </div>

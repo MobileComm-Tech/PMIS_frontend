@@ -67,6 +67,8 @@ import {
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
   GET_EXCHANGE_RATE,
+  GET_MANAGE_SITE,
+  GET_EMP_NAME_LIST,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
@@ -825,6 +827,7 @@ const AdminActions = {
       return;
     }
   },
+  
 
   getManageProfile:
     (reset = true, args = "", show = 1) =>
@@ -900,6 +903,51 @@ const AdminActions = {
         dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll, reset }));
       } catch (error) {}
     },
+
+    getManageSite:
+    (reset = true, args = "", id) =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${
+            Urls.get_accural_revenue_master_project_subProjectType
+          }/${id}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+    getManageSite:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.getPtwSiteId}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_SITE({ dataAll, reset }));
+      } catch (error) {}
+    },
+getEmpNameList:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.getEmpNameList}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_EMP_NAME_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+
   postAccuralRevenueMasterProject:
     (data, cb, uniqueId) => async (dispatch, _) => {
       try {
