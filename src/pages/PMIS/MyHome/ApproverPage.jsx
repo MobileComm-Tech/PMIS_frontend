@@ -949,9 +949,18 @@ const ApproverPage = () => {
               name={"Export"}
               classes="w-auto"
               onClick={(e) => {
+                // dispatch(
+                //   CommonActions.commondownloadpost(
+                //     `/ptwTableExport?exportTableName=${type === 'l1Approver' ? 'L1ApproverExport' : 'L2ApproverExport'}`,
+                //     "Export_Approval.xlsx",
+                //     "GET",
+                //     {}
+                //   )
+                // );
+
                 dispatch(
                   CommonActions.commondownloadpost(
-                    `/ptwTableExport?exportTableName=${type === 'l1Approver' ? 'L1ApproverExport' : 'L2ApproverExport'}`,
+                    `/ptwTableExport?exportTableName=${type === 'l1Approver' ? 'L1ApproverExport' : 'L2ApproverExport'}&ids=${type === "l1Approver" ? ((selectedItems?.map(i => i.id).join(",")).length === 0 ? "Submitted" : selectedItems?.map(i => i.id).join(",")) : ((selectedItems?.map(i => i.id).join(",")).length === 0 ? "L1-Approved" : selectedItems?.map(i => i.id).join(","))}`,
                     "Export_Approval.xlsx",
                     "GET",
                     {}
