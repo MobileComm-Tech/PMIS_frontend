@@ -1891,7 +1891,9 @@ const MyTask = () => {
       sessionStorage.removeItem("opid");
       sessionStorage.removeItem("operationId");
     }
-    dispatch(AdminActions.getManageCustomer());
+    // dispatch(AdminActions.getManageCustomer());
+      dispatch(AdminActions.getManageCustomer(true,"",0))
+
 
     dispatch(MyHomeActions.getMyTask());
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
@@ -1972,6 +1974,17 @@ const MyTask = () => {
   };
 
   console.log(itemData?.length, "__length");
+  const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  };
+ 
+  const debounceSearch = debounce((query) => {
+    dispatch(MyHomeActions.getMyTask(true, query));
+  }, 700);
 
   return (
     <>
@@ -1981,32 +1994,57 @@ const MyTask = () => {
         searchView={
           <>
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => {
+              }}
               onchange={(e) => {
-                const siteNameQuery =
-                  (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
-                  strValFil;
-                dispatch(MyHomeActions.getMyTask(true, siteNameQuery));
+                const siteNameQuery = (e.target.value ? "siteName=" + (e.target.value + '&') : "" ) +strValFil;
+                debounceSearch(siteNameQuery);
+                // dispatch(MyHomeActions.getMyTask(true,siteNameQuery));  
               }}
               placeHolder={"Site Name"}
             />
-
+ 
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => {
+              }}
               onchange={(e) => {
-                dispatch(
-                  MyHomeActions.getMyTask(
-                    true,
-                    (e.target.value
-                      ? "mileStoneName=" + (e.target.value + "&")
-                      : "") + strValFil
-                  )
-                );
+                const milestoneQuery = (e.target.value ? "mileStoneName=" + (e.target.value + '&'): "") +strValFil
+                // dispatch(MyHomeActions.getMyTask(true,(e.target.value ? "mileStoneName=" + (e.target.value + '&'): "") +strValFil));
+                debounceSearch(milestoneQuery);
               }}
               placeHolder={"Milestone Name"}
             />
           </>
         }
+        // searchView={
+        //   <>
+        //     <SearchBarView
+        //       onblur={(e) => {}}
+        //       onchange={(e) => {
+        //         const siteNameQuery =
+        //           (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
+        //           strValFil;
+        //         dispatch(MyHomeActions.getMyTask(true, siteNameQuery));
+        //       }}
+        //       placeHolder={"Site Name"}
+        //     />
+
+        //     <SearchBarView
+        //       onblur={(e) => {}}
+        //       onchange={(e) => {
+        //         dispatch(
+        //           MyHomeActions.getMyTask(
+        //             true,
+        //             (e.target.value
+        //               ? "mileStoneName=" + (e.target.value + "&")
+        //               : "") + strValFil
+        //           )
+        //         );
+        //       }}
+        //       placeHolder={"Milestone Name"}
+        //     />
+        //   </>
+        // }
         headerButton={
           <div className="flex gap-1">
             {itemData?.length > 0 && (

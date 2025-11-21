@@ -75,11 +75,12 @@ import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
 
 const AdminActions = {
   getManageCustomer:
-    (reset = true, args = "") =>
+    (reset = true, args = "",show=1) =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
           url: `${Urls.admin_customer}${args != "" ? "?" + args : ""}`,
+          show : show,
           reset,
         });
         if (res?.status !== 200) return;
