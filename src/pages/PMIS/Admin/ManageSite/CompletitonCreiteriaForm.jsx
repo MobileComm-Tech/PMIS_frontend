@@ -53,7 +53,7 @@ const CompletitonCreiteriaForm = ({
 
 
   const checkmilestone = mileStone["Completion Criteria"]?.split(",")
-  const checkmilestoneStatus = mileStone['mileStoneStatus']
+  const checkmilestoneStatus = mileStone['mileStoneStatus']  
   const milestoneName = mileStone['Name']
 
   // if (["MS1", "MS2"].includes(milestoneName)) {
