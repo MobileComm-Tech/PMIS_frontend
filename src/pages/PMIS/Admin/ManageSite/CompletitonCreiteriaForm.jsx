@@ -56,7 +56,7 @@ const CompletitonCreiteriaForm = ({
   const checkmilestoneStatus = mileStone['mileStoneStatus']
   const milestoneName = mileStone['Name']
 
-  if (["MS1", "MS2"].includes(milestoneName)) {
+  // if (["MS1", "MS2"].includes(milestoneName)) {
  
     const today = new Date();
     let currMonth = today.getMonth() + 1;
@@ -77,7 +77,7 @@ const CompletitonCreiteriaForm = ({
       datestr = lastMonth26;
     }
  
-  }
+  // }
 
    const {
     register: register,
