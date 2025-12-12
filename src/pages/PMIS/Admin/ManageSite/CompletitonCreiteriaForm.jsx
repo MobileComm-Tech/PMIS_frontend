@@ -463,7 +463,8 @@ console.log(quantityValue,"____quantityValue__")
         quantityValue={quantityValue}
       />
 
-      <div className="flex justify-center">
+
+      {/* <div className="flex justify-center">
         {!checkmilestone?.includes("Forms & Checklist") && (
           <Button
             onClick={handleSubmit(onsubmiting)}
@@ -472,6 +473,23 @@ console.log(quantityValue,"____quantityValue__")
           />
         )}
         {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process']?.includes(checkmilestoneStatus) && (
+          <Button
+            onClick={handleSubmit(onsubmiting)}
+            name={"Submit"}
+            classes="w-auto"
+          />
+        )}
+      </div> */}
+{/* NEW */}
+      <div className="flex justify-center">
+        {!checkmilestone?.includes("Forms & Checklist") && checkmilestoneStatus!="Closed" && (
+          <Button
+            onClick={handleSubmit(onsubmiting)}
+            name={"Submit"}
+            classes="w-auto"
+          />
+        )}
+        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process',"Reject"]?.includes(checkmilestoneStatus) && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}

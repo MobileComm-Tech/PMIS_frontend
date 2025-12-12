@@ -11,10 +11,12 @@ import moment from "moment";
 import { useParams } from "react-router-dom";
 import { GET_POWORKDONE_BASED } from "../../../../store/reducers/finance-reducer";
 import { range } from "../../../../components/CommonObjectsAndVariables";
+import FileUploader from "../../../../components/FIleUploader";
 
 const WorkDone = () => {
 
   const [strValFil, setstrVal] = useState(false);
+  const [fileOpen, setFileOpen] = useState(false);
   const endDate = moment().format("Y");
   let dispatch = useDispatch();
   const {customerId} = useParams()
@@ -188,6 +190,16 @@ const WorkDone = () => {
         value: "final_amount",
         style: "min-w-[100px] max-w-[200px] text-center",
       },
+      {
+        name: "IRR Amount",
+        value: "irrAmount",
+        style: "min-w-[100px] max-w-[200px] text-center",
+      },
+      {
+        name: "IRR Month",
+        value: "irrMonth",
+        style: "min-w-[100px] max-w-[200px] text-center",
+      },
       ...itemColumns
       // {
       //   name: "Item Code 1",
@@ -269,11 +281,69 @@ const WorkDone = () => {
     dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",0,customerId));
   }, [dispatch]);
 
+    const onTableViewSubmit = (data) => {
+    data["fileType"] = "IrrAmount";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(FinanceActions.getPOWorkDoneBased(true,"","",customerId));
+        setFileOpen(false);
+        resetting("");
+      })
+    );
+  };
+
+  // return (
+  //   <>
+
+  //   <FileUploader
+  //       isOpen={fileOpen}
+  //       fileUploadUrl={""}
+  //       onTableViewSubmit={onTableViewSubmit}
+  //       setIsOpen={setFileOpen}
+  //       tempbtn={true}
+  //       tempbtnlink={["/template/IRRAmount.xlsx", "IRRAmount.xlsx"]}
+  //     />
+  //     <AdvancedTable
+  //       headerButton={
+  //         <>
+  //           <ConditionalButton
+  //             showType={getAccessType("Export(Workdone)")}
+  //             name={"Export"}
+  //             classes="w-auto mr-1"
+  //             onClick={() => {
+  //               dispatch(CommonActions.commondownload(`/export/poWorkDone/${customerId}` + "?" + strValFil,"Export_PO_WorkDone.xlsx"))
+  //             }}
+  //           ></ConditionalButton>
+  //         </>
+  //       }
+  //       table={table}
+  //       filterAfter={onSubmit}
+  //       tableName={"UserListTable"}
+  //       handleSubmit={handleSubmit}
+  //       data={dbConfigList}
+  //       errors={errors}
+  //       register={register}
+  //       setValue={setValue}
+  //       getValues={getValues}
+  //       totalCount={dbConfigTotalCount}
+  //       heading={"Total Count:- "}
+  //     />
+  //   </>
+  // );
   return (
     <>
       <AdvancedTable
         headerButton={
           <>
+            <ConditionalButton
+              showType={getAccessType("Upload(Work Done)")}
+                name={"Upload"}
+                classes="w-auto mr-1"
+                onClick={(e) => {
+                  setFileOpen((prev) => !prev);
+                }}
+              >
+            </ConditionalButton>
             <ConditionalButton
               showType={getAccessType("Export(Workdone)")}
               name={"Export"}
@@ -282,6 +352,7 @@ const WorkDone = () => {
                 dispatch(CommonActions.commondownload(`/export/poWorkDone/${customerId}` + "?" + strValFil,"Export_PO_WorkDone.xlsx"))
               }}
             ></ConditionalButton>
+           
           </>
         }
         table={table}
@@ -295,6 +366,14 @@ const WorkDone = () => {
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         heading={"Total Count:- "}
+      />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={["/template/IRRAmount.xlsx", "IRRAmount.xlsx"]}
       />
     </>
   );
