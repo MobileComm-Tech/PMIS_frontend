@@ -7,7 +7,7 @@ export function moreinfo(text, len) {
 }
 
 export function getAccessType(valName) {
-  console.log(valName,"__valName")
+  // console.log(valName,"__valName")
   let permission = JSON.parse(localStorage.getItem("permission")) || {};
 
   if (
