@@ -72,7 +72,7 @@ const ManageVendorForm = (props) => {
     return state.vendorData.getManageVendorDetails || "";
   });
 
-  // console.log(getManageVendorDetails, "getManageVendorDetails");
+  console.log(getManageVendorDetails, "getManageVendorDetails");
 
   const today = moment().format("DD-MM-yyyy");
 
@@ -103,7 +103,7 @@ const ManageVendorForm = (props) => {
     {
       label: "Partner Code",
       name: "vendorCode",
-      value: "",
+      value: getManageVendorDetails?.length>0 ?getManageVendorDetails[0]?.empCode: "",
       type: empuid ? "sdisabled" : "text",
       props: {
         disabled: empuid ? true : false, 
@@ -132,7 +132,7 @@ const ManageVendorForm = (props) => {
     {
       label: "Email Address",
       name: "email",
-      value: "",
+      value: getManageVendorDetails?.length > 0 ? getManageVendorDetails[0]?.email: "",
       type: empuid ? "sdisabled" : "text",
       props: "",
       required: true,

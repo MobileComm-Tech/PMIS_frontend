@@ -273,7 +273,7 @@ useEffect(() => {
   }
 }, [partnerData, empuid, formInputs, setValue]);
 
-  
+  console.log(formInputs,"___formInputs__")
 
   const onTableViewGenerateSubmit = (data) => {
     if (empuid) {
