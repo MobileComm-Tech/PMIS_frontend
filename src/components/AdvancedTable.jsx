@@ -139,7 +139,6 @@ const AdvancedTable = ({
   }, [tableName]);
 
   useEffect(() => {
-
     if (data !== finalData) {
       setFinalData(data);
     }

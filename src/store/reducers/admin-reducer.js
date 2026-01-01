@@ -68,6 +68,7 @@ const initialState = {
   getDeliveryPVA:[],
   getSubProjectDeliveryPVA:[],
   getExchnageRate:[],
+  getManageProjectLogs:[],
 };
 
 const adminData = createSlice({
@@ -734,6 +735,21 @@ const adminData = createSlice({
     GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS: (state, { payload }) => {
       state.getComplianceDegrowTemplateData.usedfields[0][payload.tabName] = payload.dataAll
     },
+
+
+    GET_MANAGE_PROJECT_LOGS: (state, { payload }) => {
+      if (payload.reset) {
+        state.getManageProjectLogs = payload.dataAll;
+      } else {
+        state.getManageProjectLogs = [
+          ...state.getManageProjectLogs,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
+
+
   },
 });
 
@@ -804,7 +820,8 @@ export const {
   GET_PARTNER_ACTIVITY,
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
-  GET_EXCHANGE_RATE
+  GET_EXCHANGE_RATE,
+  GET_MANAGE_PROJECT_LOGS
 } = adminData.actions;
 
 export default adminData.reducer;

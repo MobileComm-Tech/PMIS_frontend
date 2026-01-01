@@ -11,15 +11,14 @@ const AdminLogs = () => {
 
 
     let dispatch = useDispatch()
+    
     let roleList = useSelector((state) => {
         let interdata = state?.operationManagement?.USERS_LIST
         return interdata
     })
 
     let dbConfigList = useSelector((state) => {
-        console.log(state, "statejjjjdjdjjdjdj")
         let interdata = state?.adminData?.getManageAdminLogs || []
-        console.log('interdatainterdatadudu',interdata,typeof(interdata))
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
@@ -85,10 +84,12 @@ const AdminLogs = () => {
             return 0
         }
     })
+
     // let Form = [
     //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
     //     { label: "Custom Queries", value: "", type: "textarea" }
     // ]
+
     const {
         register,
         handleSubmit,

@@ -43,17 +43,6 @@ const ManageComplianceL1 = () => {
             let updateditm = {
                 ...itm,
 
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     console.log(e.target.checked, "e.target.checked")
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }    
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-
-
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
                     setmodalHead("L1 Approver")
@@ -72,30 +61,11 @@ const ManageComplianceL1 = () => {
                         <ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                     )
                 }}></EditButton>} />,
-                
-                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                //     let msgdata = {
-                //         show: true,
-                //         icon: 'warning',
-                //         buttons: [
-                //             <Button classes='w-15 bg-rose-400' onClick={() => {
-                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_getComplianceapprover}/${itm.uniqueId}`, () => {
-                //                     dispatch(AdminActions.getComplianceApprovertrue,`approverType=L1Approver`())
-                //                     dispatch(ALERTS({ show: false }))
-                //                 }))
-                //             }} name={"OK"} />,
-                //             <Button classes='w-auto' onClick={() => {
-                //                 dispatch(ALERTS({ show: false }))
-                //             }} name={"Cancel"} />
-                //         ],
-                //         text: "Are you sure you want to Delete?"
-                //     }
-                //     dispatch(ALERTS(msgdata))
-                // }}></DeleteButton>} />
             }
             return updateditm
         });
     })
+
     let dbConfigTotalCount = useSelector((state) => {
         let interdata = state?.adminData?.getComplianceApprover
         if (interdata.length > 0) {
@@ -177,13 +147,6 @@ const ManageComplianceL1 = () => {
         <AdvancedTable
             headerButton={
                 <></>
-                // <div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
-                //     setmodalOpen(prev => !prev)
-                //     setmodalHead("New Compliance L1 Approver")
-                //     setmodalBody(<ManageComplianceL1Form isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
-                //     }}
-                //     name={"Add Compliance L1"}></Button>
-                // </div>
             }
             table={table}
             filterAfter={onSubmit}

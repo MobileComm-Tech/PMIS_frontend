@@ -69,6 +69,7 @@ import {
   GET_EXCHANGE_RATE,
   GET_MANAGE_SITE,
   GET_EMP_NAME_LIST,
+  GET_MANAGE_PROJECT_LOGS,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
@@ -1999,5 +2000,27 @@ getEmpNameList:
  
 
   // super admin compiliance  ends -----
+
+
+  getProjectLogs: (reset = true, args = "") =>
+  async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.projectlogs}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_PROJECT_LOGS({ dataAll, reset }));
+      } 
+      catch (error) {
+
+      }
+  },
+
+
+
+
+
 };
 export default AdminActions;

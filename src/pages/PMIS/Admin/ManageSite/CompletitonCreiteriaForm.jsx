@@ -1,15 +1,12 @@
-
-// -======================================CURRENT RUNNING (£rd COde)
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CommonForm from "../../../../components/CommonForm";
-import Button from "../../../../components/Button";
+import Button from "../../../../components/Button"; 
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Urls } from "../../../../utils/url";
 import MyHomeActions from "../../../../store/actions/myHome-actions";
 import NewLookBadge from "../../../../components/Badge";
-import ManageSite from "./ManageSite";
 import ManageComplianceTemplateForm from "../ManageCompliance/ManageComplianceTemplateForm";
 import Modal from "../../../../components/Modal";
 import AdminActions from "../../../../store/actions/admin-actions";
@@ -41,14 +38,12 @@ const CompletitonCreiteriaForm = ({
   const dateString = siteCompleteData["siteStartDate"];
   const [day, month, year] = dateString?.split("-")?.map(Number);
   let datestr = new Date(year, month - 1, day);
-  // const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
   const [modalFullOpen1, setmodalFullOpen1] = useState(false);
   const [itemCodeAllInputs, setItemCodeAllInputs] = useState([])
   const [selectedOption,setSelectedOption] = useState("")
   const projectTypeName = siteCompleteData['projectType']
   const subProjectName = siteCompleteData['subProject']
-  // const [totalAmount,setAmount] = useState([])
   const [quantityValue, setQuantityValue] = useState({})
 
 
@@ -56,7 +51,7 @@ const CompletitonCreiteriaForm = ({
   const checkmilestoneStatus = mileStone['mileStoneStatus']
   const milestoneName = mileStone['Name']
 
-  if (["MS1", "MS2"].includes(milestoneName)) {
+  // if (["MS1", "MS2"].includes(milestoneName)) {
  
     const today = new Date();
     let currMonth = today.getMonth() + 1;
@@ -77,7 +72,7 @@ const CompletitonCreiteriaForm = ({
       datestr = lastMonth26;
     }
  
-  }
+  // }
 
    const {
     register: register,
@@ -464,14 +459,14 @@ console.log(quantityValue,"____quantityValue__")
       />
 
       <div className="flex justify-center">
-        {!checkmilestone?.includes("Forms & Checklist") && (
+        {!checkmilestone?.includes("Forms & Checklist") && checkmilestoneStatus!="Closed" && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}
             classes="w-auto"
           />
         )}
-        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process']?.includes(checkmilestoneStatus) && (
+        {checkmilestone?.includes("Forms & Checklist") && ['Open', 'In Process',"Reject"]?.includes(checkmilestoneStatus) && (
           <Button
             onClick={handleSubmit(onsubmiting)}
             name={"Submit"}

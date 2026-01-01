@@ -507,7 +507,7 @@ const ComplianceL1ApproverTable = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)));
+    dispatch(AdminActions.getComplianceMilestoneL1Approver(route.split("/"),value, objectToQueryString(data)));
   };
 
   const handleReject = () => {

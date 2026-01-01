@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Unicons from "@iconscout/react-unicons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import CCDash from "../../../../components/CCDash";
 import { useNavigate } from "react-router-dom";
 import ComponentActions from "../../../../store/actions/component-actions";
-// import ProjectChart from "../Dashboard1/ProjectChart";
-// import ClaimAndAdvanceChart from "../Dashboard1/ClaimAndAdvanceChart";
-// import VendorActiveInactive from "../VendorGraph/VendorActiveInactive";
 
 
 const ActivityLogs = () => {
-  // const [modalOpen, setmodalOpen] = useState(false)
-  // const [modalBody, setmodalBody] = useState(<></>)
   const [type, settype] = useState(false);
-  // const [modalHead, setmodalHead] = useState(<></>)
 
   let dispatch = useDispatch()
-
   let navigate = useNavigate();
 
 
@@ -27,15 +20,6 @@ const ActivityLogs = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-        //   [
-        //     "Manage Circle",
-        //     "bg-pcol",
-        //     "/hr/superAdmin/manageCircle",
-        //     <Unicons.UilCheckCircle size="36" color="" />,
-        //     "border-b-[#fdf0d5]",
-        //   ],
-          
-          
           [
             "Approval Logs",
             "bg-pcol",
@@ -47,6 +31,13 @@ const ActivityLogs = () => {
             "Admin Logs",
             "bg-pcol",
             "/hr/superAdmin/ActivityLogs/SuperAdminLogs",
+            <Unicons.UilPagerduty size="32" color="" />,
+            "border-b-[#b8e0d2]",
+          ],
+          [
+            "Project Logs",
+            "bg-pcol",
+            "/hr/superAdmin/ActivityLogs/ProjectLogs",
             <Unicons.UilPagerduty size="32" color="" />,
             "border-b-[#b8e0d2]",
           ],
@@ -93,7 +84,6 @@ const ActivityLogs = () => {
           );
         })}
         settype={settype}
-        label="Add / Modify Customer"
       />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-20 sm:mt-20 md:mt-36 xl:mt-48 gap-2">

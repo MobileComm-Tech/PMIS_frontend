@@ -443,7 +443,7 @@ const ComplianceL2ApproverTable = () => {
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCircle(value, objectToQueryString(data)))
+        dispatch(AdminActions.getComplianceMilestoneL2Approver(route.split("/"),value, objectToQueryString(data)));
     }
 
     const handleAction = () => {

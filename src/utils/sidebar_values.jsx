@@ -145,6 +145,7 @@ import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/Manag
 import { routesObjects } from "./url";
 import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeam";
 import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
+import ProjectLogs from "../pages/PMIS/HR/ActivityLogs/ProjectLogs";
 
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -883,6 +884,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/ActivityLogs/SuperAdminLogs",
       component: <AdminLogs />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/hr/superAdmin/ActivityLogs/ProjectLogs",
+      component: <ProjectLogs />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

@@ -1,21 +1,17 @@
 // export const baseUrl = "https://devapi.mcpspmis.com";
 // export const backendassetUrl = "https://devapi.mcpspmis.com/";
-export const routesObjects ={
-    partnerTeamForm:"/vendorPartnerForm",
-    partnerTeam:"/vendor/partnerTeam"
 
-}
 
-export const baseUrl = "https://api.mcpspmis.com"
-export const backendassetUrl = "https://api.mcpspmis.com/"
 
-// export const baseUrl="https://androidapi.mcpspmis.com"
-// export const backendassetUrl="https://androidapi.mcpspmis.com/"
-// export const baseUrl = "http://192.168.1.9:7980";
-// export const backendassetUrl = "http://192.168.1.9:7980";
-// export const baseUrl = "http://192.168.1.10:82/";
-// export const backendassetUrl = "http://192.168.1.10:82/";
-//fddddfdfdfddfddf
+// export const baseUrl = "https://api.mcpspmis.com"
+// export const backendassetUrl = "https://api.mcpspmis.com/"
+
+
+export const baseUrl = "http://127.0.0.1:7585";
+export const backendassetUrl = "http://127.0.0.1:7585";
+
+
+
 
 export const Urls = {
   login: "/login",
@@ -315,6 +311,15 @@ export const Urls = {
   // PArtner Name
   getPtwSiteId : '/ptw/getSiteId',
   getEmpNameList:'/ptw/getApproverFilter',
+
+
+  projectlogs:"/admin/projectlogs"
 };
+
+export const routesObjects ={
+    partnerTeamForm:"/vendorPartnerForm",
+    partnerTeam:"/vendor/partnerTeam"
+
+}
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };
