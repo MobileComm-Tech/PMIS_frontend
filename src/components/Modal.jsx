@@ -51,7 +51,8 @@ const Modal = ({
           <h1 className="text-white text-lg pt-2 pl-4">{modalHead}</h1>
           <div
             onClick={() => {
-              setIsOpen((prev) => !prev);   actionOnClose();
+              setIsOpen((prev) => !prev);
+              actionOnClose();
             }}
             className="absolute ml-auto w-fit top-1 right-3 p-1 hover:bg-main bg-transparent cursor-pointer rounded-md transition-all duration-300 shadow-md"
           >
@@ -66,7 +67,8 @@ const Modal = ({
             <Button
               name={"Close"}
               onClick={(e) => {
-                setIsOpen((prev) => !prev);   actionOnClose();
+                setIsOpen((prev) => !prev);
+                actionOnClose();
               }}
             />
           </div>

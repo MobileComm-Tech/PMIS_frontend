@@ -10,7 +10,6 @@ import {
   UilFileContract,
 } from "@iconscout/react-unicons";
 
-
 // newimport
 import ManageCustomer from "../pages/PMIS/Admin/ManageCustomer/ManageCustomer";
 import ManageVendor from "../pages/PMIS/ManageVendor/ManageVendor";
@@ -59,8 +58,8 @@ import Invoice from "../pages/PMIS/FinancialCards/InvoiceManagement/Invoice";
 import AccrualRevenue from "../pages/PMIS/FinancialCards/AccrualRevenue/AccrualRevenue";
 import UnbilledWaterfall from "../pages/PMIS/FinancialCards/UnbilledWaterfall/UnbilledWaterfall";
 import WorkDone from "../pages/PMIS/FinancialCards/WorkdoneManagement/WorkDone";
-import UnbilledCards from '../pages/PMIS/FinancialCards/UnbilledCards'
-import EarnValueMgmtFinancial from '../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial'
+import UnbilledCards from "../pages/PMIS/FinancialCards/UnbilledCards";
+import EarnValueMgmtFinancial from "../pages/PMIS/Formss/EarnValueMgmtFinancial/EarnValueMgmtFinancial";
 import ClaimTypeCards from "../pages/PMIS/HR/ClaimTypeCards";
 import Manage from "../pages/PMIS/Admin/ManageClaimTypeDesignation/ManageClaimTypeDesignation";
 import ManageClaimTypeUnitRate from "../pages/PMIS/Admin/ManageClaimTypeUnitRate/ManageClaimTypeUnitRate";
@@ -145,7 +144,8 @@ import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/Manag
 import { routesObjects } from "./url";
 import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeam";
 import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
-
+import Wcc from "../pages/PMIS/Admin/wcc/Wcc";
+import Compliance from "../pages/PMIS/Admin/Compliance/Compliance";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -160,10 +160,10 @@ if (user) {
   // let ppv = getAccessType("Project Page View");
   // let spv = getAccessType("Site Page View");
 
-  let cpv = "visible"
-  let ptpv = "visible"
-  let ppv = "visible"
-  let spv = "visible"
+  let cpv = "visible";
+  let ptpv = "visible";
+  let ppv = "visible";
+  let spv = "visible";
 
   // console.log(cpv, "cpv", ptpv, "ptpv", ppv, "ppv", spv, "spv", "mergedAll");
   if (cpv != "invisible") {
@@ -176,7 +176,9 @@ if (user) {
         // component: ["Field Resource", "QE", "Circle Support", "Project Manager", "Vendor"].indexOf(rolename)==-1?<ManageCustomer />:<ManageUserProjectSiteId />,
         component: <ManageCustomer />,
         subMenu: [],
-        icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
+        icon: (
+          <UilFileShieldAlt className="hover:text-heading cursor-pointer" />
+        ),
       },
     ];
   } else if (ptpv != "invisible") {
@@ -186,7 +188,9 @@ if (user) {
         link: "/projectManagement",
         subMenu: [],
         component: <ManageProjectType />,
-        icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
+        icon: (
+          <UilFileShieldAlt className="hover:text-heading cursor-pointer" />
+        ),
       },
     ];
     smartComponent = <ManageProjectType />;
@@ -197,7 +201,9 @@ if (user) {
         link: "/project",
         subMenu: [],
         component: <ManageProject />,
-        icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
+        icon: (
+          <UilFileShieldAlt className="hover:text-heading cursor-pointer" />
+        ),
       },
     ];
     smartComponent = <ManageProject />;
@@ -208,14 +214,14 @@ if (user) {
         link: "/prjmgmt",
         component: <ManageUserProjectSiteId />,
         subMenu: [],
-        icon: <UilFileShieldAlt className="hover:text-heading cursor-pointer" />,
+        icon: (
+          <UilFileShieldAlt className="hover:text-heading cursor-pointer" />
+        ),
       },
     ];
     smartComponent = <ManageProjectSiteId />;
   }
 }
-
-
 
 let rolename = user?.roleName;
 
@@ -270,7 +276,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageSubProject />,
     },
-    
+
     {
       name: "",
       link: "/projectManagement_1/:cname/:ptname/:customeruniqueId/:projecttypeuniqueId",
@@ -338,7 +344,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <MyTask />,
     },
-   
+
     {
       name: "",
       link: "/home/myPolicy",
@@ -375,13 +381,13 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageVendorForm />,
     },
-      {
+    {
       name: "",
-      link:`${routesObjects?.partnerTeamForm}/:empuid` ,
+      link: `${routesObjects?.partnerTeamForm}/:empuid`,
       subMenu: [],
       component: <ManageVendorPartnerTeamForm />,
     },
-       {
+    {
       name: "",
       link: `${routesObjects?.partnerTeamForm}`,
       subMenu: [],
@@ -397,33 +403,33 @@ export const Sidebar_content = {
       name: "",
       link: "/home/PtwLogBackup",
       subMenu: [],
-      component: <PTWLogBackup/>,
+      component: <PTWLogBackup />,
     },
 
     {
       name: "",
       link: "/home/Approval/:type",
       subMenu: [],
-      component: <ApproverPage/>,
+      component: <ApproverPage />,
     },
-    
+
     {
       name: "",
       link: "/home/Approval/ptwApprover/ptwApproverPage",
       subMenu: [],
-      component:<PTWApproverPage/> ,
+      component: <PTWApproverPage />,
     },
     {
       name: "",
       link: "/home/Approval/ptwApprover/ptwApproverPageL2",
       subMenu: [],
-      component:<PTWApproverPageL2/>
+      component: <PTWApproverPageL2 />,
     },
     {
       name: "",
       link: "/superAdmin/ptw/PtwLogBackup",
       subMenu: [],
-      component: <PTWLogBackup/>,
+      component: <PTWLogBackup />,
     },
     {
       name: "",
@@ -538,21 +544,36 @@ export const Sidebar_content = {
       link: "/hr/superAdmin/manageCircle",
       subMenu: [],
       component: <ManageCircle />,
-      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
     },
     {
       name: "Exchange Rate",
       link: "/hr/superAdmin/exchangeRate",
       subMenu: [],
       component: <ExChangeRate />,
-      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
     },
     {
       name: "Manage Zone",
       link: "/hr/superAdmin/manageZone",
       subMenu: [],
       component: <ManageZone />,
-      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
     },
     {
       name: "Manage Cost Center",
@@ -611,7 +632,12 @@ export const Sidebar_content = {
       link: "/assetRegistration",
       subMenu: [],
       component: <AssetRegistration />,
-      icon: <Unicons.UilChannel size="16" className="hover:text-heading cursor-pointer" />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
     },
 
     {
@@ -629,7 +655,7 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-       {
+    {
       name: "",
       link: "/vendor/partnerTeam",
       component: <ManageVendorPartnerTeam />,
@@ -639,7 +665,12 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/vendor/commercial",
-      component: <p className="text-white text-center"> Commercial data is comming soon</p>,
+      component: (
+        <p className="text-white text-center">
+          {" "}
+          Commercial data is comming soon
+        </p>
+      ),
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -910,28 +941,28 @@ export const Sidebar_content = {
     {
       name: "",
       link: "/hr/superAdmin/salaryDB",
-      component: <SalaryDB/>,
+      component: <SalaryDB />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/hr/superAdmin/OtherFixedCostTypes",
-      component: <OtherFixedCostTypes/>,
+      component: <OtherFixedCostTypes />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/hr/superAdmin/OtherFixedCost",
-      component: <OtherFixedCost/>,
+      component: <OtherFixedCost />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/hr/superAdmin/vendorCost",
-      component: < VendorCost/>,
+      component: <VendorCost />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -956,8 +987,6 @@ export const Sidebar_content = {
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-
-
   ],
 
   all_routes: [
@@ -1022,43 +1051,60 @@ export const Sidebar_content = {
     {
       name: "App Build",
       link: "/appbuild",
-      component:<AppBuild/> ,
-      icon: <MdOutlineAppShortcut className="hover:text-heading cursor-pointer" />,
+      component: <AppBuild />,
+      icon: (
+        <MdOutlineAppShortcut className="hover:text-heading cursor-pointer" />
+      ),
       subMenu: [],
     },
 
     {
       name: "PTW",
       link: "/superAdmin/PTW",
-      component:<Ptw/>,
+      component: <Ptw />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/superAdmin/ptw/:page",
-      component:<PtwForm/>,
+      component: <PtwForm />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/superAdmin/PTW/mdbApprover",
-      component:<MDBApprover/>,
+      component: <MDBApprover />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/superAdmin/PTW/mdbApprover/l1Approver",
-      component:<L1Approver/>,
+      component: <L1Approver />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
       link: "/superAdmin/PTW/mdbApprover/l2Approver",
-      component:<L2Approver/>,
+      component: <L2Approver />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+    {
+      name: "WCC",
+      link: "/superAdmin/WCC",
+      component: <Wcc />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "WCC",
+      link: "/superAdmin/Compliance/Compliance",
+      component: <Compliance />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -1070,11 +1116,4 @@ export const Sidebar_content = {
       icon: <Unicons.UilReact />,
     },
   ],
-
-
-
-
 };
-
-
-

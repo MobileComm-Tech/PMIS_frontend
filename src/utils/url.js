@@ -1,13 +1,12 @@
-// export const baseUrl = "https://devapi.mcpspmis.com";
-// export const backendassetUrl = "https://devapi.mcpspmis.com/";
-export const routesObjects ={
-    partnerTeamForm:"/vendorPartnerForm",
-    partnerTeam:"/vendor/partnerTeam"
+export const baseUrl = "https://devapi.mcpspmis.com";
+export const backendassetUrl = "https://devapi.mcpspmis.com/";
+export const routesObjects = {
+  partnerTeamForm: "/vendorPartnerForm",
+  partnerTeam: "/vendor/partnerTeam",
+};
 
-}
-
-export const baseUrl = "https://api.mcpspmis.com"
-export const backendassetUrl = "https://api.mcpspmis.com/"
+// export const baseUrl = "https://api.mcpspmis.com"
+// export const backendassetUrl = "https://api.mcpspmis.com/"
 
 // export const baseUrl="https://androidapi.mcpspmis.com"
 // export const backendassetUrl="https://androidapi.mcpspmis.com/"
@@ -165,7 +164,7 @@ export const Urls = {
   expAdv_hr_all_expenses: "/expenses/AllExpenses",
   expAdv_hr_all_advance: "/Advance/AllAdvance",
   expAdv_user_limit: "/expenses/userLimit",
-  expAdv_user_ptwData:"/expenses/ptwData",
+  expAdv_user_ptwData: "/expenses/ptwData",
   admin_claim_type_Expenses: "/expenses/expensesClaimType",
   admin_claim_type_Advances: "/expenses/AdvanceClaimType",
   /// GPTRACKING
@@ -306,15 +305,15 @@ export const Urls = {
   AssignVendorList: "/getVendorCostList",
   PoEligibility: "/getPoEligibility",
   filterPoEligibility: "/poEligibility",
-   // PArtner Name
-  vendorPartnerTeamData: "/hr/VendorName",
-  partnerTeamData:"/hr/subVendor",
-  teamLeadDataAPI:"/myHome/allocateSubOwner",
-  partnerTeamRole:"/hr/manageProfile/partnerTeam",
-  AppUpdate:"/appUpdate",
   // PArtner Name
-  getPtwSiteId : '/ptw/getSiteId',
-  getEmpNameList:'/ptw/getApproverFilter',
+  vendorPartnerTeamData: "/hr/VendorName",
+  partnerTeamData: "/hr/subVendor",
+  teamLeadDataAPI: "/myHome/allocateSubOwner",
+  partnerTeamRole: "/hr/manageProfile/partnerTeam",
+  AppUpdate: "/appUpdate",
+  // PArtner Name
+  getPtwSiteId: "/ptw/getSiteId",
+  getEmpNameList: "/ptw/getApproverFilter",
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };
