@@ -41,7 +41,7 @@ const AddApproverForm = ({ onClose }) => {
         </div>
 
         {/* Emp Name */}
-        <div>
+        {/* <div>
           <label className="block  text-white text-sm mb-1">
             Emp Name <span className="text-red-500">*</span>
           </label>
@@ -51,7 +51,7 @@ const AddApproverForm = ({ onClose }) => {
           >
             <option value="">Select</option>
           </select>
-        </div>
+        </div> */}
 
         {/* Project Type */}
         <div>
@@ -69,7 +69,7 @@ const AddApproverForm = ({ onClose }) => {
         {/* Project Group */}
         <div>
           <label className="block text-white text-sm mb-1">
-            Project Group <span className="text-red-500">*</span>
+            Sub Project <span className="text-red-500">*</span>
           </label>
           <select
             className="w-full h-10 rounded-md px-3 bg-white text-black"
@@ -79,8 +79,20 @@ const AddApproverForm = ({ onClose }) => {
           </select>
         </div>
 
+               <div>
+          <label className="block text-white text-sm mb-1">
+            Work Description <span className="text-red-500">*</span>
+          </label>
+          <select
+            className="w-full h-10 rounded-md px-3 bg-white text-black"
+            {...register("workDescription", { required: true })}
+          >
+            <option value="">Select</option>
+          </select>
+        </div>
+
         {/* Circle */}
-        <div>
+        {/* <div>
           <label className="block  text-white text-sm mb-1">
             Circle <span className="text- red-500">*</span>
           </label>
@@ -90,7 +102,7 @@ const AddApproverForm = ({ onClose }) => {
           >
             <option value="">Select</option>
           </select>
-        </div>
+        </div> */}
 
         {/* SAT */}
         <div>
@@ -353,7 +365,7 @@ const Compliance = () => {
         totalCount={totalCount} // ✅ ZERO
         // checkboxshow={shouldIncludeEditColumn}
         exportButton={false}
-        heading={"Total Employee:-"}
+        heading={"Total Count:-"}
       />
 
       <Modal
