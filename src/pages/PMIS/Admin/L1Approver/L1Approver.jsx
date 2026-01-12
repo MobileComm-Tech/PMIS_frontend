@@ -39,29 +39,24 @@ const L1Approver = () => {
   } = useForm();
 
   const refreshData = () => {
-
-    const defaultArgs = objectToQueryString({
-          ApproverType: "L1-Approver",
-        })+"&"+objectToQueryString(pagination)
-    dispatch(
-      PTWActions.getL1ApproverData(
-        true,
-        defaultArgs
-      )
-    );
+    const defaultArgs =
+      objectToQueryString({
+        ApproverType: "L1-Approver",
+      }) +
+      "&" +
+      objectToQueryString(pagination);
+    dispatch(PTWActions.getL1ApproverData(true, defaultArgs));
   };
 
-
-  
   let empList = useSelector((state) => {
-      console.log(state?.adminData)
-         return state?.adminData?.getEmpNameList?.map((itm) => {
-             return {
-                 label: itm?.empName,
-                 value: itm?.empName
-             }
-         })
-     })
+    console.log(state?.adminData);
+    return state?.adminData?.getEmpNameList?.map((itm) => {
+      return {
+        label: itm?.empName,
+        value: itm?.empName,
+      };
+    });
+  });
 
   const l1ApproverList = useSelector((state) => {
     // console.log("Redux state:", state);
@@ -178,14 +173,13 @@ const L1Approver = () => {
       rpp: [10, 20, 50, 100],
     },
     filter: [
-{
-                label: "Employee Name",
-                type: "select",
-                name: "empName",
-                option:empList,
-                props: {
-                }
-            },
+      {
+        label: "Employee Name",
+        type: "select",
+        name: "empName",
+        option: empList,
+        props: {},
+      },
     ],
   };
 
@@ -193,14 +187,15 @@ const L1Approver = () => {
     let value = data.reseter;
     delete data.reseter;
     // const strVal = objectToQueryString(data);
-  let strVal = objectToQueryString(data);
-    if(strVal?.length>0){
-          strVal = strVal+"&"+objectToQueryString({ ApproverType: "L1-Approver" })
-        }else{
-          strVal =objectToQueryString({ ApproverType: "L1-Approver" })
-        }
-        setstrVal(strVal)
-      dispatch(
+    let strVal = objectToQueryString(data);
+    if (strVal?.length > 0) {
+      strVal =
+        strVal + "&" + objectToQueryString({ ApproverType: "L1-Approver" });
+    } else {
+      strVal = objectToQueryString({ ApproverType: "L1-Approver" });
+    }
+    setstrVal(strVal);
+    dispatch(
       PTWActions.getL1ApproverData(
         true,
         strVal,
@@ -219,20 +214,22 @@ const L1Approver = () => {
   //   );
   // };
 
-  const onTableViewSubmit = (data) => { 
-    data["fileType"]="L1_Approver_MDB"
-    dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-        setFileOpen(false)
-       dispatch(
-      PTWActions.getL1ApproverData(
-        true,
-        objectToQueryString({
-          ApproverType: "L1-Approver",
-        })
-      )
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "L1_Approver_MDB";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false);
+        dispatch(
+          PTWActions.getL1ApproverData(
+            true,
+            objectToQueryString({
+              ApproverType: "L1-Approver",
+            })
+          )
+        );
+      })
     );
-    }))
-  }
+  };
 
   const handleModalClose = () => {
     refreshData();
@@ -245,7 +242,7 @@ const L1Approver = () => {
 
   useEffect(() => {
     refreshData();
-        dispatch(AdminActions.getEmpNameList(true,"approverType=L1-Approver"))
+    dispatch(AdminActions.getEmpNameList(true, "approverType=L1-Approver"));
   }, [dispatch]);
 
   return (
@@ -283,8 +280,8 @@ const L1Approver = () => {
               classes="w-auto mr-1"
               onClick={(e) => {
                 dispatch(
-                 CommonActions.commondownloadpost(
-                    "/Export/ptwMDB?"+strValFil,
+                  CommonActions.commondownloadpost(
+                    "/Export/ptwMDB?" + strValFil,
                     "Export_L1Approval.xlsx",
                     "POST",
                     { ApproverType: "L1-Approver" }
@@ -305,7 +302,7 @@ const L1Approver = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={l1ApproverTotalCount}
-        heading="Total Count :-"  
+        heading="Total Count :-"
       />
       <Modal
         size="sm"
@@ -314,7 +311,7 @@ const L1Approver = () => {
         isOpen={modalOpen}
         setIsOpen={handleModalClose}
       />
-       <FileUploader
+      <FileUploader
         isOpen={fileOpen}
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
