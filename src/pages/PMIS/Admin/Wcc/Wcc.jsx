@@ -29,9 +29,9 @@ const Ptw = () => {
         <CCDash
           showbtn={false}
           approveddata={[
-            ["Compliance", "bg-pcol", "/superAdmin/Compliance/Compliance"],
+            ["Compliance", "bg-pcol", "/superAdmin/WCC/Compliance"],
             ["L1 Approver", "bg-pcol", "/superAdmin/wcc/l1approver"],
-            ["L2 Approver", "bg-pcol", "/superAdmin/wcc/l2approver"],
+            // ["L2 Approver", "bg-pcol", "/superAdmin/wcc/l2approver"],
           ].map((itm) => {
             return (
               <>

@@ -146,6 +146,7 @@ import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVen
 import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
 import Wcc from "../pages/PMIS/Admin/wcc/Wcc";
 import Compliance from "../pages/PMIS/Admin/Compliance/Compliance";
+import WccL1Approver from "../pages/PMIS/Admin/WCCL1Approver/WccL1Approver";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -1103,8 +1104,15 @@ export const Sidebar_content = {
     },
     {
       name: "WCC",
-      link: "/superAdmin/Compliance/Compliance",
+      link: "/superAdmin/WCC/Compliance",
       component: <Compliance />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+       {
+      name: "WCC",
+      link: "/superAdmin/wcc/l1approver",
+      component: <WccL1Approver />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

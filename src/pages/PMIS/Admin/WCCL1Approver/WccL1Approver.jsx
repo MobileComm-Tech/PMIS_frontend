@@ -1,0 +1,334 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import EditButton from "../../../../components/EditButton";
+import AdvancedTable from "../../../../components/AdvancedTable";
+import Modal from "../../../../components/Modal";
+import Button from "../../../../components/Button";
+import DeleteButton from "../../../../components/DeleteButton";
+import CstmButton from "../../../../components/CstmButton";
+import FileUploader from "../../../../components/FIleUploader";
+// import L1ApproverForm from "./L1ApproverForm";
+import PTWActions from "../../../../store/actions/ptw-actions";
+import CommonActions from "../../../../store/actions/common-actions";
+import { Urls } from "../../../../utils/url";
+import { objectToQueryString } from "../../../../utils/commonFunnction";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
+// import {pagination} from "../../../../components/CommonObjectsAndVariables";
+import AdminActions from "../../../../store/actions/admin-actions";
+import { pagination } from "../../../../components/CommonObjectsAndVariables";
+const WccL1Approver = () => {
+  const dispatch = useDispatch();
+  const [modalOpen, setmodalOpen] = useState(false);
+  const [modalBody, setmodalBody] = useState(<></>);
+  const [modalHead, setmodalHead] = useState(<></>);
+  const [fileOpen, setFileOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [strValFil, setstrVal] = useState(false);
+  const Data = useRef("");
+
+  const [year] = useState(new Date().getFullYear());
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  const refreshData = () => {
+    const defaultArgs =
+      objectToQueryString({
+        ApproverType: "L1-Approver",
+      }) +
+      "&" +
+      objectToQueryString(pagination);
+    dispatch(PTWActions.getL1ApproverData(true, defaultArgs));
+  };
+
+  let empList = useSelector((state) => {
+    console.log(state?.adminData);
+    return state?.adminData?.getEmpNameList?.map((itm) => {
+      return {
+        label: itm?.empName,
+        value: itm?.empName,
+      };
+    });
+  });
+
+  const l1ApproverList = useSelector((state) => {
+    // console.log("Redux state:", state);
+    const interdata = state?.ptwData?.getL1ApproverData || [];
+    return interdata.map((itm) => ({
+      ...itm,
+      edit: (
+        <CstmButton
+          className="p-2"
+          child={<EditButton name="" onClick={() => handleEditClick(itm)} />}
+        />
+      ),
+
+      delete: (
+        <CstmButton
+          child={
+            <DeleteButton
+              name={""}
+              onClick={() => {
+                let msgdata = {
+                  show: true,
+                  icon: "warning",
+                  buttons: [
+                    <Button
+                      classes="w-15 bg-rose-400"
+                      onClick={() => {
+                        dispatch(
+                          CommonActions.deleteApiCaller(
+                            `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
+                            () => {
+                              refreshData(); // Use the refresh function
+                              dispatch(ALERTS({ show: false }));
+                            }
+                          )
+                        );
+                      }}
+                      name={"OK"}
+                    />,
+                    <Button
+                      classes="w-auto"
+                      onClick={() => {
+                        dispatch(ALERTS({ show: false }));
+                      }}
+                      name={"Cancel"}
+                    />,
+                  ],
+                  text: "Are you sure you want to Delete?",
+                };
+                dispatch(ALERTS(msgdata));
+              }}
+            ></DeleteButton>
+          }
+        />
+      ),
+    }));
+  });
+
+  const l1ApproverTotalCount = useSelector((state) => {
+    const interdata = state?.ptwData?.getL1ApproverData || [];
+    return interdata.length > 0 ? interdata[0]["overall_table_count"] : 0;
+  });
+
+  const handleEditClick = (item) => {
+    // console.log("Edit clicked for item:", item);
+    setEditingItem(item);
+    setmodalHead("Edit Approver");
+
+    setmodalBody(
+        <></>
+    //   <L1ApproverForm
+    //     isOpen={true}
+    //     setIsOpen={setmodalOpen}
+    //     resetting={false}
+    //     formValue={item}
+    //     filtervalue=""
+    //     onSuccess={refreshData}
+    //   />
+    );
+
+    setmodalOpen(true);
+  };
+
+  const table = {
+    columns: [
+      {
+        name: "Customer",
+        value: "customer",
+        style: "text-center min-w-[150px]",
+      },
+    //   { name: "Profile", value: "profile", style: "text-center min-w-[150px]" },
+      {
+        name: "Project ID",
+        value: "projectId",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "Work Description",
+        value: "workDescription",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "Compliance Name",
+        value: "complianceName",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "EMP ID",
+        value: "empId",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "EMP Name",
+        value: "empName",
+        style: "text-center min-w-[150px]",
+      },
+      { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
+      { name: "Delete", value: "delete", style: "text-center min-w-[100px]" },
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+    filter: [
+      {
+        label: "Employee Name",
+        type: "select",
+        name: "empName",
+        option: empList,
+        props: {},
+      },
+    ],
+  };
+
+  const onSubmit = (data) => {
+    let value = data.reseter;
+    delete data.reseter;
+    // const strVal = objectToQueryString(data);
+    let strVal = objectToQueryString(data);
+    if (strVal?.length > 0) {
+      strVal =
+        strVal + "&" + objectToQueryString({ ApproverType: "L1-Approver" });
+    } else {
+      strVal = objectToQueryString({ ApproverType: "L1-Approver" });
+    }
+    setstrVal(strVal);
+    dispatch(
+      PTWActions.getL1ApproverData(
+        true,
+        strVal,
+        objectToQueryString({ ApproverType: "L1-Approver" })
+      )
+    );
+  };
+
+  // const onTableViewSubmit = (data) => {
+  //   data["fileType"] = "L1Approver";
+  //   dispatch(
+  //     CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+  //       setFileOpen(false);
+  //       refreshData();
+  //     })
+  //   );
+  // };
+
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "L1_Approver_MDB";
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        setFileOpen(false);
+        dispatch(
+          PTWActions.getL1ApproverData(
+            true,
+            objectToQueryString({
+              ApproverType: "L1-Approver",
+            })
+          )
+        );
+      })
+    );
+  };
+
+  const handleModalClose = () => {
+    refreshData();
+
+    setmodalOpen(false);
+    setEditingItem(null);
+    setmodalBody(<></>);
+    setmodalHead(<></>);
+  };
+
+//   useEffect(() => {
+//     refreshData();
+//     dispatch(AdminActions.getEmpNameList(true, "approverType=L1-Approver"));
+//   }, [dispatch]);
+
+  return (
+    <>
+      <AdvancedTable
+        headerButton={
+          <div className="flex">
+            <Button
+              onClick={() => {
+                setmodalHead("Add Approver");
+                setmodalBody(
+                    <></>
+                //   <L1ApproverForm
+                //     isOpen={true}
+                //     setIsOpen={setmodalOpen}
+                //     resetting={true}
+                //     formValue={{}}
+                //     year={year}
+                //     monthss={[]}
+                //     filtervalue=""
+                //     onSuccess={refreshData}
+                //   />
+                );
+                setmodalOpen(true);
+              }}
+              name="Add New"
+              classes="w-auto mr-1"
+            />
+            <Button
+              name="Upload File"
+              classes="w-auto mr-1"
+              onClick={() => setFileOpen(true)}
+            />
+            <Button
+              name={"Export"}
+              classes="w-auto mr-1"
+              onClick={(e) => {
+                dispatch(
+                  CommonActions.commondownloadpost(
+                    "/Export/ptwMDB?" + strValFil,
+                    "Export_L1Approval.xlsx",
+                    "POST",
+                    { ApproverType: "L1-Approver" }
+                  )
+                );
+              }}
+            ></Button>
+          </div>
+        }
+        table={table}
+        filterAfter={onSubmit}
+        tableName="L1 Approver Table"
+        TableHeight="h-[68vh]"
+        handleSubmit={handleSubmit}
+        // data={l1ApproverList}
+        data={[]}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        totalCount={l1ApproverTotalCount}
+        heading="Total Count :-"
+      />
+      <Modal
+        size="sm"
+        modalHead={modalHead}
+        children={modalBody}
+        isOpen={modalOpen}
+        setIsOpen={handleModalClose}
+      />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
+      />
+    </>
+  );
+};
+
+export default WccL1Approver;
