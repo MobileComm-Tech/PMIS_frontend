@@ -69,8 +69,15 @@ import {
   GET_EXCHANGE_RATE,
   GET_MANAGE_SITE,
   GET_EMP_NAME_LIST,
+  GET_CUSTOMER,
+  GET_COMPLIANCE_PROJECT_TYPE,
+  GET_COMPLIANCE_SUB_PROJECT,
+  GET_COMPLIANCE_WORK_DESCRIPTION,
+  GET_MS_LIST,
+  GET_WCC_COMPLIANCE,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
+// import { GET_CUSTOMER } from "../reducers/gpTracking-reducer";
 import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
 
 const AdminActions = {
@@ -889,6 +896,57 @@ const AdminActions = {
         dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll, reset }));
       } catch (error) {}
     },
+    getCustomer:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.get_customer}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            // console.log(dataAll,"___dataAll___")
+            dispatch(GET_CUSTOMER({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getMsList:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.complianceMsList}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            // console.log(dataAll,"___dataAll___")
+            dispatch(GET_MS_LIST({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    compliance_ProjectType:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.compliance_ProjectType}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            // console.log(dataAll,"___dataAll___")
+            dispatch(GET_COMPLIANCE_PROJECT_TYPE({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    compliance_SubProject:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.compliance_SubProject}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            // console.log(dataAll,"___dataAll___")
+            dispatch(GET_COMPLIANCE_SUB_PROJECT({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    compliance_WorkDescription:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.compliance_WorkDescription}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            // console.log(dataAll,"___dataAll___")
+            dispatch(GET_COMPLIANCE_WORK_DESCRIPTION({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+
   getAccuralRevenueMasterSubProjectType:
     (reset = true, args = "", id) =>
     async (dispatch, _) => {
@@ -934,6 +992,7 @@ const AdminActions = {
         dispatch(GET_MANAGE_SITE({ dataAll, reset }));
       } catch (error) {}
     },
+
 getEmpNameList:
     (reset = true, args = "") =>
     async (dispatch, _) => {
@@ -1000,6 +1059,31 @@ getEmpNameList:
     } catch (error) {
       return;
     }
+  },
+  postWccCompliance: (data, cb, uniqueId) => async (dispatch, _) => {
+     try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.post_Wcc_Compliance
+            : Urls.post_Wcc_Compliance + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {}
+      
+    
   },
 
   getManageCompletionCriteria:
@@ -1602,6 +1686,20 @@ getEmpNameList:
         dispatch(ADD_COMPLIANCE({ dataAll, reset }));
       } catch (error) {}
     },
+  getWccCompiliance:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.getWccCompliance}${args ? "?" + args : ""}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        console.log(dataAll,"___dasd")
+        dispatch(GET_WCC_COMPLIANCE({ dataAll, reset }));
+      } catch (error) {}
+    },
+    
   postCompiliance: (reset, data, cb, uniqueId) => async (dispatch, _) => {
     try {
       const res = await Api.post({

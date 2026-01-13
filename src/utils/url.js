@@ -259,9 +259,16 @@ export const Urls = {
   // super admin compiliance starts  -----
 
   projectTypeCompliance: "/admin/projectType",
+  get_customer:"/gp/customer",
+  complianceMsList:"/wccCompliance/mslist",
+  compliance_ProjectType:"/wccCompliance/projectTypeList",
+  compliance_SubProject:"/wccCompliance/projectTypeList",
+  compliance_WorkDescription:"/wccCompliance/workDescription",
+  post_Wcc_Compliance:"/wccCompliance/addCompliance",
   subProjectTypeCompliance: "/admin/projectSubType",
   activityAndOemCompliance: "/admin/projectSubTypeFieldName",
   addComplianceForm: "/admin/addComplianceForm",
+  getWccCompliance:"wcc/getCompliance",
   admin_getComplianceapprover: "/admin/addComplianceApprover",
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",
@@ -314,6 +321,7 @@ export const Urls = {
   // PArtner Name
   getPtwSiteId: "/ptw/getSiteId",
   getEmpNameList: "/ptw/getApproverFilter",
+
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };

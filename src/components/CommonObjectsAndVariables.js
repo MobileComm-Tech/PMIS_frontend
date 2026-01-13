@@ -180,3 +180,11 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileSto
          data['amount'] = totalAmount;
          return data;
 }
+
+export const checkArray =(data)=>{
+    if(Array.isArray(data)&& data?.length>0){
+        return true;
+    }else{
+        return false;
+    }
+}

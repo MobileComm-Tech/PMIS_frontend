@@ -11,9 +11,12 @@ import {
 
 import { Urls } from "../../../../utils/url";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import ComplianceForm from "./ComplianceForm";
+import AdminActions from "../../../../store/actions/admin-actions";
+import { checkArray } from "../../../../components/CommonObjectsAndVariables";
 
 const AddApproverForm = ({ onClose }) => {
   const { register, handleSubmit } = useForm();
@@ -205,52 +208,62 @@ const Compliance = () => {
     columns: [
       {
         name: "Customer",
-        value: "empName",
+        value: "customer",
         style:
           "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
       },
       {
         name: "Project Type",
-        value: "empCode",
+        value: "projectType",
         style:
           "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
       },
       {
         name: "Sub Project",
-        value: "email",
+        value: "subProject",
         style: "min-w-[250px] max-w-[450px] text-center",
       },
       {
         name: "Work Description",
-        value: "mobile",
+        value: "workDescription",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
-        name: "PAT",
-        value: "designationName",
+        name: "CDH",
+        value: "cdh",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       {
-        name: "SAT",
-        value: "userRoleName",
+        name: "PAT",
+        value: "pat",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "SCFT",
+        value: "scft",
         style: "min-w-[120px] max-w-[450px] text-center",
       },
       {
         name: "OCI",
-        value: "status",
+        value: "oci",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "EMF",
+        value: "emf",
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       // ...(shouldIncludeEditColumn
-         {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[100px] max-w-[100px] text-center",
-            },
+        //  {
+        //       name: "Edit",
+        //       value: "edit",
+        //       style: "min-w-[100px] max-w-[200px] text-center",
+        //     },
+        //     {
+        //       name: "Delete",
+        //       value: "delete",
+        //       style: "min-w-[100px] max-w-[100px] text-center",
+        //     },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -300,8 +313,11 @@ const Compliance = () => {
      NO API ON LOAD
   =========================== */
   useEffect(() => {
-    // API intentionally disabled
+    dispatch(AdminActions.getWccCompiliance())
   }, []);
+
+  const tableData = useSelector((state)=>state?.adminData?.getWccCompliance);
+  console.log(tableData,"___tableDat")
 
   return (
     <>
@@ -315,7 +331,7 @@ const Compliance = () => {
               onClick={() => {
                 setmodalHead("Add Compliance");
                 setmodalBody(
-                  <AddApproverForm onClose={() => setmodalOpen(false)} />
+                  <ComplianceForm onClose={() => setmodalOpen(false)}  />
                 );
                 setmodalOpen(true);
               }}
@@ -339,12 +355,12 @@ const Compliance = () => {
         filterAfter={onSubmit}
         tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}
-        data={[]} // ✅ EMPTY TABLE
+        data={checkArray(tableData)?tableData:[]} // ✅ EMPTY TABLE
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
-        // totalCount={totalCount} // ✅ ZERO
+        totalCount={checkArray(tableData)?tableData?.length:0} 
         // checkboxshow={shouldIncludeEditColumn}
         exportButton={false}
         heading={"Total Count:-"}

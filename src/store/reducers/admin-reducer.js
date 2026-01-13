@@ -3,6 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   getManageCustomer: [],
   getCardCustomer: [],
+  getCustomer: [],
+  getWccCompliance: [],
+  getMsList: [],
+  getComplianceProjectType: [],
+  getComplianceSubProject: [],
+  getComplianceWorkDescription: [],
   getManageCircle: [],
   getCardProjectType: [],
   getManageProjectType: [],
@@ -90,6 +96,55 @@ const adminData = createSlice({
         state.getCardCustomer = payload.dataAll;
       } else {
         state.getCardCustomer = [...state.getCardCustomer, ...payload.dataAll];
+      }
+    },
+    GET_CUSTOMER: (state, { payload }) => {
+      if (payload.reset) {
+        state.getCustomer = payload.dataAll;
+      } else {
+        state.getCustomer = [...state.getCustomer, ...payload.dataAll];
+      }
+    },
+    GET_MS_LIST: (state, { payload }) => {
+      if (payload.reset) {
+        state.getMsList = payload.dataAll;
+      } else {
+        state.getMsList = [...state.getMsList, ...payload.dataAll];
+      }
+    },
+    GET_CUSTOMER: (state, { payload }) => {
+      if (payload.reset) {
+        state.getCustomer = payload.dataAll;
+      } else {
+        state.getCustomer = [...state.getCustomer, ...payload.dataAll];
+      }
+    },
+    GET_WCC_COMPLIANCE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getWccCompliance = payload.dataAll;
+      } else {
+        state.getWccCompliance = [...state.getWccCompliance, ...payload.dataAll];
+      }
+    },
+    GET_COMPLIANCE_PROJECT_TYPE: (state, { payload }) => {
+      if (payload.reset) {
+        state.getComplianceProjectType = payload.dataAll;
+      } else {
+        state.getComplianceProjectType = [...state.getComplianceProjectType, ...payload.dataAll];
+      }
+    },
+    GET_COMPLIANCE_SUB_PROJECT: (state, { payload }) => {
+      if (payload.reset) {
+        state.getComplianceSubProject = payload.dataAll;
+      } else {
+        state.getComplianceSubProject = [...state.getComplianceSubProject, ...payload.dataAll];
+      }
+    },
+    GET_COMPLIANCE_WORK_DESCRIPTION: (state, { payload }) => {
+      if (payload.reset) {
+        state.getComplianceWorkDescription = payload.dataAll;
+      } else {
+        state.getComplianceWorkDescription = [...state.getComplianceWorkDescription, ...payload.dataAll];
       }
     },
     GET_SUBPROJECT_MULTIDYNAMIC: (state, { payload }) => {
@@ -738,6 +793,12 @@ const adminData = createSlice({
 });
 
 export const {
+  GET_CUSTOMER,
+  GET_COMPLIANCE_PROJECT_TYPE,
+  GET_WCC_COMPLIANCE,
+  GET_MS_LIST,
+  GET_COMPLIANCE_SUB_PROJECT,
+  GET_COMPLIANCE_WORK_DESCRIPTION,
   GET_COMPLIANCE_L1_APPROVER,
   GET_COMPLIANCE_L2_APPROVER,
   GET_MANAGE_CUSTOMER,
