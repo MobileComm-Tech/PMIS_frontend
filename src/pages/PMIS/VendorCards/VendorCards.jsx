@@ -65,6 +65,11 @@ const VendorCards = () => {
               "bg-pcol",
               "/vendor/projectTracking",
             ],
+            [
+              "WCC",
+              "bg-pcol",
+              "/vendor/wcc",
+            ],
             
             // [
             //   "Vendor Cost",

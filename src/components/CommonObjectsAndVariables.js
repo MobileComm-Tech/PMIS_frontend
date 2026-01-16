@@ -188,3 +188,12 @@ export const checkArray =(data)=>{
         return false;
     }
 }
+
+export const checkVariable = (data)=>{
+    console.log(data?.length,"___ahsbjckadsd")
+    if(data!==undefined && data?.length>0 ){
+        return true
+    }else{
+        return false
+    }
+}

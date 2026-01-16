@@ -261,6 +261,7 @@ import {
     GET_VENDOR_PARTNER_TABLE_DATA,
     GET_VENDOR_PARTNER_TEAM_LEAD_DATA,
     GET_PARTNER_TEAM_ROLE,
+    GET_WCC_SUBMODULE,
 } from "../reducers/vendor-reducer"
 
 
@@ -362,6 +363,16 @@ const VendorActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_VENDOR_PARTNER_TEAM_DATA({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getWccSubmodule:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.wcc_Submodule}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            console.log(dataAll,"___dattaa")
+            dispatch(GET_WCC_SUBMODULE({dataAll,reset}))
         } catch (error) {
         }
     },

@@ -62,6 +62,19 @@ const ParentApproverCards = () => {
         },
       ],
     }]
+  // const WccData = [{
+  //     title: "Wcc Approver",
+  //     href: null,
+  //     children: [
+  //       {
+  //         title: "CDH Approver",
+  //         use : true,
+  //         href: "/home/Approval/cdhApprover",
+  //         children: [],
+  //       },
+       
+  //     ],
+  //   }]
 
   const complianceMilestoneData = useSelector((state) => {
     const lApprover = [
@@ -92,6 +105,7 @@ const ParentApproverCards = () => {
     
 
     return [...complianceData, data, ...data3];
+    // return [...complianceData, data, ...data3,...WccData];
   });
 
   Compliance: [

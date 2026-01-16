@@ -25,6 +25,18 @@ export const Urls = {
   user_notification: "/notification",
   exchangeRate: "/exchange",
   businessUnit: "/businessUnit",
+
+  //Forms
+  wcc_Pat:"/wcc/getPatdata",
+  wcc_Oci:"/wcc/getocidata",
+  wcc_Scft:"/wcc/getscftdata",
+  wcc_Emf:"/wcc/getemfdata",
+  wcc_Cdh:"/wcc/getcdhdata",
+
+
+  //My home
+  wcc_Chd_Approver:"/myHome/wcc/cdhApprover",
+
   // new urlP
   admin_userAccess: "/admin/userAccess",
   admin_customer: "/admin/manageCustomer",
@@ -98,6 +110,7 @@ export const Urls = {
   vendor_project_allocation: "/vendorProjectAllocation",
   vendor_project_list: "/vendorSiteId",
   vendor_project_tracking: "/vendor/myTask",
+
   getZoneByCustomerId: "/gp/zone2",
   vendorProjects: "/vendor/ProjectType",
   filter_vendor_subProject: "/filter/vendor/subProject",
@@ -269,6 +282,14 @@ export const Urls = {
   activityAndOemCompliance: "/admin/projectSubTypeFieldName",
   addComplianceForm: "/admin/addComplianceForm",
   getWccCompliance:"wcc/getCompliance",
+  
+  // cdh Approver
+  wccApprover:"/wcc/cdh_approver",
+  getWccEmployee:"/wcc/employee",
+  getWccProjectId:"/wcc/projectId",
+  wcc_Submodule:"/wcc/myTask",
+
+
   admin_getComplianceapprover: "/admin/addComplianceApprover",
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
   admin_ComplianceL1List: "/admin/getOneComplianceL1List",

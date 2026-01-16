@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from "react-redux";
-import CCDash from "../../../components/CCDash";
-import { useNavigate, useParams } from "react-router-dom";
-import ComponentActions from "../../../store/actions/component-actions";
-import { getAccessType } from "../../../utils/commonFunnction";
-import { ALERTS } from "../../../store/reducers/component-reducer";
 
-const FormsCards = () => {
+import { useNavigate, useParams } from "react-router-dom";
+
+import CCDash from "../../../../components/CCDash";
+import ComponentActions from "../../../../store/actions/component-actions";
+import { getAccessType } from "../../../../utils/commonFunnction";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
+
+const FormsWcc = () => {
   const [type, settype] = useState(false);
   let dispatch = useDispatch();
   const { customeruniqueId } = useParams();
@@ -22,20 +24,11 @@ const FormsCards = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["Invoice PVA", "bg-pcol", "/forms/InvoicePVA"],
-          ["Delivery PVA", "bg-pcol", "/forms/PVADeliveryCustomer"],
-          ["SOB", "bg-pcol", "/forms/SOB",],
-          ["Gap Analysis", "bg-pcol", "/forms/GapAnalysis"],
-          ["P&L", "bg-pcol", "/forms/P&L"],
-          ["Liquidation Plan", "bg-pcol", "/forms/LiquidationPlan"],
-          ["Accrual Revenue Trend", "bg-pcol", "/forms/AccrualRevenueTrend"],
-          ['AOP-P&L',"bg-pcol","/forms/P&L"],
-          ['AOP Tracking',"bg-pcol","/forms/AopTracking"],
-          ['Airtel AOP Tracking',"bg-pcol","/forms/AopTrackingAirtel"],
-          ['GP Tracking',"bg-pcol","/forms/gpTracking"],
-          ['WCC',"bg-pcol","/forms/wcc"],
-          ['Forecast COGS Tracking',"bg-pcol","/forms/AopTrackingAirtel"]
-
+          ["PAT", "bg-pcol", "/forms/wcc/PAT"],
+          // ["OCI", "bg-pcol", "/forms/wcc/OCI"],
+          // ["SCFT", "bg-pcol", "/forms/wcc/SCFT",],
+          // ["EMF", "bg-pcol", "/forms/wcc/EMF"],
+          // ["CDH", "bg-pcol", "/forms/wcc/CDH"],
         ].map((itm) => {
           return (
             
@@ -73,9 +66,10 @@ const FormsCards = () => {
                     {itm[0]}
                   </div>
                 </div>
-              ) : (
+               ) : (
                 <></>
-              )}
+              )
+              } 
             </>
           );
         })}
@@ -85,4 +79,5 @@ const FormsCards = () => {
   );
 };
 
-export default FormsCards;
+export default FormsWcc;
+

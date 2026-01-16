@@ -5,6 +5,7 @@ import {
     GET_MY_HOME, GET_MY_TASK,
     GET_PERSONAL_INFO,
     GET_MY_POLICY,
+    GET_WCC_CDH_APPROVER,
 } from "../reducers/myHome-reducer"
 
 
@@ -17,6 +18,15 @@ const MyHomeActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_MY_HOME({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getMyHome:(reset=true,args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.wcc_Chd_Approver}${args!=""?"?"+args:""}`, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_CDH_APPROVER({dataAll,reset}))
         } catch (error) {
         }
     },

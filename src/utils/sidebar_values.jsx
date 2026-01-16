@@ -144,9 +144,18 @@ import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/Manag
 import { routesObjects } from "./url";
 import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeam";
 import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
-import Wcc from "../pages/PMIS/Admin/wcc/Wcc";
+// import Wcc from "../pages/PMIS/Admin/wcc/Wcc";
+import Wcc from "../pages/PMIS/WCC/Wcc";
+
 import Compliance from "../pages/PMIS/Admin/Compliance/Compliance";
 import WccL1Approver from "../pages/PMIS/Admin/WCCL1Approver/WccL1Approver";
+import FormsWcc from "../pages/PMIS/Formss/WCC/FormsWcc";
+import PAT from "../pages/PMIS/Formss/WCC/PAT/PAT";
+import OCI from "../pages/PMIS/Formss/WCC/OCI/OCI";
+import SCFT from "../pages/PMIS/Formss/WCC/SCFT/SCFT";
+import EMF from "../pages/PMIS/Formss/WCC/EMF/EMF";
+import CDH from "../pages/PMIS/Formss/WCC/CDH/CDH";
+import CdhApprover from "../pages/PMIS/MyHome/Wcc Approver/CDH Approver/CdhApprover";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -413,6 +422,12 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ApproverPage />,
     },
+    {
+      name: "",
+      link: "/home/Approval/cdhApprover",
+      subMenu: [],
+      component: <CdhApprover />,
+    },
 
     {
       name: "",
@@ -658,6 +673,14 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/vendor/wcc",
+      // component: <VendorProject />,
+      component: <Wcc />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
       link: "/vendor/partnerTeam",
       component: <ManageVendorPartnerTeam />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
@@ -876,6 +899,53 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+
+
+    {
+      name: "",
+      link: "/forms/wcc",
+      component: <FormsWcc />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    // FORMS WCC COMPONENTS STARTS HERE
+    {
+      name: "",
+      link: "/forms/wcc/PAT",
+      component: <PAT />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/wcc/OCI",
+      component: <OCI />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/wcc/SCFT",
+      component: <SCFT />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/wcc/EMF",
+      component: <EMF />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    {
+      name: "",
+      link: "/forms/wcc/CDH",
+      component: <CDH />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+    // FORMS WCC COMPONENTS ENDS HERE
+
     {
       name: "",
       link: "/forms/SOB",

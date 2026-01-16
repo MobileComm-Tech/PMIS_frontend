@@ -17,151 +17,156 @@ import { useForm } from "react-hook-form";
 import ComplianceForm from "./ComplianceForm";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { checkArray } from "../../../../components/CommonObjectsAndVariables";
+import CstmButton from "../../../../components/CstmButton";
+import EditButton from "../../../../components/EditButton";
+import DeleteButton from "../../../../components/DeleteButton";
+import { ALERTS } from "../../../../store/reducers/component-reducer";
+import CommonActions from "../../../../store/actions/common-actions";
 
-const AddApproverForm = ({ onClose }) => {
-  const { register, handleSubmit } = useForm();
+// const AddApproverForm = ({ onClose }) => {
+//   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("FORM DATA (UI ONLY)", data);
-    onClose();
-  };
+//   const onSubmit = (data) => {
+//     console.log("FORM DATA (UI ONLY)", data);
+//     onClose();
+//   };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-5 px-2">
-        {/* Customer Name */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            Customer Name <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("customerId", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div>
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)}>
+//       <div className="grid grid-cols-2 gap-x-6 gap-y-5 px-2">
+//         {/* Customer Name */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             Customer Name <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("customerId", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div>
 
-        {/* Emp Name */}
-        {/* <div>
-          <label className="block  text-white text-sm mb-1">
-            Emp Name <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("empId", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div> */}
+//         {/* Emp Name */}
+//         {/* <div>
+//           <label className="block  text-white text-sm mb-1">
+//             Emp Name <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("empId", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div> */}
 
-        {/* Project Type */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            Project Type <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("projectTypeId", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div>
+//         {/* Project Type */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             Project Type <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("projectTypeId", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div>
 
-        {/* Project Group */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            Sub Project <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("projectGroupId", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div>
+//         {/* Project Group */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             Sub Project <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("projectGroupId", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div>
 
-               <div>
-          <label className="block text-white text-sm mb-1">
-            Work Description <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("workDescription", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div>
+//                <div>
+//           <label className="block text-white text-sm mb-1">
+//             Work Description <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("workDescription", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div>
 
-        {/* Circle */}
-        {/* <div>
-          <label className="block  text-white text-sm mb-1">
-            Circle <span className="text- red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("circleId", { required: true })}
-          >
-            <option value="">Select</option>
-          </select>
-        </div> */}
+//         {/* Circle */}
+//         {/* <div>
+//           <label className="block  text-white text-sm mb-1">
+//             Circle <span className="text- red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("circleId", { required: true })}
+//           >
+//             <option value="">Select</option>
+//           </select>
+//         </div> */}
 
-        {/* SAT */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            SAT <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("sat")}
-          >
-            <option value="">Select</option>
-            <option value="YES">Yes</option>
-            <option value="NO">No</option>
-          </select>
-        </div>
+//         {/* SAT */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             SAT <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("sat")}
+//           >
+//             <option value="">Select</option>
+//             <option value="YES">Yes</option>
+//             <option value="NO">No</option>
+//           </select>
+//         </div>
 
-        {/* PAT */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            PAT <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("pat")}
-          >
-            <option value="">Select</option>
-            <option value="YES">Yes</option>
-            <option value="NO">No</option>
-          </select>
-        </div>
+//         {/* PAT */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             PAT <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("pat")}
+//           >
+//             <option value="">Select</option>
+//             <option value="YES">Yes</option>
+//             <option value="NO">No</option>
+//           </select>
+//         </div>
 
-        {/* OCI */}
-        <div>
-          <label className="block text-white text-sm mb-1">
-            OCI <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="w-full h-10 rounded-md px-3 bg-white text-black"
-            {...register("oci")}
-          >
-            <option value="">Select</option>
-            <option value="YES">Yes</option>
-            <option value="NO">No</option>
-          </select>
-        </div>
-      </div>
+//         {/* OCI */}
+//         <div>
+//           <label className="block text-white text-sm mb-1">
+//             OCI <span className="text-red-500">*</span>
+//           </label>
+//           <select
+//             className="w-full h-10 rounded-md px-3 bg-white text-black"
+//             {...register("oci")}
+//           >
+//             <option value="">Select</option>
+//             <option value="YES">Yes</option>
+//             <option value="NO">No</option>
+//           </select>
+//         </div>
+//       </div>
 
-      <div className="mt-4 flex justify-center">
-        <Button
-          name="Submit"
-          type="submit"
-          classes="px-4 py-1.5 text-sm w-auto"
-        />
-      </div>
-    </form>
-  );
-};
+//       <div className="mt-4 flex justify-center">
+//         <Button
+//           name="Submit"
+//           type="submit"
+//           classes="px-4 py-1.5 text-sm w-auto"
+//         />
+//       </div>
+//     </form>
+//   );
+// };
 
 const Compliance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
@@ -203,7 +208,7 @@ const Compliance = () => {
     formState: { errors },
   } = useForm();
 
- 
+  
   const table = {
     columns: [
       {
@@ -254,16 +259,16 @@ const Compliance = () => {
         style: "min-w-[100px] max-w-[450px] text-center",
       },
       // ...(shouldIncludeEditColumn
-        //  {
-        //       name: "Edit",
-        //       value: "edit",
-        //       style: "min-w-[100px] max-w-[200px] text-center",
-        //     },
-        //     {
-        //       name: "Delete",
-        //       value: "delete",
-        //       style: "min-w-[100px] max-w-[100px] text-center",
-        //     },
+         {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[100px] text-center",
+            },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -305,9 +310,23 @@ const Compliance = () => {
   /* ===========================
      FILE UPLOAD (UI ONLY)
   =========================== */
-  const onTableViewSubmit = () => setFileOpen(false);
-  const onTableViewSubmit2 = () => setFileOpen2(false);
-  const onTableViewSubmit3 = () => setFileOpen3(false);
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "WCC_Compliance";
+        dispatch(
+        CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(AdminActions.getWccCompiliance())
+            setFileOpen(false);
+            resetting("");
+            
+        })
+        );
+  };
+   const onTableViewSubmit2 = (data) => {
+      
+    };
+  // const onTableViewSubmit3 = () => {
+      
+  // };
 
   /* ===========================
      NO API ON LOAD
@@ -316,8 +335,102 @@ const Compliance = () => {
     dispatch(AdminActions.getWccCompiliance())
   }, []);
 
-  const tableData = useSelector((state)=>state?.adminData?.getWccCompliance);
-  console.log(tableData,"___tableDat")
+  const tableData = useSelector((state) => {
+        let interdata = state?.adminData?.getWccCompliance || [];
+        return interdata?.map((itm) => {
+        let updateditm = {
+            ...itm,
+            edit: (
+            <CstmButton
+                className={"p-2"}
+                child={
+                    <EditButton
+                    name={""}
+                    onClick={() => {
+                        // dispatch(GET_VENDOR_PARTNER_TABLE_DATA({ dataAll: [], reset: true }));
+
+                        // navigate(`${routesObjects?.partnerTeamForm}/${itm.uniqueId}`);
+                        setmodalBody(
+                        <>
+                            <ComplianceForm
+                            resetting={false}
+                            formValue={itm}
+                            setIsOpen={setmodalOpen}
+                            // isOpen={modalOpen}
+                            />
+                            {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+                        </>
+                        );
+                        setmodalOpen(true);
+                    }}
+                    ></EditButton>
+
+                
+                }
+            />
+            ),
+
+            delete: (
+            <CstmButton
+                child={
+                <DeleteButton
+                    name={""}
+                    onClick={() => {
+                    let msgdata = {
+                        show: true,
+                        icon: "warning",
+                        buttons: [
+                        <Button
+                            classes="w-15 bg-rose-400"
+                            onClick={() => {
+                                dispatch(CommonActions.deleteApiCaller(`${Urls.post_Wcc_Compliance}/${itm?.uniqueId}`,()=>{
+                                   dispatch(AdminActions.getWccCompiliance());
+                                },itm?.uniqueId))
+                               dispatch(ALERTS({ show: false }));
+                            }}
+                            name={"OK"}
+                        />,
+                        <Button
+                            classes="w-auto"
+                            onClick={() => {
+                            dispatch(ALERTS({ show: false }));
+                            }}
+                            name={"Cancel"}
+                        />,
+                        ],
+                        text: "Are you sure you want to Delete?",
+                    };
+                    dispatch(ALERTS(msgdata));
+                    }}
+                ></DeleteButton>
+                }
+            />
+            ),
+
+            // view: (
+            // <CstmButton
+            //     className={"p-5"}
+            //     child={
+            //     <Button
+            //         name={""}
+            //         onClick={() => {
+            //         setmodalOpen(true);
+            //         setmodalHead("Show PDF");
+            //         setmodalBody(
+            //             <>
+            //             {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
+            //             </>
+            //         );
+            //         }}
+            //     ></Button>
+            //     }
+            // />
+            // ),
+        };
+        return updateditm;
+        });
+    });
+  // console.log(tableData,"___tableDat")
 
   return (
     <>
@@ -331,7 +444,7 @@ const Compliance = () => {
               onClick={() => {
                 setmodalHead("Add Compliance");
                 setmodalBody(
-                  <ComplianceForm onClose={() => setmodalOpen(false)}  />
+                  <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
                 );
                 setmodalOpen(true);
               }}
@@ -347,11 +460,21 @@ const Compliance = () => {
               showType={getAccessType("Upgrade(ManageEmployee)")}
               name={"Export"}
               classes="w-auto mr-1"
-              onClick={() => setFileOpen2(true)}
+              onClick={() => dispatch(
+                   CommonActions.commondownloadpost(
+                      "/export/wccCompliance",
+                      // {exportTableName:"ptwBackupData"},
+                      "WCC_Compliance.xlsx",
+                      "GET",
+                     
+                    )
+               )}
             />
+           
           </div>
         }
         table={table}
+        
         filterAfter={onSubmit}
         tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}
@@ -362,7 +485,10 @@ const Compliance = () => {
         getValues={getValues}
         totalCount={checkArray(tableData)?tableData?.length:0} 
         // checkboxshow={shouldIncludeEditColumn}
-        exportButton={false}
+        //  exportButton={[
+        //     "/export/subVendor",
+        //     "PartnerTeam.xlsx",
+        //     ]}
         heading={"Total Count:-"}
       />
 
@@ -374,32 +500,32 @@ const Compliance = () => {
         setIsOpen={setmodalOpen}
       />
 
-      <FileUploader
+      {/* <FileUploader
         isOpen={fileOpen}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={["/template/ManageEmployee.xlsx", "ManageEmployee.xlsx"]}
         head={"Upload File"}
-      />
+      /> */}
 
-      <FileUploader
+      {/* <FileUploader
         isOpen={fileOpen2}
         onTableViewSubmit={onTableViewSubmit2}
         setIsOpen={setFileOpen2}
         tempbtn={true}
         tempbtnlink={["/template/ManageEmployee.xlsx", "ManageEmployee.xlsx"]}
         head={"Upload Upgrade File"}
-      />
+      /> */}
 
       <FileUploader
-        isOpen={fileOpen3}
-        onTableViewSubmit={onTableViewSubmit3}
-        setIsOpen={setFileOpen3}
+        isOpen={fileOpen}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={[
-          "/template/UpgradeEmployee2.xlsx",
-          "UpgradeEmployee2.xlsx",
+          "/template/WCC_Compliance.xlsx",
+          "WCC_Compliance_template.xlsx",
         ]}
         head={"Upload Upgrade File"}
       />

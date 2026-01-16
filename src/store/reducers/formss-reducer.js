@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     getEarnValueMgmtFinancial: [],
+    getWccPat: [],
+    getWccOci: [],
+    getWccScft: [],
+    getWccEmf: [],
+    getWccCdh: [],
     getEVMDelivery: [],
     getProfitloss: [],
     getAccrualRevenueTrend: [],
@@ -23,6 +28,41 @@ const FormssReducer = createSlice({
                 state.getEarnValueMgmtFinancial = payload.dataAll
             } else {
                 state.getEarnValueMgmtFinancial = [...state.getEarnValueMgmtFinancial, ...payload.dataAll]
+            }
+        },
+        GET_WCC_PAT: (state, { payload }) => {
+            if (payload.reset) {
+                state.getWccPat = payload.dataAll
+            } else {
+                state.getWccPat = [...state.getWccPat, ...payload.dataAll]
+            }
+        },
+        GET_WCC_OCI: (state, { payload }) => {
+            if (payload.reset) {
+                state.getWccOci = payload.dataAll
+            } else {
+                state.getWccOci = [...state.getWccOci, ...payload.dataAll]
+            }
+        },
+        GET_WCC_SCFT: (state, { payload }) => {
+            if (payload.reset) {
+                state.getWccScft = payload.dataAll
+            } else {
+                state.getWccScft = [...state.getWccScft, ...payload.dataAll]
+            }
+        },
+        GET_WCC_EMF: (state, { payload }) => {
+            if (payload.reset) {
+                state.getWccEmf = payload.dataAll
+            } else {
+                state.getWccEmf = [...state.getWccEmf, ...payload.dataAll]
+            }
+        },
+        GET_WCC_CDH: (state, { payload }) => {
+            if (payload.reset) {
+                state.getWccCdh = payload.dataAll
+            } else {
+                state.getWccCdh = [...state.getWccCdh, ...payload.dataAll]
             }
         },
 
@@ -101,6 +141,11 @@ const FormssReducer = createSlice({
 })
 
 export const {
+    GET_WCC_PAT,
+    GET_WCC_OCI,
+    GET_WCC_SCFT,
+    GET_WCC_EMF,
+    GET_WCC_CDH,
     GET_FORCAST_COGS,
     GET_EARNVALUE_MGMT_FINANCIAL,
     GET_EVM_DELIVERY,

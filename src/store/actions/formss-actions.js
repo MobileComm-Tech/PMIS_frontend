@@ -11,6 +11,11 @@ import {
     GET_CIRCLE,
     GET_CIRCLE_SUBPROJECT_TYPE,
     GET_PVA_DATA,
+    GET_WCC_PAT,
+    GET_WCC_OCI,
+    GET_WCC_EMF,
+    GET_WCC_CDH,
+    GET_WCC_SCFT,
 }
     from "../reducers/formss-reducer"
 
@@ -153,6 +158,51 @@ const FormssActions = {
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_ACCRUAL_REVENUE_TREND({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getWccPat: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.wcc_Pat}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_PAT({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getWccOci: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.wcc_Oci}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_OCI({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getWccScft: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.wcc_Scft}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_SCFT({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getWccEmf: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.wcc_Emf}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_EMF({ dataAll, reset }))
+        } catch (error) {
+        }
+    },
+    getWccCdh: (reset = true, args = "") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url: `${Urls.wcc_Cdh}${args != "" ? "?" + args : ""} `, reset })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_WCC_CDH({ dataAll, reset }))
         } catch (error) {
         }
     },

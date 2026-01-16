@@ -522,9 +522,9 @@ const AdvancedTable = ({
                 </tr>
               </thead>
 
-              {finalData.length > 0 ? (
+              {finalData?.length > 0 ? (
                 <tbody>
-                  {finalData.map((itm) => {
+                  {finalData?.map((itm) => {
                     return (
                       <tr>
                         {checkboxshow && (

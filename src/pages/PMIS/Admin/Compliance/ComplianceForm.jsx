@@ -6,7 +6,7 @@ import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import AdminActions from "../../../../store/actions/admin-actions";
-import { checkArray } from "../../../../components/CommonObjectsAndVariables";
+import { checkArray, checkVariable } from "../../../../components/CommonObjectsAndVariables";
 import { labelToValue } from "../../../../utils/commonFunnction";
 
 const ComplianceForm = ({
@@ -15,6 +15,7 @@ const ComplianceForm = ({
   resetting,
   formValue = {},
   onSuccess,
+  modalBody
   
 }) => {
   const [selectedCustomer, setSelectedCustomer] = useState("");
@@ -25,6 +26,8 @@ const ComplianceForm = ({
 
   const isEditMode = Object.entries(formValue).length > 0 && !resetting;
 
+
+  // console.log(formValue?.uniqueId,"___formValue__")
 
   const dispatch  = useDispatch();
 
@@ -38,27 +41,29 @@ const ComplianceForm = ({
     watch
   } = useForm();
 
-
+console.log(modalBody,"__isOpne")
 
   // CustomerData Starts here
   useEffect(()=>{
-
+    console.log("this is running")
+  
     dispatch(AdminActions.getCustomer())  
 
-  },[])
+  },[modalBody])
 
 
 
   const customersData = useSelector((state)=> state?.adminData?.getCustomer);
 
   const selectedCustomerOption = watch('customerId');
-  console.log(selectedCustomerOption,"__selectedCustomerOption__")
+  // console.log(selectedCustomerOption,"__selectedCustomerOption__")
 
     // CustomerData Ends here
 
     // Project Type Data Starts here
       useEffect(()=>{
-        if(selectedCustomerOption!==undefined){
+        console.log(checkVariable(selectedCustomerOption),"___selectedCustomerOption__")
+        if( checkVariable(selectedCustomerOption)){
           dispatch(AdminActions.compliance_ProjectType(true,`customerId=${selectedCustomerOption}`)) 
         }
         
@@ -66,16 +71,16 @@ const ComplianceForm = ({
 
 
       const projectTypeData  = useSelector((state)=>state?.adminData?.getComplianceProjectType)
-      console.log(projectTypeData,"___projectTypeData_")
+      // console.log(projectTypeData,"___projectTypeData_")
     // Project Type Data Ends here
 
 
     // Sub Project Data Starts here 
      const selectedProjectTypeOption = watch('projectType');
-     console.log(selectedProjectTypeOption,"__selectedProjectTypeOption_")
+    //  console.log(selectedProjectTypeOption,"__selectedProjectTypeOption_")
 
     useEffect(()=>{
-      if(selectedProjectTypeOption!==undefined){
+      if( checkVariable(selectedProjectTypeOption)){
         dispatch(AdminActions.compliance_SubProject(true,`customerId=${selectedCustomerOption}&projectType=${selectedProjectTypeOption?.split(",")[0]}`))
       }
         
@@ -83,18 +88,21 @@ const ComplianceForm = ({
 
 
     const subProjectData  = useSelector((state)=>state?.adminData?.getComplianceSubProject);
-    console.log(subProjectData,"___subProjectData__")
+    // console.log(subProjectData,"___subProjectData__")
     // Sub Project Data Ends here 
 
     // Work description data starts here
 
     useEffect(()=>{
-          dispatch(AdminActions.compliance_WorkDescription(true,`customerId=${selectedCustomerOption}`))
+      if(checkVariable(selectedCustomerOption)){
+        dispatch(AdminActions.compliance_WorkDescription(true,`customerId=${selectedCustomerOption}`))
+      }
+          
     },[selectedCustomerOption])
 
 
     const workDescriptionData  = useSelector((state)=>state?.adminData?.getComplianceWorkDescription)
-console.log(workDescriptionData,"___workDescriptionData__")
+// console.log(workDescriptionData,"___workDescriptionData__")
     // Work description data ends here
 
     // MS LIst starts here
@@ -104,7 +112,7 @@ console.log(workDescriptionData,"___workDescriptionData__")
 
 
     const msListData  = useSelector((state)=> state?.adminData?.getMsList);
-    console.log(msListData,"___msListData__")
+    // console.log(msListData,"___msListData__")
     // MS LIst ends here
 
  
@@ -250,15 +258,39 @@ console.log(workDescriptionData,"___workDescriptionData__")
 
   const onTableViewSubmit = (data) => {
 
-    const finalData = {...data,projectType:data?.projectType?.split(",")[1]}
+    if(formValue?.uniqueId=== undefined){
+      const finalData = {...data,projectType:data?.projectType?.split(",")[1]}
 
     dispatch(AdminActions.postWccCompliance(finalData,()=>{
-          console.log("Ram Ram")
+         dispatch(AdminActions.getWccCompiliance());
     },null))
+    }else{
+      const finalData = {...data,projectType:data?.projectType?.split(",")[1]}
+
+    dispatch(AdminActions.postWccCompliance(finalData,()=>{
+         dispatch(AdminActions.getWccCompiliance());
+    },formValue?.uniqueId))
+    }
+
+    
 
     setIsOpen(false)
     
   };
+
+  // user Data Edit Starts here
+  useEffect(()=>{
+    console.log(formValue?.uniqueId,"___asdsdasd")
+    if(formValue?.uniqueId!==undefined){
+    // reset({});
+        Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
+        setValue('projectType', formValue?.projectType+","+formValue?.projectTypeId)
+    }else{
+        reset({});
+    }
+
+  },[formValue])
+  // user Data Edit Ends here
 
 
  

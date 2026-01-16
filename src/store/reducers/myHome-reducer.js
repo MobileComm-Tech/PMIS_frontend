@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     getMyHome: [],
+    getWccCdhApprover: [],
     getPersonalInfo:[],
     getmyTask:[],
     getMyPolicy:[],
@@ -17,6 +18,13 @@ const myHome = createSlice({
                 state.getMyHome = payload.dataAll
             }else{
                 state.getMyHome  = [...state.getMyHome, ...payload.dataAll]
+            }
+        },
+        GET_WCC_CDH_APPROVER:(state,{payload}) => {
+            if(payload.reset){
+                state.getWccCdhApprover = payload.dataAll
+            }else{
+                state.getWccCdhApprover  = [...state.getWccCdhApprover, ...payload.dataAll]
             }
         },
 
@@ -48,6 +56,7 @@ const myHome = createSlice({
 
 export const {
     GET_MY_HOME,
+    GET_WCC_CDH_APPROVER,
     GET_PERSONAL_INFO,
     GET_MY_TASK,
     GET_MY_POLICY,
