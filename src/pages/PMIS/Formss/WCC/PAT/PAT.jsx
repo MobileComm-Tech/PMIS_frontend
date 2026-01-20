@@ -80,9 +80,9 @@ const [fileOpen, setFileOpen] = useState(false);
 
 
 //   Table Data starts here
-// useEffect(()=>{
-//     dispatch(FormssActions.getWccPat());
-// },[])
+useEffect(()=>{
+    dispatch(FormssActions.getWccPat());
+},[])
 
 const tableData  = useSelector((state)=>state?.formssData?.getWccPat)
 //   Table Data Ends here

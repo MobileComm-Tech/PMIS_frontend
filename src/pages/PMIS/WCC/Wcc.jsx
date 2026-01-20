@@ -1,20 +1,70 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForm } from "react-hook-form";
 import AdvancedTable from '../../../components/AdvancedTable';
 import ComplianceForm from '../Admin/Compliance/ComplianceForm';
 import { useDispatch, useSelector } from 'react-redux';
 import VendorActions from '../../../store/actions/vendor-actions';
 import { checkArray } from '../../../components/CommonObjectsAndVariables';
-
+import ConditionalButton from "../../../components/ConditionalButton";
+import {
+  getAccessType,
+  objectToQueryString,
+} from "../../../utils/commonFunnction";
+import CommonActions from "../../../store/actions/common-actions";
 const Wcc = () => {
 
     const dispatch = useDispatch();
-
+      const [filters, setFilters] = useState({});
+        const [strValFil, setstrVal] = useState(false);
+ const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
 
     useEffect(()=>{
         dispatch(VendorActions.getWccSubmodule());
     },[])
 
+// const handleAddActivity = (data) => {
+//     setExtraColumns(data["Month"]);
+//     setValue("viewBy", data["Month"]);
+//     if (assignDate) {
+//       const { start, end } = assignDate;
+//       data["start"] = start?.split("T")[0];
+//       data["end"] = end?.split("T")[0];
+//     }
+
+//     setFilters({
+//       ...filters,
+//       ...data,
+//     });
+//     dispatch(
+//       VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+//     );
+//   };
+
+    const onSubmit = (data) => {
+    let shouldReset = data.reseter;
+    delete data.reseter;
+
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    setFilters({
+      ...filters,
+      ...data,
+    });
+    dispatch(
+       VendorActions.getWccSubmodule(true, objectToQueryString(data))
+      // VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+    );
+  };
+    useEffect(() => {
+     dispatch(VendorActions.getWccSubmodule())
+  }, []);
 
 
       const table = {
@@ -155,17 +205,51 @@ const Wcc = () => {
       rpp: [10, 20, 50, 100],
     },
 
-    filter: [
+    filter:[
+      {
+        label: "Site Id",
+        value: "",
+        name: "siteId",
 
-            //  {
-            //     label: "Site ID",
-            //     type: "select",
-            //     name: "siteId",
-            //     option:siteList,
-            //     props: {
-            //     }
-            // },
+        type: "text",
+      },
+      {
+        label: "Vendor Name",
+        value: "",
+        type: "text",
+        name: "vendorName",
+      },
+      {
+        label: "Vendor Id",
+        value: "",
+        name: "vendorId",
+        type: "text",
+      },
+       {
+        label: "Vendor Item Code",
+        value: "",
+        name: "vendorItemCode",
 
+        type: "text",
+      },
+      {
+        label: "WCC Number",
+        value: "",
+        name: "wccNumber",
+
+        type: "text",
+      },
+      {
+        label: "WCC Eligibility",
+        value: "",
+        type: "select",
+        name: "wccEligibility",
+        // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        option: [
+        { label: "Yes", value: "Yes" },
+        { label: "No", value: "No" },
+      ],
+      },
     ],
   };
 
@@ -181,54 +265,54 @@ const Wcc = () => {
   return (
    <>
         <AdvancedTable
-        // headerButton={
-        //   <div className="flex">
-        //     <ConditionalButton
-        //       showType={getAccessType("Add New(ManageEmployee)")}
-        //       classes="w-auto mr-1"
-        //       // onClick={() => navigate("/empdetails")}
-        //       onClick={() => {
-        //         setmodalHead("Add Compliance");
-        //         setmodalBody(
-        //           <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
-        //         );
-        //         setmodalOpen(true);
-        //       }}
-        //       name={"Add New"}
-        //     />
-        //     <ConditionalButton
-        //       showType={getAccessType("Upload(ManageEmployee)")}
-        //       name={"Upload File"}
-        //       classes="w-auto mr-1"
-        //       onClick={() => setFileOpen(true)}
-        //     />
-        //     <ConditionalButton
-        //       showType={getAccessType("Upgrade(ManageEmployee)")}
-        //       name={"Export"}
-        //       classes="w-auto mr-1"
-        //       onClick={() => dispatch(
-        //            CommonActions.commondownloadpost(
-        //               "/export/wccCompliance",
-        //               // {exportTableName:"ptwBackupData"},
-        //               "WCC_Compliance.xlsx",
-        //               "GET",
-                     
-        //             )
-        //        )}
-        //     />
+        headerButton={
+          <div className="flex">
+            {/* <ConditionalButton
+              showType={getAccessType("Add New(ManageEmployee)")}
+              classes="w-auto mr-1"
+              // onClick={() => navigate("/empdetails")}
+              onClick={() => {
+                setmodalHead("Add Compliance");
+                setmodalBody(
+                  <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
+                );
+                setmodalOpen(true);
+              }}
+              name={"Add New"}
+            /> */}
+            {/* <ConditionalButton
+              showType={getAccessType("Upload(ManageEmployee)")}
+              name={"Upload File"}
+              classes="w-auto mr-1"
+              onClick={() => setFileOpen(true)}
+            /> */}
+           <ConditionalButton
+              showType={getAccessType("Export(Site)")}
+              classes="w-auto "
+              onClick={(e) => {
+                dispatch(
+                  CommonActions.commondownload(
+                    "/export/wcc?"+
+                      objectToQueryString(filters),
+                    "WCC.xlsx"
+                  )
+                );
+              }}
+              name={"Export"}
+            ></ConditionalButton>
            
-        //   </div>
-        // }
+          </div>
+        }
         table={table}
         
-        // filterAfter={onSubmit}
+        filterAfter={onSubmit}
         tableName={"ManageEmployee"}
-        // handleSubmit={handleSubmit}
+        handleSubmit={handleSubmit}
         data={checkArray(tableData)?tableData:[]} // ✅ EMPTY TABLE
-        // errors={errors}
-        // register={register}
-        // setValue={setValue}
-        // getValues={getValues}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
         totalCount={checkArray(tableData)?tableData?.length:0} 
         // checkboxshow={shouldIncludeEditColumn}
         //  exportButton={[

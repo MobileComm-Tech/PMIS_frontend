@@ -24,7 +24,16 @@ const MyHomeActions = {
     getMyHome:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.wcc_Chd_Approver}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
+            if (res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }
             let dataAll = res?.data?.data
             dispatch(GET_WCC_CDH_APPROVER({dataAll,reset}))
         } catch (error) {

@@ -68,7 +68,7 @@ const VendorCards = () => {
             [
               "WCC",
               "bg-pcol",
-              "/vendor/wcc",
+              "/vendor/WCC",
             ],
             
             // [

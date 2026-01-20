@@ -23,6 +23,8 @@ import dropDownReducer from "./reducers/dropDown-reducer"
 import globalFiltersReducer from "./reducers/globalFilter-reducer";
 import appUpdateReducer from "./reducers/appUpdateReducer";
 
+import wccApproverData from "./reducers/wccApprover-reducers"
+
 const store = configureStore({
     reducer: {
         dropDown:dropDownReducer,
@@ -48,7 +50,7 @@ const store = configureStore({
         gpTrackingReducer,
         globalFiltersReducer,
         appUpdateReducer,
-        
+        wccApproverData,
         
        
     },

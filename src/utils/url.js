@@ -343,6 +343,12 @@ export const Urls = {
   getPtwSiteId: "/ptw/getSiteId",
   getEmpNameList: "/ptw/getApproverFilter",
 
+
+  // cdh Approver
+  wccApprover:"/wcc/cdh_approver",
+  getWccEmployee:"/wcc/employee",
+  getWccProjectId:"/wcc/projectId",
+
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };

@@ -9,8 +9,8 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import FileUploader from "../../../../components/FIleUploader";
-// import L1ApproverForm from "./L1ApproverForm";
-import PTWActions from "../../../../store/actions/ptw-actions";
+import WccApproverForm from "./wccCdhApproverForm";
+import WCCApproverAction from "../../../../store/actions/wccApprover-actions";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
@@ -18,7 +18,7 @@ import { ALERTS } from "../../../../store/reducers/component-reducer";
 // import {pagination} from "../../../../components/CommonObjectsAndVariables";
 import AdminActions from "../../../../store/actions/admin-actions";
 import { pagination } from "../../../../components/CommonObjectsAndVariables";
-const WccL1Approver = () => {
+const WCCApprover = () => {
   const dispatch = useDispatch();
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
@@ -40,27 +40,23 @@ const WccL1Approver = () => {
 
   const refreshData = () => {
     const defaultArgs =
-      objectToQueryString({
-        ApproverType: "L1-Approver",
-      }) +
-      "&" +
       objectToQueryString(pagination);
-    dispatch(PTWActions.getL1ApproverData(true, defaultArgs));
+    dispatch(WCCApproverAction.WccApproverData(true, defaultArgs));
   };
 
-  let empList = useSelector((state) => {
-    console.log(state?.adminData);
-    return state?.adminData?.getEmpNameList?.map((itm) => {
-      return {
-        label: itm?.empName,
-        value: itm?.empName,
-      };
-    });
-  });
+  // let empList = useSelector((state) => {
 
-  const l1ApproverList = useSelector((state) => {
+  //   return state?.adminData?.getEmpNameList?.map((itm) => {
+  //     return {
+  //       label: itm?.empName,
+  //       value: itm?.employeeId,
+  //     };
+  //   });
+  // });
+
+  const WccApproverList = useSelector((state) => {
     // console.log("Redux state:", state);
-    const interdata = state?.ptwData?.getL1ApproverData || [];
+    const interdata = state?.wccApproverData?.WccApproverData || [];
     return interdata.map((itm) => ({
       ...itm,
       edit: (
@@ -85,9 +81,9 @@ const WccL1Approver = () => {
                       onClick={() => {
                         dispatch(
                           CommonActions.deleteApiCaller(
-                            `${Urls.l1ApproverSubmit}/${itm.uniqueId}`,
+                            `${Urls.wccApprover}/${itm.uniqueId}`,
                             () => {
-                              refreshData(); // Use the refresh function
+                              refreshData();
                               dispatch(ALERTS({ show: false }));
                             }
                           )
@@ -114,26 +110,25 @@ const WccL1Approver = () => {
     }));
   });
 
-  const l1ApproverTotalCount = useSelector((state) => {
-    const interdata = state?.ptwData?.getL1ApproverData || [];
+  const WccApproverTotalCount = useSelector((state) => {
+    const interdata = state?.wccApproverData?.WccApproverData || [];
     return interdata.length > 0 ? interdata[0]["overall_table_count"] : 0;
   });
 
   const handleEditClick = (item) => {
-    // console.log("Edit clicked for item:", item);
+    console.log(item,"kjhkhjh")
     setEditingItem(item);
     setmodalHead("Edit Approver");
 
     setmodalBody(
-        <></>
-    //   <L1ApproverForm
-    //     isOpen={true}
-    //     setIsOpen={setmodalOpen}
-    //     resetting={false}
-    //     formValue={item}
-    //     filtervalue=""
-    //     onSuccess={refreshData}
-    //   />
+      <WccApproverForm
+        isOpen={true}
+        setIsOpen={setmodalOpen}
+        resetting={false}
+        formValue={item}
+        filtervalue=""
+        onSuccess={refreshData}
+      />
     );
 
     setmodalOpen(true);
@@ -142,36 +137,21 @@ const WccL1Approver = () => {
   const table = {
     columns: [
       {
-        name: "Customer",
-        value: "customer",
-        style: "text-center min-w-[150px]",
-      },
-    //   { name: "Profile", value: "profile", style: "text-center min-w-[150px]" },
-      {
-        name: "Project ID",
-        value: "projectId",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "Work Description",
-        value: "workDescription",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "Compliance Name",
-        value: "complianceName",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "EMP ID",
-        value: "empId",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "EMP Name",
+        name: "Emp Name",
         value: "empName",
         style: "text-center min-w-[150px]",
       },
+      {
+        name: "Emp Email",
+        value: "employeeEmail",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "Project Id",
+        value: "projectId",
+        style: "text-center min-w-[150px]",
+      },
+      
       { name: "Edit", value: "edit", style: "text-center min-w-[100px]" },
       { name: "Delete", value: "delete", style: "text-center min-w-[100px]" },
     ],
@@ -181,9 +161,14 @@ const WccL1Approver = () => {
     filter: [
       {
         label: "Employee Name",
-        type: "select",
+        type: "text",
         name: "empName",
-        option: empList,
+        props: {},
+      },
+       {
+        label: "Project Id",
+        type: "text",
+        name: "projectId",
         props: {},
       },
     ],
@@ -192,45 +177,25 @@ const WccL1Approver = () => {
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
-    // const strVal = objectToQueryString(data);
     let strVal = objectToQueryString(data);
-    if (strVal?.length > 0) {
-      strVal =
-        strVal + "&" + objectToQueryString({ ApproverType: "L1-Approver" });
-    } else {
-      strVal = objectToQueryString({ ApproverType: "L1-Approver" });
-    }
+
     setstrVal(strVal);
     dispatch(
-      PTWActions.getL1ApproverData(
+      WCCApproverAction.WccApproverData(
         true,
         strVal,
-        objectToQueryString({ ApproverType: "L1-Approver" })
       )
     );
   };
 
-  // const onTableViewSubmit = (data) => {
-  //   data["fileType"] = "L1Approver";
-  //   dispatch(
-  //     CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-  //       setFileOpen(false);
-  //       refreshData();
-  //     })
-  //   );
-  // };
-
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "L1_Approver_MDB";
+    data["fileType"] = "cdh_wccApprover";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
         dispatch(
-          PTWActions.getL1ApproverData(
+          WCCApproverAction.WccApproverData(
             true,
-            objectToQueryString({
-              ApproverType: "L1-Approver",
-            })
           )
         );
       })
@@ -246,10 +211,10 @@ const WccL1Approver = () => {
     setmodalHead(<></>);
   };
 
-//   useEffect(() => {
-//     refreshData();
-//     dispatch(AdminActions.getEmpNameList(true, "approverType=L1-Approver"));
-//   }, [dispatch]);
+  useEffect(() => {
+    refreshData();
+    // dispatch(AdminActions.getEmpNameList(true));
+  }, [dispatch]);
 
   return (
     <>
@@ -258,19 +223,18 @@ const WccL1Approver = () => {
           <div className="flex">
             <Button
               onClick={() => {
-                setmodalHead("Add Approver");
+                setmodalHead("Add CDH Approver");
                 setmodalBody(
-                    <></>
-                //   <L1ApproverForm
-                //     isOpen={true}
-                //     setIsOpen={setmodalOpen}
-                //     resetting={true}
-                //     formValue={{}}
-                //     year={year}
-                //     monthss={[]}
-                //     filtervalue=""
-                //     onSuccess={refreshData}
-                //   />
+                  <WccApproverForm
+                    isOpen={true}
+                    setIsOpen={setmodalOpen}
+                    resetting={true}
+                    formValue={{}}
+                    year={year}
+                    monthss={[]}
+                    filtervalue=""
+                    onSuccess={refreshData}
+                  />
                 );
                 setmodalOpen(true);
               }}
@@ -288,10 +252,9 @@ const WccL1Approver = () => {
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/Export/ptwMDB?" + strValFil,
-                    "Export_L1Approval.xlsx",
+                    "/Export/cdh_approver?" + strValFil,
+                    "Export WCC CDH Approver.xlsx",
                     "POST",
-                    { ApproverType: "L1-Approver" }
                   )
                 );
               }}
@@ -300,16 +263,15 @@ const WccL1Approver = () => {
         }
         table={table}
         filterAfter={onSubmit}
-        tableName="L1 Approver Table"
+        tableName="Wcc CDH Approver Table"
         TableHeight="h-[68vh]"
         handleSubmit={handleSubmit}
-        // data={l1ApproverList}
-        data={[]}
+        data={WccApproverList}
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
-        totalCount={l1ApproverTotalCount}
+        totalCount={WccApproverTotalCount}
         heading="Total Count :-"
       />
       <Modal
@@ -325,10 +287,10 @@ const WccL1Approver = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
+        tempbtnlink={["/template/WCC_Approver.xlsx", "WCC CDH Approver.xlsx"]}
       />
     </>
   );
 };
 
-export default WccL1Approver;
+export default WCCApprover;

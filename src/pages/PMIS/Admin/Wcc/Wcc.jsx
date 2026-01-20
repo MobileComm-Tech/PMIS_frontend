@@ -30,7 +30,7 @@ const Ptw = () => {
           showbtn={false}
           approveddata={[
             ["Compliance", "bg-pcol", "/superAdmin/WCC/Compliance"],
-            ["L1 Approver", "bg-pcol", "/superAdmin/wcc/l1approver"],
+            ["CDH Approver", "bg-pcol", "/superAdmin/WCC/CDH Approver"],
             // ["L2 Approver", "bg-pcol", "/superAdmin/wcc/l2approver"],
           ].map((itm) => {
             return (

@@ -10,6 +10,7 @@ import FileUploader from '../../../../../components/FIleUploader';
 import { Urls } from '../../../../../utils/url';
 import MyHomeActions from '../../../../../store/actions/myHome-actions';
 
+
 const CdhApprover= () => {
 const dispatch = useDispatch();
 const [fileOpen, setFileOpen] = useState(false);
@@ -171,20 +172,20 @@ const tableData  = useSelector((state)=>state?.myHomeData?.getWccCdhApprover)
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             /> */}
-            {/* <ConditionalButton
+            <ConditionalButton
               showType={getAccessType("Upgrade(ManageEmployee)")}
               name={"Export"}
               classes="w-auto mr-1"
               onClick={() => dispatch(
                    CommonActions.commondownloadpost(
-                      "/export/wccCompliance",
+                      "/export/myHome/wcc/cdhApproval",
                       // {exportTableName:"ptwBackupData"},
-                      "WCC_Compliance.xlsx",
+                      "WCC CDH Approval.xlsx",
                       "GET",
                      
                     )
                )}
-            /> */}
+            />
            
           </div>
         }

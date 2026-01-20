@@ -24,11 +24,11 @@ const FormsWcc = () => {
       <CCDash
         showbtn={false}
         approveddata={[
-          ["PAT", "bg-pcol", "/forms/wcc/PAT"],
-          // ["OCI", "bg-pcol", "/forms/wcc/OCI"],
-          // ["SCFT", "bg-pcol", "/forms/wcc/SCFT",],
-          // ["EMF", "bg-pcol", "/forms/wcc/EMF"],
-          // ["CDH", "bg-pcol", "/forms/wcc/CDH"],
+          ["PAT", "bg-pcol", "/forms/WCC/PAT"],
+          ["OCI", "bg-pcol", "/forms/WCC/OCI"],
+          ["SCFT", "bg-pcol", "/forms/WCC/SCFT",],
+          ["EMF", "bg-pcol", "/forms/WCC/EMF"],
+          ["CDH", "bg-pcol", "/forms/WCC/CDH"],
         ].map((itm) => {
           return (
             

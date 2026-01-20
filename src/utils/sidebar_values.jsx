@@ -144,11 +144,11 @@ import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/Manag
 import { routesObjects } from "./url";
 import ManageVendorPartnerTeam from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeam";
 import AppBuild from "../pages/PMIS/Admin/AppBuild/AppBuild";
-// import Wcc from "../pages/PMIS/Admin/wcc/Wcc";
-import Wcc from "../pages/PMIS/WCC/Wcc";
+import Wcc from "../pages/PMIS/Admin/Wcc/Wcc";
+import WccPM from "../pages/PMIS/WCC/Wcc";
 
 import Compliance from "../pages/PMIS/Admin/Compliance/Compliance";
-import WccL1Approver from "../pages/PMIS/Admin/WCCL1Approver/WccL1Approver";
+import WccL1Approver from "../pages/PMIS/Admin/WccCdhApprover/WccCdhApprover";
 import FormsWcc from "../pages/PMIS/Formss/WCC/FormsWcc";
 import PAT from "../pages/PMIS/Formss/WCC/PAT/PAT";
 import OCI from "../pages/PMIS/Formss/WCC/OCI/OCI";
@@ -673,9 +673,9 @@ export const Sidebar_content = {
     },
     {
       name: "",
-      link: "/vendor/wcc",
+      link: "/vendor/WCC",
       // component: <VendorProject />,
-      component: <Wcc />,
+      component: <WccPM />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
@@ -903,7 +903,7 @@ export const Sidebar_content = {
 
     {
       name: "",
-      link: "/forms/wcc",
+      link: "/forms/WCC",
       component: <FormsWcc />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -911,35 +911,35 @@ export const Sidebar_content = {
     // FORMS WCC COMPONENTS STARTS HERE
     {
       name: "",
-      link: "/forms/wcc/PAT",
+      link: "/forms/WCC/PAT",
       component: <PAT />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/forms/wcc/OCI",
+      link: "/forms/WCC/OCI",
       component: <OCI />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/forms/wcc/SCFT",
+      link: "/forms/WCC/SCFT",
       component: <SCFT />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/forms/wcc/EMF",
+      link: "/forms/WCC/EMF",
       component: <EMF />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
     {
       name: "",
-      link: "/forms/wcc/CDH",
+      link: "/forms/WCC/CDH",
       component: <CDH />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
@@ -1181,7 +1181,7 @@ export const Sidebar_content = {
     },
        {
       name: "WCC",
-      link: "/superAdmin/wcc/l1approver",
+      link: "/superAdmin/WCC/CDH Approver",
       component: <WccL1Approver />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
