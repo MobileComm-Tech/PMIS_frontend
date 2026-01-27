@@ -36,6 +36,7 @@ export const Urls = {
 
   //My home
   wcc_Chd_Approver:"/myHome/wcc/cdhApprover",
+  wcc_Chd_Actions:"/myHome/wcc/cdhApprover/action",
 
   // new urlP
   admin_userAccess: "/admin/userAccess",
@@ -288,6 +289,8 @@ export const Urls = {
   getWccEmployee:"/wcc/employee",
   getWccProjectId:"/wcc/projectId",
   wcc_Submodule:"/wcc/myTask",
+  create_Wcc:"/wcc/create",
+  delete_wcc_submodule:"/wcc/delete",
 
 
   admin_getComplianceapprover: "/admin/addComplianceApprover",

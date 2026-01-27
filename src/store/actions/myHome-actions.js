@@ -21,7 +21,7 @@ const MyHomeActions = {
         } catch (error) {
         }
     },
-    getMyHome:(reset=true,args="") => async (dispatch, _) => {
+    getCdhApprover:(reset=true,args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.wcc_Chd_Approver}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) {
@@ -42,6 +42,27 @@ const MyHomeActions = {
     postMyHome: (reset, data, cb, uniqueId) => async (dispatch, _) => {
         try {
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.MyHome : Urls.MyHome + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+    postCdhActions: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.wcc_Chd_Actions : Urls.wcc_Chd_Actions + "/" + uniqueId ,contentType: "multipart/form-data",})
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {
                     show: true,

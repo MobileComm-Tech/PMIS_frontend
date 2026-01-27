@@ -28,6 +28,11 @@ const [fileOpen, setFileOpen] = useState(false);
     value: "ssid",
     style: "min-w-[80px] max-w-[120px] text-center",
   },
+   {
+    name: "Vendor Item Code",
+    value: "itemCode",
+    style: "min-w-[140px] max-w-[200px] text-center",
+  },
   {
     name: "Compliance",
     value: "compliance",

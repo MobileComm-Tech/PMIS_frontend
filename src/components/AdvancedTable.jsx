@@ -115,6 +115,7 @@ const AdvancedTable = ({
   };
 
   const onSubmit = (formdata) => {
+    // console.log(formdata,"___formdata")
     formdata["reseter"] = true;
     const data = {
       ...activedFilter,

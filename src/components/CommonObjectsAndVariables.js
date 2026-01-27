@@ -168,7 +168,7 @@ export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileSto
                 }
             }
             if(i==2){
-                console.log(data[itemCodeKey],"___itemCodeKey__")
+                // console.log(data[itemCodeKey],"___itemCodeKey__")
             }
             if(data[itemCodeKey]===""){
                 delete  data[itemCodeKey]
@@ -190,10 +190,28 @@ export const checkArray =(data)=>{
 }
 
 export const checkVariable = (data)=>{
-    console.log(data?.length,"___ahsbjckadsd")
+    // console.log(data?.length,"___ahsbjckadsd")
     if(data!==undefined && data?.length>0 ){
         return true
     }else{
         return false
+    }
+}
+
+export const CheckTrueOrFalse = ( key)=>{
+
+    if(key === "Yes"){
+        return true
+    }else{
+        return false
+    }
+}
+
+export const checkTrueOrFalseDynamic =(key,value)=>{
+
+    if(key === value){
+        return true;
+    }else{
+        return false;
     }
 }

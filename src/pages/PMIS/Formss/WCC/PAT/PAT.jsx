@@ -4,7 +4,7 @@ import { checkArray } from '../../../../../components/CommonObjectsAndVariables'
 import { useDispatch, useSelector } from 'react-redux';
 import FileUploader from '../../../../../components/FIleUploader';
 import ConditionalButton from '../../../../../components/ConditionalButton';
-import { getAccessType } from '../../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString } from '../../../../../utils/commonFunnction';
 import { Urls } from '../../../../../utils/url';
 import CommonActions from '../../../../../store/actions/common-actions';
 import FormssActions from '../../../../../store/actions/formss-actions';
@@ -28,11 +28,17 @@ const [fileOpen, setFileOpen] = useState(false);
     value: "ssid",
     style: "min-w-[80px] max-w-[120px] text-center",
   },
+    {
+    name: "Vendor Item Code",
+    value: "itemCode",
+    style: "min-w-[140px] max-w-[200px] text-center",
+  },
   {
     name: "Compliance",
     value: "compliance",
     style: "min-w-[140px] max-w-[200px] text-center",
   },
+
   {
     name: "Status",
     value: "status",
@@ -81,7 +87,8 @@ const [fileOpen, setFileOpen] = useState(false);
 
 //   Table Data starts here
 useEffect(()=>{
-    dispatch(FormssActions.getWccPat());
+    const defaultPagination = objectToQueryString({"page":1, "limit":50})
+    dispatch(FormssActions.getWccPat(true,defaultPagination));
 },[])
 
 const tableData  = useSelector((state)=>state?.formssData?.getWccPat)

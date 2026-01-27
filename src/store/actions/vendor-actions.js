@@ -371,9 +371,51 @@ const VendorActions = {
             const res = await Api.get({ url:`${Urls.wcc_Submodule}${args!=""?"?"+args:""}`, reset })
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
-            console.log(dataAll,"___dattaa")
+            // console.log(dataAll,"___dattaa")
             dispatch(GET_WCC_SUBMODULE({dataAll,reset}))
         } catch (error) {
+        }
+    },
+    postCreateWCC: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.create_Wcc : Urls.create_Wcc + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
+    postDeSelectWCC: (data, cb, uniqueId) => async (dispatch, _) => {
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.delete_wcc_submodule : Urls.delete_wcc_submodule + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
         }
     },
     

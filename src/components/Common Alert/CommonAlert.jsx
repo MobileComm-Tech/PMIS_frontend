@@ -17,9 +17,14 @@ const CommonAlert = ({selectedRow, Heading, setmodalOpen,getAllDAta, sendData })
           name="Ok"
           classes="w-auto"
           onClick={() => {
-            dispatch(PTWActions.getPtwApproverAlert(true, sendData, `ptwNumber=${selectedRow?.ptwNumber}`))
-            setmodalOpen(false)
+
+            if(sendData?.status==="L2-Approved" || sendData?.status==="L1-Approved"){
+               dispatch(PTWActions.getPtwApproverAlert(true, sendData, `ptwNumber=${selectedRow?.ptwNumber}`))
+            }
+           
+          
             getAllDAta()
+            setmodalOpen(false)
           }}
         />
         <Button

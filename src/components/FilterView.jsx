@@ -185,7 +185,10 @@ const FilterView = ({
               <div className="w-18 py-3 flex justify-center grid-cols-1">
                 <Button
                   name={"Filter"}
-                  onClick={handleSubmit(onSubmit)}
+                  onClick={
+                    handleSubmit(onSubmit)
+                    // ()=>{console.log}
+                  }
                   classes="w-18 p-10 mx-2"
                 />
                 <Button

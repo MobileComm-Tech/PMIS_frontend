@@ -286,7 +286,7 @@ console.log(modalBody,"__isOpne")
         Form.forEach(key => setValue(key.name, formValue[key.name] || ""));
         setValue('projectType', formValue?.projectType+","+formValue?.projectTypeId)
     }else{
-        reset({});
+        // reset({});
     }
 
   },[formValue])

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ComplianceForm from "./ComplianceForm";
 import AdminActions from "../../../../store/actions/admin-actions";
-import { checkArray } from "../../../../components/CommonObjectsAndVariables";
+import { checkArray, checkVariable } from "../../../../components/CommonObjectsAndVariables";
 import CstmButton from "../../../../components/CstmButton";
 import EditButton from "../../../../components/EditButton";
 import DeleteButton from "../../../../components/DeleteButton";
@@ -171,6 +171,7 @@ import CommonActions from "../../../../store/actions/common-actions";
 const Compliance = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
+  const [filters,setFilters] = useState({})
   // const [modalHead, setmodalHead] = useState(<></>);
   // const [addModalOpen, setAddModalOpen] = useState(false);
   // const [modalBody, setmodalBody] = useState(null);
@@ -205,134 +206,13 @@ const Compliance = () => {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm();
 
-  
-  const table = {
-    columns: [
-      {
-        name: "Customer",
-        value: "customer",
-        style:
-          "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
-      },
-      {
-        name: "Project Type",
-        value: "projectType",
-        style:
-          "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
-      },
-      {
-        name: "Sub Project",
-        value: "subProject",
-        style: "min-w-[250px] max-w-[450px] text-center",
-      },
-      {
-        name: "Work Description",
-        value: "workDescription",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "CDH",
-        value: "cdh",
-        style: "min-w-[100px] max-w-[450px] text-center",
-      },
-      {
-        name: "PAT",
-        value: "pat",
-        style: "min-w-[100px] max-w-[450px] text-center",
-      },
-      {
-        name: "SCFT",
-        value: "scft",
-        style: "min-w-[120px] max-w-[450px] text-center",
-      },
-      {
-        name: "OCI",
-        value: "oci",
-        style: "min-w-[100px] max-w-[450px] text-center",
-      },
-      {
-        name: "EMF",
-        value: "emf",
-        style: "min-w-[100px] max-w-[450px] text-center",
-      },
-      // ...(shouldIncludeEditColumn
-         {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[100px] max-w-[200px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[100px] max-w-[100px] text-center",
-            },
-    ],
-    properties: {
-      rpp: [10, 20, 50, 100],
-    },
-    filter: [
-      {
-        label: "EMP Name",
-        type: "text",
-        name: "empName",
-      },
-      {
-        label: "EMP Code",
-        type: "text",
-        name: "empCode",
-      },
-      {
-        label: "Status",
-        type: "select",
-        name: "status",
-        option: [
-          { label: "Active", value: "Active" },
-          { label: "Resign", value: "Resign" },
-          { label: "Abscond", value: "Abscond" },
-          { label: "Exit", value: "Exit" },
-        ],
-      },
-    ],
-  };
-
-  /* ===========================
-     FILTER SUBMIT (API OFF)
-  =========================== */
-  const onSubmit = (data) => {
-    const qs = objectToQueryString(data);
-    setstrVal(qs);
-    // ❌ API CALL DISABLED
-  };
-
-  /* ===========================
-     FILE UPLOAD (UI ONLY)
-  =========================== */
-  const onTableViewSubmit = (data) => {
-    data["fileType"] = "WCC_Compliance";
-        dispatch(
-        CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getWccCompiliance())
-            setFileOpen(false);
-            resetting("");
-            
-        })
-        );
-  };
-   const onTableViewSubmit2 = (data) => {
-      
-    };
-  // const onTableViewSubmit3 = () => {
-      
-  // };
-
-  /* ===========================
-     NO API ON LOAD
-  =========================== */
-  useEffect(() => {
+    useEffect(() => {
     dispatch(AdminActions.getWccCompiliance())
+    dispatch(AdminActions.getCustomer())  
   }, []);
 
   const tableData = useSelector((state) => {
@@ -432,6 +312,274 @@ const Compliance = () => {
     });
   // console.log(tableData,"___tableDat")
 
+
+  // Customer Filter Data Starts here
+   const customersData = useSelector((state)=> state?.adminData?.getCustomer);
+
+  const selectedCustomerOption = watch('customerId');
+  // Customer Filter Data Starts here
+
+
+  // Project Type Data Starts here
+      // useEffect(()=>{
+      //   console.log(checkVariable(selectedCustomerOption),"___selectedCustomerOption__")
+      //   if( checkVariable(selectedCustomerOption)){
+      //     dispatch(AdminActions.compliance_ProjectType(true,`customerId=${selectedCustomerOption}`)) 
+      //   }
+        
+      // },[selectedCustomerOption])
+
+
+      const projectTypeData  = useSelector((state)=>state?.adminData?.getComplianceProjectType)
+      // console.log(projectTypeData,"___projectTypeData_")
+    // Project Type Data Ends here
+
+     // Sub Project FIlter Data Starts here 
+   
+
+    const subProjectData  = useSelector((state)=>state?.adminData?.getComplianceSubProject);
+    
+    // Sub Project Filter Data Ends here 
+
+    // Work Description Filter starts here
+     const workDescriptionData  = useSelector((state)=>state?.adminData?.getComplianceWorkDescription)
+    // Work Description Filter ends here
+
+  
+  const table = {
+    columns: [
+      {
+        name: "Customer",
+        value: "customer",
+        style:
+          "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
+      },
+      {
+        name: "Project Type",
+        value: "projectType",
+        style:
+          "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
+      },
+      {
+        name: "Sub Project",
+        value: "subProject",
+        style: "min-w-[250px] max-w-[450px] text-center",
+      },
+      {
+        name: "Work Description",
+        value: "workDescription",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
+      {
+        name: "MS List",
+        value: "msList",
+        style: "min-w-[200px] max-w-[450px] text-center",
+      },
+      {
+        name: "CDH",
+        value: "cdh",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "PAT",
+        value: "pat",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "SCFT",
+        value: "scft",
+        style: "min-w-[120px] max-w-[450px] text-center",
+      },
+      {
+        name: "OCI",
+        value: "oci",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      {
+        name: "EMF",
+        value: "emf",
+        style: "min-w-[100px] max-w-[450px] text-center",
+      },
+      // ...(shouldIncludeEditColumn
+         {
+              name: "Edit",
+              value: "edit",
+              style: "min-w-[100px] max-w-[200px] text-center",
+            },
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[100px] max-w-[100px] text-center",
+            },
+    ],
+    properties: {
+      rpp: [10, 20, 50, 100],
+    },
+       filter: [
+      {
+        label: "Customer",
+        type: "select",
+        name: "customerId",
+        option: checkArray(customersData) ? customersData?.map((itm )=> { return {label:itm?.customerName,value:itm?.customerId}}):[],
+        props: {
+          onChange: (e) => {
+            if (e.target.value) {
+              // dispatch(
+              //   FilterActions.getMyTaskSubProject(true, "", e.target.value)
+                
+              // );
+                dispatch(AdminActions.compliance_ProjectType(true,`customerId=${e.target.value}`))
+                dispatch(AdminActions.compliance_WorkDescription(true,`customerId=${e.target.value}`))
+            } else {
+              dispatch(
+                GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true })
+              );
+            }
+          },
+        },
+      },
+      {
+        label: "Project Type",
+        type: "select",
+        name: "projectType",
+        option: checkArray(projectTypeData)?projectTypeData?.map((itm)=>{return {label:itm?.projectType,value:itm?.projectType}}):[],
+        props: {
+            onChange: (e) => {
+            if (e.target.value) {
+              // dispatch(
+              //   FilterActions.getMyTaskSubProject(true, "", e.target.value)
+                
+              // );
+                dispatch(AdminActions.compliance_SubProject(true,`customerId=${selectedCustomerOption}&projectType=${e.target.value}`))
+            } else {
+              dispatch(
+                GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true })
+              );
+            }
+          },
+
+        },
+      },
+      {
+        label: "Sub Project",
+        type: "select",
+        name: "subProjectId",
+        option: checkArray(subProjectData)?subProjectData?.map((itm)=> {return {label:itm?.subProject,value:itm?.subProjectId}}):[],
+        props: {
+            onChange: (e) => {
+            if (e.target.value) {
+              // dispatch(
+              //   FilterActions.getMyTaskSubProject(true, "", e.target.value)
+                
+              // );
+                // dispatch(AdminActions.compliance_SubProject(true,`customerId=${selectedCustomerOption}&projectType=${e.target.value}`))
+            } else {
+              dispatch(
+                GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true })
+              );
+            }
+          },
+
+        },
+      },
+      {
+        label: "Work Description",
+        type: "select",
+        name: "workDescription",
+        option: checkArray(workDescriptionData)?workDescriptionData?.map((itm)=>{return {label:itm?.workDescription,value:itm?.workDescription}}):[],
+        props: {
+            onChange: (e) => {
+            if (e.target.value) {
+              // dispatch(
+              //   FilterActions.getMyTaskSubProject(true, "", e.target.value)
+                
+              // );
+                // dispatch(AdminActions.compliance_SubProject(true,`customerId=${selectedCustomerOption}&projectType=${e.target.value}`))
+            } else {
+              dispatch(
+                GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true })
+              );
+            }
+          },
+
+        },
+      },
+      // {
+      //   label: "Site Status",
+      //   type: "select",
+      //   name: "siteStatus",
+      //   option: [
+      //     { label: "Open", value: "Open" },
+      //     { label: "Close", value: "Close" },
+      //     { label: "Drop", value: "Drop" },
+      //     { label: "All", value: "all" },
+      //   ],
+      //   props: {},
+      // },
+      // {
+      //   label: "MileStone Status",
+      //   type: "select",
+      //   name: "mileStoneStatus",
+      //   option: [
+      //     { label: "Open", value: "Open" },
+      //     { label: "In Process", value: "In Process" },
+      //     { label: "Submit", value: "Submit" },
+      //     { label: "Approve", value: "Approve" },
+      //     { label: "Submit to Airtel", value: "Submit to Airtel" },
+      //     { label: "Reject", value: "Reject" },
+      //     { label: "Closed", value: "Closed" },
+      //     { label: "All", value: "All" },
+      //   ],
+      //   props: {},
+      // },
+    ],
+  };
+
+  /* ===========================
+     FILTER SUBMIT (API OFF)
+  =========================== */
+  const onSubmit = (data) => {
+      
+    let shouldReset = data.reseter;
+    delete data.reseter;
+
+    let strVal = objectToQueryString(data);
+    setstrVal(strVal);
+    setFilters({
+      ...filters,
+      ...data,
+    });
+console.log("data___",data)
+     dispatch(AdminActions.getWccCompiliance(true,objectToQueryString(data)));
+
+  }
+
+  /* ===========================
+     FILE UPLOAD (UI ONLY)
+  =========================== */
+  const onTableViewSubmit = (data) => {
+    data["fileType"] = "WCC_Compliance";
+        dispatch(
+        CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            dispatch(AdminActions.getWccCompiliance())
+            setFileOpen(false);
+            resetting("");
+            
+        })
+        );
+  };
+   const onTableViewSubmit2 = (data) => {
+      
+    };
+  // const onTableViewSubmit3 = () => {
+      
+  // };
+
+  /* ===========================
+     NO API ON LOAD
+  =========================== */
+
+
   return (
     <>
       <AdvancedTable
@@ -462,7 +610,7 @@ const Compliance = () => {
               classes="w-auto mr-1"
               onClick={() => dispatch(
                    CommonActions.commondownloadpost(
-                      "/export/wccCompliance",
+                      `/export/wccCompliance?${objectToQueryString(filters)}`,
                       // {exportTableName:"ptwBackupData"},
                       "WCC_Compliance.xlsx",
                       "GET",
@@ -524,7 +672,7 @@ const Compliance = () => {
         setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={[
-          "/template/WCC_Compliance.xlsx",
+          `/template/WCC_Compliance.xlsx`,
           "WCC_Compliance_template.xlsx",
         ]}
         head={"Upload Upgrade File"}

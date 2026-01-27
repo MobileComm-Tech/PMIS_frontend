@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CommonActions from '../../../../../store/actions/common-actions';
 import FormssActions from '../../../../../store/actions/formss-actions';
 import ConditionalButton from '../../../../../components/ConditionalButton';
-import { getAccessType } from '../../../../../utils/commonFunnction';
+import { getAccessType, objectToQueryString } from '../../../../../utils/commonFunnction';
 import FileUploader from '../../../../../components/FIleUploader';
 import { Urls } from '../../../../../utils/url';
 
@@ -27,6 +27,11 @@ const [fileOpen, setFileOpen] = useState(false);
     name: "SSID",
     value: "ssid",
     style: "min-w-[80px] max-w-[120px] text-center",
+  },
+   {
+    name: "Vendor Item Code",
+    value: "itemCode",
+    style: "min-w-[140px] max-w-[200px] text-center",
   },
   {
     name: "Compliance",
@@ -81,7 +86,9 @@ const [fileOpen, setFileOpen] = useState(false);
 
 //   Table Data starts here
 useEffect(()=>{
-    dispatch(FormssActions.getWccOci());
+    
+    const defaultPagination = objectToQueryString({"page":1, "limit":50})
+    dispatch(FormssActions.getWccOci(true,defaultPagination));
 },[])
 
 const tableData  = useSelector((state)=>state?.formssData?.getWccOci)
