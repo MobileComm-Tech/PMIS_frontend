@@ -7,18 +7,19 @@ const TripleBarGraph = ({
   seriesData = [],
   horizontal = false,
   title = "",
-  columnWidth = "90%",
-  month = [],
-  enabledOnSeries = [false, false, false, false, false], 
-  dataLabelSuffix="",
-  XAxisTitle = "",  
-  YAxisTitle = "", 
-  YAxisSecondaryTitle = "Acheievement (%)",
+  columnWidth = "70%",
   data1,
   data2,
   data3,
   data4,
   data5,
+  data6,
+  data7,
+  data8,
+  data9,
+  data10,
+  data11,
+  data12,
   shubham = false, 
    
 }) => {
@@ -27,12 +28,14 @@ const TripleBarGraph = ({
     ...(data1 || []),
     ...(data2 || []),
     ...(data3 || []),
+    ...(data4 || []),
+    ...(data5 || []),
+    ...(data6 || []),
+    ...(data7 || []),
   )
 
 
-  // if (max1 % 500 !== 0) {
-  //   max1 = Math.ceil(max1 / 500) * 500;
-  // }
+
   if (!shubham) {
     if (max1 % 500 !== 0) {
       max1 = Math.ceil(max1 / 500) * 500;
@@ -44,15 +47,16 @@ const TripleBarGraph = ({
   }
 
   let max2 = Math.max(
-    ...(data4 || []),
-    ...(data5 || []),
+    ...(data8 || []),
+    ...(data9 || []),
+    ...(data10 || []),
+    ...(data11 || []),
+    ...(data12 || []),
   )
   if (max2 % 25 !== 0) {
     max2 = Math.ceil(max2 /25) * 25;
   }
 
-  // max2 = Math.round(max2)
-  const months = Array(12).fill(0);
 
   const category = data?.map((item) => item.description) || [];
 
@@ -60,18 +64,14 @@ const TripleBarGraph = ({
 
   const series = seriesData.length > 0 ? seriesData : defaultSeries;
 
-  // const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
+  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8","#8E7DFF","#FF6F91","#1F2937","#7C2D12", "#0F766E", "#4C1D95","#374151"];
 
-  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8"];
-  // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
-
-
-  const offsetX = horizontal ? 0 : -1;
+  const offsetX = horizontal ? 0 : 1;
   const offsetY = horizontal ? 0 : -7;
 
   const options = {
     chart: {
-      height: 440,
+      height: 350,
       type: "line",
       background: "#3e454d",
       stacked: false,
@@ -110,13 +110,11 @@ const TripleBarGraph = ({
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, { seriesIndex }) => (seriesIndex === 3 || seriesIndex === 4 ? `${val}%` : `${val} ${dataLabelSuffix}`),
-      enabledOnSeries: [0,1,2,3,4],
       offsetX: offsetX,
       offsetY: offsetY,
       style: {
         colors: ["transparent"],
-        fontSize: "8px",
+        fontSize: "12px",
         fontWeight: 'bold',
     }, 
     background: {
@@ -129,24 +127,24 @@ const TripleBarGraph = ({
     xaxis: {
       categories: category,
       title: {
-        text: XAxisTitle,
+        text: "",
         style: {
           color: '#ffffff',
-          fontSize: '16px',
+          fontSize: '10px',
           fontWeight: 'bold',
         },
       },
       labels: {
         style: {
           colors: "#ffffff",
-          fontSize: "10px",
+          fontSize: "12px",
         },
       },
     },
     yaxis: [
       {
         title: {
-          text: 'Revenue (₹) Lac', 
+          text: '', 
           style:{
             color: "#ffffff",
             fontSize: '18px'
@@ -159,12 +157,12 @@ const TripleBarGraph = ({
           
           style: {
             colors: "#ffffff",
-            fontSize: "9px",
+            fontSize: "12px",
           },
         },
         min:0,
         max:max1,
-        tickAmount: 5,
+        // tickAmount: 5,
       }, 
       {
         labels: {
@@ -175,12 +173,12 @@ const TripleBarGraph = ({
           
           style: {
             colors: "#ffffff",
-            fontSize: "9px",
+            fontSize: "0px",
           },
         },
         min:0,
         max:max1,
-      }, 
+      },
       {
         labels: {
           show:false,
@@ -190,25 +188,86 @@ const TripleBarGraph = ({
           
           style: {
             colors: "#ffffff",
-            fontSize: "9px",
+            fontSize: "0px",
           },
         },
         min:0,
         max:max1,
-      }, 
+      },
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+        },
+        min:0,
+        max:max1,
+      },
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+        },
+        min:0,
+        max:max1,
+      },
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+        },
+        min:0,
+        max:max1,
+      },
+      {
+        labels: {
+          show:false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+          
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+        },
+        min:0,
+        max:max1,
+      },
+      
       {
         opposite: true,
         title: {
-          text: 'Achievement (%)',
+          text: '',
           style:{
             color: "#ffffff",
-            fontSize: '18px',
+            fontSize: '10px',
           }  
         },
         labels: {
           style: {
             colors: "#ffffff",
-            fontSize: "9px",
+            fontSize: "12px",
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
@@ -218,24 +277,60 @@ const TripleBarGraph = ({
       },
       {
         opposite: true,
-        show:false,
-        title: {
-          text: 'Achievement (%)',
-          style:{
-            color: "#ffffff",
-            fontSize: '18px',
-          }  
-        },
         labels: {
+          show:false,
           style: {
             colors: "#ffffff",
-            fontSize: "9px",
+            fontSize: "0px",
           },
           formatter: function (val) {return `${val.toFixed(0)}%`;},
         },
         min:0,
-        max:max2
-      }
+        max:max2,
+        tickAmount: 5
+      },
+      {
+        opposite: true,
+        labels: {
+          show:false,
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2,
+        tickAmount: 5
+      },
+      {
+        opposite: true,
+        labels: {
+          show:false,
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2,
+        tickAmount: 5
+      },
+      {
+        opposite: true,
+        labels: {
+          show:false,
+          style: {
+            colors: "#ffffff",
+            fontSize: "0px",
+          },
+          formatter: function (val) {return `${val.toFixed(0)}%`;},
+        },
+        min:0,
+        max:max2,
+        tickAmount: 5
+      },
     ],
 
     plotOptions: {
@@ -252,10 +347,9 @@ const TripleBarGraph = ({
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30", "#f4d3a8"],
+      colors: ["transparent", "transparent", "transparent","transparent", "transparent", "transparent","transparent","#1F2937","#7C2D12", "#0F766E", "#4C1D95","#374151"],
       curve: 'smooth',
-      width: [0.8, 0.8, 0.8, 2.5, 2.5],
-      // colors: BarBorderColors,
+      // width: [0.8, 0.8, 0.8, 2.5, 2.5],
     },
     grid: {
       borderColor: "transparent",
@@ -264,15 +358,6 @@ const TripleBarGraph = ({
     fill: {
       colors: colors,
     },
-    markers: {
-      size: 6, 
-      colors: ['#f4d3a8', '#b8ee30'],  
-      strokeColor: 'black', 
-      strokeWidth:1, 
-      hover: {
-          size: 6, 
-      }
-  },
     legend: {
       show: true,
       colors: colors,
@@ -283,8 +368,8 @@ const TripleBarGraph = ({
       markers: {
         fillColors: colors,
       },
-      fontSize: "10px",
-      fontWeight: "bold",
+      fontSize: "15px",
+      fontWeight: "400",
     },
     tooltip: {
       theme: "dark",  
@@ -293,7 +378,7 @@ const TripleBarGraph = ({
       },
       y: {
         formatter: function (value, { seriesIndex }) {
-          if (seriesIndex === 3 || seriesIndex === 4) {
+          if (seriesIndex === 7 || seriesIndex === 8 || seriesIndex === 9 || seriesIndex === 10 || seriesIndex === 11) {
             return `${value}%`;
           }
           return value;
@@ -304,7 +389,7 @@ const TripleBarGraph = ({
   };
 
   return (
-    <ReactApexChart options={options} series={series} type="line" height={355} />
+    <ReactApexChart options={options} series={series} type="line" height={350} />
   );
 };
 

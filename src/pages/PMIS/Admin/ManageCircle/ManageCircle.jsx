@@ -38,25 +38,10 @@ const ManageCircle = () => {
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
-                "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                    let data = {
-                        "enabled": e.target.checked ? 1 : 0
-                    }
-                    dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                        alert(e.target.checked)
-                        e.target.checked = e.target.checked
-                    }, itm.id))
-                    // if(itm.enabled==0){ 
-                    //     itm.enabled=1
-                    // }else{
-                    //     itm.enabled=0
-                    // }
-                    // itm.enabled=itm.enabled==0?1:0
-                }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
                 
                 "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
                     setmodalOpen(true)
-                    dispatch(AdminActions.getManageCircle())
+                    // dispatch(AdminActions.getManageCircle())
                     setmodalHead("Edit Circle")
                     setmodalBody(<>
                         <ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
@@ -108,20 +93,20 @@ const ManageCircle = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Circle Name",
-                value: "circleName",
+                name: "Region Name",
+                value: "regionName",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Circle ID",
-                value: "circleCode",
+                name: "Region Code",
+                value: "regionCode",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },          
-            {
-                name: "Band",
-                value: "band",
-                style: "min-w-[140px] max-w-[200px] text-center"
-            },          
+            // {
+            //     name: "Band",
+            //     value: "band",
+            //     style: "min-w-[140px] max-w-[200px] text-center"
+            // },          
             {
                 name: "Edit",
                 value: "edit",
@@ -171,20 +156,20 @@ const ManageCircle = () => {
             headerButton={<div className='flex gap-1'><Button classes='w-auto' onClick={(e) => {
                 setmodalOpen(prev => !prev)
                 dispatch(AdminActions.getManageCircle())
-                setmodalHead("New Circle")
+                setmodalHead("New Region")
                 setmodalBody(<ManageCircleForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Circle"}></Button>
-                <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
+                name={"Add Region"}></Button>
+                {/* <Button name={"Upload File"} classes='w-auto mr-1' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
                     dispatch(CommonActions.commondownload("/export/manageCircle","Export_Circle("+dt+").xlsx"))
-                }}></Button>
+                }}></Button> */}
                 </div>}
             table={table}
             filterAfter={onSubmit}
-            tableName={"UserListTable"}
+            tableName={"manageRegionTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
@@ -192,7 +177,7 @@ const ManageCircle = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {"Total Circle :- "}
+            heading = {"Total Region :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

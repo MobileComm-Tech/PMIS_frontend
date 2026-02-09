@@ -6,19 +6,19 @@ import Modal from "../../../../components/Modal";
 import CommonForm from "../../../../components/CommonForm";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
-import HrActions from "../../../../store/actions/hr-actions";
-import { circle } from "leaflet";
 import { useParams } from "react-router-dom";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
+import { GET_MANAGE_COST_CENTER } from "../../../../store/reducers/admin-reducer";
 import FilterActions from "../../../../store/actions/filter-actions";
-import { GET_PROJECT_CIRCLE } from "../../../../store/reducers/projectList-reducer";
 
 const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filterData }) => {
 
   const { register, handleSubmit, watch, reset, setValue, getValues, formState: { errors } } = useForm();
 
   const { customeruniqueId, projecttypeuniqueId } = useParams();
+
+
 
 
   let dispatch = useDispatch();
@@ -32,68 +32,34 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
   let pmempList = useSelector((state) => {
     return state?.filterData?.getautosuggestionProjectManager?.map((itm) => {
       return {
-        // label: itm.empName + "(" + itm.email + ")",
         label: itm.empName,
         value: itm.uniqueId,
       };
     });
   });
 
+  let regionList = useSelector((state) => {
+      return state?.adminData?.getManageCircle.map((itm) => {
+          return {
+              label: itm?.regionName,
+              value: itm?.uniqueId
+          }
+      })
+  })
 
-  let projectGroupList = useSelector((state) => {
-    return state?.adminData?.getManageProjectGroup.map((itm) => {
-      return {
-        label: itm.projectGroupId,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  let marketList = useSelector((state) => {
+    return state?.adminData?.getManageCostCenter.map((itm) => {
+        return {
+            label: itm.marketName,
+            value: itm.uniqueId
+        }
+    })
+  })
 
 
-  let projectTypeList = useSelector((state) => {
-    return state?.adminData?.getCardProjectType.map((itm) => {
-      return {
-        label: itm.projectType,
-        value: itm.uniqueId,
-      };
-    });
-  });
-
-  // let subProjectList = useSelector((state) => {
-  //   return state?.adminData?.getManageProjectType
-  //     .filter((itm) => {
-  //       console.log(itm.projectType == pType, "dasdsadsadas");
-  //       return itm.projectType == pType;
-  //     })
-  //     .map((itm) => {
-  //       return {
-  //         label: itm.subProject,
-  //         value: itm.uniqueId,
-  //       };
-  //     });
-  // });
-
-  let PMList = useSelector((state) => {
-    return state?.hrReducer?.getManageEmpDetails.map((itm) => {
-      return {
-        label: itm.empName,
-        value: itm.empName,
-      };
-    });
-  });
-
-  let circleList = useSelector((state) => {
-    return state?.projectList?.getprojectcircle.map((itm) => {
-      return {
-        label: itm.circle,
-        value: itm.uniqueId,
-      };
-    });
-  });
+  
 
   useSelector((state) => {
-    // console.log(circlewq, getValues(), circleList.length, "getValues");
-
     if (circlewq && circleList.length > 0) {
       setValue("circle", getValues()["circle"]);
     }
@@ -104,75 +70,39 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     {
       label: "Project ID",
       name: "projectId",
-      type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
+      type: "sdisabled",
       value: "",
-      required: true,
       classes: "col-span-1",
     },
     {
-      label: "Project Group",
-      name: "projectGroup",
+      label: "Region",
+      name: "region",
       type: "select",
       value: "",
-      option: projectGroupList,
+      option: regionList,
       props: {
-        onChange: (e) => {
-          dispatch(
-            projectListActions.getProjectCircle(
-              true,
-              `projectGroupId=${e.target.value}`
-            )
-          );
-        },
+        onChange: ((e) => {
+          if (e.target.value){
+            dispatch(AdminActions.getManageCostCenter(true,`region=${e.target.value}`));
+          }
+          else{
+            dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
+          }
+          
+        }),
       },
       required: true,
       classes: "col-span-1",
     },
     {
-      label: "Project Type",
+      label: "Market",
       value: "",
-      name: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "projectTypeName" : "projectType",
-      type: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "sdisabled" : "select",
-
+      // name: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "projectTypeName" : "projectType",
+      // type: Object.entries(formValue).length > 0 && customeruniqueId !== undefined && projecttypeuniqueId !== undefined ? "sdisabled" : "select",
+      name: "market",
+      type:"select",
       required: true,
-      option: projectTypeList,
-      props: {
-        onChange: (e) => {
-          setpType(
-            projectTypeList.filter((iteq) => iteq.value == e.target.value)[0][
-            "label"
-            ]
-          );
-          // console.log(e.target.value, "e geeter");
-          setValue("projectType", e.target.value);
-        },
-      },
-      classes: "col-span-1",
-    },
-    // {
-    //   label: "Sub-Project Type",
-    //   name: "subProject",
-    //   type: "select",
-    //   value: "",
-    //   option: subProjectList,
-    //   required: true,
-    //   props: {
-    //     onChange: (e) => {},
-    //   },
-    //   classes: "col-span-1",
-    // },
-    {
-      label: "Circle",
-      name: "circle",
-      type: "select",
-      value: "",
-      option: circleList,
-      required: true,
-      props: {
-        onChange: (e) => {
-          // alert(e.target.value)
-        },
-      },
+      option: marketList,
       classes: "col-span-1",
     },
     {
@@ -202,26 +132,26 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       classes: "col-span-1",
     },
     {
-      label: "Project Manager",
-      name: "PMName",
-      type: "autoSuggestion",
+      label: "Program manager",
+      name: "PMId",
+      type: "select",
       value: "",
       option: pmempList,
-      props: {
-        onChange: (e) => {
-          let filteredData = pmempList.filter(
-            (itm) => itm.label == e.target.value
-          );
-          if (filteredData.length > 0) {
-            setValue("PMId", filteredData[0]["value"]);
-          }
-          // console.log(
-          //   pmempList.filter((itm) => itm.label == e.target.value),
-          //   e.target.value,
-          //   "e.target.value"
-          // );
-        },
-      },
+      // props: {
+      //   onChange: (e) => {
+      //     let filteredData = pmempList.filter(
+      //       (itm) => itm.label == e.target.value
+      //     );
+      //     if (filteredData.length > 0) {
+      //       setValue("PMId", filteredData[0]["value"]);
+      //     }
+      //     // console.log(
+      //     //   pmempList.filter((itm) => itm.label == e.target.value),
+      //     //   e.target.value,
+      //     //   "e.target.value"
+      //     // );
+      //   },
+      // },
       required: true,
       classes: "col-span-1",
     },
@@ -238,12 +168,9 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       classes: "col-span-1",
     },
   ];
-  const onSubmit = (data) => {
-    // console.log(data, "datadatadatadata");
-    // dispatch(AuthActions.signIn(data, () => {
-    //     navigate('/authenticate')
-    // }))
-  };
+
+
+
   const onTableViewSubmit = (data) => {
 
     let startDate = data['startDate'];
@@ -284,7 +211,7 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
     const endDateISTString = inpuEndtDate.toLocaleString("en-IN", options);
     data["endDate"] = endDateISTString.split(", ")[0];
 
-    delete data["PMName"];
+    // delete data["PMName"];
 
     if (formValue?.uniqueId) {
       dispatch(AdminActions.postProject(true, customeruniqueId, data, () => {
@@ -303,20 +230,14 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       );
     }
   };
+
+
   useEffect(() => {
-    dispatch(AdminActions.getManageProjectGroup(true, "", customeruniqueId));
-    dispatch(AdminActions.getManageProjectType(customeruniqueId));
-    dispatch(FilterActions.getautosuggestionProjectManager());
-    if (customeruniqueId && projecttypeuniqueId) {
-      dispatch(AdminActions.getCardProjectType(customeruniqueId, projecttypeuniqueId));
-    } else if (customeruniqueId) {
-      dispatch(AdminActions.getCardProjectType(customeruniqueId));
-    }
-    dispatch(GET_PROJECT_CIRCLE({dataAll:[],reset:true}))
-    // dispatch(AdminActions.getCardProjectType(customeruniqueId));
 
-
-
+    dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
+    dispatch(AdminActions.getManageCircle(true,`customer=${customeruniqueId}`));
+    dispatch(FilterActions.getautosuggestionProjectManager(true,`customer=${customeruniqueId}`));
+    
     if (resetting) {
       reset({});
       Form.map((fieldName) => {
@@ -356,6 +277,10 @@ const ManageProjectForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filte
       });
     }
   }, [formValue, resetting,]);
+
+
+
+
   return (
     <>
       <Modal

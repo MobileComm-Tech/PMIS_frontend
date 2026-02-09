@@ -522,6 +522,7 @@ const AdvancedTable = ({
               </thead>
 
               {finalData.length > 0 ? (
+                
                 <tbody>
                   {finalData.map((itm) => {
                     return (

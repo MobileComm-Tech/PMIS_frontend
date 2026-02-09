@@ -144,7 +144,7 @@
 //             );
 //           }}
 //         >
-//           <NewLookBadge text={"Add"} notifyType={"error"} />
+//           <NewLookBadge text={"Add"} notifyType={"info"} />
 //         </p>
 //       ),
 //       props: {
@@ -200,6 +200,7 @@
 
 // export default ManageProjectSiteIdForm;
 
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -238,7 +239,10 @@ const ManageProjectSiteIdForm = ({
   const [mile, setMile] = useState("Add");
   const [old, setOld] = useState({});
 
-  const [projectType, setProjectType] = useState({});
+  const [customerName, setCustomerName] = useState({});
+  const [regionName, setRegionName] = useState({});
+  const [marketName, setMarketName] = useState({});
+
   const [subProjectType, setSubProjectType] = useState("");
 
   const [globalData, setGlobalData] = useState({
@@ -251,117 +255,63 @@ const ManageProjectSiteIdForm = ({
 
   const dataGetterOld = useSelector((state) => {
     let oldata = state.projectList.getProjectTypeSub;
-    // console.log(old["_id"],oldata["_id"],old,"___datattag")
     if (old["_id"] != oldata["_id"]) {
       setOld(oldata);
-      setProjectType(oldata["projectType"]);
-      // setProjectType(oldata["projectType"])
-      // console.log(oldata["projectType"],"___sdfghjkl")
-      setValue("ptype", oldata["projectType"]);
     }
     return state.projectList.getProjectTypeSub;
   });
 
-  // console.log(projectType,subProjectType,"__old__")
+
   let Form = [
     {
-      label: "Project Type",
-      name: "ptype",
+      label: "Customer",
+      name: "customer",
       type: "sdisabled",
-      value: old?.projectType !== undefined ? old?.projectType : "",
+      value: old?.customer !== undefined ? old?.customer : "",
       required: true,
       classes: "col-span-1",
     },
     {
-      label: "SubProject Type",
-      name: "roleName",
-      type: "select",
-      value: "Select",
-      option: dataGetterOld.subprojectresult,
-      props: {
-        onChange: (e) => {
-          const selectedIndex = e.target.selectedIndex;
-          const selectedOption = e.target.options[selectedIndex];
-          const label = selectedOption.label;
-          setSubProjectType(label);
-          dispatch(
-            AdminActions.getProjectTypeDyform(
-              dataGetterOld?.custId + "/" + e.target.value
-            )
-          );
-        },
-      },
+      label: "Region",
+      name: "region",
+      type: "sdisabled",
+      value: old?.region !== undefined ? old?.region : "",
       required: true,
       classes: "col-span-1",
     },
     {
-      label: "Site ID",
-      name: "siteId",
-      type: "jsxcmpt",
-      value: "",
-      component: (
-        <p
-          className="cursor-pointer"
-          onClick={() => {
-            setmodalFullOpen((prev) => !prev);
-            setmodalFullBody(
-              <ManageSite
-                projectType={projectType}
-                subProjectType={subProjectType}
-                oldgetvalue={getValues}
-                setGlobalData={setGlobalData}
-                setSiteId={setSiteId}
-                setmodalFullOpen={setmodalFullOpen}
-                projectuniqueId={projectuniqueId}
-              />
-            );
-          }}
-        >
-          <NewLookBadge text={SiteId} notifyType={"info"} />
-        </p>
-      ),
-      props: {
-        onChange: (e) => {},
-      },
+      label: "Market",
+      name: "market",
+      type: "sdisabled",
+      value: old?.market !== undefined ? old?.market : "",
       required: true,
       classes: "col-span-1",
     },
     {
-      label: "Milestone",
-      name: "milestone",
-      type: "jsxcmpt",
-      value: "",
-      component: (
-        <p
-          className="cursor-pointer"
-          onClick={() => {
-            setmodalFullOpen(true);
-            setmodalFullBody(
-              <ManageMilestone
-                setGlobalData={setGlobalData}
-                setSiteId={setMile}
-                setmodalFullOpen={setmodalFullOpen}
-                projectuniqueId={projectuniqueId}
-              />
-            );
-          }}
-        >
-          <NewLookBadge text={"Add"} notifyType={"info"} />
-        </p>
-      ),
-      props: {
-        onChange: (e) => {},
-      },
+      label: "Cluster",
+      name: "clusterName",
+      type: "text",
       required: true,
       classes: "col-span-1",
     },
+    
   ];
 
+  // useEffect(() => {
+  //   setValue(clusterName, fieldName["value"]);
+  // })
+
   const onTableViewSubmit = (data) => {
+    data['customerId'] = old?.customerId !== undefined ? old?.customerId : "",
+    data['regionId'] = old?.regionId !== undefined ? old?.regionId : "",
+    data['stateId'] = old?.stateId !== undefined ? old?.stateId : "",
+    data['marketId'] = old?.marketId !== undefined ? old?.marketId : "",
+    data['State'] = old?.State !== undefined ? old?.State : "",
+    data['projectId'] = projectuniqueId
     dispatch(
       projectListActions.submitProjectTypeData(
         Urls.projectList_globalSaver,
-        globalData,
+        data,
         () => {
           dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
           setIsOpen(false);
@@ -369,8 +319,6 @@ const ManageProjectSiteIdForm = ({
       )
     );
   };
-
-  useEffect(() => {}, [isOpen]);
 
   return (
     <>
@@ -382,7 +330,7 @@ const ManageProjectSiteIdForm = ({
       />
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
-          classes={"grid-cols-1 gap-1"}
+          classes={"grid-cols-2 gap-1"}
           Form={Form}
           errors={errors}
           register={register}

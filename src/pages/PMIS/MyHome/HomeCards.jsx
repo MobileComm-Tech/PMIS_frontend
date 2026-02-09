@@ -61,45 +61,45 @@ const HomeCards = () => {
               <Unicons.UilUserCircle size="36" color="" />,
               "border-b-blue-300",
             ],
-            [
-              "My Task",
-              "bg-pcol",
-              "/home/myTask",
-              <Unicons.UilFileAlt size="40" color="" />,
-            ],
+            // [
+            //   "My Task",
+            //   "bg-pcol",
+            //   "/home/myTask",
+            //   <Unicons.UilFileAlt size="40" color="" />,
+            // ],
             
-            [
-              "My Entitlement",
-              "bg-pcol",
-              "/home/myPolicy",
-              <Unicons.UilFileAlt size="40" color="" />,
-            ],
+            // [
+            //   "My Entitlement",
+            //   "bg-pcol",
+            //   "/home/myPolicy",
+            //   <Unicons.UilFileAlt size="40" color="" />,
+            // ],
            
-            [
-              "Claim & Advance",
-              "bg-pcol",
-              "/home/claimAndAdvance",
-              <Unicons.UilMoneyWithdrawal size="40" color="#b39800" />,
-              "border-b-[#b39800]",
-            ],
-            [
-              "Asset",
-              "bg-pcol",
-              "/home/assets",
-              <Unicons.UilArchive size="40" color="white" />,
-            ],
-            [
-              "Approvals",
-              "bg-pcol",
-              "/home/Approval",
-              <Unicons.UilCheckCircle size="40" color="" />,
-            ],
-            [
-              "PTW Log Backup",
-              "bg-pcol",
-              "/home/PtwLogBackup",
-              <Unicons.UilFileAlt size="40" color="" />,
-            ],
+            // [
+            //   "Claim & Advance",
+            //   "bg-pcol",
+            //   "/home/claimAndAdvance",
+            //   <Unicons.UilMoneyWithdrawal size="40" color="#b39800" />,
+            //   "border-b-[#b39800]",
+            // ],
+            // [
+            //   "Asset",
+            //   "bg-pcol",
+            //   "/home/assets",
+            //   <Unicons.UilArchive size="40" color="white" />,
+            // ],
+            // [
+            //   "Approvals",
+            //   "bg-pcol",
+            //   "/home/Approval",
+            //   <Unicons.UilCheckCircle size="40" color="" />,
+            // ],
+            // [
+            //   "PTW Log Backup",
+            //   "bg-pcol",
+            //   "/home/PtwLogBackup",
+            //   <Unicons.UilFileAlt size="40" color="" />,
+            // ],
             // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
             
           ].map((itm) => (
@@ -148,10 +148,10 @@ const HomeCards = () => {
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 m-2 mt-32  gap-2">
-        {graph1 && <MileStoneChart />}
+        {/* {graph1 && <MileStoneChart />} */}
         {/* <TrendExpenseAdvance /> */}
-        {graph2 && <ExpenseApprovalStatus />}
-        {graph3 && <AdvanceApprovalStatus />}
+        {/* {graph2 && <ExpenseApprovalStatus />}
+        {graph3 && <AdvanceApprovalStatus />} */}
       </div>
       {/* <div className="grid lg:grid-cols-2 m-2 gap-2">
         {graphs.slice(0, viewMoreGraphs)?.map((AllGraphs, index) => (

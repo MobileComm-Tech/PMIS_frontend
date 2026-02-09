@@ -98,22 +98,22 @@ const ManageZone = () => {
             {
                 name: "Customer Name",
                 value: "customerName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                style: "min-w-[100px] max-w-[200px] text-center"
             },
             {
-                name: "Zone Name",
-                value: "zoneName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: "Region Name",
+                value: "regionName",
+                style: "min-w-[100px] max-w-[200px] text-center"
             },
             {
-                name: "Zone ID",
-                value: "shortCode",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: "State Name",
+                value: "stateName",
+                style: "min-w-[100px] max-w-[200px] text-center"
             },
             {
-                name: "Circle",
-                value: "circleName",
-                style: "min-w-[140px] max-w-[200px] text-center"
+                name: "State Code",
+                value: "stateCode",
+                style: "min-w-[100px] max-w-[200px] text-center"
             },            
             {
                 name: "Edit",
@@ -156,21 +156,21 @@ const ManageZone = () => {
         <AdvancedTable
             headerButton={<div className='flex gap-1'><Button classes='w-auto ' onClick={(e) => {
                 setmodalOpen(prev => !prev)
-                setmodalHead("New Zone")
+                setmodalHead("New State")
                 dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
                 setmodalBody(<ManageZoneForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             }}
-                name={"Add Zone"}></Button>
-                <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
+                name={"Add Sate"}></Button>
+                {/* <Button name={"Upload File"} classes='w-auto' onClick={(e) => {
                     setFileOpen(prev=>!prev)
                 }}></Button>
                 <Button name={"Export"} classes='w-auto mr-1' onClick={(e) => {
                     dispatch(CommonActions.commondownload("/export/manageZone","Export_Zone("+dt+").xlsx"))
-                }}></Button>
+                }}></Button> */}
                 </div>}
             table={table}
             filterAfter={onSubmit}
-            tableName={"UserListTable"} 
+            tableName={"manageStateList"} 
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
@@ -178,7 +178,7 @@ const ManageZone = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
-            heading = {"Total Zone :- "}
+            heading = {"Total State :- "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />

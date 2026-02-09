@@ -31,15 +31,6 @@ const ManageCostCenter = () => {
     return interdata?.map((itm) => {
       let updateditm = {
         ...itm,
-        // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-        //     console.log(e.target.checked, "e.target.checked")
-        //     let data = {
-        //         "enabled": e.target.checked ? 1 : 0
-        //     }
-        //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-        //         e.target.checked = e.target.checked
-        //     }, itm.id))
-        // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
         edit: (
           <CstmButton
             className={"p-2"}
@@ -92,7 +83,6 @@ const ManageCostCenter = () => {
                       <Button
                         classes="w-auto"
                         onClick={() => {
-                          console.log("snnsnsnsns");
                           dispatch(ALERTS({ show: false }));
                         }}
                         name={"Cancel"}
@@ -134,32 +124,27 @@ const ManageCostCenter = () => {
       {
         name: "Customer Name",
         value: "customerName",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Zone",
-        value: "zoneName",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "Region Name",
+        value: "regionName",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Cost Center",
-        value: "costCenter",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "State Name",
+        value: "stateName",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Description",
-        value: "description",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "Market Name",
+        value: "marketName",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Business Unit",
-        value: "businessUnit",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "UST Project ID",
-        value: "ustProjectId",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: "Market Code",
+        value: "marketCode",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
         name: "Edit",
@@ -175,17 +160,10 @@ const ManageCostCenter = () => {
     properties: {
       rpp: [10, 20, 50, 100],
     },
-    filter: [
-      // {
-      //     label: "Role",
-      //     type: "select",
-      //     name: "rolename",
-      //     option: roleList,
-      //     props: {
-      //     }
-      // }
-    ],
+    filter: [],
   };
+
+
   const onSubmit = (data) => {
     let value = data.reseter;
     delete data.reseter;
@@ -193,9 +171,15 @@ const ManageCostCenter = () => {
       AdminActions.getManageCostCenter(value, objectToQueryString(data))
     );
   };
+
+
+
+
   useEffect(() => {
     dispatch(AdminActions.getManageCostCenter());
   }, []);
+
+
 
   const onTableViewSubmit = (data) => {
     data["fileType"] = "ManageCostCenter";
@@ -207,6 +191,8 @@ const ManageCostCenter = () => {
       })
     );
   };
+
+
 
   return (
     <>
@@ -228,9 +214,9 @@ const ManageCostCenter = () => {
                   />
                 );
               }}
-              name={"Add Cost Center"}
+              name={"Add Market"}
             ></Button>
-            <Button
+            {/* <Button
               name={"Upload File"}
               classes="w-auto"
               onClick={(e) => {
@@ -248,12 +234,12 @@ const ManageCostCenter = () => {
                   )
                 );
               }}
-            ></Button>
+            ></Button> */}
           </div>
         }
         table={table}
         filterAfter={onSubmit}
-        tableName={"UserListTable"}
+        tableName={"marketTable"}
         handleSubmit={handleSubmit}
         data={dbConfigList}
         errors={errors}
@@ -261,7 +247,7 @@ const ManageCostCenter = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading={"Total Cost Center :- "}
+        heading={"Total Market:- "}
       />
       <Modal
         size={"sm"}

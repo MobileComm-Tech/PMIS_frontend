@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedTable from '../../../../components/AdvancedTable';
@@ -12,11 +12,11 @@ import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
-import FilterActions from '../../../../store/actions/filter-actions';
 import EditButton from '../../../../components/EditButton';
 import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
 import { masterUnitRateWithActivityFilter, range } from '../../../../components/CommonObjectsAndVariables';
 import AccuralRevenueMasterWithActivityForm from './AccuralRevenueMasterWithActivityForm';
+import SearchBarView from '../../../../components/SearchBarView';
 const AccuralRevenueMasterWithActivity = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -24,6 +24,8 @@ const AccuralRevenueMasterWithActivity = () => {
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
     const [strValFil, setstrVal] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const debounceTimeout = useRef(null);
     
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
@@ -66,7 +68,7 @@ const AccuralRevenueMasterWithActivity = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getAccuralRevenueMasterProject
+        let interdata = state?.adminData?.getAccuralRevenueMasterProject || []
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
@@ -84,10 +86,10 @@ const AccuralRevenueMasterWithActivity = () => {
     })
 
     let projectTypeList = useSelector((state) => {
-        return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
+        return state?.adminData?.getManageCostCenter.map((itm) => {
           return {
-            label: itm.projectType,
-            value: itm.uid,
+            label: itm.marketName,
+            value: itm.marketName,
           };
         });
     });
@@ -119,42 +121,52 @@ const AccuralRevenueMasterWithActivity = () => {
 
     let table = {
         columns: [
+            
             {
-                name: "Customer",
-                value: "customerName",
+                name: "Cluster",
+                value: "clusterName",
                 style: "min-w-[120px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Project Type",
-                value: "projectTypeName",
+                name: "Market",
+                value: "market",
+                style: "min-w-[120px] max-w-[200px] text-center sticky"
+            },
+            {
+                name: "Total Grid",
+                value: "total_grids",
                 style: "min-w-[100px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Project ID",
-                value: "projectId",
+                name: "Urban Grid",
+                value: "urban_grids",
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Sub Project",
-                value: "subProjectName",
+                name: "Rural Grid",
+                value: "rural_grids",
                 style: "min-w-[140px] max-w-[200px] text-center sticky"
             },
             {
-                name: "Band",
-                value: "band",
+                name: "Tested",
+                value: "test_grids",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Activity",
-                value: "activity",
+                name: "Skipped",
+                value: "skip_grids",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
-                name: "Amount",
-                value: "rate",
+                name: "Approved",
+                value: "approve_grids",
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
-            ...dynamicColumns,
+            {
+                name: "Revenue",
+                value: "final_rate",
+                style: "min-w-[140px] max-w-[200px] text-center"
+            },
             // {
             //     name: "Item Code-01",
             //     value: "itemCode01",
@@ -190,51 +202,51 @@ const AccuralRevenueMasterWithActivity = () => {
             //     value: "itemCode07",
             //     style: "min-w-[140px] max-w-[200px] text-center"
             // },        
-            {
-                name: "Edit",
-                value: "edit",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
-            {
-                name: "Delete",
-                value: "delete",
-                style: "min-w-[100px] max-w-[200px] text-center"
-            },
+            // {
+            //     name: "Edit",
+            //     value: "edit",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
+            // {
+            //     name: "Delete",
+            //     value: "delete",
+            //     style: "min-w-[100px] max-w-[200px] text-center"
+            // },
         ],
         properties: {
             rpp: [10, 20, 50, 100]
         },
         filter: [
-            {
-                label: "Customer",
-                type: "select",
-                name: "customer",
-                option:customerList,
-                props: {
-                    onChange: (e)=>{
-                        if (e.target.value){
-                            dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",1,e.target.value));
-                        }
-                        else{
-                            dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
-                        }
-                    }
-                }
-            },
-            {
-                label: "Project Type",
-                type: "select",
-                name: "projectType",
-                option:projectTypeList,
-                props: {
-                }
-            },
-            {
-                label: "Project ID",
-                type: "text",
-                name: "projectId",
-                props: {}
-            },
+            // {
+            //     label: "Customer",
+            //     type: "select",
+            //     name: "customer",
+            //     option:customerList,
+            //     props: {
+            //         onChange: (e)=>{
+            //             if (e.target.value){
+            //                 dispatch(FilterActions.getfinancialWorkDoneProjectType(true,"",1,e.target.value));
+            //             }
+            //             else{
+            //                 dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
+            //             }
+            //         }
+            //     }
+            // },
+            // {
+            //     label: "Market",
+            //     type: "select",
+            //     name: "market",
+            //     option:projectTypeList,
+            //     props: {
+            //     }
+            // },
+            // {
+            //     label: "Project ID",
+            //     type: "text",
+            //     name: "projectId",
+            //     props: {}
+            // },
         ]
     }
 
@@ -249,8 +261,6 @@ const AccuralRevenueMasterWithActivity = () => {
     
     useEffect(() => {
         dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter));
-        dispatch(AdminActions.getManageCustomer())
-        dispatch(GET_FINANCIAL_WORKDONE_PROJECT_TYPE({dataAll:[],reset:true}))
     }, []);
 
     const onTableViewSubmit3 = (data) => {
@@ -263,12 +273,42 @@ const AccuralRevenueMasterWithActivity = () => {
           })
         );
     };
+
+
+      const handleSearch = (value) => {
+        dispatch(AdminActions.getAccuralRevenueMasterProject(true,value !== "" ? "market=" + value+"&"+masterUnitRateWithActivityFilter : masterUnitRateWithActivityFilter))
+    };
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+
+
+        if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+        }
+
+
+        debounceTimeout.current = setTimeout(() => {
+        handleSearch(value);
+        }, 500); 
+    };
    
     return <>
         <AdvancedTable
+            searchView={
+                <>
+                    <SearchBarView
+                    onblur={(e) => {
+                    }}
+                    onchange={handleChange}
+                    placeHolder={"Market Search...."}
+                    />
+                </>
+            }
             headerButton={
                 <div className='flex gap-1'>
-                    <Button
+                    {/* <Button
                         name={"Add New"}
                         classes="w-auto"
                         onClick={(e) => {setmodalOpen((prev) => !prev)
@@ -286,9 +326,8 @@ const AccuralRevenueMasterWithActivity = () => {
                         classes="w-auto"
                         onClick={() => {
                             dispatch(CommonActions.commondownload("/export/MasterUnitRateWithActivity","Export_MasterUnitRateWithActivity.xlsx"))
-                            // dispatch(CommonActions.commondownload("/export/MasterUnitRate?"+strValFil,"Export_MasterUnitRate.xlsx"))
                           }}>
-                    </Button>
+                    </Button> */}
                 </div>
             }
             table={table}

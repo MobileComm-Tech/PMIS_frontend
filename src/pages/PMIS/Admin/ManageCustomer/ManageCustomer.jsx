@@ -244,14 +244,14 @@ const ManageCustomer = () => {
   return type ? (
     <>
       <div className="flex p-2">
-        <ConditionalButton
+        {/* <ConditionalButton
           showType={getAccessType("Customer Page View")}
           classes="w-auto"
           onClick={() => {
             settype(false);
           }}
           name={"View"}
-        />
+        /> */}
       </div>
       <AdvancedTable
         headerButton={
@@ -346,16 +346,18 @@ const ManageCustomer = () => {
                       ComponentActions.globalUrlStore(
                         itm["customerName"],
                         itm["index"],
-                        `${"/projectManagement"}/${itm["customerName"]}/${
-                          itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["customerId"]
-                        }`
+                        // `${"/projectManagement"}/${itm["customerName"]}/${
+                        //   itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["customerId"]
+                        // }`
+                        `${"/projectManagement_1"}/${itm["customerName"]}/${itm["uniqueId"]}`
                       )
                     );
-                    navigate(
-                      `${"/projectManagement"}/${itm["customerName"]}/${
-                        itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["customerId"]
-                      }`
-                    );
+                    // navigate(
+                    //   `${"/projectManagement"}/${itm["customerName"]}/${
+                    //     itm["uniqueId"]!== undefined ?itm["uniqueId"]:itm["uniqueId"]
+                    //   }`
+                    // );
+                    navigate(`${"/projectManagement_1"}/${itm["customerName"]}/${itm["uniqueId"]}`);
                   }}
                 >
                   {itm["companyimg"] && itm["companyimg"] != "" && (

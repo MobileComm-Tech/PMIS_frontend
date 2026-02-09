@@ -476,7 +476,7 @@ import Button from '../../../../components/Button';
 import AdminActions from '../../../../store/actions/admin-actions';
 import Modal from '../../../../components/Modal';
 import FilterActions from '../../../../store/actions/filter-actions';
-import { GET_ACCURAL_REVENUE_MASTER_PROJECTID, GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE, GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE } from '../../../../store/reducers/admin-reducer';
+import { GET_ACCURAL_REVENUE_MASTER_PROJECTID, GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE, GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE, GET_MANAGE_CIRCLE, GET_MANAGE_COST_CENTER } from '../../../../store/reducers/admin-reducer';
 
 
 const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}, filtervalue }) => {
@@ -494,21 +494,21 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
         });
     });
     
-    let ProjectTypelist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProjectType?.map((itm) => {
+    let regionList = useSelector((state) => {
+        return state?.adminData?.getManageCircle?.map((itm) => {
           return {
-            label: itm?.projectTypeName,
-            value: itm?.projectType,
+            label: itm?.regionName,
+            value: itm?.uniqueId,
             
           };
         });
       });
 
-      let Projectlist = useSelector((state) => {
-        return state?.adminData?.getAccuralRevenueMasterProjectId?.map((itm) => {
+      let marketList = useSelector((state) => {
+        return state?.adminData?.getManageCostCenter?.map((itm) => {
           return {
-            label: itm?.projectId,
-            value: itm?.project,
+            label: itm?.marketName,
+            value: itm?.uniqueId,
           };
         });
       });
@@ -537,12 +537,12 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             props: {
               onChange: (e)=>{
                 if (e.target.value){
-                    dispatch(AdminActions.getAccuralRevenueMasterProjectType(true,"",e.target.value));
+                    dispatch(dispatch(AdminActions.getManageCircle(true,`customer=${e.target.value}`)));
                 }
                 else{
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTTYPE({ dataAll:[], reset:true}));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
+                    dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
+                    dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
+                   
                 }
               },
             },
@@ -550,20 +550,18 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1",
         },
         {
-            label: "Project Type",
+            label: "Region",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "projectTypeName" : "projectType",
+            name:Object.entries(formValue).length > 0 ? "regionName" : "region",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-            option: ProjectTypelist,
+            option: regionList,
             props: {
               onChange: (e)=>{
                 if (e.target.value){
-                    dispatch(AdminActions.getAccuralRevenueMasterProjectID(true,"",e.target.value));
-                    dispatch(AdminActions.getAccuralRevenueMasterSubProjectType(true,"",e.target.value));
+                     dispatch(AdminActions.getManageCostCenter(true,`region=${e.target.value}`));
                 }
                 else{
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_PROJECTID({ dataAll:[], reset:true }));
-                    dispatch(GET_ACCURAL_REVENUE_MASTER_SUBPROJECTTYPE({ dataAll:[], reset:true }));
+                    dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
                 }
                 
               },
@@ -573,11 +571,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1",
         },
         {
-            label: "Project",
+            label: "Market",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "projectId" : "project",
+            name:Object.entries(formValue).length > 0 ? "marketName" : "market",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-            option: Projectlist,
+            option: marketList,
             props: {
                 onChange: (e)=>{
                 
@@ -587,47 +585,50 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             required: true,
             classes: "col-span-1",
         },
+        // {
+        //     label: "Morphology",
+        //     value: "",
+        //     name:"morphology",
+        //     type:"select",
+        //     option: [
+        //         {label:"Urban",value:"Urban"},
+        //         {label:"Rural",value:"Rural"}
+        //     ],
+        //     props: {
+        //       onChange: (e)=>{
+        //       },
+        //     },
+        //     required: true,
+        //     classes: "col-span-1",
+        // },
+        // {
+        //     label: "Band",
+        //     value: "",
+        //     name: "band",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Activity",
+        //     value: "",
+        //     name: "activity",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
         {
-            label: "Sub Project",
+            label: "Uraban Rate",
             value: "",
-            name:Object.entries(formValue).length > 0 ? "subProjectName" : "subProject",
-            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
-            option: subProjectTypelist,
-            props: {
-              onChange: (e)=>{
-              },
-            },
-            required: true,
-            classes: "col-span-1",
-        },
-        {
-            label: "Band",
-            value: "",
-            name: "band",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Activity",
-            value: "",
-            name: "activity",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Rate",
-            value: "",
-            name: "rate",
+            name: "urbanRate",
             type: "number",
             required: true,
             filter: true,
@@ -638,10 +639,11 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             classes: "col-span-1"
         },
         {
-            label: "Item Code-01",
+            label: "Rural Rate",
             value: "",
-            name: "itemCode01",
-            type: "text",
+            name: "ruralRate",
+            type: "number",
+            required: true,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -649,78 +651,90 @@ const AccuralRevenueMasterForm = ({ isOpen, setIsOpen, resetting, formValue = {}
             },
             classes: "col-span-1"
         },
-        {
-            label: "Item Code-02",
-            value: "",
-            name: "itemCode02",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-03",
-            value: "",
-            name: "itemCode03",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-04",
-            value: "",
-            name: "itemCode04",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-05",
-            value: "",
-            name: "itemCode05",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-06",
-            value: "",
-            name: "itemCode06",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
-        {
-            label: "Item Code-07",
-            value: "",
-            name: "itemCode07",
-            type: "text",
-            filter: true,
-            props: {
-                onChange: ((e) => {
-                }),
-            },
-            classes: "col-span-1"
-        },
+        // {
+        //     label: "Item Code-01",
+        //     value: "",
+        //     name: "itemCode01",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-02",
+        //     value: "",
+        //     name: "itemCode02",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-03",
+        //     value: "",
+        //     name: "itemCode03",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-04",
+        //     value: "",
+        //     name: "itemCode04",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-05",
+        //     value: "",
+        //     name: "itemCode05",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-06",
+        //     value: "",
+        //     name: "itemCode06",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
+        // {
+        //     label: "Item Code-07",
+        //     value: "",
+        //     name: "itemCode07",
+        //     type: "text",
+        //     filter: true,
+        //     props: {
+        //         onChange: ((e) => {
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // },
     ]
 
 

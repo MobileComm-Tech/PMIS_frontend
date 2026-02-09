@@ -199,37 +199,52 @@ const EmpDetailsTable = () => {
       {
         name: "Emp Name",
         value: "empName",
-        style: "min-w-[200px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
+        style: "min-w-[100px] max-w-[200px] font-extrabold text-center sticky left-0 bg-[#3e454d]",
       },
-      {
-        name: "Emp Code",
-        value: "empCode",
-        style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
-      },
+      // {
+      //   name: "Emp Code",
+      //   value: "empCode",
+      //   style: "min-w-[150px] max-w-[450px] text-center sticky left-[199px] bg-[#3e454d]",
+      // },
       {
         name: "Email ID",
         value: "email",
-        style: "min-w-[250px] max-w-[450px] text-center",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Mobile No.",
-        value: "mobile",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        name: "Region",
+        value: "regionName",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "Grade",
-        value: "designationName",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        name: "State",
+        value: "stateName",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
-        name: "PMIS Role",
+        name: "Market",
+        value: "marketName",
+        style: "min-w-[100px] max-w-[200px] text-center",
+      },
+      // {
+      //   name: "Mobile No.",
+      //   value: "mobile",
+      //   style: "min-w-[120px] max-w-[450px] text-center",
+      // },
+      // {
+      //   name: "Grade",
+      //   value: "designationName",
+      //   style: "min-w-[100px] max-w-[450px] text-center",
+      // },
+      {
+        name: "Profile",
         value: "userRoleName",
-        style: "min-w-[120px] max-w-[450px] text-center",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },
       {
         name: "Status",
         value: "status",
-        style: "min-w-[100px] max-w-[450px] text-center",
+        style: "min-w-[100px] max-w-[200px] text-center",
       },     
       ...(shouldIncludeEditColumn
         ? [
@@ -245,11 +260,6 @@ const EmpDetailsTable = () => {
             },
           ]
         : [])
-      // {
-      //     name: "View",
-      //     value: "view",
-      //     style: "min-w-[100px] max-w-[100px] text-center"
-      // }
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -262,13 +272,13 @@ const EmpDetailsTable = () => {
           props: {
           }
       },
-      {
-          label: "EMP Code",
-          type: "text",
-          name: "empCode",
-          props: {
-          }
-      },
+      // {
+      //     label: "EMP Code",
+      //     type: "text",
+      //     name: "empCode",
+      //     props: {
+      //     }
+      // },
       {
           label: "PMIS Role",
           type: "select",
@@ -291,6 +301,8 @@ const EmpDetailsTable = () => {
       },
     ],
   };
+
+
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
     delete data.reseter;
@@ -299,10 +311,11 @@ const EmpDetailsTable = () => {
     dispatch(HrActions.getManageEmpDetails(shouldReset,'', strVal));
   };
 
+
   useEffect(() => {
     dispatch(HrActions.getManageEmpDetails());
     dispatch(AdminActions.getManageProfile());
-    dispatch(AdminActions.getManageCostCenter())
+    // dispatch(AdminActions.getManageCostCenter())
 
   }, []);
   
@@ -355,7 +368,7 @@ const EmpDetailsTable = () => {
               name={"Add New"}
             ></ConditionalButton>
 
-            <ConditionalButton
+            {/* <ConditionalButton
             showType={getAccessType("Upload(ManageEmployee)")}
               name={"Upload"}
               classes="w-auto mr-1"
@@ -378,12 +391,12 @@ const EmpDetailsTable = () => {
               onClick={(e) => {
                 setFileOpen3((prev) => !prev);
               }}
-            ></ConditionalButton>
+            ></ConditionalButton> */}
             
           </div>
         }
         table={table}
-        exportButton={["/export/manageEmployee"+"?"+strVal,"Export_Employee("+dt+").xlsx"]}
+        // exportButton={["/export/manageEmployee"+"?"+strVal,"Export_Employee("+dt+").xlsx"]}
         filterAfter={onSubmit}
         tableName={"ManageEmployee"}
         handleSubmit={handleSubmit}

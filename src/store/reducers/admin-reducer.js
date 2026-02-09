@@ -69,6 +69,7 @@ const initialState = {
   getSubProjectDeliveryPVA:[],
   getExchnageRate:[],
   getManageProjectLogs:[],
+  getMasterData:[],
 };
 
 const adminData = createSlice({
@@ -748,6 +749,17 @@ const adminData = createSlice({
       }
     },
 
+    GET_MANAGE_MASTERDATA: (state, { payload }) => {
+      if (payload.reset) {
+        state.getMasterData = payload.dataAll;
+      } else {
+        state.getMasterData = [
+          ...state.getMasterData,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
 
 
   },
@@ -821,7 +833,8 @@ export const {
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
   GET_EXCHANGE_RATE,
-  GET_MANAGE_PROJECT_LOGS
+  GET_MANAGE_PROJECT_LOGS,
+  GET_MANAGE_MASTERDATA
 } = adminData.actions;
 
 export default adminData.reducer;

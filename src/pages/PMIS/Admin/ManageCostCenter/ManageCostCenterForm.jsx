@@ -9,8 +9,6 @@ import { GET_MANAGE_ZONE } from '../../../../store/reducers/admin-reducer';
 
 const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
-    // console.log(isOpen, setIsOpen, resetting, formValue, "formValueformValue")
-
     const [modalOpen, setmodalOpen] = useState(false)
 
 
@@ -21,7 +19,7 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
 
         return state?.adminData?.getManageZone.map((itm) => {
             return {
-                label: itm.shortCode,
+                label: itm.stateName,
                 value: itm.uniqueId
             }
         })
@@ -31,6 +29,15 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
         return state?.adminData?.getManageCustomer.map((itm) => {
             return {
                 label: itm?.customerName,
+                value: itm?.uniqueId
+            }
+        })
+    })
+
+    let circleList = useSelector((state) => {
+        return state?.adminData?.getManageCircle.map((itm) => {
+            return {
+                label: itm?.regionName,
                 value: itm?.uniqueId
             }
         })
@@ -47,53 +54,69 @@ const ManageCostCenterForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) 
             option: customerList,
             props: {
                 onChange: (e) => {
-                    dispatch(AdminActions.getManageZone(true, `customer=${e.target.value}`))
-                }
+                    if (e.target.value){
+                        dispatch(AdminActions.getManageCircle(true, `customer=${e.target.value}`));
+                    }
+                    else {
+                        dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
+                    }
+                },
             },
             classes: "col-span-1"
         },
         {
-            label: "Zone",
+            label: "Region Name",
             value: "",
-            name: Object.entries(formValue).length > 0 ? "zoneName" : "zone",
+            name: Object.entries(formValue).length > 0 ? "regionName" : "region",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
             filter: true,
-            option: zoneList,
+            option: circleList,
+            classes: "col-span-1",
+            props: {
+                onChange: (e) => {
+                    if (e.target.value){
+                        dispatch(AdminActions.getManageZone(true, `region=${e.target.value}`))
+                    }
+                    else {
+                        dispatch(GET_MANAGE_ZONE({ dataAll:[], reset:true }));
+                    }
+                },
+            },
+        },
+        {
+            label: "State Name",
+            value: "",
+            name: Object.entries(formValue).length > 0 ? "stateName" : "state",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
+            required: true,
+            option:zoneList,
             classes: "col-span-1"
         },
         {
-            label: "Cost Center",
+            label: "Market Name",
             value: "",
-            name: "costCenter",
+            name: "marketName",
+            type: "text",
+            required: true,
+            classes: "col-span-1"
+        },
+        {
+            label: "Market Code",
+            value: "",
+            name: "marketCode",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
             required: true,
             classes: "col-span-1"
         },
-        {
-            label: "Description",
-            value: "",
-            name: "description",
-            type: "text",
-            required: true,
-            classes: "col-span-1"
-        },
-        {
-            label: "Business Unit",
-            value: "",
-            name: "businessUnit",
-            type: "text",
-            required: true,
-            classes: "col-span-1"
-        },
-        {
-            label: "UST Project ID",
-            value: "",
-            name: "ustProjectId",
-            type: "text",
-            required: true,
-            classes: "col-span-1"
-        },
+        // {
+        //     label: "UST Project ID",
+        //     value: "",
+        //     name: "ustProjectId",
+        //     type: "text",
+        //     required: true,
+        //     classes: "col-span-1"
+        // },
     ]
     const {
         register,

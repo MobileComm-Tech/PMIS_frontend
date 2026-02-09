@@ -21,8 +21,8 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     let circleList = useSelector((state) => {
         return state?.adminData?.getManageCircle.map((itm) => {
             return {
-                name: itm?.circleName,
-                id: itm?.uniqueId
+                label: itm?.regionName,
+                value: itm?.uniqueId
             }
         })
     })
@@ -42,8 +42,8 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
         {
             label: "Customer Name",
             value: "",
-            name: "customer",
-            type: "select",
+            name: Object.entries(formValue).length > 0  ? "customerName" : "customer",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
             option: customerList,
             classes: "col-span-1",
@@ -59,11 +59,14 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             },
         },
         {
-            label: "Zone Name",
+            label: "Region Name",
             value: "",
-            name: "zoneName",
-            type: "text",
+            // name: "regionName",
+            // type: "select",
+            name: Object.entries(formValue).length > 0  ? "regionName" : "region",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "select",
             required: true,
+            option:circleList,
             filter: true,
             props: {
                 onChange: ((e) => {
@@ -73,9 +76,9 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1",
         },
         {
-            label: "Zone ID",
+            label: "State Name",
             value: "",
-            name: "shortCode",
+            name: "stateName",
             type: "text",
             required: true,
             props: {
@@ -89,20 +92,22 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Circle",
+            label: "State Code",
             value: "",
-            name: "circle",
-            type: "BigmuitiSelect",
-            option: circleList,
+            name: "stateCode",
+            type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
             required: true,
             props: {
                 onChange: ((e) => {
+                    // console.log(e.target.value, "e geeter")
+
+                    // setValue("queries",e.target.name)
 
                 }),
             },
-            classes: "col-span-1",
-            width:"350px"
+            classes: "col-span-1"
         },
+        
     ]
 
     const {
@@ -151,7 +156,7 @@ const ManageZoneForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
 
-            <CommonForm classes={"grid-cols-1 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
+            <CommonForm classes={"grid-cols-2 gap-1"} Form={Form} errors={errors} register={register} setValue={setValue} getValues={getValues} />
 
             <Button classes={"mt-2 w-sm text-center flex mx-auto"} onClick={(handleSubmit(onTableViewSubmit))} name="Submit" />
         </div>

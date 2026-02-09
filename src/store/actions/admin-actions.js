@@ -70,6 +70,7 @@ import {
   GET_MANAGE_SITE,
   GET_EMP_NAME_LIST,
   GET_MANAGE_PROJECT_LOGS,
+  GET_MANAGE_MASTERDATA,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 import { SET_DYNAMIC_FORM } from "../reducers/projectList-reducer";
@@ -2017,6 +2018,24 @@ getEmpNameList:
 
       }
   },
+
+  getMasterData:
+    (reset = true, args = "",show=1) =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_masterData}${args != "" ? "?" + args : ""}`,
+          show : show,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_MANAGE_MASTERDATA({ dataAll, reset }));
+      } 
+      catch (error) {
+        
+      }
+    },
 
 
 

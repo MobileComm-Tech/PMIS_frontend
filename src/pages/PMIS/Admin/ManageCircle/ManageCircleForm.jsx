@@ -45,9 +45,9 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Circle Name",
+            label: "Region Name",
             value: "",
-            name: "circleName",
+            name: "regionName",
             type: "text",
             required: true,
             props: {
@@ -58,10 +58,10 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             classes: "col-span-1"
         },
         {
-            label: "Circle ID",
+            label: "Region Code",
             value: "",
             type: Object.entries(formValue).length > 0 ? "sdisabled" : "text",
-            name: "circleCode",
+            name: "regionCode",
             required: true,
             props: {
                 onChange: ((e) => {
@@ -70,19 +70,19 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             },
             classes: "col-span-1"
         },
-        {
-            label: "Band",
-            value: "",
-            name: "band",
-            type: "text",
-            // required: true,
-            props: {
-                onChange: ((e) => {
+        // {
+        //     label: "Band",
+        //     value: "",
+        //     name: "band",
+        //     type: "text",
+        //     // required: true,
+        //     props: {
+        //         onChange: ((e) => {
 
-                }),
-            },
-            classes: "col-span-1"
-        }
+        //         }),
+        //     },
+        //     classes: "col-span-1"
+        // }
     ]
     const {
         register,
@@ -134,6 +134,7 @@ const ManageCircleForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
             })
         }
     }, [formValue, resetting])
+    
     return <>
 
 

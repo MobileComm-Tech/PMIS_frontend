@@ -1264,7 +1264,7 @@ import CommonForm from "../../../components/CommonForm";
 import AdminActions from "../../../store/actions/admin-actions";
 import HrActions from "../../../store/actions/hr-actions";
 import { GET_EMPLOYEE_DETAILS } from "../../../store/reducers/hr-reduces";
-import { GET_CITIES, GET_MANAGE_COST_CENTER, GET_MANAGE_DEPARTMENT, GET_MANAGE_DESIGNATION } from "../../../store/reducers/admin-reducer";
+import { GET_CITIES, GET_MANAGE_CIRCLE, GET_MANAGE_COST_CENTER, GET_MANAGE_DEPARTMENT, GET_MANAGE_DESIGNATION, GET_MANAGE_ZONE } from "../../../store/reducers/admin-reducer";
 
 const EmpDetails = (props) => {
   const {
@@ -1298,7 +1298,8 @@ const EmpDetails = (props) => {
     }
     return state.hrReducer.getManageEmpDetails;
   });
-console.log(getManageEmpDetails,"___getManageEmpDetails__")
+
+  console.log(getManageEmpDetails,"___getManageEmpDetails__")
 
   const [isSame, setisSame] = useState(false);
   const [presentAddress, setPresentAddress] = useState({
@@ -1333,6 +1334,7 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
       });
     }
   };
+  
   const handlePresentAddressChange = (e) => {
     const { name, value } = e.target.value;
     setPresentAddress({
@@ -1425,23 +1427,39 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
     });
   });
 
-  let stateList = useSelector((state) => {
-    return state?.adminData?.getState?.map((itm) => {
-      return {
-        label: itm?.name,
-        value: itm?.state_code,
-      };
-    });
-  });
+ 
 
-  let cityList = useSelector((state) => {
-    return state?.adminData?.getCities?.map((itm) => {
-      return {
-        label: itm?.city,
-        value: itm?.city,
-      };
-    });
-  });
+
+  let regionList = useSelector((state) => {
+      return state?.adminData?.getManageCircle.map((itm) => {
+          return {
+              label: itm?.regionName,
+              value: itm?.uniqueId
+          }
+      })
+  })
+
+  let stateList = useSelector((state) => {
+
+        return state?.adminData?.getManageZone.map((itm) => {
+            return {
+                label: itm.stateName,
+                value: itm.uniqueId
+            }
+        })
+  })
+
+  let marketList = useSelector((state) => {
+    return state?.adminData?.getManageCostCenter.map((itm) => {
+        return {
+            label: itm.marketName,
+            value: itm.uniqueId
+        }
+    })
+  })
+
+
+
 
   let PersonalInformation = [
     {
@@ -1472,75 +1490,75 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
       required: true,
       placeholder: "",
     },
-    {
-      label: "Employee Code",
-      name: "empCode",
-      value: getManageEmpDetails[0]?.empCode!== undefined ?getManageEmpDetails[0]?.empCode:"" ,
-      type: empuid ? "sdisabled" : "text",
+    // {
+    //   label: "Employee Code",
+    //   name: "empCode",
+    //   value: getManageEmpDetails[0]?.empCode!== undefined ?getManageEmpDetails[0]?.empCode:"" ,
+    //   type: empuid ? "sdisabled" : "text",
       
-      props: {
-        disabled: empuid ? true : false, 
-      },
-      required: true,
-      placeholder: "",
-    },    
-    {
-      label: "UST Emp Code",
-      name: "ustCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "UST Project ID",
-      name: "ustProjectId",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "UST Job Code",
-      name: "ustJobCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Father's Name",
-      name: "fatherName",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Mother's Name",
-      name: "motherName",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Marital Status",
-      name: "martialStatus",
-      value: "",
-      type: "select",
-      props: "",
-      required: false,
-      option: [
-        { label: "Married", value: "married" },
-        { label: "Single", value: "single" },
-      ],
-    },
+    //   props: {
+    //     disabled: empuid ? true : false, 
+    //   },
+    //   required: true,
+    //   placeholder: "",
+    // },    
+    // {
+    //   label: "UST Emp Code",
+    //   name: "ustCode",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "UST Project ID",
+    //   name: "ustProjectId",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "UST Job Code",
+    //   name: "ustJobCode",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Father's Name",
+    //   name: "fatherName",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Mother's Name",
+    //   name: "motherName",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Marital Status",
+    //   name: "martialStatus",
+    //   value: "",
+    //   type: "select",
+    //   props: "",
+    //   required: false,
+    //   option: [
+    //     { label: "Married", value: "married" },
+    //     { label: "Single", value: "single" },
+    //   ],
+    // },
     {
       label: "Official Email-ID",
       name: "email",
@@ -1551,459 +1569,19 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
       placeholder: "",
     },
     {
-      label: "Personal Email-ID",
-      name: "personalEmailId",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Date Of Birth(as Per doc)",
-      name: "dob",
-      type: "datetime2",
-      value: "",
-      props: "",
-      required: false,
-    },
-    {
-      label: "Contact Number",
-      name: "mobile",
-      value: "",
-      type: "number",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Blood Group",
-      name: "blood",
-      value: "",
-      type: "select",
-      props: {},
-      required: false,
-      option: [
-        { label: "A+", value: "A+" },
-        { label: "A-", value: "A-" },
-        { label: "B+", value: "B+" },
-        { label: "B-", value: "B-" },
-        { label: "AB+", value: "AB+" },
-        { label: "AB-", value: "AB-" },
-        { label: "O+", value: "O+" },
-        { label: "O-", value: "O-" },
-      ],
-    },
-  ];
-
-  let ContactInformation = [
-    {
-      type: "heading",
-      label: "Present Address",
-      classes: "col-span-4 font-extrabold text-pcol text-start",
-    },
-    {
-      label: "Country",
-      name: "country",
-      value: presentAddress.country,
-      type: "select",
-      props: "",
-      required: false,
-      placeholder: "",
-      option: [{ label: "India", value: "India" }],
-      onChange: handlePresentAddressChange,
-    },
-    {
-      label: "State",
-      name: "state",
-      value: presentAddress.state,
-      type: "select",
-      placeholder: "",
-      option: stateList,
-      props: {
-        onChange: (e) => {
-          setValue("state", e.target.value);
-          dispatch(GET_CITIES({dataAll:[],reset:true}))
-          dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
-        },
-      },
-    },
-    {
-      label: "City",
-      name: "city",
-      value: presentAddress.city,
-      type: "select",
-      props: "",
-      placeholder: "",
-      option: cityList,
-      onChange: handlePresentAddressChange,
-    },
-    {
-      label: "PinCode",
-      name: "pincode",
-      value: presentAddress.pincode,
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-      onChange: handlePresentAddressChange,
-    },
-    {
-      label: "Address",
-      name: "address",
-      value: presentAddress.address,
-      type: "textarea",
-      props: "",
-      required: false,
-      placeholder: "",
-      onChange: handlePresentAddressChange,
-    },
-
-    // {
-    //   label: "Social Media",
-    //   name: "socialMedia",
-    //   value: "",
-    //   type: "select",
-    //   props: {
-    //     onChange: (e) => {
-    //       setshowSocialMediaOther(e.target.value === "Other");
-    //     },
-    //   },
-    //   required: false,
-    //   option: [
-    //     { label: "Facebook", value: "Facebook" },
-    //     { label: "Instagram", value: "Instagram" },
-    //     { label: "Pinterest", value: "Pinterest" },
-    //     { label: "X", value: "X" },
-    //     { label: "Other", value: "Other" },
-    //   ],
-    // },
-  ];
-  // if (showSocialMediaOther) {
-  //   ContactInformation.push({
-  //     label: "Please Specify Social Media Type",
-  //     name: "otherSocialMediaType",
-  //     value: "",
-  //     type: "text",
-  //     required: false,
-  //     props: {},
-  //     classes: "col-span-1",
-  //   });
-  // }
-
-  let ContactInformation2 = [
-    {
-      type: "checkbox",
-      name: "fillAddress",
-
-      props: {
-        onChange: (e) => {
-          handleCheckboxChange(e);
-        },
-      },
-      option: [
-        {
-          type: "checkbox",
-          name: "fillAddress",
-          label: "Same As Present Address",
-          checked: presentAddress === permanentAddress,
-          onChange: (e) => {
-            handleCheckboxChange(e);
-          },
-        },
-      ],
-      classes: "col-span-4 font-bold text-pcol text-start mb-[-25px]",
-    },
-  ];
-
-  let datew = [
-    {
-      type: "heading",
-      label: "Permanent Address",
-      classes: "col-span-4 font-extrabold text-pcol text-start",
-    },
-    {
-      label: "Country",
-      name: "pcountry",
-      value: permanentAddress.country,
-      type: "select",
-      props: "",
-      required: false,
-      placeholder: "",
-      option: [{ label: "India", value: "India" }],
-    },
-    {
-      label: "State",
-      name: "pstate",
-      value: permanentAddress.state,
-      type: "select",
-      placeholder: "",
-      option: stateList,
-      props: {
-        onChange: (e) => {
-          // console.log(e.target.value, "e_geeter");
-
-          setValue("state1", e.target.value);
-
-          dispatch(
-            AdminActions.getCities(false, `stateCode=${e.target.value}`)
-          );
-          // setStateName(e.target.value)
-        },
-      },
-    },
-
-    {
-      label: "city",
-      name: "pcity",
-      value: permanentAddress.city,
-      type: "select",
-      props: "",
-      placeholder: "",
-      option: cityList,
-    },
-
-    {
-      label: "PinCode",
-      name: "ppincode",
-      value: permanentAddress.pincode,
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Address",
-      name: "paddress",
-      value: permanentAddress.address,
-      type: "textarea",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-  ]
- 
-
-  let EmploymentDetails = [
-    {
-      type: "heading",
-      label: "Employment Details",
-      classes: "col-span-4 font-extrabold text-pcol text-start",
-    },
-    {
-      label: "PAN Number",
-      name: "panNumber",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Aadhar Number",
-      name: "adharNumber",
-      value: "",
-      type: "number",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Circle",
-      name: "circle",
-      value: "",
-      type: "select",
-      option: circleList,
-      props: "",
-      placeholder: "",
-    },
-    {
-      label: "Experience",
-      name: "experience",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Salary Currency",
-      name: "salaryCurrency",
-      value: "",
-      type: "select",
-      props: "",
-      required: false,
-      placeholder: "",
-      option: [
-        { label: "INR", value: "INR" },
-        { label: "USD", value: "USD" },
-      ],
-    },
-    {
-      label: "Monthly Salary",
-      name: "monthlySalary",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Gross CTC",
-      name: "grossCtc",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Joining Date",
-      name: "joiningDate",
-      value: "",
-      type: "datetime2",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Last Working Day",
-      name: "lastWorkingDay",
-      value: "",
-      type: "datetime2",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Resign Date",
-      name: "resignDate",
-      value: "",
-      type: "datetime2",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Passport",
-      name: "passport",
-      value: "",
-      type: "select",
-      required: false,
-      placeholder: "",
-      option: [
-        { label: "Yes", value: "Yes" },
-        { label: "No", value: "No" },
-      ],
-      props: {
-        onChange: (e) => {
-          setshowPassportNumber(e.target.value === "Yes");
-        },
-      },
-    },
-  ];
-
-  if (showPassportNumber) {
-    EmploymentDetails.push({
-      label: "Passport Number",
-      name: "passportNumber",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    });
-  }
-  EmploymentDetails.push(
-    {
-      label: "Bank Name",
-      name: "bankName",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Bank Account Number",
-      name: "accountNumber",
-      value: "",
-      type: "number",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "IFSC Code",
-      name: "ifscCode",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    },
-    {
-      label: "Benificiary Name",
-      name: "benificiaryname",
-      value: "",
-      type: "text",
-      props: "",
-      required: false,
-      placeholder: "",
-    }
-  );
-
-  let EmployeeProfile = [
-    {
-      type: "heading",
-      label: "Employee Profile",
-      classes: "col-span-4 font-extrabold text-pcol text-start",
-    },
-    {
-      label: "Organization Level",
-      name: "orgLevel",
-      value: "",
-      type: "text",
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Allocation Percentage",
-      name: "allocationPercentage",
-      value: "",
-      type: "text",
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Business Unit",
-      name: "businesssUnit",
-      value: "",
-      type: "text",
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Customer Name",
+      label: "Customer",
       name: "customer",
       value: "",
       type: "select",
-      required: false,
+      required: true,
       option: customerList,
       props: {
         onChange: ((e) => {
           if (e.target.value){
-            dispatch(AdminActions.getManageDepartment(true,"",e.target.value));
-            dispatch(AdminActions.getManageDesignation(true,"",e.target.value));
-            dispatch(AdminActions.getManageCostCenter(true,"",e.target.value));
+            dispatch(AdminActions.getManageCircle(true,`customer=${e.target.value}`));
           }
           else{
-            dispatch(GET_MANAGE_DEPARTMENT({ dataAll:[], reset:true}));
-            dispatch(GET_MANAGE_DESIGNATION({ dataAll:[], reset:true}));
-            dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true}));
+            dispatch(GET_MANAGE_CIRCLE({ dataAll:[], reset:true }));
           }
           
         }),
@@ -2011,200 +1589,69 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
       classes: "col-span-1",
     },
     {
-      label: "Grade",
-      name: "designation",
+      label: "Region",
+      name: "region",
       value: "",
       type: "select",
-      required: false,
-      option: designationList,
-      props: {},
+      required: true,
+      option: regionList,
+      props: {
+            onChange: (e) => {
+                if (e.target.value){
+                    dispatch(AdminActions.getManageZone(true, `region=${e.target.value}`))
+                }
+                else {
+                    dispatch(GET_MANAGE_ZONE({ dataAll:[], reset:true }));
+                }
+            },
+        },
+        classes: "col-span-1",
+      },
+    {
+      label: "State",
+      name: "state",
+      value: "",
+      type: "select",
+      required: true,
+      option: stateList,
+      props: {
+        onChange: ((e) => {
+          if (e.target.value){
+            dispatch(AdminActions.getManageCostCenter(true,`state=${e.target.value}`));
+          }
+          else{
+            dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true }));
+          }
+          
+        }),
+      },
+      classes: "col-span-1",
+    },
+    {
+      label: "Market",
+      name: "market",
+      value: "",
+      type: "select",
+      required: true,
+      option: marketList,
       classes: "col-span-1",
     },
     {
       label: "Role",
-      name: "role",
-      value: "",
-      type: "select",
-      option: roleList,
-      // required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "PMIS Profile",
       name: "userRole",
       value: "",
       type: "select",
-      option: roleList,
       required: true,
+      option: roleList,
       props: {},
       classes: "col-span-1",
     },
     {
-      label: "Cost Center",
-      name: "costCenter",
-      value: "",
-      type: "select",
-      option: costCenterList,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Designation",
-      name: "band",
+      label: "Password",
+      name: "password",
       value: "",
       type: "text",
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Department",
-      name: "department",
-      value: "",
-      type: "select",
-      required: false,
-      props: {},
-      option: departmentList,
-      classes: "col-span-1",
-    },
-    {
-      label: "Reporting Manager",
-      name: "reportingManager",
-      value: "",
-      type: "select",
-      required: false,
-      props: {},
-      option: allEmployeeList,
-      classes: "col-span-1",
-    },
-    {
-      label: "L1 Approver",
-      name: "L1Approver",
-      value: "",
-      type: "select",
-      required: false,
-      props: {},
-      option: allEmployeeList,
-      classes: "col-span-1",
-    },
-    {
-      label: "L2 Aprrover",
-      name: "L2Approver",
-      value: "",
-      type: "select",
-      required: false,
-      option: allEmployeeList,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Finance Approver",
-      name: "financeApprover",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "HR Manager",
-      name: "reportingHrManager",
-      value: "",
-      type: "select",
-      option: allHrList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "Asset Manager",
-      name: "assetManager",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L1 Vendor",
-      name: "L1Vendor",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L2 Vendor",
-      name: "L2Vendor",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    // {
-    //   label: "Compliance",
-    //   name: "compliance",
-    //   value: "",
-    //   type: "select",
-    //   option: allEmployeeList,
-    //   required: false,
-    //   props: {},
-    //   classes: "col-span-1",
-    // },
-    {
-      label: "L1 Compliance",
-      name: "L1Compliance",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L2 Compliance",
-      name: "L2Compliance",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L1 Commercial",
-      name: "L1Commercial",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L1 Sales",
-      name: "L1Sales",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
-      props: {},
-      classes: "col-span-1",
-    },
-    {
-      label: "L2 Sales",
-      name: "L2Sales",
-      value: "",
-      type: "select",
-      option: allEmployeeList,
-      required: false,
+      required: true,
       props: {},
       classes: "col-span-1",
     },
@@ -2223,57 +1670,727 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
       ],
       classes: "col-span-1",
     },
-    {
-      label: "Password",
-      name: "password",
-      value: "",
-      type: "text",
-      required: true,
-      props: {},
-      classes: "col-span-1",
-    },
+    // {
+    //   label: "Personal Email-ID",
+    //   name: "personalEmailId",
+    //   value: "",
+    //   type: "text",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Date Of Birth(as Per doc)",
+    //   name: "dob",
+    //   type: "datetime2",
+    //   value: "",
+    //   props: "",
+    //   required: false,
+    // },
+    // {
+    //   label: "Contact Number",
+    //   name: "mobile",
+    //   value: "",
+    //   type: "number",
+    //   props: "",
+    //   required: false,
+    //   placeholder: "",
+    // },
+    // {
+    //   label: "Blood Group",
+    //   name: "blood",
+    //   value: "",
+    //   type: "select",
+    //   props: {},
+    //   required: false,
+    //   option: [
+    //     { label: "A+", value: "A+" },
+    //     { label: "A-", value: "A-" },
+    //     { label: "B+", value: "B+" },
+    //     { label: "B-", value: "B-" },
+    //     { label: "AB+", value: "AB+" },
+    //     { label: "AB-", value: "AB-" },
+    //     { label: "O+", value: "O+" },
+    //     { label: "O-", value: "O-" },
+    //   ],
+    // },
   ];
 
-  let SupportingDoc = [
-    {
-      type: "heading",
-      label: "Supporting Document",
-      classes: "col-span-4 font-extrabold text-pcol text-start",
-    },
-    {
-      label: "Photo",
-      name: "img",
-      value: "",
-      type: "file",
-      required: false,
-      props: {
-        accept: "image/*",
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "CV",
-      name: "cv",
-      value: "",
-      type: "file",
-      required: false,
-      props: {
-        accept: ".pdf,.doc,.docx",
-      },
-      classes: "col-span-1",
-    },
-    {
-      label: "All Other Documents",
-      name: "zip",
-      value: "",
-      type: "file",
-      required: false,
-      props: {
-        accept: ".zip,.rar,.bin",
-      },
-      classes: "col-span-1",
-    },
-  ];
+  // let ContactInformation = [
+  //   {
+  //     type: "heading",
+  //     label: "Present Address",
+  //     classes: "col-span-4 font-extrabold text-pcol text-start",
+  //   },
+  //   {
+  //     label: "Country",
+  //     name: "country",
+  //     value: presentAddress.country,
+  //     type: "select",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //     option: [{ label: "India", value: "India" }],
+  //     onChange: handlePresentAddressChange,
+  //   },
+  //   {
+  //     label: "State",
+  //     name: "state",
+  //     value: presentAddress.state,
+  //     type: "select",
+  //     placeholder: "",
+  //     option: stateList,
+  //     props: {
+  //       onChange: (e) => {
+  //         setValue("state", e.target.value);
+  //         dispatch(GET_CITIES({dataAll:[],reset:true}))
+  //         dispatch(AdminActions.getCities(true, `stateCode=${e.target.value}`));
+  //       },
+  //     },
+  //   },
+  //   {
+  //     label: "City",
+  //     name: "city",
+  //     value: presentAddress.city,
+  //     type: "select",
+  //     props: "",
+  //     placeholder: "",
+  //     option: cityList,
+  //     onChange: handlePresentAddressChange,
+  //   },
+  //   {
+  //     label: "PinCode",
+  //     name: "pincode",
+  //     value: presentAddress.pincode,
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //     onChange: handlePresentAddressChange,
+  //   },
+  //   {
+  //     label: "Address",
+  //     name: "address",
+  //     value: presentAddress.address,
+  //     type: "textarea",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //     onChange: handlePresentAddressChange,
+  //   },
+
+  //   // {
+  //   //   label: "Social Media",
+  //   //   name: "socialMedia",
+  //   //   value: "",
+  //   //   type: "select",
+  //   //   props: {
+  //   //     onChange: (e) => {
+  //   //       setshowSocialMediaOther(e.target.value === "Other");
+  //   //     },
+  //   //   },
+  //   //   required: false,
+  //   //   option: [
+  //   //     { label: "Facebook", value: "Facebook" },
+  //   //     { label: "Instagram", value: "Instagram" },
+  //   //     { label: "Pinterest", value: "Pinterest" },
+  //   //     { label: "X", value: "X" },
+  //   //     { label: "Other", value: "Other" },
+  //   //   ],
+  //   // },
+  // ];
+  
+
+
+  // let ContactInformation2 = [
+  //   {
+  //     type: "checkbox",
+  //     name: "fillAddress",
+
+  //     props: {
+  //       onChange: (e) => {
+  //         handleCheckboxChange(e);
+  //       },
+  //     },
+  //     option: [
+  //       {
+  //         type: "checkbox",
+  //         name: "fillAddress",
+  //         label: "Same As Present Address",
+  //         checked: presentAddress === permanentAddress,
+  //         onChange: (e) => {
+  //           handleCheckboxChange(e);
+  //         },
+  //       },
+  //     ],
+  //     classes: "col-span-4 font-bold text-pcol text-start mb-[-25px]",
+  //   },
+  // ];
+
+  // let datew = [
+  //   {
+  //     type: "heading",
+  //     label: "Permanent Address",
+  //     classes: "col-span-4 font-extrabold text-pcol text-start",
+  //   },
+  //   {
+  //     label: "Country",
+  //     name: "pcountry",
+  //     value: permanentAddress.country,
+  //     type: "select",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //     option: [{ label: "India", value: "India" }],
+  //   },
+  //   {
+  //     label: "State",
+  //     name: "pstate",
+  //     value: permanentAddress.state,
+  //     type: "select",
+  //     placeholder: "",
+  //     option: stateList,
+  //     props: {
+  //       onChange: (e) => {
+  //         // console.log(e.target.value, "e_geeter");
+
+  //         setValue("state1", e.target.value);
+
+  //         dispatch(
+  //           AdminActions.getCities(false, `stateCode=${e.target.value}`)
+  //         );
+  //         // setStateName(e.target.value)
+  //       },
+  //     },
+  //   },
+
+  //   {
+  //     label: "city",
+  //     name: "pcity",
+  //     value: permanentAddress.city,
+  //     type: "select",
+  //     props: "",
+  //     placeholder: "",
+  //     option: cityList,
+  //   },
+
+  //   {
+  //     label: "PinCode",
+  //     name: "ppincode",
+  //     value: permanentAddress.pincode,
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Address",
+  //     name: "paddress",
+  //     value: permanentAddress.address,
+  //     type: "textarea",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  // ]
+ 
+
+
+
+  // let EmploymentDetails = [
+  //   {
+  //     type: "heading",
+  //     label: "Employment Details",
+  //     classes: "col-span-4 font-extrabold text-pcol text-start",
+  //   },
+  //   {
+  //     label: "PAN Number",
+  //     name: "panNumber",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Aadhar Number",
+  //     name: "adharNumber",
+  //     value: "",
+  //     type: "number",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Circle",
+  //     name: "circle",
+  //     value: "",
+  //     type: "select",
+  //     option: circleList,
+  //     props: "",
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Experience",
+  //     name: "experience",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Salary Currency",
+  //     name: "salaryCurrency",
+  //     value: "",
+  //     type: "select",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //     option: [
+  //       { label: "INR", value: "INR" },
+  //       { label: "USD", value: "USD" },
+  //     ],
+  //   },
+  //   {
+  //     label: "Monthly Salary",
+  //     name: "monthlySalary",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Gross CTC",
+  //     name: "grossCtc",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Joining Date",
+  //     name: "joiningDate",
+  //     value: "",
+  //     type: "datetime2",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Last Working Day",
+  //     name: "lastWorkingDay",
+  //     value: "",
+  //     type: "datetime2",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Resign Date",
+  //     name: "resignDate",
+  //     value: "",
+  //     type: "datetime2",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Passport",
+  //     name: "passport",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     placeholder: "",
+  //     option: [
+  //       { label: "Yes", value: "Yes" },
+  //       { label: "No", value: "No" },
+  //     ],
+  //     props: {
+  //       onChange: (e) => {
+  //         setshowPassportNumber(e.target.value === "Yes");
+  //       },
+  //     },
+  //   },
+  // ];
+
+  // if (showPassportNumber) {
+  //   EmploymentDetails.push({
+  //     label: "Passport Number",
+  //     name: "passportNumber",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   });
+  // }
+
+  // EmploymentDetails.push(
+  //   {
+  //     label: "Bank Name",
+  //     name: "bankName",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Bank Account Number",
+  //     name: "accountNumber",
+  //     value: "",
+  //     type: "number",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "IFSC Code",
+  //     name: "ifscCode",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   },
+  //   {
+  //     label: "Benificiary Name",
+  //     name: "benificiaryname",
+  //     value: "",
+  //     type: "text",
+  //     props: "",
+  //     required: false,
+  //     placeholder: "",
+  //   }
+  // );
+
+  // let EmployeeProfile = [
+  //   {
+  //     type: "heading",
+  //     label: "Employee Profile",
+  //     classes: "col-span-4 font-extrabold text-pcol text-start",
+  //   },
+  //   {
+  //     label: "Organization Level",
+  //     name: "orgLevel",
+  //     value: "",
+  //     type: "text",
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Allocation Percentage",
+  //     name: "allocationPercentage",
+  //     value: "",
+  //     type: "text",
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Business Unit",
+  //     name: "businesssUnit",
+  //     value: "",
+  //     type: "text",
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Customer Name",
+  //     name: "customer",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     option: customerList,
+  //     props: {
+  //       onChange: ((e) => {
+  //         if (e.target.value){
+  //           dispatch(AdminActions.getManageCircle(true, `customer=${e.target.value}`));
+  //           dispatch(AdminActions.getManageDesignation(true,"",e.target.value));
+  //           dispatch(AdminActions.getManageCostCenter(true,"",e.target.value));
+  //         }
+  //         else{
+  //           dispatch(GET_MANAGE_DEPARTMENT({ dataAll:[], reset:true}));
+  //           dispatch(GET_MANAGE_DESIGNATION({ dataAll:[], reset:true}));
+  //           dispatch(GET_MANAGE_COST_CENTER({ dataAll:[], reset:true}));
+  //         }
+          
+  //       }),
+  //     },
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Grade",
+  //     name: "designation",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     option: designationList,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Role",
+  //     name: "role",
+  //     value: "",
+  //     type: "select",
+  //     option: roleList,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "PMIS Profile",
+  //     name: "userRole",
+  //     value: "",
+  //     type: "select",
+  //     option: roleList,
+  //     required: true,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Cost Center",
+  //     name: "costCenter",
+  //     value: "",
+  //     type: "select",
+  //     option: costCenterList,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Designation",
+  //     name: "band",
+  //     value: "",
+  //     type: "text",
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Department",
+  //     name: "department",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: departmentList,
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Reporting Manager",
+  //     name: "reportingManager",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: allEmployeeList,
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Approver",
+  //     name: "L1Approver",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     props: {},
+  //     option: allEmployeeList,
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Aprrover",
+  //     name: "L2Approver",
+  //     value: "",
+  //     type: "select",
+  //     required: false,
+  //     option: allEmployeeList,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Finance Approver",
+  //     name: "financeApprover",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "HR Manager",
+  //     name: "reportingHrManager",
+  //     value: "",
+  //     type: "select",
+  //     option: allHrList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Asset Manager",
+  //     name: "assetManager",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Vendor",
+  //     name: "L1Vendor",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Vendor",
+  //     name: "L2Vendor",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   // {
+  //   //   label: "Compliance",
+  //   //   name: "compliance",
+  //   //   value: "",
+  //   //   type: "select",
+  //   //   option: allEmployeeList,
+  //   //   required: false,
+  //   //   props: {},
+  //   //   classes: "col-span-1",
+  //   // },
+  //   {
+  //     label: "L1 Compliance",
+  //     name: "L1Compliance",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Compliance",
+  //     name: "L2Compliance",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Commercial",
+  //     name: "L1Commercial",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L1 Sales",
+  //     name: "L1Sales",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "L2 Sales",
+  //     name: "L2Sales",
+  //     value: "",
+  //     type: "select",
+  //     option: allEmployeeList,
+  //     required: false,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Status",
+  //     name: "status",
+  //     value: "",
+  //     type: "select",
+  //     required: true,
+  //     props: {},
+  //     option: [
+  //       { label: "Active", value: "Active" },
+  //       { label: "Resign", value: "Resign" },
+  //       { label: "Abscond", value: "Abscond" },
+  //       { label: "Exit", value: "Exit" },
+  //     ],
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "Password",
+  //     name: "password",
+  //     value: "",
+  //     type: "text",
+  //     required: true,
+  //     props: {},
+  //     classes: "col-span-1",
+  //   },
+  // ];
+
+  // let SupportingDoc = [
+  //   {
+  //     type: "heading",
+  //     label: "Supporting Document",
+  //     classes: "col-span-4 font-extrabold text-pcol text-start",
+  //   },
+  //   {
+  //     label: "Photo",
+  //     name: "img",
+  //     value: "",
+  //     type: "file",
+  //     required: false,
+  //     props: {
+  //       accept: "image/*",
+  //     },
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "CV",
+  //     name: "cv",
+  //     value: "",
+  //     type: "file",
+  //     required: false,
+  //     props: {
+  //       accept: ".pdf,.doc,.docx",
+  //     },
+  //     classes: "col-span-1",
+  //   },
+  //   {
+  //     label: "All Other Documents",
+  //     name: "zip",
+  //     value: "",
+  //     type: "file",
+  //     required: false,
+  //     props: {
+  //       accept: ".zip,.rar,.bin",
+  //     },
+  //     classes: "col-span-1",
+  //   },
+  // ];
+
+
+
+
 
   const onTableViewGenerateSubmit = (data) => {
     data["samePerAdd"] = isSame;
@@ -2310,10 +2427,10 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer())
     dispatch(AdminActions.getManageProfile());
-    dispatch(AdminActions.getManageCircle());
-    dispatch(AdminActions.getState());
-    dispatch(HrActions.getHRAllEmployee());
-    dispatch(HrActions.getHRManagerInEmployee());
+    // dispatch(AdminActions.getManageCircle());
+    // dispatch(AdminActions.getState());
+    // dispatch(HrActions.getHRAllEmployee());
+    // dispatch(HrActions.getHRManagerInEmployee());
     if (empuid) {
       dispatch(GET_EMPLOYEE_DETAILS({ dataAll: [], reset: false }));
       dispatch(HrActions.getManageEmpDetails(false, empuid));
@@ -2321,11 +2438,11 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
     } else {
       [
         ...PersonalInformation,
-        ...ContactInformation,
-        ...ContactInformation2,
-        ...EmploymentDetails,
-        ...EmployeeProfile,
-        ...SupportingDoc,
+        // ...ContactInformation,
+        // ...ContactInformation2,
+        // ...EmploymentDetails,
+        // ...EmployeeProfile,
+        // ...SupportingDoc,
       ].map((itss) => {
 
         setValue(itss.name, itss.value);
@@ -2363,7 +2480,7 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     getValues={getValues}
                   />
 
-                  <CommonForm
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
@@ -2372,8 +2489,8 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
-                  <CommonForm
+                  /> */}
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-2 mt-2 rounded-lg"
                     }
@@ -2386,8 +2503,8 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
-                  <CommonForm
+                  /> */}
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
@@ -2396,8 +2513,8 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
-                  <CommonForm
+                  /> */}
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
@@ -2406,8 +2523,8 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
-                  <CommonForm
+                  /> */}
+                  {/* <CommonForm
                     classes={
                       "grid-cols-4 gap-4 w-full h-auto bg-[#3e454d] p-4 mt-2 rounded-lg"
                     }
@@ -2416,7 +2533,7 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
-                  />
+                  /> */}
                   {/* <CommonForm classes={"grid-cols-2 gap-4 w-full mt-2"} errors={errors} Form={conDet}
                   register={register} setValue={setValue} getValues={getValues} /> */}
                 </div>

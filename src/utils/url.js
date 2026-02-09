@@ -3,12 +3,12 @@
 
 
 
-// export const baseUrl = "https://api.mcpspmis.com"
-// export const backendassetUrl = "https://api.mcpspmis.com/"
+export const baseUrl = "https://fcctoolapi.mcpspmis.com"
+export const backendassetUrl = "https://fcctoolapi.mcpspmis.com/"
 
 
-export const baseUrl = "http://127.0.0.1:7585";
-export const backendassetUrl = "http://127.0.0.1:7585";
+// export const baseUrl = "http://127.0.0.1:1951";
+// export const backendassetUrl = "http://127.0.0.1:1951/";
 
 
 
@@ -106,6 +106,7 @@ export const Urls = {
   get_vendortCostVendorsList: "/vendorCost/vendorsList",
   filter_vendorActivity_subProject: "filter/vendorActivity/projectType",
   common_update_site_milestone: "/commonUpdate",
+  new_common_update_site_milestone: "/newcommonUpdate",
 
   finance_poinvoice_based: "/finance/poInvoiceBased",
   finance_Invoice: "/finance/invoice",
@@ -313,7 +314,8 @@ export const Urls = {
   getEmpNameList:'/ptw/getApproverFilter',
 
 
-  projectlogs:"/admin/projectlogs"
+  projectlogs:"/admin/projectlogs",
+  admin_masterData:"/admin/masterData",
 };
 
 export const routesObjects ={

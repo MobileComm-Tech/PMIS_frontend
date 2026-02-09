@@ -23,9 +23,9 @@ const HrActions = {
             // dispatch(Notify.error('something went wrong! please try again after a while'))
         }
     },
-    getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
+    getManageEmpDetails:(reset=true,uid="",args="",show=0) => async (dispatch, _) => {
         try {
-            const res = await Api.get({ url:`${Urls.admin_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            const res = await Api.get({ url:`${Urls.admin_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`,show:show})
             if (res?.status !== 200) return
             let dataAll = res?.data?.data
             dispatch(GET_EMPLOYEE_DETAILS({dataAll,reset}))

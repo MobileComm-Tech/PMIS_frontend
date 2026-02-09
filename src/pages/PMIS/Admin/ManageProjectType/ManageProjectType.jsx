@@ -37,7 +37,6 @@ const   ManageProjectType = () => {
   } = useForm();
 
   const [modalOpen, setmodalOpen] = useState(false);
-
   const [type, settype] = useState(false);
   const [modalHead, setmodalHead] = useState(<></>);
   const [modalSize, setmodalSize] = useState("full");

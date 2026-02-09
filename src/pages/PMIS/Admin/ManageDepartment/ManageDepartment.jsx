@@ -132,7 +132,6 @@ const ManageDepartment = () => {
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageDepartment;
-    // console.log(interdata, "1234567890");
     if (interdata.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
@@ -153,25 +152,55 @@ const ManageDepartment = () => {
   let table = {
     columns: [
       {
-        name: "Customer",
-        value: "customerName",
+        name: "Employee Name",
+        value: "empName",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: "Department",
+        name: "Tested Urban",
+        value: "tested_urban",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Tested Rural",
+        value: "tested_rural",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Total Tested",
+        value: "total_tested",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Total Approved",
+        value: "total_approve",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Total Skipped",
+        value: "total_skipped",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Total Revisit",
+        value: "total_revisit",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Productivity (%)",
         value: "department",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -196,7 +225,7 @@ const ManageDepartment = () => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
-            <Button
+            {/* <Button
               classes="w-auto"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
@@ -211,7 +240,7 @@ const ManageDepartment = () => {
                 );
               }}
               name={"Add Department"}
-            ></Button>
+            ></Button> */}
           </div>
         }
         table={table}
@@ -224,7 +253,7 @@ const ManageDepartment = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
-        heading={"Total Department :- "}
+        heading={"Total :- "}
       />
       <Modal
         size={"sm"}

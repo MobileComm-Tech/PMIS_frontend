@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
 import { useDispatch, useSelector } from 'react-redux';
 import EditButton from '../../../components/EditButton';
-import EmpDetails from './EmpDetails';
 import AdvancedTable from '../../../components/AdvancedTable';
 import Modal from '../../../components/Modal';
 import Button from '../../../components/Button';
 import DeleteButton from '../../../components/DeleteButton';
 import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
 import { objectToQueryString } from '../../../utils/commonFunnction';
 import { ALERTS } from '../../../store/reducers/component-reducer';
 import CommonActions from '../../../store/actions/common-actions';
-import { Urls, backendassetUrl, baseUrl } from '../../../utils/url';
-import OperationManagementActions from '../../../store/actions/admin-actions';
+import { Urls} from '../../../utils/url';
 import AdminActions from '../../../store/actions/admin-actions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import ManageCustomerForm from '../Admin/ManageCustomer/ManageCustomerForm';
 
 
@@ -36,69 +32,50 @@ const Asset = () => {
     let navigate = useNavigate()
 
     let dbConfigList = useSelector((state) => {
-        // console.log(state, "state statejjjj")
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.adminData?.getMasterData
         return interdata?.map((itm) => {
             let updateditm = {
                 ...itm,
 
-                // imgshow: <img src={backendassetUrl + itm?.companyimg} />,
-                // "status": <CstmButton child={<ToggleButton onChange={(e) => {
-                //     console.log(e.target.checked, "e.target.checked")
-                //     let data = {
-                //         "enabled": e.target.checked ? 1 : 0
-                //     }
-                //     dispatch(AlertConfigurationActions.patchAlertConfig(true, data, () => {
-                //         // alert(e.target.checked)
-                //         e.target.checked = e.target.checked
-                //     }, itm.id))
-                //     // if(itm.enabled==0){
-                //     //     itm.enabled=1
-                //     // }else{
-                //     //     itm.enabled=0
-                //     // }
-                //     // itm.enabled=itm.enabled==0?1:0
-                //     console.log(itm.enabled, "itm.enabled")
-                // }} defaultChecked={itm.enabled == 1 ? true : false}></ToggleButton>} />,
-                "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
-                    setmodalOpen(true)
-                    dispatch(AdminActions.getManageCustomer())
-                    setmodalHead("Edit Customer Details")
-                    setmodalBody(<>
-                        <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
+
+                // "edit": <CstmButton className={"p-2"} child={<EditButton name={""} onClick={() => {
+                //     setmodalOpen(true)
+                //     dispatch(AdminActions.getManageCustomer())
+                //     setmodalHead("Edit Customer Details")
+                //     setmodalBody(<>
+                //         <ManageCustomerForm isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={false} formValue={itm} />
                        
-                    </>)
-                }}></EditButton>} />,
+                //     </>)
+                // }}></EditButton>} />,
 
-                "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
-                    let msgdata = {
-                        show: true,
-                        icon: 'warning',
-                        buttons: [
-                            <Button classes='w-15 bg-rose-400' onClick={() => {
-                                dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
-                                    dispatch(AdminActions.getManageCustomer())
-                                    dispatch(ALERTS({ show: false }))
-                                }))
-                            }} name={"OK"} />,
-                            <Button classes='w-auto' onClick={() => {
-                                dispatch(ALERTS({ show: false }))
-                            }} name={"Cancel"} />
-                        ],
-                        text: "Are you sure you want to Delete?"
-                    }
-                    dispatch(ALERTS(msgdata))
-                }}></DeleteButton>} />,
+                // "delete": <CstmButton child={<DeleteButton name={""} onClick={() => {
+                //     let msgdata = {
+                //         show: true,
+                //         icon: 'warning',
+                //         buttons: [
+                //             <Button classes='w-15 bg-rose-400' onClick={() => {
+                //                 dispatch(CommonActions.deleteApiCaller(`${Urls.admin_customer}/${itm.uniqueId}`, () => {
+                //                     dispatch(AdminActions.getManageCustomer())
+                //                     dispatch(ALERTS({ show: false }))
+                //                 }))
+                //             }} name={"OK"} />,
+                //             <Button classes='w-auto' onClick={() => {
+                //                 dispatch(ALERTS({ show: false }))
+                //             }} name={"Cancel"} />
+                //         ],
+                //         text: "Are you sure you want to Delete?"
+                //     }
+                //     dispatch(ALERTS(msgdata))
+                // }}></DeleteButton>} />,
 
 
-                "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
-                    setmodalOpen(true)
-                    setmodalHead("Show PDF")
-                    setmodalBody(<>
+                // "view": <CstmButton className={"p-5"} child={<Button name={""} onClick={() => {
+                //     setmodalOpen(true)
+                //     setmodalHead("Show PDF")
+                //     setmodalBody(<>
 
-                        {/* <div className='mx-3'><Button name={"Submit"} classes={""} onClick={(handleSubmit(onTableViewSubmit))} /></div> */}
-                    </>)
-                }}></Button>} />,
+                //     </>)
+                // }}></Button>} />,
 
 
 
@@ -108,114 +85,77 @@ const Asset = () => {
         });
     })
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getManageCustomer
+        let interdata = state?.adminData?.getMasterData
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
             return 0
         }
     })
-    // let Form = [
-    //     { label: "DB Server", value: "", option: ["Please Select Your DB Server"], type: "select" },
-    //     { label: "Custom Queries", value: "", type: "textarea" }
-    // ]
+
     const { register, handleSubmit, watch, setValue, setValues, getValues, formState: { errors } } = useForm()
 
+
+    let columnsList = [
+        "region","State","market","clusterName","insertedDate",	"Key","Vendor","Grad Month","LID","Grid_Morphology","Grid_Pops","Urban_Pops","Rural_Pops","Date_Time_Start","Technology","ST_TASKID","ST_Technology_Test","ST_DL Speed (Mbps)","ST_LATITUDE_START","ST_LONGITUDE_START","ST_NR_CA_SITEID_0","ST_NR_CA_SERVINGCELLID_0","ST_NR_CA_SERVINGCELLID_1","ST_NR_CA_SERVINGCELLID_2","ST_NR_CA_NR_ARFCN_0",	"ST_NR_CA_AVG_RSRP_CARRIER_0","ST_NR_CA_AVG_RSRP_CARRIER_1","ST_NR_CA_AVG_RSRP_CARRIER_2","ST_NR_CA_BANDWIDTH_DL_0","ST_NR_CA_BANDWIDTH_DL_1","ST_NR_CA_BANDWIDTH_DL_2","ST_LTE_CA_SITEID_0","ST_LTE_CA_SERVINGCELLID_0","ST_LTE_CA_SERVINGCELLID_1","ST_LTE_CA_BANDWIDTH_DL_0","MO_TASKID","MO_Technology_Test","MO_DL Speed (Mbps)","MO_LATITUDE_START","MO_LONGITUDE_START","MO_NR_CA_SITEID_0","MO_NR_CA_SERVINGCELLID_0","MO_NR_CA_SERVINGCELLID_1","MO_NR_CA_SERVINGCELLID_2","MO_NR_CA_NR_ARFCN_0","MO_NR_CA_AVG_RSRP_CARRIER_0","MO_NR_CA_AVG_RSRP_CARRIER_1","MO_NR_CA_AVG_RSRP_CARRIER_2","MO_NR_CA_BANDWIDTH_DL_0","MO_NR_CA_BANDWIDTH_DL_1","MO_NR_CA_BANDWIDTH_DL_2","MO_LTE_CA_SITEID_0","MO_LTE_CA_SERVINGCELLID_0", "MO_LTE_CA_SERVINGCELLID_1","MO_LTE_CA_BANDWIDTH_DL_0","ST_MO_Tests","Combined Speed Flag","Combined Speed","Speed_Category","Prediction_Speed_Category","Comparison","Grid_Status","Skip_LAST_MODIFIED_DATE","Skip_Grid_From_Skip_ID","SKIP_ID","SKIP_CAUSE","SKIP_REVISITED","DRIVER_TEXT","Scanner Missing"
+    ]
+
+    const columns = columnsList.map(col => ({
+        name:col,
+        value:col,
+        style: "min-w-[200px] max-w-[300px] text-center"
+
+    }))
+
     let table = {
-        columns: [
-            {
-                name: "Employee Name",
-                value: "empName",
-                style: "min-w-[140px] max-w-[200px] text-center sticky left-0 bg-[#3e454d]"
-            },
-            {
-                name: "Emp ID",
-                value: "empId",
-                style: "min-w-[250px] max-w-[450px] text-center sticky left-0 bg-[#3e454d]"
-            },
-            {
-                name: "Reporting Manager",
-                value: "reportingManager",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Asset Name",
-                value: "assetName",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Asset Category",
-                value: "assetCategory",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Serial Number",
-                value: "serialNumber",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Tag Number",
-                value: "tagNumber",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Asset Description",
-                value: "assetDescription",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            {
-                name: "Status",
-                value: "status",
-                style: "min-w-[250px] max-w-[450px] text-center"
-            },
-            // {
-            //     name: "Edit",
-            //     value: "edit",
-            //     style: "min-w-[100px] max-w-[100px] text-center"
-            // },
-            // {
-            //     name: "Delete",
-            //     value: "delete",
-            //     style: "min-w-[100px] max-w-[100px] text-center"
-            // },
-            // {
-            //     name: "View",
-            //     value: "view",
-            //     style: "min-w-[100px] max-w-[100px] text-center"
-            // }
-        ],
+        // columns: [
+        //     {
+        //         name: "Region",
+        //         value: "region",
+        //         // style: "min-w-[100px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]"
+        //         style: "min-w-[100px] max-w-[100px] text-center"
+        //     },
+        //     {
+        //         name: "State",
+        //         value: "State",
+        //         // style: "min-w-[100px] max-w-[100px] text-center sticky left-0 bg-[#3e454d]",
+        //         style: "min-w-[100px] max-w-[100px] text-center"
+        //     },
+        columns:columns,
         properties: {
             rpp: [10, 20, 50, 100]
         },
         
-        filter: [
-            // {
-            //     label: "Role",
-            //     type: "select",
-            //     name: "rolename",
-            //     option: roleList,
-            //     props: {
-            //     }
-            // }
-        ]
+        filter: []
     }
+
+
+
+
+
     const onSubmit = (data) => {
         let value = data.reseter
         delete data.reseter
-        dispatch(AdminActions.getManageCustomer(value, objectToQueryString(data)))
+        dispatch(AdminActions.getMasterData(value, objectToQueryString(data)))
     }
+
     useEffect(() => {
-        dispatch(AdminActions.getManageCustomer())
+        dispatch(AdminActions.getMasterData())
     }, [])
+
     return <>
         <AdvancedTable
-            headerButton={<> <Button onClick={() => {
-                // navigate(`${"/empdetails"}`)
-            }}
-                name={"Add New"}></Button></>}
+            headerButton={
+                <> 
+                    {/* <Button onClick={() => {
+                    }}
+                    name={"Add New"}>
+                    </Button> */}
+                </>
+            }
             table={table}
             filterAfter={onSubmit}
-            tableName={"UserListTable"}
+            tableName={"masterDataTable"}
             handleSubmit={handleSubmit}
             data={dbConfigList}
             errors={errors}
@@ -223,13 +163,11 @@ const Asset = () => {
             setValue={setValue}
             getValues={getValues}
             totalCount={dbConfigTotalCount}
+            heading={"Total Records : "}
         />
 
         <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
-
-        {/* <CommonForm/> */}
     </>
 }
-
 
 export default Asset;
