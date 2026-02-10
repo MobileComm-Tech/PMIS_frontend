@@ -17,12 +17,17 @@ import Button from '../../../components/Button';
 import { ALERTS } from '../../../store/reducers/component-reducer';
 import Modal from '../../../components/Modal';
 import CommonAlert from '../../../components/Common Alert/CommonAlert';
+import FileUploader from '../../../components/FIleUploader';
+import { Urls } from '../../../utils/url';
 const Wcc = () => {
 
     const dispatch = useDispatch();
       const [filters, setFilters] = useState(pagination);
+      const [fileOpen, setFileOpen] = useState(false);
       const [checkedData,setCheckData] =useState([])
       const [checkedChildData,setCheckChildData] =useState([])
+      const [wccPdfData,setWccPdfData]= useState([])
+      const [assignDate, setAssignDate] = useState();
         const [strValFil, setstrVal] = useState(false);
         const [modalOpen, setmodalOpen] = useState(false);
         const [modalBody, setmodalBody] = useState(<></>);
@@ -65,6 +70,16 @@ const Wcc = () => {
 
     let strVal = objectToQueryString({...data,...pagination});
     // console.log(strVal,"___strVal__")
+    if (assignDate) {
+      let tempObj={}
+      const { start, end } = assignDate;
+      tempObj["start"] = start?.split("T")[0];
+      tempObj["end"] = end?.split("T")[0];
+   
+     strVal= objectToQueryString({...data,...pagination,...{startData:tempObj["start"],endDate:tempObj["end"]}})
+    }
+   
+    console.log(data,"___data")
     setstrVal(strVal);
     setFilters({
       ...filters,
@@ -96,8 +111,10 @@ const Wcc = () => {
       null
     )
   );
-  console.log(modalOpen,"___modalOpen")
+  // console.log(modalOpen,"___modalOpen")
   // setmodalOpen(false)
+
+  
 };                                    
 
       const table = {
@@ -138,6 +155,10 @@ const Wcc = () => {
         ),
         value: "checkboxProject",
         style: "min-w-[40px] max-w-[40px] text-center",
+      },{
+        name:"Generate PDF",
+        value:"generatePdf",
+         style: "min-w-[140px] max-w-[200px] text-center",
       },
   {
     name: "Customer",
@@ -308,6 +329,18 @@ const Wcc = () => {
 
         type: "text",
       },
+       {
+      label: "Date Filter",
+      value: "",
+      name: "dateFilter",
+      type: "datetimeRangeNew",
+      
+      // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      required: false,
+      onChange: (data) => {
+        setAssignDate(data);
+      },
+    },
       {
         label: "WCC Eligibility",
         value: "",
@@ -325,6 +358,7 @@ const Wcc = () => {
 
 //   Table Data starts here
 // console.log(checkedData,checkedChildData,"___checkedData_")
+console.log(wccPdfData,"___wccPdfData")
 
   let tableData  = useSelector((state)=>state?.vendorData?.getWccSubmodule);
   tableData = tableData?.map((itm)=>{
@@ -366,7 +400,40 @@ const Wcc = () => {
             />:
             <></>
           }
+         
+          </>
+        ),
+        generatePdf:(
+          <>
+            {
+            itm?.isWccCreated===true?
+
+            
+              <input
+              type={"checkbox"}
+              // id={itm.uniqueId}
+              // subId={itm.SubProjectId}
+              checked={wccPdfData?.some(d => d.ssid === itm.ssid) }
+              value={itm.uniqueId}
+              onChange={(e) => {
+                
+                  if(e?.target?.checked ){
           
+                      const tempObj = {ssid:itm?.ssid,vendorItemCode:itm?.vendorItemCode,wccNumber:itm?.wccNumber}
+                      setWccPdfData(prev=>[...prev,...[tempObj]])
+                    
+                  }
+                  else{
+                    // console.log(e?.target?.checked,"___peinfoes")
+                        const data =wccPdfData?.filter(bar=>bar?.ssid!==itm?.ssid)
+                        setWccPdfData(data)
+                       
+                  }
+              }}
+            />:
+            <></>
+          }
+         
           </>
         ),
         actions:(
@@ -438,6 +505,20 @@ const Wcc = () => {
     // setSelectedRow(null);
   };
 
+    const onTableViewSubmit = (data) => {
+    data["fileType"] = "wccUpload";
+        dispatch(
+        CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+            const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
+        dispatch(VendorActions.getWccSubmodule(true, defaultPagination));
+            setFileOpen(false);
+            resetting("");
+            
+        })
+        );
+  };
+
+
   return (
    <>
         <AdvancedTable
@@ -452,7 +533,7 @@ const Wcc = () => {
               // onClick={() => navigate("/empdetails")}
               onClick={() => {
                 setCheckData([])
-              
+                setCheckChildData([])
                 dispatch(VendorActions.postCreateWCC(checkedData,()=>{
 
                   const defaultPagination = objectToQueryString({"page":1, "limit":50})
@@ -483,6 +564,7 @@ const Wcc = () => {
               // onClick={() => navigate("/empdetails")}
               onClick={() => {
                   setCheckChildData([])
+                  setCheckData([])
                 dispatch(VendorActions.postCreateWCC(checkedChildData,()=>{
                   const defaultPagination = objectToQueryString({"page":1, "limit":50})
                   dispatch(VendorActions.getWccSubmodule(true,defaultPagination))
@@ -507,6 +589,39 @@ const Wcc = () => {
               </>
               :<></>
            }
+            {
+            wccPdfData?.length>0?
+              <ConditionalButton
+              showType={getAccessType("Export(Site)")}
+              classes="w-auto "
+              onClick={(e) => {
+                // dispatch(
+                //   CommonActions.commondownload(
+                //     "/wcc/download?","","POST",wccPdfData,()=>{}
+                //   )
+                // );
+              dispatch(
+                      CommonActions.commondownloadpost(
+                        "/wcc/download?",
+                        `${wccPdfData[0]?.wccNumber}.pdf`,   // ✅ give a real filename
+                        "POST",
+                        wccPdfData
+                      )
+                    );
+                    setWccPdfData([])
+
+              }}
+              name={"Generate PDF"}
+            ></ConditionalButton>:
+            <></>
+           }
+          
+            <ConditionalButton
+              showType={getAccessType("Upload(ManageEmployee)")}
+              name={"Upload File"}
+              classes="w-auto mr-1"
+              onClick={() => setFileOpen(true)}
+            />
            <ConditionalButton
               showType={getAccessType("Export(Site)")}
               classes="w-auto "
@@ -521,6 +636,7 @@ const Wcc = () => {
               }}
               name={"Export"}
             ></ConditionalButton>
+            
            
           </div>
         }
@@ -541,6 +657,17 @@ const Wcc = () => {
         //     "PartnerTeam.xlsx",
         //     ]}
         heading={"Total Count:-"}
+      />
+       <FileUploader
+        isOpen={fileOpen}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={[
+          "/template/wccUpload.xlsx",
+          "WCC_File_template.xlsx",
+        ]}
+        head={"Upload Upgrade File"}
       />
 
        <Modal

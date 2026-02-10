@@ -52,7 +52,7 @@ const DateRangePicking = ({ itm, errors, setValue }) => {
             : null
         }
         dateFormat="dd/MM/yyyy"
-        className="bg-[#3e454d] text-white border-[#64676d] !border-[3px] block h-10 !min-w-[230px] rounded-md py-2 px-3 focus:ring-2 ring:[#64676d] focus:ring-indigo-600"
+        className={`${itm?.type==="datetimeRangeNew"?"bg-white border-black border block h-8 w-44 rounded-md p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6":"bg-[#3e454d] text-white border-[#64676d] !border-[3px] block h-10 !min-w-[230px] rounded-md py-2 px-3 focus:ring-2 ring:[#64676d] focus:ring-indigo-600"}`}
          {...itm?.props}
       />
       {/* {itm.required && (!startDate || !endDate) && (

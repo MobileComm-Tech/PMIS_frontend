@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PopupMenu from "./PopupMenu";
 import { UilFilter } from "@iconscout/react-unicons";
 import DatePicker from "react-datepicker";
 import Button from "./Button";
 import Multiselection from "./FormElements/Multiselection";
+import DateRangePicking from "./FormElements/DateRangePicking";
+import ComponentActions from "../store/actions/component-actions";
+import { useDispatch } from "react-redux";
 
 const FilterView = ({
   tablefilter = [],
@@ -15,6 +18,11 @@ const FilterView = ({
   setValue,
   getValues,
 }) => {
+
+  const dispatch = useDispatch();
+
+  const [close,setClose] = useState(false)
+
   useEffect(() => {
     const handleEnterKey = (e) => {
       if (e.key === "Enter") {
@@ -33,6 +41,21 @@ const FilterView = ({
       setValue(itm.name, getValues(itm.name) || '');
     });
   }, [tablefilter, setValue, getValues]);
+
+  //   const handleClickOutside = (event) => {
+  //   if (
+  //         !Array.from(event.target.classList)?.includes("not")
+  //   ) {
+  //     dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
+  //   }
+  // };
+
+  //   useEffect(() => {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => {
+  //       document.removeEventListener("mousedown", handleClickOutside);
+  //     };
+  //   }, [close]);
 
   return (
     <>
@@ -179,6 +202,9 @@ const FilterView = ({
                         </p>
                       </>
                     )}
+                    {itm.type === "datetimeRangeNew" && (
+                    <DateRangePicking {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                  )}
                   </div>
                 ))}
               </div>
@@ -200,6 +226,16 @@ const FilterView = ({
                   }}
                   classes="w-18 p-10 mx-2 bg-rose-400"
                 />
+                {/* <Button
+                  name={"Close"}
+                  onClick={() => {
+                    tablefilter.forEach((itm) => setValue(itm.name, ''));
+                    // onSubmit({})
+                    // onReset();
+                    setClose(true)
+                  }}
+                  classes="w-18 p-10 mx-2 bg-rose-400"
+                /> */}
               </div>
             </>
           }

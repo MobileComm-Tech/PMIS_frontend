@@ -1039,7 +1039,7 @@ const VendorProjectTracking = () => {
     },
     {
       label: "Date Range",
-      value: "",
+      value: "",  
       name: "assignDate",
       type: "datetimeRange",
       bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",

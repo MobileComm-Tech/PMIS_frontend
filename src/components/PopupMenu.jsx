@@ -199,6 +199,7 @@ const PopupMenu = ({
   const filterVisibility = useSelector((state) => state.component.popmenu);
 
   const handleClick = () => {
+    // console.log("Runnning")
     dispatch(
       ComponentActions.popmenu(
         location.pathname + "_" + name,
@@ -215,14 +216,15 @@ const PopupMenu = ({
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   useEffect(() => {
+    console.log(filterVisibility,"fucking Useeffect")
     if (filterVisibility === location.pathname + "_" + name) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const modalWidth = modalRef.current.offsetWidth;

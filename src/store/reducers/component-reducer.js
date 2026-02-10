@@ -15,6 +15,7 @@ const component = createSlice({
   initialState,
   reducers: {
     POP_MENU: (state, { payload }) => {
+      console.log(payload,"___payload__")
       if (payload.tkn) {
         state.popmenu = state.popmenu != payload.data ? payload.data : "";
       } else {
