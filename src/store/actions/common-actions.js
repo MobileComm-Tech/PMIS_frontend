@@ -301,6 +301,7 @@ const CommonActions = {
           data: data,
         });
         if (res?.status !== 201 && res?.status !== 200) {
+          console.log(res,"__ahsdbankjsd")
           let msgdata = {
             show: true,
             icon: "error",
