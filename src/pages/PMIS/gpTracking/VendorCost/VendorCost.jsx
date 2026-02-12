@@ -653,6 +653,17 @@ const VendorCost = () => {
         value: "vendorCode",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
+         {
+        name: "Min Rate",
+        value: "minRate",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Max Rate",
+        value: "maxRate",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+
       {
         name: "Rate",
         value: "rate",

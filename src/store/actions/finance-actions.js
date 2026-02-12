@@ -6,6 +6,18 @@ import {GET_INVOICE, GET_POINVOICED_BASED, GET_POWORKDONE_DASHBOARD, GET_POWORKD
 
 const FinanceActions = {
 
+      getUnbilled:(reset=true,value,args="",customerId) => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.finance_unbilled}/${customerId}${args!=""?"?"+args:""}`, value })
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_UNBILLED({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+ 
+
+
     getPOInvoicedBased:(reset=true,args="",customerId) => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.finance_poinvoice_based}/${customerId}${args!=""?"?"+args:""}`, reset })

@@ -1529,6 +1529,23 @@ const VendorCostForm = ({
     //     },
     //     required: true,
     //   },
+       {
+      label: "Min Rate",
+      value: "",
+      name: "minRate",
+      type: "number",
+      filter: true,
+      classes: "col-span-1",
+    },
+    {
+      label: "Max Rate",
+      value: "",
+      name: "maxRate",
+      type: "number",
+      filter: true,
+      classes: "col-span-1",
+    },
+
     {
       label: "Rate",
       value: "",

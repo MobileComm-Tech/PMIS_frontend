@@ -791,6 +791,14 @@ export const Sidebar_content = {
     },
     {
       name: "",
+      link: "/financial/:customer/:customerId/unbilled",
+      component: <UnbilledWaterfall />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+    {
+      name: "",
       link: "/financial/Unbilled",
       component: <UnbilledCards />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,

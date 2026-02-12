@@ -79,7 +79,7 @@ const Wcc = () => {
      strVal= objectToQueryString({...data,...pagination,...{startData:tempObj["start"],endDate:tempObj["end"]}})
     }
    
-    console.log(data,"___data")
+    // console.log(data,"___data")
     setstrVal(strVal);
     setFilters({
       ...filters,
@@ -96,11 +96,11 @@ const Wcc = () => {
      dispatch(VendorActions.getWccSubmodule(true,defaultPagination))
   }, []);
 
-  console.log(checkedData,checkedChildData,"___checkdateda")
+  // console.log(checkedData,checkedChildData,"___checkdateda")
 
 
  const getAllData = (itm) => {
-  console.log("CommingHEre")
+  // console.log("CommingHEre")
   dispatch(
     VendorActions.postDeSelectWCC(
       { ssid: itm?.ssid, vendorItemCode: itm?.vendorItemCode },
@@ -358,7 +358,7 @@ const Wcc = () => {
 
 //   Table Data starts here
 // console.log(checkedData,checkedChildData,"___checkedData_")
-console.log(wccPdfData,"___wccPdfData")
+// console.log(wccPdfData,"___wccPdfData")
 
   let tableData  = useSelector((state)=>state?.vendorData?.getWccSubmodule);
   tableData = tableData?.map((itm)=>{
@@ -603,7 +603,7 @@ console.log(wccPdfData,"___wccPdfData")
               dispatch(
                       CommonActions.commondownloadpost(
                         "/wcc/download?",
-                        `${wccPdfData[0]?.wccNumber}.pdf`,   // ✅ give a real filename
+                        `${wccPdfData[0]?.wccNumber}.pdf`,
                         "POST",
                         wccPdfData
                       )

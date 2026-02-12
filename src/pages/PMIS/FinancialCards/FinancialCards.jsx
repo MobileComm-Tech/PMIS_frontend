@@ -144,7 +144,8 @@ const FinancialCards = () => {
           ["PO Management", "bg-pcol", `/financial/${customer}/${customerId}/poManagement`],
           ["Revenue Management", "bg-pcol", `/financial/${customer}/${customerId}/invoiceMgmt`],
           ["Workdone", "bg-pcol",`/financial/${customer}/${customerId}/poWorkDone`],
-          ["Unbilled", "bg-pcol", "/financial/unbilled"],
+          // ["Unbilled", "bg-pcol", "/financial/unbilled"],
+          ["Unbilled", "bg-pcol", `/financial/${customer}/${customerId}/unbilled`],
   
         ].map((itm) => {
           return (
