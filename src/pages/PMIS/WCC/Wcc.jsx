@@ -357,7 +357,7 @@ const Wcc = () => {
 
 
 //   Table Data starts here
-// console.log(checkedData,checkedChildData,"___checkedData_")
+console.log(checkedData,checkedChildData,"___checkedData_")
 // console.log(wccPdfData,"___wccPdfData")
 
   let tableData  = useSelector((state)=>state?.vendorData?.getWccSubmodule);

@@ -224,7 +224,7 @@ const PopupMenu = ({
   // }, []);
 
   useEffect(() => {
-    console.log(filterVisibility,"fucking Useeffect")
+    
     if (filterVisibility === location.pathname + "_" + name) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       const modalWidth = modalRef.current.offsetWidth;
