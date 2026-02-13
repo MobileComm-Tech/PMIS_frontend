@@ -19,6 +19,7 @@ const ManageDepartment = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
+  const [searchTerm, setSearchTerm] = useState("");
 
   let dispatch = useDispatch();
 
@@ -157,6 +158,31 @@ const ManageDepartment = () => {
         style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
+        name: "Total Grid",
+        value: "total_grid",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Tested",
+        value: "total_tested",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Skipped",
+        value: "total_skipped",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Revisit",
+        value: "total_revisit",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
+        name: "Approved",
+        value: "total_approve",
+        style: "min-w-[140px] max-w-[200px] text-center",
+      },
+      {
         name: "Tested Urban",
         value: "tested_urban",
         style: "min-w-[140px] max-w-[200px] text-center",
@@ -166,26 +192,7 @@ const ManageDepartment = () => {
         value: "tested_rural",
         style: "min-w-[140px] max-w-[200px] text-center",
       },
-      {
-        name: "Total Tested",
-        value: "total_tested",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Total Approved",
-        value: "total_approve",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Total Skipped",
-        value: "total_skipped",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
-      {
-        name: "Total Revisit",
-        value: "total_revisit",
-        style: "min-w-[140px] max-w-[200px] text-center",
-      },
+      
       {
         name: "Productivity (%)",
         value: "department",
@@ -220,27 +227,42 @@ const ManageDepartment = () => {
     dispatch(AdminActions.getManageDepartment());
   }, []);
 
+
+  const handleSearch = (value) => {
+        dispatch(AdminActions.getCompiliance(true,value !== "" ? "filterData=" + value:""))
+    };
+
+  const handleChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+
+
+        if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+        }
+
+
+        debounceTimeout.current = setTimeout(() => {
+        handleSearch(value);
+        }, 500); 
+  };
+
   return (
     <>
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
-            {/* <Button
-              classes="w-auto"
-              onClick={(e) => {
-                setmodalOpen((prev) => !prev);
-                setmodalHead("New Department");
-                setmodalBody(
-                  <ManageDepartmentForm
-                    isOpen={modalOpen}
-                    setIsOpen={setmodalOpen}
-                    resetting={true}
-                    formValue={{}}
-                  />
-                );
-              }}
-              name={"Add Department"}
-            ></Button> */}
+            <Button
+                name={"Export"}
+                classes="w-auto"
+                onClick={() => {
+                    const url =
+                        searchTerm !== ""
+                            ? `/admin/manageDepartment/id?filterData=${searchTerm}`
+                            : `/admin/manageDepartment/id`;
+                    dispatch(CommonActions.commondownload(url,"Resource_Productivity(%).xlsx"))
+                  }}>
+            </Button>
           </div>
         }
         table={table}

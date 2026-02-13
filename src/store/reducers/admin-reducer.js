@@ -70,6 +70,7 @@ const initialState = {
   getExchnageRate:[],
   getManageProjectLogs:[],
   getMasterData:[],
+  getOneProjectTypeDyform:[]
 };
 
 const adminData = createSlice({

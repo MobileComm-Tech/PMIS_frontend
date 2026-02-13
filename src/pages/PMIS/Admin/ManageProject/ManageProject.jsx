@@ -658,13 +658,13 @@ const ManageProject = () => {
        <FileUploader
         isOpen={bulkfileOpen}
         fileUploadUrl={""}
-        tempbtn={false}
+        tempbtn={true}
+        tempbtnlink ={["/template/DT_technician_template.xlsx","DT_technician_template.xlsx"]}
         onTableViewSubmit={(data) => {
           data["fileType"] = "GridCell";
           dispatch(
             CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
               setbulkfileOpen(false);
-              // dispatch(projectListActions.getProjectTypeAll(projectuniqueId));
               dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`));
             })
           )

@@ -16,6 +16,8 @@ import EditButton from '../../../../components/EditButton';
 import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
 import { masterUnitRateWithActivityFilter, range } from '../../../../components/CommonObjectsAndVariables';
 import SearchBarView from '../../../../components/SearchBarView';
+import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from '../../../../store/reducers/admin-reducer';
 const ManageCompliance = () => {
 
     const [modalOpen, setmodalOpen] = useState(false)
@@ -25,6 +27,7 @@ const ManageCompliance = () => {
     const [strValFil, setstrVal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const debounceTimeout = useRef(null);
+    const [modalFullOpen, setmodalFullOpen] = useState(false);
     
     let dispatch = useDispatch()
     let dbConfigList = useSelector((state) => {
@@ -33,6 +36,24 @@ const ManageCompliance = () => {
             
             let updateditm = {
                 ...itm,
+                clusterName: (
+                    <p
+                        className="text-[#13b497] font-extrabold cursor-pointer"
+                        onClick={() => {
+                          setmodalFullOpen((prev) => !prev);
+                          setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                          dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                          dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}`));
+                          setmodalBody(
+                            <ManageMilestoneSite
+                              CompleteData={itm}
+                            />
+                          );
+                        }}
+                    >
+                        {itm["clusterName"]}
+                    </p>
+                    ),
             }
             return updateditm
         });
@@ -233,7 +254,17 @@ const ManageCompliance = () => {
             totalCount={dbConfigTotalCount}
             heading = {'Total Count :-  '}
         />
-        <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} />
+        {/* <Modal size={"sm"} modalHead={modalHead} children={modalBody} isOpen={modalOpen} setIsOpen={setmodalOpen} /> */}
+        <Modal
+            size={"smsh"}
+            modalHead={modalHead}
+            children={modalBody}
+            isOpen={modalFullOpen}
+            actionOnClose={() => {
+            setmodalBody(null);
+            }}
+            setIsOpen={setmodalFullOpen}
+        />
         <FileUploader
         isOpen={fileOpen}
         fileUploadUrl={""}
