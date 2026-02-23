@@ -135,13 +135,14 @@ const ManageUserProjectAllocation = () => {
             setFileOpen(false)
         }))
     }
+
     return <>
         <AdvancedTable
             headerButton={
                 <div className='flex gap-1'>
-                    <Button name={"Upload"} classes='w-auto' onClick={(e) => {
+                    {/* <Button name={"Upload"} classes='w-auto' onClick={(e) => {
                         setFileOpen(prev=>!prev)
-                    }}></Button>
+                    }}></Button> */}
                     <Button name={"Export"} classes='w-auto mr-1 ' onClick={(e) => {
                         dispatch(CommonActions.commondownload("/export/userProjectAllocation"+"?"+strValFil,"Export_User_Project_Allocation.xlsx"))
                     }}></Button>

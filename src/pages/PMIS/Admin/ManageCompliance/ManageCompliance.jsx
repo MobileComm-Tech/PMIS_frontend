@@ -1,26 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedTable from '../../../../components/AdvancedTable';
 import Modal from '../../../../components/Modal';
 import Button from '../../../../components/Button';
-import DeleteButton from '../../../../components/DeleteButton';
-import CstmButton from '../../../../components/CstmButton';
 import { objectToQueryString } from '../../../../utils/commonFunnction';
 import FileUploader from '../../../../components/FIleUploader';
-import { ALERTS } from '../../../../store/reducers/component-reducer';
 import CommonActions from '../../../../store/actions/common-actions';
 import { Urls } from '../../../../utils/url';
 import AdminActions from '../../../../store/actions/admin-actions';
-import EditButton from '../../../../components/EditButton';
-import { GET_FINANCIAL_WORKDONE_PROJECT_TYPE } from '../../../../store/reducers/filter-reducer';
-import { masterUnitRateWithActivityFilter, range } from '../../../../components/CommonObjectsAndVariables';
+import { masterUnitRateWithActivityFilter} from '../../../../components/CommonObjectsAndVariables';
 import SearchBarView from '../../../../components/SearchBarView';
 import ManageMilestoneSite from '../ManageSite/ManageMilestoneSite';
 import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from '../../../../store/reducers/admin-reducer';
 const ManageCompliance = () => {
 
-    const [modalOpen, setmodalOpen] = useState(false)
     const [fileOpen, setFileOpen] = useState(false)
     const [modalBody, setmodalBody] = useState(<></>)
     const [modalHead, setmodalHead] = useState(<></>)
@@ -47,13 +41,166 @@ const ManageCompliance = () => {
                           setmodalBody(
                             <ManageMilestoneSite
                               CompleteData={itm}
+                              type={null}
                             />
                           );
                         }}
                     >
                         {itm["clusterName"]}
                     </p>
-                    ),
+                ),
+                // total_grid: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type={null}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["total_grid"]}
+                //     </p>
+                // ),
+                // total_tested: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=total_tested`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"total_tested"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["total_tested"]}
+                //     </p>
+                // ),
+                // case1: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=case1`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"case1"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["case1"]}
+                //     </p>
+                // ),
+                // case2: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=case2`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"case2"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["case2"]}
+                //     </p>
+                // ),
+                // case3: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=case3`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"case3"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["case3"]}
+                //     </p>
+                // ),
+                // total_skipped: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=total_skipped`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"total_skipped"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["total_skipped"]}
+                //     </p>
+                // ),
+                // skip_case1: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=skip_case1`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"skip_case1"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["skip_case1"]}
+                //     </p>
+                // ),
+                // skip_case2: (
+                //     <p
+                //         className="text-[#f4d3a8] font-extrabold cursor-pointer"
+                //         onClick={() => {
+                //           setmodalFullOpen((prev) => !prev);
+                //           setmodalHead("Date-"+itm['date'] +" _ "+ "Driver-"+itm['driver']+" _ "+ "Cluster-" + itm["clusterName"]);
+                //           dispatch(GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM({dataAll: [],reset: true}));
+                //           dispatch(AdminActions.getOneProjectTypeDyform(itm.userId,true,`date=${itm['date']}&clusterName=${itm['clusterName']}&type=skip_case2`));
+                //           setmodalBody(
+                //             <ManageMilestoneSite
+                //               CompleteData={itm}
+                //               type ={"skip_case1"}
+                //             />
+                //           );
+                //         }}
+                //     >
+                //         {itm["skip_case2"]}
+                //     </p>
+                // ),
             }
             return updateditm
         });
@@ -113,6 +260,11 @@ const ManageCompliance = () => {
                 style: "min-w-[140px] max-w-[200px] text-center"
             },
             {
+                name: "Total Grid",
+                value: "total_grid",
+                style: "min-w-[100px] max-w-[120px] text-center"
+            },
+            {
                 name: "# of Grids Completed",
                 value: "total_tested",
                 style: "min-w-[160px] max-w-[200px] text-center"
@@ -131,6 +283,11 @@ const ManageCompliance = () => {
                 name: "# valid_insufficient_with remark",
                 value: "case3",
                 style: "min-w-[180px] max-w-[200px] text-center"
+            },
+            {
+                name: "# Invalid_insufficient_no remark",
+                value: "invalid_grid",
+                style: "min-w-[100px] max-w-[120px] text-center"
             },
             {
                 name: "Total Skipped",
@@ -171,16 +328,16 @@ const ManageCompliance = () => {
     }, []);
 
 
-    const onTableViewSubmit3 = (data) => {
-        data["fileType"] = "UploadAccuralRevenueMasterWithActivity";
-        dispatch(
-          CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            setFileOpen(false);
-            dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter));
-            resetting("");
-          })
-        );
-    };
+    // const onTableViewSubmit3 = (data) => {
+    //     data["fileType"] = "UploadAccuralRevenueMasterWithActivity";
+    //     dispatch(
+    //       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+    //         setFileOpen(false);
+    //         dispatch(AdminActions.getAccuralRevenueMasterProject(true,masterUnitRateWithActivityFilter));
+    //         resetting("");
+    //       })
+    //     );
+    // };
 
 
       const handleSearch = (value) => {
@@ -265,14 +422,14 @@ const ManageCompliance = () => {
             }}
             setIsOpen={setmodalFullOpen}
         />
-        <FileUploader
+        {/* <FileUploader
         isOpen={fileOpen}
         fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit3}
         setIsOpen={setFileOpen}
         tempbtn={true} tempbtnlink = {["/template/AccuralRevenueMasterWithActivity.xlsx","AccuralRevenueMasterWithActivity.xlsx"]}
         head = {"Upload File"}
-      />
+      /> */}
 
     </>
 

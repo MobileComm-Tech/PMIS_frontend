@@ -108,7 +108,7 @@ const UserAccessManagement = () => {
               />
             }
 
-            {
+            {/* {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
@@ -118,8 +118,8 @@ const UserAccessManagement = () => {
                 btnName={"Partner Mangment"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="PartnerView")}
               />
-            }
-            {
+            } */}
+            {/* {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
@@ -129,8 +129,8 @@ const UserAccessManagement = () => {
                 btnName={"Financial"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FinancialView")}
               />
-            }
-            {
+            } */}
+            {/* {
               <UserAccessManagementChild
                 showData={showData}
                 setshowData={setshowData}
@@ -140,7 +140,7 @@ const UserAccessManagement = () => {
                 btnName={"Forms"}
                 listValue={getComponentAllocation.filter(prev=>prev.parent=="FormsView")}
               />
-            }
+            } */}
           </table>
         </div>
       </div>

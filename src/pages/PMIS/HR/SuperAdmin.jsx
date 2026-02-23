@@ -55,18 +55,18 @@ const SuperAdmin = () => {
             "border-b-[#b8e0d2]",
           ],
           
-          // [
-          //   "User Access Management",
-          //   "bg-pcol",
-          //   "/hr/superAdmin/UserAccessManagement",
-          //   "border-b-[#d8e2dc]",
-          // ],
-          // [
-          //   "User Project Allocation",
-          //   "bg-pcol",
-          //   "/hr/superAdmin/userProjectAllocation",
-          //   "border-b-[#d8e2dc]",
-          // ],
+          [
+            "User Access Management",
+            "bg-pcol",
+            "/hr/superAdmin/UserAccessManagement",
+            "border-b-[#d8e2dc]",
+          ],
+          [
+            "User Project Allocation",
+            "bg-pcol",
+            "/hr/superAdmin/userProjectAllocation",
+            "border-b-[#d8e2dc]",
+          ],
           // [
           //   "Partner Project Allocation",
           //   "bg-pcol",

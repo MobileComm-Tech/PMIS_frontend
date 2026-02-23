@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../../components/Button";
 import AdminActions from "../../../../store/actions/admin-actions";
-import projectListActions from "../../../../store/actions/projectList-actions";
 import AdvancedTable from "../../../../components/AdvancedTable";
 import CommonActions from "../../../../store/actions/common-actions";
 
 
 const ManageMilestoneSite = ({
   CompleteData,
+  type=null
 }) => {
 
   const {
@@ -55,7 +55,7 @@ const ManageMilestoneSite = ({
           {
               name: "GridCell Id",
               value: "GridCellId",
-              style: "min-w-[140px] max-w-[20px] text-center sticky"
+              style: "min-w-[140px] max-w-[200px] text-center sticky"
           },
           {
               name: "Grid Morphology",
@@ -65,12 +65,12 @@ const ManageMilestoneSite = ({
           {
               name: "Grid Status",
               value: "Grid_Status",
-              style: "min-w-[100px] max-w-[80px] text-center sticky"
+              style: "min-w-[100px] max-w-[120px] text-center sticky"
           },
           {
               name: "Stationary Status",
               value: "StationaryStatus",
-              style: "min-w-[100px] max-w-[100px] text-center sticky"
+              style: "min-w-[120px] max-w-[100px] text-center sticky"
           },
           {
               name: "Mobility Status",
@@ -117,7 +117,7 @@ const ManageMilestoneSite = ({
                       name={"Export"}
                       classes="w-auto"
                       onClick={() => {
-                          const url =`/export/getOneSiteEngg/${userId}/${date}/${clusterName}`
+                          const url =`/export/getOneSiteEngg/${userId}/${date}/${clusterName}/${type}`
                           dispatch(CommonActions.commondownload(url,"Export_project_tracking.xlsx"))
                         }}
                   >

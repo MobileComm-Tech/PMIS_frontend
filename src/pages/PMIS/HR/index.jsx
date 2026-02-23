@@ -88,16 +88,6 @@ const HRHomeView = () => {
               <Unicons.UilUserCircle size="30" color="" />,
             ],
             ["Master Data", "bg-pcol", "/hr/masterFile",<Unicons.UilMoneyWithdrawal size="30" color="" />,],
-            // ["Manage Policy",
-            //   "bg-pcol",
-            //   "",
-            // ],
-            // [
-            //   "Expense & Advance",
-            //   "bg-pcol",
-            //   "/hr/Claim", "/hr/Advance",
-            // ],
-            // ["Attendance", "bg-pcol", "/hr/attendance",  <Unicons.UilCheckCircle size="30" color="" />,],
             [
               "Super Admin",
               "bg-pcol",

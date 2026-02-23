@@ -463,9 +463,6 @@ const ManageProject = () => {
             <SearchBarView
               onblur={(e) => {
               }}
-              // onchange={(e) => {
-              //   dispatch(AdminActions.getProject(`${customeruniqueId}${projecttypeuniqueId ? "/" + projecttypeuniqueId : ""}`,true,e.target.value != ""? "searvhView=" + e.target.value: ""));
-              // }}
               onchange={handleChange}
               placeHolder={"Search...."}
             />
@@ -496,13 +493,14 @@ const ManageProject = () => {
             >
             </ConditionalButton>
 
-            <Button
+            <ConditionalButton
               name={"Upload"}
+              showType={getAccessType("Upload(Project)")}
               classes="w-auto mr-1"
               onClick={(e) => {
                 setbulkfileOpen((prev) => !prev);
               }}
-            ></Button>
+            ></ConditionalButton>
         
 
             {/* { exportpopupShowType && (

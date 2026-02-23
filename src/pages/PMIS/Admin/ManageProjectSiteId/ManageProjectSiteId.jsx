@@ -6,34 +6,21 @@ import Button from "../../../../components/Button";
 import DeleteButton from "../../../../components/DeleteButton";
 import CstmButton from "../../../../components/CstmButton";
 import { MdMessage } from "react-icons/md";
-import PopupMenu from "../../../../components/PopupMenu";
 import {getAccessType,objectToQueryString,parseTwoDigit} from "../../../../utils/commonFunnction";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import CommonActions from "../../../../store/actions/common-actions";
 import { Urls } from "../../../../utils/url";
-import AdminActions from "../../../../store/actions/admin-actions";
 import { useParams } from "react-router-dom";
 import ManageProjectSiteIdForm from "./ManageProjectSiteIdForm";
 import projectListActions from "../../../../store/actions/projectList-actions";
 import AdvancedTableExpandable from "../../../../components/AdvancedTableExpandable";
-import AllocateProjectForm from "./AllocateProjectForm";
-import SearchBarView from "../../../../components/SearchBarView";
-import ManageMilestoneSite from "../ManageSite/ManageMilestoneSite";
 import ProgressBar from "../../../../components/ProgressBar";
 import { onehundcolor } from "../../../../utils/queryBuilder";
-import ConditionalButton from "../../../../components/ConditionalButton";
 import eventManagementActions from "../../../../store/actions/eventLogs-actions";
 import EventLog from "../../../../components/EventLogs";
-import {
-  GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM,
-  GET_PARTNER_ACTIVITY,
-} from "../../../../store/reducers/admin-reducer";
-import FilterActions from "../../../../store/actions/filter-actions";
 import FileUploader from "../../../../components/FIleUploader";
 import { SITEEVENTLIST } from "../../../../store/reducers/eventlogs-reducer";
-import { GET_USER_ALLLOCATED_PROJECT } from "../../../../store/reducers/projectList-reducer";
-import VendorGroupTaskAllocation from "./VendorGroupTaskAllocation";
-import { UilColumns, UilExclamationTriangle } from "@iconscout/react-unicons";
+import ConditionalButton from "../../../../components/ConditionalButton";
 
 const ManageProjectSiteId = () => {
 
@@ -84,7 +71,7 @@ const ManageProjectSiteId = () => {
     return state.projectList.getProjectTypeSub;
   });
 
-  let showTypeforAction = getAccessType("Actions(Site)");
+  let showTypeforAction = getAccessType("Actions(Cluster)");
 
   let shouldIncludeEditColumn = false;
 
@@ -149,7 +136,6 @@ const ManageProjectSiteId = () => {
           </p>
         ),
 
-        // CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
@@ -212,19 +198,19 @@ const ManageProjectSiteId = () => {
         //   </>
         // ),
 
-        siteage: itm.siteageing ? (
-          itm.siteageing >= 0 ? (
-            <p className="text-[#13b497] font-extrabold">
-              {itm.siteageing + " Days"}
-            </p>
-          ) : (
-            <p className="text-rose-400 font-extrabold">
-              {itm.siteageing + " Days"}
-            </p>
-          )
-        ) : (
-          ""
-        ),
+        // siteage: itm.siteageing ? (
+        //   itm.siteageing >= 0 ? (
+        //     <p className="text-[#13b497] font-extrabold">
+        //       {itm.siteageing + " Days"}
+        //     </p>
+        //   ) : (
+        //     <p className="text-rose-400 font-extrabold">
+        //       {itm.siteageing + " Days"}
+        //     </p>
+        //   )
+        // ) : (
+        //   ""
+        // ),
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
           return {
@@ -448,9 +434,9 @@ const ManageProjectSiteId = () => {
               ),
 
             deleteing: (
-              <div className="flex items-center w-30">
+              <div className="">
                 <>
-                  <p
+                  {/* <p
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
@@ -471,7 +457,7 @@ const ManageProjectSiteId = () => {
                     }}
                   >
                     <MdMessage size={30} />
-                  </p>
+                  </p> */}
                   <CstmButton
                     child={
                       <DeleteButton
@@ -504,7 +490,6 @@ const ManageProjectSiteId = () => {
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  // console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
                                 name={"Cancel"}
@@ -520,6 +505,7 @@ const ManageProjectSiteId = () => {
                 </>
               </div>
             ),
+            
             // checkboxProject: (
             //   <>
             //     <input
@@ -566,9 +552,10 @@ const ManageProjectSiteId = () => {
         delete: (
           <>
             {1 == 1 ? (
-              <div className="flex items-center w-30">
+              // <div className="flex items-center w-30">
+              <div className="">
                 <>
-                  <p
+                  {/* <p
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
@@ -590,7 +577,7 @@ const ManageProjectSiteId = () => {
                     }}
                   >
                     <MdMessage size={30} />
-                  </p>
+                  </p> */}
                   <CstmButton
                     child={
                       <DeleteButton
@@ -647,7 +634,8 @@ const ManageProjectSiteId = () => {
       return updateditm;
     });
   });
-// console.log(dbConfigList,"__dbCOndig")
+
+
   let dbConfigTotalCount =
     useSelector((state) => {
       let interdata = state?.projectList?.getprojectalllist;
@@ -765,15 +753,15 @@ const ManageProjectSiteId = () => {
       //   value: "edit",
       //   style: "min-w-[100px] max-w-[200px] text-center",
       // },
-      // ...(shouldIncludeEditColumn
-      //   ? [
-      //       {
-      //         name: "Delete",
-      //         value: "delete",
-      //         style: "min-w-[50px] max-w-[100px] text-center",
-      //       },
-      //     ]
-      //   : []),
+      ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: "Delete",
+              value: "delete",
+              style: "min-w-[50px] max-w-[100px] text-center",
+            },
+          ]
+        : []),
     ],
     childList: [""],
     childs: {
@@ -892,15 +880,15 @@ const ManageProjectSiteId = () => {
         //   value: "",
         //   style: "min-w-[140px] max-w-[200px] text-center",
         // },
-        // ...(shouldIncludeEditColumn
-        //   ? [
-        //       {
-        //         name: "Delete",
-        //         value: "deleteing",
-        //         style: "min-w-[50px] max-w-[100px] text-center",
-        //       },
-        //     ]
-        //   : []),
+        ...(shouldIncludeEditColumn
+          ? [
+              {
+                name: "Delete",
+                value: "deleteing",
+                style: "min-w-[50px] max-w-[100px] text-center",
+              },
+            ]
+          : []),
       ],
     },
     properties: {
@@ -1021,7 +1009,8 @@ const ManageProjectSiteId = () => {
               }}
             ></Button> */}
 
-            <Button
+            <ConditionalButton
+              showType={getAccessType("Add Cluster")}
               classes="mr-1"
               onClick={(e) => {
                 setmodalOpen((prev) => !prev);
@@ -1037,7 +1026,7 @@ const ManageProjectSiteId = () => {
                 );
               }}
               name={"Add Cluster"}
-            ></Button>
+            ></ConditionalButton>
 
             
 
