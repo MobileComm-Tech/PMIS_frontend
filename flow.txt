@@ -1,1 +1,0 @@
-customers => project types ( category ) => projects => site id => milestone (task)
