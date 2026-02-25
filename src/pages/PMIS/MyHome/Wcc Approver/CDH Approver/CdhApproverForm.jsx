@@ -20,7 +20,7 @@ const CdhApproverForm = ({itm,setmodalOpen,setmodalBody,setmodalHead}) => {
       } = useForm();
 
 const Form =[
-    { label: "File", value: "", name: "file", required: true, type: "file" },
+    { label: "File", value: "", name: "file",  type: "file" },
     // { label: "Note", value: "", name: "note", required: true, type: "text" },
   ];
 

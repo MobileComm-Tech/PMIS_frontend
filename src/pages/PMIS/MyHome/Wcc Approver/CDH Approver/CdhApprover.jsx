@@ -43,25 +43,25 @@ const [modalHead, setmodalHead] = useState(<></>);
       const table = {
     
      columns : [
-  {
-    name: "Customer",
-    value: "customer",
-    style: "min-w-[120px] max-w-[160px]",
-  },
+  // {
+  //   name: "Customer",
+  //   value: "customer",
+  //   style: "min-w-[120px] max-w-[160px]",
+  // },
   {
     name: "Project Group",
     value: "projectGroup",
-    style: "min-w-[140px] max-w-[180px] text-center",
+    style: "min-w-[120px] max-w-[180px] text-center",
   },
-  {
-    name: "Project ID",
-    value: "projectId",
-    style: "min-w-[180px] max-w-[320px] text-center",
-  },
+  // {
+  //   name: "Project ID",
+  //   value: "projectId",
+  //   style: "min-w-[180px] max-w-[320px] text-center",
+  // },
   {
     name: "Project Type",
     value: "projectType",
-    style: "min-w-[140px] max-w-[180px] text-center",
+    style: "min-w-[100px] max-w-[180px] text-center",
   },
   {
     name: "Sub Project",
@@ -83,50 +83,50 @@ const [modalHead, setmodalHead] = useState(<></>);
     value: "vendorName",
     style: "min-w-[160px] max-w-[220px] text-center",
   },
-  {
-    name: "Vendor ID",
-    value: "vendorId",
-    style: "min-w-[120px] max-w-[160px] text-center",
-  },
+  // {
+  //   name: "Vendor ID",
+  //   value: "vendorId",
+  //   style: "min-w-[120px] max-w-[160px] text-center",
+  // },
   {
     name: "Vendor Item Code",
     value: "vendorItemCode",
-    style: "min-w-[160px] max-w-[220px] text-center",
+    style: "min-w-[120px] max-w-[220px] text-center",
   },
+  // {
+  //   name: "Vendor Item Code Description",
+  //   value: "vendorItemCodeDescription",
+  //   style: "min-w-[220px] max-w-[300px] text-center",
+  // },
   {
-    name: "Vendor Item Code Description",
-    value: "vendorItemCodeDescription",
-    style: "min-w-[220px] max-w-[300px] text-center",
-  },
-  {
-    name: "Quantity",
+    name: "Qty",
     value: "quantity",
-    style: "min-w-[100px] max-w-[120px] text-center",
+    style: "min-w-[60px] max-w-[120px] text-center",
   },
   {
-    name: "Vendor Rate",
+    name: "Rate",
     value: "vendorRate",
-    style: "min-w-[120px] max-w-[140px] text-center",
+    style: "min-w-[50px] max-w-[140px] text-center",
   },
+  // {
+  //   name: "PO Value",
+  //   value: "poValue",
+  //   style: "min-w-[120px] max-w-[160px] text-center",
+  // },
+  // {
+  //   name: "Activity Month",
+  //   value: "activityMonth",
+  //   style: "min-w-[80px] max-w-[180px] text-center",
+  // },
   {
-    name: "PO Value",
-    value: "poValue",
-    style: "min-w-[120px] max-w-[160px] text-center",
-  },
-  {
-    name: "Activity Month",
-    value: "activityMonth",
-    style: "min-w-[140px] max-w-[180px] text-center",
-  },
-  {
-    name: "PO Number",
+    name: "PO No.",
     value: "poNumber",
-    style: "min-w-[140px] max-w-[180px] text-center",
+    style: "min-w-[80px] max-w-[180px] text-center",
   },
   {
     name: "Action",
     value: "action",
-    style: "min-w-[100px] max-w-[120px] text-center",
+    style: "min-w-[40px] max-w-[120px] text-center",
   },
 ],
 
@@ -273,7 +273,7 @@ tableData  = tableData?.map((itm)=>{
             className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
             title="Approve"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
             </svg>
 
@@ -302,7 +302,7 @@ tableData  = tableData?.map((itm)=>{
             className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
             title="Approve"
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
             </svg>
 
