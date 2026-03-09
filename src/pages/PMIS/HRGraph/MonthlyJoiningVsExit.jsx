@@ -8,12 +8,11 @@
 // import Button from "../../../components/Button";
 // import DountChart from "../../../components/DountChart";
 // import PieChart from "../../../components/PieChart";
-// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
+// import { UilImport,UilSearch } from '@iconscout/react-unicons'
 // import PolarChart from "../../../components/FormElements/PolarChart";
 // import BarGraph from "../../../components/BarGrpah";
 // import LineChartsss from "../../../components/LineChartsss";
 // import DoubleBarGraph from "../../../components/DoubleBarGraph";
-
 
 // const MonthlyJoiningVsExit = () => {
 //     const [type, setType] = useState(false);
@@ -60,7 +59,7 @@
 
 //     return (
 //         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-            
+
 //             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
 //             {/* <BarGraph data={GraphData} horizontal={type} /> */}
 //             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
@@ -70,16 +69,16 @@
 // };
 // export default MonthlyJoiningVsExit;
 
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NewMultiSelects from "../../../components/NewMultiSelect";
-import GraphActions from "../../../store/actions/graph-actions";
-import Button from "../../../components/Button";
-import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../components/BarGrpah";
-import AdminActions from "../../../store/actions/admin-actions";
-import NewSingleSelect from "../../../components/NewSingleSelect";
-import DoubleBarGraph from "../../../components/DoubleBarGraph";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import NewMultiSelects from '../../../components/NewMultiSelect';
+import GraphActions from '../../../store/actions/graph-actions';
+import Button from '../../../components/Button';
+import { UilSearch, UilRefresh } from '@iconscout/react-unicons';
+import BarGraph from '../../../components/BarGrpah';
+import AdminActions from '../../../store/actions/admin-actions';
+import NewSingleSelect from '../../../components/NewSingleSelect';
+import DoubleBarGraph from '../../../components/DoubleBarGraph';
 
 const MonthlyJoiningVsExit = () => {
   const exportData = useRef([]);
@@ -106,13 +105,13 @@ const MonthlyJoiningVsExit = () => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-//   let departmentList = useSelector((state) => {
-//     return state?.adminData?.getManageDepartment?.map((itm) => ({
-//       label: itm?.department,
-//       value: itm?.uniqueId,
-//     }));
-//   });
-let ORGLevelList = useSelector((state) => {
+  //   let departmentList = useSelector((state) => {
+  //     return state?.adminData?.getManageDepartment?.map((itm) => ({
+  //       label: itm?.department,
+  //       value: itm?.uniqueId,
+  //     }));
+  //   });
+  let ORGLevelList = useSelector((state) => {
     return state?.GraphData?.getGraphOrganizationLevel?.map((itm) => ({
       label: itm?.orgLevel,
       value: itm?.orgLevel,
@@ -122,7 +121,7 @@ let ORGLevelList = useSelector((state) => {
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphMonthlyJoiningVsExit || [];
   });
-
+  console.log(GraphData, '__GraphData');
   useEffect(() => {
     // dispatch(AdminActions.getManageDepartment());
     // dispatch(GraphActions.getGraphOrganizationLevel());
@@ -133,25 +132,23 @@ let ORGLevelList = useSelector((state) => {
     // exportData.current = extraColumnsState.map(
     //   (itm) => `M-${itm.month}Y-${itm.year}`
     // );
-    dispatch(
-      GraphActions.getGraphMonthlyJoiningVsExit()
-    );
+    dispatch(GraphActions.getGraphMonthlyJoiningVsExit());
   };
 
-//   const handleFilter = () => {
-//     const filterData = {
-//         orgLevel: selectedDepartment.map((item) => item.value) || [],
-//         year: selectedYears ? selectedYears.value : currentYear,
-//         month: selectedMonths?.map((item) => item.value) || monthsNumber,
-//     };
+  //   const handleFilter = () => {
+  //     const filterData = {
+  //         orgLevel: selectedDepartment.map((item) => item.value) || [],
+  //         year: selectedYears ? selectedYears.value : currentYear,
+  //         month: selectedMonths?.map((item) => item.value) || monthsNumber,
+  //     };
 
-//     dispatch(
-//       GraphActions.postGraphMonthlyJoiningVsExit(
-//         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
-//         () => {}
-//       )
-//     );
-//   };
+  //     dispatch(
+  //       GraphActions.postGraphMonthlyJoiningVsExit(
+  //         { orgLevel: filterData.orgLevel, year: filterData.year, month: filterData.month },
+  //         () => {}
+  //       )
+  //     );
+  //   };
   const handleFilter = () => {
     const filterData = {};
     if (selectedDepartment.length > 0) {
@@ -166,7 +163,6 @@ let ORGLevelList = useSelector((state) => {
     dispatch(GraphActions.postGraphMonthlyJoiningVsExit(filterData, () => {}));
   };
 
-
   const handleClear = () => {
     setSelectedDepartment([]);
     setSelectedYears(null);
@@ -180,26 +176,28 @@ let ORGLevelList = useSelector((state) => {
   }));
 
   const monthsList = [
-    { value: 1, label: "Jan" },
-    { value: 2, label: "Feb" },
-    { value: 3, label: "Mar" },
-    { value: 4, label: "Apr" },
-    { value: 5, label: "May" },
-    { value: 6, label: "Jun" },
-    { value: 7, label: "Jul" },
-    { value: 8, label: "Aug" },
-    { value: 9, label: "Sep" },
-    { value: 10, label: "Oct" },
-    { value: 11, label: "Nov" },
-    { value: 12, label: "Dec" },
+    { value: 1, label: 'Jan' },
+    { value: 2, label: 'Feb' },
+    { value: 3, label: 'Mar' },
+    { value: 4, label: 'Apr' },
+    { value: 5, label: 'May' },
+    { value: 6, label: 'Jun' },
+    { value: 7, label: 'Jul' },
+    { value: 8, label: 'Aug' },
+    { value: 9, label: 'Sep' },
+    { value: 10, label: 'Oct' },
+    { value: 11, label: 'Nov' },
+    { value: 12, label: 'Dec' },
   ];
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-         <div className="text-center mb-4">
-            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Monthly Joining VS Exit</h1>
-        </div>        
-        <div className="flex items-center justify-between space-x-10">
+      <div className="text-center mb-4">
+        <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">
+          Monthly Joining VS Exit
+        </h1>
+      </div>
+      <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
           <NewMultiSelects
             label="Department"
@@ -222,21 +220,25 @@ let ORGLevelList = useSelector((state) => {
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-           </div>
-      <div className="flex space-x-2">
-            <Button
-              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-              onClick={handleFilter}
-              icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
-            ></Button>
-            <Button
-              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-              onClick={handleClear}
-              icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
-            ></Button>
-          </div>
         </div>
-      <DoubleBarGraph headerName = {'Monthly_Joining_Vs_Exit'} data={GraphData} horizontal={false}/>
+        <div className="flex space-x-2">
+          <Button
+            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+            onClick={handleFilter}
+            icon={<UilSearch size="36" className="text-[#f4d3a8]" />}
+          ></Button>
+          <Button
+            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+            onClick={handleClear}
+            icon={<UilRefresh size="36" className="text-[#f4d3a8]" />}
+          ></Button>
+        </div>
+      </div>
+      <DoubleBarGraph
+        headerName={'Monthly_Joining_Vs_Exit'}
+        data={GraphData}
+        horizontal={false}
+      />
     </div>
   );
 };

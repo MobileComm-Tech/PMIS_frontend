@@ -148,6 +148,8 @@ const initialState = {
     getProjectType: [],
     getfilterPOEligibility:[],
     getPartnerTeamRole:[],
+    getProjectTypeDetails:[],
+    getSubProjectDetails:[]
 }
 
 const vendorData = createSlice({
@@ -213,6 +215,20 @@ const vendorData = createSlice({
                 state.getvendorSubProject = payload.dataAll
             } else {
                 state.getvendorSubProject = [...state.getvendorSubProject, ...payload.dataAll]
+            }
+        },
+        GET_PROJECT_TYPE_DETAILS: (state, { payload }) => {
+            if (payload.reset) {
+                state.getProjectTypeDetails= payload.dataAll
+            } else {
+                state.getProjectTypeDetails = [...state.getProjectTypeDetails, ...payload.dataAll]
+            }
+        },
+        GET_SUB_PROJECT_DETAILS: (state, { payload }) => {
+            if (payload.reset) {
+                state.getSubProjectDetails= payload.dataAll
+            } else {
+                state.getSubProjectDetails = [...state.getSubProjectDetails, ...payload.dataAll]
             }
         },
         GET_VENDOR_COST_MILESTONE: (state, { payload }) => {
@@ -304,5 +320,5 @@ const vendorData = createSlice({
 
 // export const { GET_VENDOR_DETAILS,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST,GET_VENDOR_COST_PROJECTID_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
 // export default vendorData.reducer
-export const { GET_VENDOR_DETAILS,GET_WCC_SUBMODULE,GET_VENDOR_PARTNER_TEAM_LEAD_DATA,GET_PARTNER_TEAM_ROLE,GET_VENDOR_PARTNER_TABLE_DATA,GET_VENDOR_PARTNER_TEAM_DATA,GET_VENDOR_COST_PROJECTID_LIST,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
+export const {GET_SUB_PROJECT_DETAILS,GET_PROJECT_TYPE_DETAILS, GET_VENDOR_DETAILS,GET_WCC_SUBMODULE,GET_VENDOR_PARTNER_TEAM_LEAD_DATA,GET_PARTNER_TEAM_ROLE,GET_VENDOR_PARTNER_TABLE_DATA,GET_VENDOR_PARTNER_TEAM_DATA,GET_VENDOR_COST_PROJECTID_LIST,GET_FILTER_POELIGIBILITY,GET_PO_ELIGIBILITY, GET_VENDOR_PROJECT_LIST, GET_VENDOR_PROJECT_TRAKING, GET_VENDOR_SUBPROJECT, GET_VENDORACTIVITY_SUBPROJECT_LIST, GET_VENDOR_COST_MILESTONE, GET_VENDOR_COST_MILESTONE_LIST, GET_VENDOR_COST_PROJECTGROUP_LIST, GET_VENDOR_COST_SUBPROJECT_LIST, GET_VENDOR_COST_PROJECTTYPE_LIST, GET_VENDOR_COST_VENDORS_LIST, GET_PROJECT_TYPE } = vendorData.actions
 export default vendorData.reducer

@@ -60,8 +60,31 @@ const MyHomeActions = {
             return;
         }
     },
+     postCdhMultiActions: (data, cb, uniqueId,args="") => async (dispatch, _) => {
+        // console.log(data,"__data")
+        try {
+            const res = await Api.post({ data: data, url: uniqueId == null ? `${Urls.wcc_Chd_MultiActions}${args!=""?"?"+args:""}` : `${Urls.wcc_Chd_MultiActions}${args!=""?"?"+args:""}` + "/" + uniqueId })
+            if (res?.status !== 201 && res?.status !== 200) {
+                let msgdata = {
+                    show: true,
+                    icon: "error",
+                    buttons: [],
+                    type: 1,
+                    text: res?.data?.msg,
+                };
+                dispatch(ALERTS(msgdata));
+            }else{
+                cb()
+
+            }
+            
+        } catch (error) {
+            return;
+        }
+    },
     postCdhActions: (data, cb, uniqueId) => async (dispatch, _) => {
         try {
+            
             const res = await Api.post({ data: data, url: uniqueId == null ? Urls.wcc_Chd_Actions : Urls.wcc_Chd_Actions + "/" + uniqueId ,contentType: "multipart/form-data",})
             if (res?.status !== 201 && res?.status !== 200) {
                 let msgdata = {

@@ -6,6 +6,7 @@ import {
   GET_WCC_EMPLOYEE,
   WCC_APPROVER_DATA,
   UPDATE_WCC_APPROVER_DATA,
+  GET_WCC_PROJECT_GROUP,
 } from "../reducers/wccApprover-reducers";
 
 const PTWActions = {
@@ -40,6 +41,23 @@ const PTWActions = {
           if (res?.status === 200) {
             let dataAll = res?.data?.data;
             dispatch(GET_WCC_EMPLOYEE({ dataAll, reset }));
+          } else {
+            dispatch(ALERTS(res?.data));
+          }
+
+        } catch (error) { }
+      },
+        getWccProjectGroup:
+    (reset = true, uid = "", args = "") =>
+      async (dispatch, _) => {
+        try {
+          const res = await Api.get({
+            url: `${Urls.getWccProjectGroup}${uid != "" ? "/" + uid : ""}${args != "" ? "?" + args : ""
+              }`,
+          });
+          if (res?.status === 200) {
+            let dataAll = res?.data?.data;
+            dispatch(GET_WCC_PROJECT_GROUP({ dataAll, reset }));
           } else {
             dispatch(ALERTS(res?.data));
           }

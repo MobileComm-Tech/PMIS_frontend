@@ -262,6 +262,8 @@ import {
     GET_VENDOR_PARTNER_TEAM_LEAD_DATA,
     GET_PARTNER_TEAM_ROLE,
     GET_WCC_SUBMODULE,
+    GET_PROJECT_TYPE_DETAILS,
+    GET_SUB_PROJECT_DETAILS,
 } from "../reducers/vendor-reducer"
 
 
@@ -482,6 +484,7 @@ const VendorActions = {
 
 // Partner Team  
 
+
     getVendorProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.vendor_project_list}${args!=""?"?"+args:""}`, reset })
@@ -491,7 +494,24 @@ const VendorActions = {
         } catch (error) {
         }
     },
-
+    getProjectTypeList:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.wcc_projectType}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_PROJECT_TYPE_DETAILS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
+    getSubProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
+        try {
+            const res = await Api.get({ url:`${Urls.wcc_subProject}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
+            if (res?.status !== 200) return
+            let dataAll = res?.data?.data
+            dispatch(GET_SUB_PROJECT_DETAILS({dataAll,reset}))
+        } catch (error) {
+        }
+    },
     getProjectType:(reset=true,customerId="",args="") => async (dispatch, _) => {
         try {
             const res = await Api.get({ url:`${Urls.vendorProjects}/${customerId}${args!=""?"?"+args:""}`})

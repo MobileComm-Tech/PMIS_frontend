@@ -3,7 +3,14 @@ export const range = { start: 1, end: 7 };
 export const masterUnitRateWithActivityFilter="isActivity=True"
 
 
+export const CheckTrueOrFalseforApproval = ( key)=>{
 
+    if(key === "Yes" || key==='Rejected'){
+        return true
+    }else{
+        return false
+    }
+}
 
 // old function
 // export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{

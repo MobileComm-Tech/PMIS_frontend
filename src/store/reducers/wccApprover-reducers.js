@@ -42,6 +42,13 @@ const wccApproverData = createSlice({
         state.totalCount = payload.dataAll[0].overall_table_count;
       }
     },
+        GET_WCC_PROJECT_GROUP: (state, { payload }) => {
+      if (payload.reset) {
+        state.getWccProjectGroup = payload.dataAll;
+      } else {
+        state.getWccProjectGroup = [...state.getWccProjectGroup, ...payload.dataAll];
+      }
+    },
     UPDATE_WCC_APPROVER_DATA: (state, { payload }) => {
       const index = state.WccApproverData.findIndex(
         (item) => item.uniqueId === payload.uniqueId
@@ -62,6 +69,7 @@ export const {
   GET_WCC_EMPLOYEE,
   WCC_APPROVER_DATA,
   UPDATE_WCC_APPROVER_DATA,
+  GET_WCC_PROJECT_GROUP
 } = wccApproverData.actions;
 
 export default wccApproverData.reducer;

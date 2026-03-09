@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import CCDash from "../../../components/CCDash";
 // import { useNavigate } from "react-router-dom";
-import ComponentActions from "../../../store/actions/component-actions";
+import ComponentActions from '../../../store/actions/component-actions';
 // import { getAccessType } from "../../../utils/commonFunnction";
 // import { ALERTS } from "../../../store/reducers/component-reducer";
-import AdminActions from "../../../store/actions/admin-actions";
-import TreeStructure from "../../../components/TreeStructure";
+import AdminActions from '../../../store/actions/admin-actions';
+import TreeStructure from '../../../components/TreeStructure';
 
 const ParentApproverCards = () => {
   let dispatch = useDispatch();
   // let navigate = useNavigate();
   const complianceData = [
     {
-      title: "Expense/Advance",
+      title: 'Expense/Advance',
       href: null,
       children: [
         {
-          title: "L1 Approver",
+          title: 'L1 Approver',
           use: true,
-          href: "/home/approverCards/L1Approver",
+          href: '/home/approverCards/L1Approver',
           children: [],
         },
         {
-          title: "L2 Approver",
+          title: 'L2 Approver',
           use: true,
-          href: "/home/approverCards/L2Approver",
+          href: '/home/approverCards/L2Approver',
           children: [],
         },
         // {
@@ -35,63 +35,66 @@ const ParentApproverCards = () => {
         //   children: [],
         // },
         {
-          title: "Settlement Amount",
+          title: 'Settlement Amount',
           use: true,
-          href: "/home/approverCards/SettlementAmount",
+          href: '/home/approverCards/SettlementAmount',
           children: [],
         },
       ],
     },
   ];
 
-  const data3 = [{
-      title: "PTW Approver",
+  const data3 = [
+    {
+      title: 'PTW Approver',
       href: null,
       children: [
         {
-          title: "L1 Approver",
-          use : true,
-          href: "/home/Approval/l1Approver",
+          title: 'L1 Approver',
+          use: true,
+          href: '/home/Approval/l1Approver',
           children: [],
         },
         {
-          title: "L2 Approver",
-          use : true,
-          href: "/home/Approval/l2Approver",
+          title: 'L2 Approver',
+          use: true,
+          href: '/home/Approval/l2Approver',
           children: [],
         },
       ],
-    }]
-    
-  const WccData = [{
-      title: "Wcc Approver",
+    },
+  ];
+
+  const WccData = [
+    {
+      title: 'WCC Approver',
       href: null,
       children: [
         {
-          title: "CDH Approver",
-          use : true,
-          href: "/home/Approval/cdhApprover",
+          title: 'CDH Approver',
+          use: true,
+          href: '/home/Approval/cdhApprover',
           children: [],
         },
-       
       ],
-    }]
+    },
+  ];
 
   const complianceMilestoneData = useSelector((state) => {
     const lApprover = [
       {
-        title: "L1 Approver",
-        href: "/home/parentApproval/",
+        title: 'L1 Approver',
+        href: '/home/parentApproval/',
         children: [],
       },
       {
-        title: "L2 Approver",
-        href: "/home/parentApproval/",
+        title: 'L2 Approver',
+        href: '/home/parentApproval/',
         children: [],
       },
     ];
     const data = {
-      title: "Compliance",
+      title: 'Compliance',
       href: null,
       children: Array.isArray(state?.adminData?.getCardComplainceMilestone)
         ? state?.adminData?.getCardComplainceMilestone?.map((itm) => {
@@ -103,15 +106,14 @@ const ParentApproverCards = () => {
           })
         : [],
     };
-    
 
     // return [...complianceData, data, ...data3];
-    return [...complianceData, data, ...data3,...WccData];
+    return [...complianceData, data, ...data3, ...WccData];
   });
 
   Compliance: [
-    ["Compliance 1", "bg-pcol", "/home/compliance1"],
-    ["Compliance 2", "bg-pcol", "/home/compliance2"],
+    ['Compliance 1', 'bg-pcol', '/home/compliance1'],
+    ['Compliance 2', 'bg-pcol', '/home/compliance2'],
   ];
 
   // let dbConfigListCard = useSelector((state) => {
@@ -135,7 +137,7 @@ const ParentApproverCards = () => {
   //     ["L2 Approver", "bg-pcol", "/home/approval/L2Approver"],
   //     ["Finance Approver", "bg-pcol", "/home/approval/FinanceApprover"],
   //     ["Settlement Amount", "bg-pcol", "/home/approverCards/SettlementAmount"],
-      
+
   //   ],
   //   Compliance: [
   //     ["Compliance 1", "bg-pcol", "/home/compliance1"],
@@ -147,11 +149,9 @@ const ParentApproverCards = () => {
   //   ],
   // };
 
- 
-
   useEffect(() => {
     dispatch(AdminActions.getCardComplianceMilestone());
-    dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
+    dispatch(ComponentActions.breadcrumb('Home', '/home', 0, true));
   }, [dispatch]);
 
   return (
@@ -181,4 +181,3 @@ const ParentApproverCards = () => {
 };
 
 export default ParentApproverCards;
-

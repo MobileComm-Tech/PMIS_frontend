@@ -1061,7 +1061,7 @@ const   ManageProjectType = () => {
       return updateditm;
     });
   });
-
+  console.log(dbConfigListCard,"___dbConfigListCard__")
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.adminData?.getManageProjectType;
     if (interdata.length > 0) {
@@ -1133,7 +1133,7 @@ const   ManageProjectType = () => {
   }, []);
 
   const hasCards = dbConfigListCard && dbConfigListCard.length > 0;
-
+// console.log(dbConfigListCard,"___dbConfigListCard")
 
   return type ? (
     <>

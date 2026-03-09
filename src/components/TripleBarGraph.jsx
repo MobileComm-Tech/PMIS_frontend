@@ -1,34 +1,27 @@
-import React, { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 const TripleBarGraph = ({
   data,
   headerName,
   seriesData = [],
   horizontal = false,
-  title = "",
-  columnWidth = "90%",
+  title = '',
+  columnWidth = '90%',
   month = [],
-  enabledOnSeries = [false, false, false, false, false], 
-  dataLabelSuffix="",
-  XAxisTitle = "",  
-  YAxisTitle = "", 
-  YAxisSecondaryTitle = "Acheievement (%)",
+  enabledOnSeries = [false, false, false, false, false],
+  dataLabelSuffix = '',
+  XAxisTitle = '',
+  YAxisTitle = '',
+  YAxisSecondaryTitle = 'Acheievement (%)',
   data1,
   data2,
   data3,
   data4,
   data5,
-  shubham = false, 
-   
+  shubham = false,
 }) => {
-
-  let max1 = Math.max(
-    ...(data1 || []),
-    ...(data2 || []),
-    ...(data3 || []),
-  )
-
+  let max1 = Math.max(...(data1 || []), ...(data2 || []), ...(data3 || []));
 
   // if (max1 % 500 !== 0) {
   //   max1 = Math.ceil(max1 / 500) * 500;
@@ -43,12 +36,9 @@ const TripleBarGraph = ({
     }
   }
 
-  let max2 = Math.max(
-    ...(data4 || []),
-    ...(data5 || []),
-  )
+  let max2 = Math.max(...(data4 || []), ...(data5 || []));
   if (max2 % 25 !== 0) {
-    max2 = Math.ceil(max2 /25) * 25;
+    max2 = Math.ceil(max2 / 25) * 25;
   }
 
   // max2 = Math.round(max2)
@@ -62,9 +52,8 @@ const TripleBarGraph = ({
 
   // const colors = ["#13b497", "#ffab2d", "#f9a8d4", "#b8ee30"];
 
-  const colors = ["#13b497", "#ffab2d", "#2b98d6", "#b8ee30", "#f4d3a8"];
+  const colors = ['#13b497', '#ffab2d', '#2b98d6', '#b8ee30', '#f4d3a8'];
   // const BarBorderColors = ["#28a745", "#b8ee30", "#e83e8c","#b8ee30"];
-
 
   const offsetX = horizontal ? 0 : -1;
   const offsetY = horizontal ? 0 : -7;
@@ -72,58 +61,60 @@ const TripleBarGraph = ({
   const options = {
     chart: {
       height: 440,
-      type: "line",
-      background: "#3e454d",
+      type: 'line',
+      background: '#3e454d',
       stacked: false,
       toolbar: {
-          show: true,
-          tools: {
-              download: true, 
-              zoomin: false, 
-              zoomout: false, 
-              reset: false,
-              pan: false,
-              zoom: false,                
+        show: true,
+        tools: {
+          download: true,
+          zoomin: false,
+          zoomout: false,
+          reset: false,
+          pan: false,
+          zoom: false,
+        },
+        export: {
+          csv: {
+            filename: headerName,
           },
-          export: {
-            csv:{
-                filename:headerName
-            },
-            svg: {
-                filename: headerName,
-            },
-            png: {
-                filename: headerName,
-            }
-        }
-      }
-      
+          svg: {
+            filename: headerName,
+          },
+          png: {
+            filename: headerName,
+          },
+        },
+      },
     },
     title: {
       text: title,
-      align: "center",
+      align: 'center',
       style: {
-        fontSize: "15px",
-        fontWeight: "bold",
-        color: "#ffffff",
+        fontSize: '15px',
+        fontWeight: 'bold',
+        color: '#ffffff',
       },
     },
     dataLabels: {
       enabled: true,
-      formatter: (val, { seriesIndex }) => (seriesIndex === 3 || seriesIndex === 4 ? `${val}%` : `${val} ${dataLabelSuffix}`),
-      enabledOnSeries: [0,1,2,3,4],
+      formatter: (val, { seriesIndex }) =>
+        seriesIndex === 3 || seriesIndex === 4
+          ? `${val}%`
+          : `${val} ${dataLabelSuffix}`,
+      enabledOnSeries: [0, 1, 2, 3, 4],
       offsetX: offsetX,
       offsetY: offsetY,
       style: {
-        colors: ["transparent"],
-        fontSize: "8px",
+        colors: ['transparent'],
+        fontSize: '8px',
         fontWeight: 'bold',
-    }, 
-    background: {
-        enabled: true, 
+      },
+      background: {
+        enabled: true,
         borderRadius: 0,
-        borderWidth: 0, 
-        borderColor: "transparent", 
+        borderWidth: 0,
+        borderColor: 'transparent',
       },
     },
     xaxis: {
@@ -138,158 +129,168 @@ const TripleBarGraph = ({
       },
       labels: {
         style: {
-          colors: "#ffffff",
-          fontSize: "10px",
+          colors: '#ffffff',
+          fontSize: '10px',
         },
       },
     },
     yaxis: [
       {
         title: {
-          text: 'Revenue (₹) Lac', 
-          style:{
-            color: "#ffffff",
-            fontSize: '18px'
-          } 
-        },
-        labels: {
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
-          
+          text: 'Revenue (₹) Lac',
           style: {
-            colors: "#ffffff",
-            fontSize: "9px",
-          },
-        },
-        min:0,
-        max:max1,
-        tickAmount: 5,
-      }, 
-      {
-        labels: {
-          show:false,
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
-          
-          style: {
-            colors: "#ffffff",
-            fontSize: "9px",
-          },
-        },
-        min:0,
-        max:max1,
-      }, 
-      {
-        labels: {
-          show:false,
-          formatter: function (val) {
-            return val.toFixed(0);
-          },
-          
-          style: {
-            colors: "#ffffff",
-            fontSize: "9px",
-          },
-        },
-        min:0,
-        max:max1,
-      }, 
-      {
-        opposite: true,
-        title: {
-          text: 'Achievement (%)',
-          style:{
-            color: "#ffffff",
+            color: '#ffffff',
             fontSize: '18px',
-          }  
+          },
         },
         labels: {
-          style: {
-            colors: "#ffffff",
-            fontSize: "9px",
+          formatter: function (val) {
+            return val.toFixed(0);
           },
-          formatter: function (val) {return `${val.toFixed(0)}%`;},
+
+          style: {
+            colors: '#ffffff',
+            fontSize: '9px',
+          },
         },
-        min:0,
-        max:max2,
-        tickAmount: 5
+        min: 0,
+        max: max1,
+        tickAmount: 5,
+      },
+      {
+        labels: {
+          show: false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+
+          style: {
+            colors: '#ffffff',
+            fontSize: '9px',
+          },
+        },
+        min: 0,
+        max: max1,
+      },
+      {
+        labels: {
+          show: false,
+          formatter: function (val) {
+            return val.toFixed(0);
+          },
+
+          style: {
+            colors: '#ffffff',
+            fontSize: '9px',
+          },
+        },
+        min: 0,
+        max: max1,
       },
       {
         opposite: true,
-        show:false,
         title: {
           text: 'Achievement (%)',
-          style:{
-            color: "#ffffff",
+          style: {
+            color: '#ffffff',
             fontSize: '18px',
-          }  
+          },
         },
         labels: {
           style: {
-            colors: "#ffffff",
-            fontSize: "9px",
+            colors: '#ffffff',
+            fontSize: '9px',
           },
-          formatter: function (val) {return `${val.toFixed(0)}%`;},
+          formatter: function (val) {
+            return `${val.toFixed(0)}%`;
+          },
         },
-        min:0,
-        max:max2
-      }
+        min: 0,
+        max: max2,
+        tickAmount: 5,
+      },
+      {
+        opposite: true,
+        show: false,
+        title: {
+          text: 'Achievement (%)',
+          style: {
+            color: '#ffffff',
+            fontSize: '18px',
+          },
+        },
+        labels: {
+          style: {
+            colors: '#ffffff',
+            fontSize: '9px',
+          },
+          formatter: function (val) {
+            return `${val.toFixed(0)}%`;
+          },
+        },
+        min: 0,
+        max: max2,
+      },
     ],
 
     plotOptions: {
       bar: {
-        columnWidth:columnWidth,
+        columnWidth: columnWidth,
         horizontal: horizontal,
         borderRadius: 2,
         dataLabels: {
           style: {
-            colors: "#fff",
+            colors: '#fff',
           },
-          position: "top",
+          position: 'top',
         },
       },
     },
     stroke: {
-      colors: ["transparent", "transparent", "transparent", "#b8ee30", "#f4d3a8"],
+      colors: [
+        'transparent',
+        'transparent',
+        'transparent',
+        '#b8ee30',
+        '#f4d3a8',
+      ],
       curve: 'smooth',
       width: [0.8, 0.8, 0.8, 2.5, 2.5],
       // colors: BarBorderColors,
     },
     grid: {
-      borderColor: "transparent",
+      borderColor: 'transparent',
       strokeDashArray: 0,
     },
     fill: {
       colors: colors,
     },
     markers: {
-      size: 6, 
-      colors: ['#f4d3a8', '#b8ee30'],  
-      strokeColor: 'black', 
-      strokeWidth:1, 
+      size: 6,
+      colors: ['#f4d3a8', '#b8ee30'],
+      strokeColor: 'black',
+      strokeWidth: 1,
       hover: {
-          size: 6, 
-      }
-  },
+        size: 6,
+      },
+    },
     legend: {
       show: true,
       colors: colors,
-      position: "bottom",
+      position: 'bottom',
       labels: {
-        colors: "#ffffff",
+        colors: '#ffffff',
       },
       markers: {
         fillColors: colors,
       },
-      fontSize: "10px",
-      fontWeight: "bold",
+      fontSize: '10px',
+      fontWeight: 'bold',
     },
     tooltip: {
-      theme: "dark",  
+      theme: 'dark',
       marker: {
-        fillColors: colors,  
+        fillColors: colors,
       },
       y: {
         formatter: function (value, { seriesIndex }) {
@@ -299,12 +300,16 @@ const TripleBarGraph = ({
           return value;
         },
       },
-      
     },
   };
 
   return (
-    <ReactApexChart options={options} series={series} type="line" height={355} />
+    <ReactApexChart
+      options={options}
+      series={series}
+      type="line"
+      height={355}
+    />
   );
 };
 

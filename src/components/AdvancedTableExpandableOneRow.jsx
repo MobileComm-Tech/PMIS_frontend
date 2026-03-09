@@ -45,10 +45,13 @@ const AdvancedTableExpandableOneRow = ({
           );
         })}
       </tr>
-
+{/* {console.log( table?.childs,"___dxcfghjbkm")} */}
       {expand &&
         table?.childs &&
-        Object.entries(table.childs)?.map((onewq) => {
+        Object.entries(table.childs)?.map((onewq,index) => {
+          if(index==0){
+            console.log(itm[onewq[0]],"_DFGHJK")
+          }
           return itm[onewq[0]]?.map((onewqq) => {
             return (
               <tr>

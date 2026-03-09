@@ -291,6 +291,8 @@ export const Urls = {
   wcc_Submodule:"/wcc/myTask",
   create_Wcc:"/wcc/create",
   delete_wcc_submodule:"/wcc/delete",
+  wcc_projectType:"/wcc/ProjectType",
+  wcc_subProject:"/wcc/subProject",
 
 
   admin_getComplianceapprover: "/admin/addComplianceApprover",
@@ -348,12 +350,17 @@ export const Urls = {
 
 
   // cdh Approver
-  wccApprover:"/wcc/cdh_approver",
-  getWccEmployee:"/wcc/employee",
-  getWccProjectId:"/wcc/projectId",
+  // wccApprover:"/wcc/cdh_approver",
+  // getWccEmployee:"/wcc/employee",
+  // getWccProjectId:"/wcc/projectId",
 
   // Financial
   finance_unbilled: "/finance/unbilled",
+  
+  //FORMS
+  wcc_Chd_MultiActions:"/myHome/wcc/cdhApprover/multiAction",
+  getWccProjectGroup:"/wcc/projectGroup",
+  
 
 
 };

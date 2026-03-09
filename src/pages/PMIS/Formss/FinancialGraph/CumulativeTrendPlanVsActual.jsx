@@ -8,12 +8,11 @@
 // import Button from "../../../components/Button";
 // import DountChart from "../../../components/DountChart";
 // import PieChart from "../../../components/PieChart";
-// import { UilImport,UilSearch } from '@iconscout/react-unicons' 
+// import { UilImport,UilSearch } from '@iconscout/react-unicons'
 // import PolarChart from "../../../components/FormElements/PolarChart";
 // import BarGraph from "../../../components/BarGrpah";
 // import LineChartsss from "../../../components/LineChartsss";
 // import DoubleBarGraph from "../../../components/DoubleBarGraph";
-
 
 // const MonthlyJoiningVsExit = () => {
 //     const [type, setType] = useState(false);
@@ -60,7 +59,7 @@
 
 //     return (
 //         <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-            
+
 //             <DoubleBarGraph data={GraphData} horizontal={false} title="Monthly Joining VS Exit"/>
 //             {/* <BarGraph data={GraphData} horizontal={type} /> */}
 //             {/* <button onClick={() => setType(true)}> <Unicons.UilHorizontalAlignLeft size="15" color="#13b497" /></button>
@@ -70,17 +69,17 @@
 // };
 // export default MonthlyJoiningVsExit;
 
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NewMultiSelects from "../../../../components/NewMultiSelect";
-import GraphActions from "../../../../store/actions/graph-actions";
-import Button from "../../../../components/Button";
-import { UilSearch, UilRefresh } from "@iconscout/react-unicons";
-import BarGraph from "../../../../components/BarGrpah";
-import AdminActions from "../../../../store/actions/admin-actions";
-import NewSingleSelect from "../../../../components/NewSingleSelect";
-import DoubleBarGraph from "../../../../components/DoubleBarGraph";
-import TripleBarGraph from "../../../../components/TripleBarGraph";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import NewMultiSelects from '../../../../components/NewMultiSelect';
+import GraphActions from '../../../../store/actions/graph-actions';
+import Button from '../../../../components/Button';
+import { UilSearch, UilRefresh } from '@iconscout/react-unicons';
+import BarGraph from '../../../../components/BarGrpah';
+import AdminActions from '../../../../store/actions/admin-actions';
+import NewSingleSelect from '../../../../components/NewSingleSelect';
+import DoubleBarGraph from '../../../../components/DoubleBarGraph';
+import TripleBarGraph from '../../../../components/TripleBarGraph';
 
 const CumulativeTrendPlanVsActual = () => {
   const exportData = useRef([]);
@@ -109,56 +108,52 @@ const CumulativeTrendPlanVsActual = () => {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const dispatch = useDispatch();
 
-
-
   const CircleList = useSelector((state) => {
-    return state?.currentuserData?.getcurrentusercircleprojectid?.map((itm) => ({
-      label: itm?.circle,
-      value: itm?.projectuid,
-    }));
+    return state?.currentuserData?.getcurrentusercircleprojectid?.map(
+      (itm) => ({
+        label: itm?.circle,
+        value: itm?.projectuid,
+      }),
+    );
   });
-
- 
 
   let GraphData = useSelector((state) => {
     return state?.GraphData?.getGraphCumulativeTrendPlanVsActual || [];
   });
-
-  let data1 = GraphData?.map(item => item.aop) || []
-  let data2 = GraphData?.map(item => item.pv) || []
-  let data3 = GraphData?.map(item => item.amount) || []
-  const SecondaryAxis = GraphData?.map(item => item.ach) || [];
-  const ThirdAxis = GraphData?.map(item => item.percentage) || [];
+  console.log(GraphData, '__GraphData');
+  let data1 = GraphData?.map((item) => item.aop) || [];
+  let data2 = GraphData?.map((item) => item.pv) || [];
+  let data3 = GraphData?.map((item) => item.amount) || [];
+  const SecondaryAxis = GraphData?.map((item) => item.ach) || [];
+  const ThirdAxis = GraphData?.map((item) => item.percentage) || [];
 
   const SeriesData = [
     {
-      name: "AOP-Target",
-      type: "bar",
+      name: 'AOP-Target',
+      type: 'bar',
       data: data1,
-
-  },
-  {
-      name: "PV-Target",
-      type: "bar",
+    },
+    {
+      name: 'PV-Target',
+      type: 'bar',
       data: data2,
-  },
-  {
-      name: "Actual Revenue",
-      type: "bar",
+    },
+    {
+      name: 'Actual Revenue',
+      type: 'bar',
       data: data3,
-  },
-  {
-      name: "Actual / PV (%)",
-      type: "line",
+    },
+    {
+      name: 'Actual / PV (%)',
+      type: 'line',
       data: SecondaryAxis,
-  },
-  {
-      name: "Actual / AOP (%)",
-      type: "line",
+    },
+    {
+      name: 'Actual / AOP (%)',
+      type: 'line',
       data: ThirdAxis,
-  },
-];
-
+    },
+  ];
 
   useEffect(() => {
     dispatch(GraphActions.getGraphCumulativeTrendPlanVsActual());
@@ -170,7 +165,9 @@ const CumulativeTrendPlanVsActual = () => {
       filterData.circleName = selectedCircle?.map((Sweety) => Sweety.value);
     }
     if (selectedProjectType.length > 0) {
-      filterData.projectType = selectedProjectType?.map((Sweety) => Sweety.value);
+      filterData.projectType = selectedProjectType?.map(
+        (Sweety) => Sweety.value,
+      );
     }
     if (selectedYears) {
       filterData.year = selectedYears.value;
@@ -178,9 +175,10 @@ const CumulativeTrendPlanVsActual = () => {
     if (selectedMonths.length > 0) {
       filterData.viewBy = selectedMonths?.map((Sweety) => Sweety.value);
     }
-    dispatch(GraphActions.postGraphCumulativeTrendPlanVsActual(filterData, () => {}));
+    dispatch(
+      GraphActions.postGraphCumulativeTrendPlanVsActual(filterData, () => {}),
+    );
   };
-
 
   const handleClear = () => {
     setSelectedCircle([]);
@@ -188,7 +186,7 @@ const CumulativeTrendPlanVsActual = () => {
     setSelectedYears(null);
     setSelectedMonths([]);
     dispatch(GraphActions.getGraphCumulativeTrendPlanVsActual());
-  };  
+  };
 
   const years = Array.from(new Array(currentYear - 2020), (val, index) => ({
     label: 2021 + index,
@@ -196,26 +194,28 @@ const CumulativeTrendPlanVsActual = () => {
   }));
 
   const monthsList = [
-    { value: "1", label: "Jan" },
-    { value: "2", label: "Feb" },
-    { value: "3", label: "Mar" },
-    { value: "4", label: "Apr" },
-    { value: "5", label: "May" },
-    { value: "6", label: "Jun" },
-    { value: "7", label: "Jul" },
-    { value: "8", label: "Aug" },
-    { value: "9", label: "Sep" },
-    { value: "10", label: "Oct" },
-    { value: "11", label: "Nov" },
-    { value: "12", label: "Dec" },
+    { value: '1', label: 'Jan' },
+    { value: '2', label: 'Feb' },
+    { value: '3', label: 'Mar' },
+    { value: '4', label: 'Apr' },
+    { value: '5', label: 'May' },
+    { value: '6', label: 'Jun' },
+    { value: '7', label: 'Jul' },
+    { value: '8', label: 'Aug' },
+    { value: '9', label: 'Sep' },
+    { value: '10', label: 'Oct' },
+    { value: '11', label: 'Nov' },
+    { value: '12', label: 'Dec' },
   ];
 
   return (
     <div className="bg-transparent border-[1.5px] border-pcol rounded-md h-full p-4">
-       <div className="text-center mb-4">
-            <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">Revenue - Plan VS Actual Trend Cumulative</h1>
-        </div>
-        <div className="flex items-center justify-between space-x-10">
+      <div className="text-center mb-4">
+        <h1 className="text-[#f4d3a8] font-bold text-lg whitespace-nowrap underline">
+          Revenue - Plan VS Actual Trend Cumulative
+        </h1>
+      </div>
+      <div className="flex items-center justify-between space-x-10">
         <div className="flex space-x-2 items-center w-full">
           {/* <NewMultiSelects
             label="Circle"
@@ -235,31 +235,42 @@ const CumulativeTrendPlanVsActual = () => {
             label="Year"
             option={years}
             value={selectedYears}
-            placeholder="Year" 
+            placeholder="Year"
             cb={(data) => setSelectedYears(data)}
           />
           <NewMultiSelects
             label="Month"
-            option={monthsList} 
+            option={monthsList}
             value={selectedMonths}
             cb={(data) => setSelectedMonths(data)}
             placeholder="Month"
           />
-           </div>
-      <div className="flex space-x-2">
-            <Button
-              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-              onClick={handleFilter}
-              icon={<UilSearch size="36" className="text-[#f4d3a8]"/>}
-            ></Button>
-            <Button
-              classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
-              onClick={handleClear}
-              icon={<UilRefresh size="36" className = "text-[#f4d3a8]"/>}
-            ></Button>
-          </div>
         </div>
-      <TripleBarGraph data={GraphData} headerName={"Revenue_Plan_Vs_Actual_Trend_Cumulative"} seriesData={SeriesData} horizontal={false} YAxisTitle={"Sites"} data1= {data1} data2= {data2} data3= {data3} data4= {SecondaryAxis} data5= {ThirdAxis}/>
+        <div className="flex space-x-2">
+          <Button
+            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+            onClick={handleFilter}
+            icon={<UilSearch size="36" className="text-[#f4d3a8]" />}
+          ></Button>
+          <Button
+            classes="w-12 h-10 text-white mt-1 flex justify-center bg-transparent border-solid border-[#64676d] border-2"
+            onClick={handleClear}
+            icon={<UilRefresh size="36" className="text-[#f4d3a8]" />}
+          ></Button>
+        </div>
+      </div>
+      <TripleBarGraph
+        data={GraphData}
+        headerName={'Revenue_Plan_Vs_Actual_Trend_Cumulative'}
+        seriesData={SeriesData}
+        horizontal={false}
+        YAxisTitle={'Sites'}
+        data1={data1}
+        data2={data2}
+        data3={data3}
+        data4={SecondaryAxis}
+        data5={ThirdAxis}
+      />
     </div>
   );
 };
