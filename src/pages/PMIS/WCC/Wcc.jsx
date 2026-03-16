@@ -270,7 +270,7 @@ const Wcc = () => {
                     //     text: "Are you sure you want to Delete?"
                     // }
 
-                    console.log('Raaand');
+                    // console.log('Raaand');
 
                     setmodalBody(
                       <>
@@ -650,7 +650,7 @@ const Wcc = () => {
             {checkVariable(checkedData) ? (
               <>
                 <ConditionalButton
-                  showType={getAccessType('Add New(ManageEmployee)')}
+                  showType={'visible'}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
@@ -695,7 +695,7 @@ const Wcc = () => {
             ) : checkVariable(checkedChildData) ? (
               <>
                 <ConditionalButton
-                  showType={getAccessType('Add New(ManageEmployee)')}
+                  showType={'visible'}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
@@ -742,8 +742,8 @@ const Wcc = () => {
             )}
             {wccPdfData?.length > 0 ? (
               <ConditionalButton
-                showType={getAccessType('Export(Site)')}
-                classes="w-auto "
+                showType={'visible'}
+                classes="w-auto mr-1"
                 onClick={(e) => {
                   // dispatch(
                   //   CommonActions.commondownload(
@@ -767,7 +767,7 @@ const Wcc = () => {
             )}
 
             <ConditionalButton
-              showType={getAccessType('Upload(ManageEmployee)')}
+              showType={'visible'}
               name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}

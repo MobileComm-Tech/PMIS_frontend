@@ -576,7 +576,7 @@ const CdhApprover = () => {
               <>
                 <div className="flex">
                   <ConditionalButton
-                    showType={getAccessType('Add New(ManageEmployee)')}
+                    showType={'visible'}
                     classes="w-auto mr-1"
                     // onClick={() => navigate("/empdetails")}
                     onClick={() => {
@@ -606,7 +606,7 @@ const CdhApprover = () => {
                     name={'Approve CDH'}
                   />
                   <ConditionalButton
-                    showType={getAccessType('Add New(ManageEmployee)')}
+                    showType={'visible'}
                     classes="w-auto mr-1 bg-[#EF4444]"
                     // onClick={() => navigate("/empdetails")}
                     onClick={() => {
@@ -620,7 +620,7 @@ const CdhApprover = () => {
               <>
                 <div className="flex">
                   <ConditionalButton
-                    showType={getAccessType('Add New(ManageEmployee)')}
+                    showType={'visible'}
                     classes="w-auto mr-1"
                     onClick={() => {
                       setCheckChildData([]);
@@ -648,7 +648,7 @@ const CdhApprover = () => {
                     name={'Approve CDH'}
                   />
                   <ConditionalButton
-                    showType={getAccessType('Add New(ManageEmployee)')}
+                    showType={'visible'}
                     classes="w-auto mr-1 bg-[#EF4444]"
                     onClick={() => {
                       setCheckChildData([]);
