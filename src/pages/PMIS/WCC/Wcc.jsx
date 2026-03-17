@@ -588,6 +588,13 @@ const Wcc = () => {
         type: 'text',
       },
       {
+        label: 'PO Number',
+        value: '',
+        name: 'poNumber',
+
+        type: 'text',
+      },
+      {
         label: 'WCC Number',
         value: '',
         name: 'wccNumber',
