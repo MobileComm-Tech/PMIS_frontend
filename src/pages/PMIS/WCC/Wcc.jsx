@@ -80,7 +80,7 @@ const Wcc = () => {
 
     return <span>{value}</span>;
   };
-
+  // console.log(wccPdfData, '___checkedData');
   // const handleAddActivity = (data) => {
   //     setExtraColumns(data["Month"]);
   //     setValue("viewBy", data["Month"]);
@@ -111,11 +111,11 @@ const Wcc = () => {
       const { start, end } = assignDate;
       tempObj['start'] = start?.split('T')[0];
       tempObj['end'] = end?.split('T')[0];
+      data = { ...data, startDate: tempObj['start'], endDate: tempObj['end'] };
 
       strVal = objectToQueryString({
         ...data,
         ...pagination,
-        ...{ startData: tempObj['start'], endDate: tempObj['end'] },
       });
     }
 
@@ -221,7 +221,7 @@ const Wcc = () => {
               type={'checkbox'}
               // id={itm.uniqueId}
               // subId={itm.SubProjectId}
-              checked={wccPdfData?.some((d) => d.ssid === itm.ssid)}
+              checked={wccPdfData?.some((d) => d.uniqueId === itm.uniqueId)}
               value={itm.uniqueId}
               onChange={(e) => {
                 if (e?.target?.checked) {
@@ -229,13 +229,17 @@ const Wcc = () => {
                     ssid: itm?.ssid,
                     vendorItemCode: itm?.vendorItemCode,
                     wccNumber: itm?.wccNumber,
+                    uniqueId: itm?.uniqueId,
                   };
                   setWccPdfData((prev) => [...prev, ...[tempObj]]);
                 } else {
                   // console.log(e?.target?.checked,"___peinfoes")
+
                   const data = wccPdfData?.filter(
-                    (bar) => bar?.ssid !== itm?.ssid,
+                    (bar) => bar?.uniqueId !== itm?.uniqueId,
                   );
+                  // console.log(itm, wccPdfData, '__itm');
+                  // console.log(data, '___wccData');
                   setWccPdfData(data);
                 }
               }}
@@ -580,6 +584,7 @@ const Wcc = () => {
       //   name: 'vendorId',
       //   type: 'text',
       // },
+
       {
         label: 'Vendor Item Code',
         value: '',
@@ -774,13 +779,13 @@ const Wcc = () => {
             )}
 
             <ConditionalButton
-              showType={'visible'}
+              showType={getAccessType('Partner WCC(Upload)')}
               name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
             <ConditionalButton
-              showType={getAccessType('Export(Site)')}
+              showType={getAccessType('Partner WCC(Export)')}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
@@ -796,6 +801,7 @@ const Wcc = () => {
         }
         table={componentTable}
         filterAfter={onSubmit}
+        dateInputReset={setAssignDate}
         tableName={'WCC'}
         handleSubmit={handleSubmit}
         data={checkArray(tableData) ? tableData : []}

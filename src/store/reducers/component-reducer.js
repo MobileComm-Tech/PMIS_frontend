@@ -1,25 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  popmenu: "",
+  popmenu: '',
   alerts: {},
   breadcrumb: [],
-  globalValue: JSON.parse(localStorage.getItem("GLOBAL_VALUE")) || [],
+  globalValue: JSON.parse(localStorage.getItem('GLOBAL_VALUE')) || [],
   loader: false,
-  table_pagination: "",
+  table_pagination: '',
   setfileblob: null,
 };
 
 const component = createSlice({
-  name: "component",
+  name: 'component',
   initialState,
   reducers: {
     POP_MENU: (state, { payload }) => {
-      console.log(payload,"___payload__")
+      // console.log(payload,"___payload__")
       if (payload.tkn) {
-        state.popmenu = state.popmenu != payload.data ? payload.data : "";
+        state.popmenu = state.popmenu != payload.data ? payload.data : '';
       } else {
-        state.popmenu = "";
+        state.popmenu = '';
       }
     },
 
@@ -27,7 +27,7 @@ const component = createSlice({
       let alreadyPayloading = [...state.globalValue];
 
       let alreadyPayload = alreadyPayloading.findIndex(
-        (item) => item.name == payload.name
+        (item) => item.name == payload.name,
       );
       let data = [];
       if (alreadyPayload != -1) {
@@ -36,7 +36,7 @@ const component = createSlice({
       } else {
         data = [...state.globalValue, payload];
       }
-      localStorage.setItem("GLOBAL_VALUE", JSON.stringify(data));
+      localStorage.setItem('GLOBAL_VALUE', JSON.stringify(data));
       state.globalValue = data;
     },
     BREADCRUMB: (state, { payload }) => {
@@ -47,7 +47,7 @@ const component = createSlice({
           { name: payload.data, index: lendata, link: payload.link },
         ];
       } else {
-        if (payload.data != "") {
+        if (payload.data != '') {
           let lendata = [...state.breadcrumb].length;
           state.breadcrumb = [
             ...state.breadcrumb,
@@ -65,7 +65,7 @@ const component = createSlice({
     TABLE_PAGINATON: (state, { payload }) => {
       state.table_pagination = payload;
     },
-    
+
     // ALERTS: (state, { payload }) => {
     //   const data = JSON.parse(JSON.stringify(payload));
     //   if (!data?.icon) {

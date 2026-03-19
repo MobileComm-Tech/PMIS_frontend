@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
-import Button from "./Button";
-import PopupMenu from "./PopupMenu";
-import { current } from "@reduxjs/toolkit";
-import { UilColumns } from "@iconscout/react-unicons";
-import { UilFilter } from "@iconscout/react-unicons";
-import Modalmoreinfo from "./Modalmoreinfo";
-import Modal from "./Modal";
-import DatePicker from "react-datepicker";
-import { objectToArray } from "../utils/commonFunnction";
-import moment from "moment";
-import FilterView from "./FilterView";
-import { useDispatch, useSelector } from "react-redux";
-import AdvancedTableExpandableOneRow from "./AdvancedTableExpandableOneRow";
-import AdvancedTableExpandableOneRowMerged from "./AdvancedTableExpandableOneRowMerged";
-import SearchView from "./SearchView";
+import React, { useEffect, useRef, useState } from 'react';
+import Button from './Button';
+import PopupMenu from './PopupMenu';
+import { current } from '@reduxjs/toolkit';
+import { UilColumns } from '@iconscout/react-unicons';
+import { UilFilter } from '@iconscout/react-unicons';
+import Modalmoreinfo from './Modalmoreinfo';
+import Modal from './Modal';
+import DatePicker from 'react-datepicker';
+import { objectToArray } from '../utils/commonFunnction';
+import moment from 'moment';
+import FilterView from './FilterView';
+import { useDispatch, useSelector } from 'react-redux';
+import AdvancedTableExpandableOneRow from './AdvancedTableExpandableOneRow';
+import AdvancedTableExpandableOneRowMerged from './AdvancedTableExpandableOneRowMerged';
+import SearchView from './SearchView';
 
 const AdvancedTableExpandable = ({
   mergedRows = false,
   parentsite = [],
   childsite = [],
-  tableName = "",
+  tableName = '',
   headerButton,
-  filterAfter = () => { },
-  handleSubmit = () => { },
+  filterAfter = () => {},
+  handleSubmit = () => {},
   table,
   data,
   errors,
@@ -31,29 +31,28 @@ const AdvancedTableExpandable = ({
   getValues,
   totalCount = 0,
   multiSelect = false,
-  actions = ["Delete"],
+  actions = ['Delete'],
   heading,
-  searchView = "",
-  getmultiSelect = "",
-  setmultiSelect = () => { },
-  TableHeight = ''
+  searchView = '',
+  getmultiSelect = '',
+  setmultiSelect = () => {},
+  TableHeight = '',
 }) => {
   const [hide, setHide] = useState([]);
-  const [finalData, setFinalData] = useState([])
+  const [finalData, setFinalData] = useState([]);
   const [lastVisitedPage, setLastVisitedPage] = useState(50);
   const [RPP, setRPP] = useState(50);
   const [sRPP, ssRPP] = useState(0);
   const [activeFilter, setActiveFilter] = useState([]);
   const [activedFilter, setActivedFilter] = useState({});
   const [currentPage, setcurrentPage] = useState(1);
-  data = (data[0]?.uniqueId) ? data : [];
+  data = data[0]?.uniqueId ? data : [];
 
   let pages = Array.from({
     length: totalCount % RPP == 0 ? totalCount / RPP : totalCount / RPP + 1,
   });
 
-
-  const poSiteIdsRef = useRef([])
+  const poSiteIdsRef = useRef([]);
 
   const handleRPPChange = (value) => {
     setRPP(value);
@@ -64,20 +63,19 @@ const AdvancedTableExpandable = ({
         ...activedFilter,
         reseter: true,
         page: page,
-        limit: rrp
-
+        limit: rrp,
       };
-      sessionStorage.setItem("page", value)
+      sessionStorage.setItem('page', value);
       filterAfter(filters);
       setActivedFilter(filters);
       setActiveFilter(objectToArray(filters));
     };
-    callApiPagination(1, value)
+    callApiPagination(1, value);
   };
   useEffect(() => {
     function addClassToAllChildren(el) {
       if (el) {
-        el.classList.add("not");
+        el.classList.add('not');
         const children = el.children;
 
         for (let i = 0; i < children.length; i++) {
@@ -86,14 +84,14 @@ const AdvancedTableExpandable = ({
       }
     }
 
-    const element = document.querySelector("#add-not");
+    const element = document.querySelector('#add-not');
     addClassToAllChildren(element);
   });
 
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const [modalBody, setModalBody] = useState("");
+  const [modalBody, setModalBody] = useState('');
   table.properties = {
     ...table.properties,
     rpp: [50, 100, 500, 1000],
@@ -105,25 +103,24 @@ const AdvancedTableExpandable = ({
       ...activedFilter,
       reseter: true,
       page: value,
-      limit: RPP
-
+      limit: RPP,
     };
-    sessionStorage.setItem("page", value)
+    sessionStorage.setItem('page', value);
     filterAfter(filters);
     setActivedFilter(filters);
     setActiveFilter(objectToArray(filters));
   };
 
   const onSubmit = (formdata) => {
-    formdata["reseter"] = true;
+    formdata['reseter'] = true;
     const data = {
       ...activedFilter,
-      ...formdata
-    }
+      ...formdata,
+    };
     filterAfter(data);
     setActivedFilter(data);
     setActiveFilter(objectToArray(data));
-    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
+    dispatch(ComponentActions.popmenu(location.pathname + '_' + name, false));
   };
 
   const onReset = () => {
@@ -138,10 +135,8 @@ const AdvancedTableExpandable = ({
   }, [tableName]);
 
   useEffect(() => {
-    setFinalData(data)
-  }, [data])
-
-
+    setFinalData(data);
+  }, [data]);
 
   return (
     <>
@@ -150,7 +145,9 @@ const AdvancedTableExpandable = ({
           <div className="flex justify-between">
             <div className="flex flex-row">
               <div className="flex flex-row mt-[6px] text-white">
-                <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">{heading}</p>
+                <p className="text-[#f4d3a8] font-semibold whitespace-nowrap">
+                  {heading}
+                </p>
                 <p className="text-[#E6BE8A] font-bold ml-1">{totalCount}</p>
               </div>
               <div className="flex flex-row mx-8 gap-1">{searchView}</div>
@@ -169,8 +166,8 @@ const AdvancedTableExpandable = ({
                 getValues={getValues}
               />
               <PopupMenu
-                name={"Hide / Unhide"}
-                icon={<UilColumns size="32" className={"hello"} />}
+                name={'Hide / Unhide'}
+                icon={<UilColumns size="32" className={'hello'} />}
                 child={
                   <>
                     <div className="flex z-40 max-h-96 overflow-scroll flex-col not">
@@ -214,8 +211,13 @@ const AdvancedTableExpandable = ({
             </div>
           </div>
         </div>
-        <div className={"m-2 overflow-x-scroll pb-6 border-1 border-solid border-black rounded-lg " + TableHeight}>
-          <table border={1} className={"w-[100%]"}>
+        <div
+          className={
+            'm-2 overflow-x-scroll pb-6 border-1 border-solid border-black rounded-lg ' +
+            TableHeight
+          }
+        >
+          <table border={1} className={'w-[100%]'}>
             <thead className="sticky -top-1 h-4 z-30">
               <tr>
                 <td className="border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[10px] max-w-[10px] text-center"></td>
@@ -223,40 +225,40 @@ const AdvancedTableExpandable = ({
                   return hide.indexOf(String(index)) == -1 ? (
                     <>
                       {actions.includes(itts.name) ? (
-                        ["Edit"].includes(itts.name) ? (
+                        ['Edit'].includes(itts.name) ? (
                           <td
                             colSpan={actions.length}
                             className={`border-primaryLine h-10 border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                           >
                             <span className="text-white text-[12px]">
-                              {"Actions"}
+                              {'Actions'}
                             </span>
                           </td>
-                        ) : !actions.includes("Edit") ? (
+                        ) : !actions.includes('Edit') ? (
                           <td
                             colSpan={actions.length}
                             className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[120px] max-w-[200px] text-center`}
                           >
                             <span className="text-white text-[12px]">
-                              {"Actions"}
+                              {'Actions'}
                             </span>
                           </td>
                         ) : (
-                          ""
+                          ''
                         )
                       ) : (
                         <>
                           <td
-                            className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${itts.style
-                              ? itts.style
-                              : " min-w-[300px] max-w-[500px]"
-                              }`}
+                            className={`border-primaryLine border-[1.5px] h-10  bg-primaryLine ${
+                              itts.style
+                                ? itts.style
+                                : ' min-w-[300px] max-w-[500px]'
+                            }`}
                           >
                             <span className="text-white text-[12px]">
                               {itts.name}
                             </span>
                           </td>
-
 
                           {/* <td
                             className={`border-primaryLine border-[1.5px] h-10 bg-primaryLine ${
@@ -270,7 +272,6 @@ const AdvancedTableExpandable = ({
                               <span className="text-white text-[12px]">{itts.name}</span>
                             )}
                           </td> */}
-
                         </>
                       )}
                     </>
@@ -284,9 +285,8 @@ const AdvancedTableExpandable = ({
             {finalData.length > 0 ? (
               <>
                 <tbody>
-                  {
-                    mergedRows ?
-                      finalData.map((itm,itmIndex) => {
+                  {mergedRows
+                    ? finalData.map((itm, itmIndex) => {
                         return (
                           <AdvancedTableExpandableOneRowMerged
                             getmultiSelect={getmultiSelect}
@@ -300,24 +300,24 @@ const AdvancedTableExpandable = ({
                             itmIndex={itmIndex}
                             hide={hide}
                             finalData={(() =>
-                              itm?.milestoneArray?.reduce((acc = {}, ele, index) => {
-                                if (!acc[ele['workDescription']]) {
-                                  acc[ele['workDescription']] = [];
-                                }
-                                
-                                acc[ele['workDescription']].push(ele)
-                                if( index == 0){
-                                  console.log(ele,"||",acc,"__element")
-                                }
-                                return acc;
-                              }, {})
-                            )()
-                            }
+                              itm?.milestoneArray?.reduce(
+                                (acc = {}, ele, index) => {
+                                  if (!acc[ele['workDescription']]) {
+                                    acc[ele['workDescription']] = [];
+                                  }
+
+                                  acc[ele['workDescription']].push(ele);
+                                  if (index == 0) {
+                                    console.log(ele, '||', acc, '__element');
+                                  }
+                                  return acc;
+                                },
+                                {},
+                              ))()}
                           />
                         );
                       })
-
-                      : finalData.map((itm) => {
+                    : finalData.map((itm) => {
                         return (
                           <AdvancedTableExpandableOneRow
                             getmultiSelect={getmultiSelect}
@@ -330,9 +330,7 @@ const AdvancedTableExpandable = ({
                             hide={hide}
                           />
                         );
-                      })
-                  }
-
+                      })}
                 </tbody>
               </>
             ) : (
@@ -345,8 +343,7 @@ const AdvancedTableExpandable = ({
                   </tr>
                 </tbody>
               </>
-            )
-            }
+            )}
           </table>
         </div>
 
@@ -360,7 +357,9 @@ const AdvancedTableExpandable = ({
                 className="rounded-sm"
               >
                 {table.properties.rpp.map((itm, idx) => (
-                  <option key={idx} value={itm}>{itm} </option>
+                  <option key={idx} value={itm}>
+                    {itm}{' '}
+                  </option>
                 ))}
               </select>
             </div>
@@ -368,12 +367,14 @@ const AdvancedTableExpandable = ({
             <div className="flex ml-auto">
               {pages.map((itm, index) => {
                 return pages.length > 5 ? (
-                  (index + 3 > currentPage && index - 1 < currentPage) || (index + 1 == 1) || (index + 1 == pages.length) ? (
+                  (index + 3 > currentPage && index - 1 < currentPage) ||
+                  index + 1 == 1 ||
+                  index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
                         callApiPagination(index + 1);
                       }}
-                      className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1 ? "bg-pcol text-white border-primaryLine" : "bg-white text-black border-primaryLine"}`}
+                      className={`border cursor-pointer px-2 mx-2 ${currentPage == index + 1 ? 'bg-pcol text-white border-primaryLine' : 'bg-white text-black border-primaryLine'}`}
                     >
                       {index + 1}
                     </span>
@@ -385,10 +386,11 @@ const AdvancedTableExpandable = ({
                     onClick={(e) => {
                       callApiPagination(index + 1);
                     }}
-                    className={`border cursor-pointer border-primaryLine ${currentPage == index + 1
-                      ? "bg-pcol text-white"
-                      : "bg-white"
-                      } px-2 mx-2`}
+                    className={`border cursor-pointer border-primaryLine ${
+                      currentPage == index + 1
+                        ? 'bg-pcol text-white'
+                        : 'bg-white'
+                    } px-2 mx-2`}
                   >
                     {index + 1}
                   </span>
@@ -403,7 +405,7 @@ const AdvancedTableExpandable = ({
         children={modalBody}
         setIsOpen={setOpenModal}
         isOpen={openModal}
-        size={"sm"}
+        size={'sm'}
       />
     </>
   );

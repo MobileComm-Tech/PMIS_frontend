@@ -1,7 +1,7 @@
 // import Api from "../../utils/api"
 // import { Urls } from "../../utils/url"
 // import { ALERTS } from "../reducers/component-reducer"
-// import { 
+// import {
 //     GET_FILTER_POELIGIBILITY,
 //     GET_PO_ELIGIBILITY,
 //     GET_PROJECT_TYPE,
@@ -17,7 +17,6 @@
 //     GET_VENDOR_SUBPROJECT,
 //     GET_VENDORACTIVITY_SUBPROJECT_LIST,
 // } from "../reducers/vendor-reducer"
-
 
 // const VendorActions = {
 //     getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
@@ -45,7 +44,7 @@
 //                 cb()
 
 //             }
-            
+
 //         } catch (error) {
 //             return;
 //         }
@@ -68,7 +67,6 @@
 //         } catch (error) {
 //         }
 //     },
-
 
 //     getManageVendorDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
 //         try {
@@ -96,7 +94,7 @@
 //                 cb()
 
 //             }
-            
+
 //         } catch (error) {
 //             return;
 //         }
@@ -121,11 +119,6 @@
 //         } catch (error) {
 //         }
 //     },
-
-
-    
-
-
 
 //     getVendorProjectTracking:(reset=true,args="") => async (dispatch, _) => {
 //         try {
@@ -170,7 +163,7 @@
 //                 cb()
 
 //             }
-            
+
 //         } catch (error) {
 //             return;
 //         }
@@ -194,7 +187,7 @@
 //         }
 //     },
 //     getVendorCostSubprojectTypeList:(reset=true,args="") => async (dispatch, _) => {
-        
+
 //         try {
 //             const res = await Api.get({ url:`${Urls.get_vendortCostSubProjectTypeList}${args!=""?"?"+args:""}`, reset })
 //             if (res?.status !== 200) return
@@ -204,7 +197,7 @@
 //         }
 //     },
 //     getVendorCostprojectTypeList:(reset=true,args="") => async (dispatch, _) => {
-        
+
 //         try {
 //             const res = await Api.get({ url:`${Urls.get_vendortCostSubProjectTypeList}${args!=""?"?"+args:""}`, reset })
 //             if (res?.status !== 200) return
@@ -214,23 +207,23 @@
 //         }
 //     },
 //     getVendorActivitySubProject:(reset=true,args="") => async (dispatch, _) => {
-        
+
 //         try {
 //             const res = await Api.get({ url:`${Urls.filter_vendorActivity_subProject}${args!=""?"?"+args:""}`, reset })
 //             if (res?.status !== 200) return
 //             let dataAll = res?.data?.data
-            
+
 //             dispatch(GET_VENDORACTIVITY_SUBPROJECT_LIST({dataAll,reset}))
 //         } catch (error) {
 //         }
 //     },
 //     getvendorCostVendorsList:(reset=true,args="") => async (dispatch, _) => {
-        
+
 //         try {
 //             const res = await Api.get({ url:`${Urls.get_vendortCostVendorsList}${args!=""?"?"+args:""}`, reset })
 //             if (res?.status !== 200) return
 //             let dataAll = res?.data?.data
-            
+
 //             dispatch(GET_VENDOR_COST_VENDORS_LIST({dataAll,reset}))
 //         } catch (error) {
 //         }
@@ -238,411 +231,538 @@
 // }
 // export default VendorActions;
 
-import Api from "../../utils/api"
-import { Urls } from "../../utils/url"
-import { ALERTS } from "../reducers/component-reducer"
-import { 
-    GET_FILTER_POELIGIBILITY,
-    GET_PO_ELIGIBILITY,
-    GET_PROJECT_TYPE,
-    GET_VENDOR_COST_MILESTONE,
-    GET_VENDOR_COST_MILESTONE_LIST,
-    GET_VENDOR_COST_PROJECTGROUP_LIST,
-    GET_VENDOR_COST_PROJECTTYPE_LIST,
-    GET_VENDOR_COST_SUBPROJECT_LIST,
-    GET_VENDOR_COST_VENDORS_LIST,
-    GET_VENDOR_DETAILS,
-    GET_VENDOR_PROJECT_LIST,
-    GET_VENDOR_PROJECT_TRAKING,
-    GET_VENDOR_SUBPROJECT,
-    GET_VENDORACTIVITY_SUBPROJECT_LIST,
-    GET_VENDOR_COST_PROJECTID_LIST,
-    GET_VENDOR_PARTNER_TEAM_DATA,
-    GET_VENDOR_PARTNER_TABLE_DATA,
-    GET_VENDOR_PARTNER_TEAM_LEAD_DATA,
-    GET_PARTNER_TEAM_ROLE,
-    GET_WCC_SUBMODULE,
-    GET_PROJECT_TYPE_DETAILS,
-    GET_SUB_PROJECT_DETAILS,
-} from "../reducers/vendor-reducer"
-
+import Api from '../../utils/api';
+import { Urls } from '../../utils/url';
+import { ALERTS } from '../reducers/component-reducer';
+import {
+  GET_FILTER_POELIGIBILITY,
+  GET_PO_ELIGIBILITY,
+  GET_PROJECT_TYPE,
+  GET_VENDOR_COST_MILESTONE,
+  GET_VENDOR_COST_MILESTONE_LIST,
+  GET_VENDOR_COST_PROJECTGROUP_LIST,
+  GET_VENDOR_COST_PROJECTTYPE_LIST,
+  GET_VENDOR_COST_SUBPROJECT_LIST,
+  GET_VENDOR_COST_VENDORS_LIST,
+  GET_VENDOR_DETAILS,
+  GET_VENDOR_PROJECT_LIST,
+  GET_VENDOR_PROJECT_TRAKING,
+  GET_VENDOR_SUBPROJECT,
+  GET_VENDORACTIVITY_SUBPROJECT_LIST,
+  GET_VENDOR_COST_PROJECTID_LIST,
+  GET_VENDOR_PARTNER_TEAM_DATA,
+  GET_VENDOR_PARTNER_TABLE_DATA,
+  GET_VENDOR_PARTNER_TEAM_LEAD_DATA,
+  GET_PARTNER_TEAM_ROLE,
+  GET_WCC_SUBMODULE,
+  GET_PROJECT_TYPE_DETAILS,
+  GET_SUB_PROJECT_DETAILS,
+} from '../reducers/vendor-reducer';
 
 const VendorActions = {
-    getManageEmpDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.admin_empdetails}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_EMPLOYEE_DETAILS({dataAll,reset}))
-        } catch (error) {
-        }
+  getManageEmpDetails:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_empdetails}${uid != '' ? '/' + uid : ''}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_EMPLOYEE_DETAILS({ dataAll, reset }));
+      } catch (error) {}
     },
-    getPartnerTeam:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.partnerTeamRole}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_PARTNER_TEAM_ROLE({dataAll,reset}))
-        } catch (error) {
-        }
+  getPartnerTeam:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.partnerTeamRole}${uid != '' ? '/' + uid : ''}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PARTNER_TEAM_ROLE({ dataAll, reset }));
+      } catch (error) {}
     },
-    postManageEmpDetails: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.admin_empdetails : Urls.admin_empdetails + "/" + uniqueId , contentType:"multipart/form-data", reset })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
+  postManageEmpDetails: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.admin_empdetails
+            : Urls.admin_empdetails + '/' + uniqueId,
+        contentType: 'multipart/form-data',
+        reset,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: 'error',
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+  getPoEligibility:
+    (data, reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data,
+          url: `${Urls.PoEligibility}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PO_ELIGIBILITY({ dataAll, reset }));
+      } catch (error) {}
     },
-    getPoEligibility:(data,reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data,url:`${Urls.PoEligibility}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_PO_ELIGIBILITY({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getFilterPOEligibility:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.filterPoEligibility}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_FILTER_POELIGIBILITY({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-
-
-    getManageVendorDetails:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            console.log('dhdhdhd',args)
-            const res = await Api.get({ url:`${Urls.vendor_details}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_DETAILS({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    postManageVendorDetails: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.vendor_details : Urls.vendor_details + "/" + uniqueId , contentType:"multipart/form-data", reset })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
-    },
-    // Partner Team 
-    getVendorPartnerTeam:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.vendorPartnerTeamData}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PARTNER_TEAM_DATA({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getWccSubmodule:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.wcc_Submodule}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            // console.log(dataAll,"___dattaa")
-            dispatch(GET_WCC_SUBMODULE({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    postCreateWCC: (data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.create_Wcc : Urls.create_Wcc + "/" + uniqueId })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
-    },
-    postDeSelectWCC: (data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.delete_wcc_submodule : Urls.delete_wcc_submodule + "/" + uniqueId })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
-    },
-    
-    getVendorPartnerTeamData:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.partnerTeamData}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PARTNER_TABLE_DATA({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    partnerTeamLeadData:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.teamLeadDataAPI}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PARTNER_TEAM_LEAD_DATA({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    postPartnerTeamLeadAllocation: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.teamLeadDataAPI : Urls.teamLeadDataAPI + "/" + uniqueId })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
-    },
-    postPartnerTeamData: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.partnerTeamData : Urls.partnerTeamData + "/" + uniqueId })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
+  getFilterPOEligibility:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.filterPoEligibility}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_FILTER_POELIGIBILITY({ dataAll, reset }));
+      } catch (error) {}
     },
 
-// Partner Team  
+  getManageVendorDetails:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        console.log('dhdhdhd', args);
+        const res = await Api.get({
+          url: `${Urls.vendor_details}${uid != '' ? '/' + uid : ''}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_DETAILS({ dataAll, reset }));
+      } catch (error) {}
+    },
+  postManageVendorDetails:
+    (reset, data, cb, uniqueId) => async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? Urls.vendor_details
+              : Urls.vendor_details + '/' + uniqueId,
+          contentType: 'multipart/form-data',
+          reset,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
+        }
+      } catch (error) {
+        return;
+      }
+    },
+  // Partner Team
+  getVendorPartnerTeam:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.vendorPartnerTeamData}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        }
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_PARTNER_TEAM_DATA({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getWccSubmodule:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.wcc_Submodule}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          let dataAll = res?.data?.data;
 
+          dispatch(GET_WCC_SUBMODULE({ dataAll, reset }));
+        }
+      } catch (error) {}
+    },
+  postCreateWCC: (data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null ? Urls.create_Wcc : Urls.create_Wcc + '/' + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: 'error',
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+  postDeSelectWCC: (data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.delete_wcc_submodule
+            : Urls.delete_wcc_submodule + '/' + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: 'error',
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
 
-    getVendorProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.vendor_project_list}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PROJECT_LIST({dataAll,reset}))
-        } catch (error) {
-        }
+  getVendorPartnerTeamData:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.partnerTeamData}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_PARTNER_TABLE_DATA({ dataAll, reset }));
+      } catch (error) {}
     },
-    getProjectTypeList:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.wcc_projectType}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_PROJECT_TYPE_DETAILS({dataAll,reset}))
-        } catch (error) {
-        }
+  partnerTeamLeadData:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.teamLeadDataAPI}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_PARTNER_TEAM_LEAD_DATA({ dataAll, reset }));
+      } catch (error) {}
     },
-    getSubProjectList:(reset=true,uid="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.wcc_subProject}${uid!=""?"/"+uid:""}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_SUB_PROJECT_DETAILS({dataAll,reset}))
-        } catch (error) {
+  postPartnerTeamLeadAllocation:
+    (reset, data, cb, uniqueId) => async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? Urls.teamLeadDataAPI
+              : Urls.teamLeadDataAPI + '/' + uniqueId,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
         }
+      } catch (error) {
+        return;
+      }
     },
-    getProjectType:(reset=true,customerId="",args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.vendorProjects}/${customerId}${args!=""?"?"+args:""}`})
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_PROJECT_TYPE({dataAll,reset}))
-        } catch (error) {
-        }
+  postPartnerTeamData: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.partnerTeamData
+            : Urls.partnerTeamData + '/' + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: 'error',
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+
+  // Partner Team
+
+  getVendorProjectList:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.vendor_project_list}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_PROJECT_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getProjectTypeList:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.wcc_projectType}${uid != '' ? '/' + uid : ''}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PROJECT_TYPE_DETAILS({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getSubProjectList:
+    (reset = true, uid = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.wcc_subProject}${uid != '' ? '/' + uid : ''}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_SUB_PROJECT_DETAILS({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getProjectType:
+    (reset = true, customerId = '', args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.vendorProjects}/${customerId}${args != '' ? '?' + args : ''}`,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PROJECT_TYPE({ dataAll, reset }));
+      } catch (error) {}
     },
 
+  getVendorProjectTracking:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.vendor_project_tracking}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_PROJECT_TRAKING({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorSubProject:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.filter_vendor_subProject}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_SUBPROJECT({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorCostMilestone:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendorCostMilestone}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_MILESTONE({ dataAll, reset }));
+      } catch (error) {}
+    },
+  postVendorCostMilestone:
+    (reset, data, cb, uniqueId) => async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? Urls.get_vendorCostMilestone
+              : Urls.get_vendorCostMilestone + '/' + uniqueId,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
+        }
+      } catch (error) {
+        return;
+      }
+    },
+  getVendorCostMilestoneList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostMilestoeList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_MILESTONE_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorCostprojectGroupList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostProjectGroupList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_PROJECTGROUP_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorCostProjectIdList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostProjectIdList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_PROJECTID_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorCostSubprojectTypeList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostSubProjectTypeList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_SUBPROJECT_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorCostprojectTypeList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostSubProjectTypeList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_PROJECTTYPE_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getVendorActivitySubProject:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.filter_vendorActivity_subProject}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
 
-    
+        dispatch(GET_VENDORACTIVITY_SUBPROJECT_LIST({ dataAll, reset }));
+      } catch (error) {}
+    },
+  getvendorCostVendorsList:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendortCostVendorsList}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
 
-
-
-    getVendorProjectTracking:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.vendor_project_tracking}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_PROJECT_TRAKING({dataAll,reset}))
-        } catch (error) {
-        }
+        dispatch(GET_VENDOR_COST_VENDORS_LIST({ dataAll, reset }));
+      } catch (error) {}
     },
-    getVendorSubProject:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.filter_vendor_subProject}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_SUBPROJECT({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorCostMilestone:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendorCostMilestone}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_MILESTONE({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    postVendorCostMilestone: (reset, data, cb, uniqueId) => async (dispatch, _) => {
-        try {
-            const res = await Api.post({ data: data, url: uniqueId == null ? Urls.get_vendorCostMilestone : Urls.get_vendorCostMilestone + "/" + uniqueId })
-            if (res?.status !== 201 && res?.status !== 200) {
-                let msgdata = {
-                    show: true,
-                    icon: "error",
-                    buttons: [],
-                    type: 1,
-                    text: res?.data?.msg,
-                };
-                dispatch(ALERTS(msgdata));
-            }else{
-                cb()
-
-            }
-            
-        } catch (error) {
-            return;
-        }
-    },
-    getVendorCostMilestoneList:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostMilestoeList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_MILESTONE_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorCostprojectGroupList:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostProjectGroupList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_PROJECTGROUP_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorCostProjectIdList:(reset=true,args="") => async (dispatch, _) => {
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostProjectIdList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_PROJECTID_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorCostSubprojectTypeList:(reset=true,args="") => async (dispatch, _) => {
-        
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostSubProjectTypeList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_SUBPROJECT_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorCostprojectTypeList:(reset=true,args="") => async (dispatch, _) => {
-        
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostSubProjectTypeList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            dispatch(GET_VENDOR_COST_PROJECTTYPE_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getVendorActivitySubProject:(reset=true,args="") => async (dispatch, _) => {
-        
-        try {
-            const res = await Api.get({ url:`${Urls.filter_vendorActivity_subProject}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            
-            dispatch(GET_VENDORACTIVITY_SUBPROJECT_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-    getvendorCostVendorsList:(reset=true,args="") => async (dispatch, _) => {
-        
-        try {
-            const res = await Api.get({ url:`${Urls.get_vendortCostVendorsList}${args!=""?"?"+args:""}`, reset })
-            if (res?.status !== 200) return
-            let dataAll = res?.data?.data
-            
-            dispatch(GET_VENDOR_COST_VENDORS_LIST({dataAll,reset}))
-        } catch (error) {
-        }
-    },
-}
+};
 export default VendorActions;

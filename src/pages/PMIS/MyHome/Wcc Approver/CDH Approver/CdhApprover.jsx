@@ -265,7 +265,7 @@ const CdhApprover = () => {
   };
 
   const onTableViewSubmit = (data) => {
-    data['fileType'] = 'cdhUpload';
+    data['fileType'] = 'CdhApproverFileUpload';
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FormssActions.getWccCdh());
@@ -702,14 +702,14 @@ const CdhApprover = () => {
               }}
               name={"Add New"}
             /> */}
-            {/* <ConditionalButton
-              showType={getAccessType("Upload(ManageEmployee)")}
-              name={"Upload File"}
+            <ConditionalButton
+              showType={getAccessType('CDH Approver(Upload)')}
+              name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
-            /> */}
+            />
             <ConditionalButton
-              showType={getAccessType('Upgrade(ManageEmployee)')}
+              showType={getAccessType('CDH Approver(Export)')}
               name={'Export'}
               classes="w-auto mr-1"
               onClick={() =>
@@ -787,7 +787,10 @@ const CdhApprover = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={['/template/cdhUpload.xlsx', 'CDH_File_template.xlsx']}
+        tempbtnlink={[
+          '/template/cdhApproverUpload.xlsx',
+          'CDH_Approver_template.xlsx',
+        ]}
         head={'Upload Upgrade File'}
       />
 
