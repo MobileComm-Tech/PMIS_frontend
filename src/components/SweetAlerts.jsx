@@ -164,9 +164,19 @@ const SweetAlerts = () => {
     }
 
     // Default → message type
-    return (
-      <Button classes="w-15 bg-red-800" name="Clear" onClick={handleClear} />
-    );
+    if (swAlerts.type === "message" || swAlerts.type === "file") {
+      return (
+        <Button classes="w-15 bg-red-800" name="Clear" onClick={handleClear} />
+      );
+    } else {
+      return (
+        <Button
+          classes="w-15 bg-[#13B497]"
+          name="OK"
+          onClick={() => dispatch(ALERTS({ show: false }))}
+        />
+      );
+    }
   };
 
   return (
