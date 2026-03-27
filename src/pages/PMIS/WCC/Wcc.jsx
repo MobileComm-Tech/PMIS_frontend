@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import AdvancedTable from '../../../components/AdvancedTable';
-import ComplianceForm from '../Admin/Compliance/ComplianceForm';
-import { useDispatch, useSelector } from 'react-redux';
-import VendorActions from '../../../store/actions/vendor-actions';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import AdvancedTable from "../../../components/AdvancedTable";
+import ComplianceForm from "../Admin/Compliance/ComplianceForm";
+import { useDispatch, useSelector } from "react-redux";
+import VendorActions from "../../../store/actions/vendor-actions";
 import {
   checkArray,
   CheckTrueOrFalse,
   checkVariable,
   pagination,
-} from '../../../components/CommonObjectsAndVariables';
-import ConditionalButton from '../../../components/ConditionalButton';
+} from "../../../components/CommonObjectsAndVariables";
+import ConditionalButton from "../../../components/ConditionalButton";
 import {
   getAccessType,
   objectToQueryString,
-} from '../../../utils/commonFunnction';
-import CommonActions from '../../../store/actions/common-actions';
-import CstmButton from '../../../components/CstmButton';
-import DeleteButton from '../../../components/DeleteButton';
-import Button from '../../../components/Button';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import Modal from '../../../components/Modal';
-import CommonAlert from '../../../components/Common Alert/CommonAlert';
-import FileUploader from '../../../components/FIleUploader';
-import { Urls } from '../../../utils/url';
+} from "../../../utils/commonFunnction";
+import CommonActions from "../../../store/actions/common-actions";
+import CstmButton from "../../../components/CstmButton";
+import DeleteButton from "../../../components/DeleteButton";
+import Button from "../../../components/Button";
+import { ALERTS } from "../../../store/reducers/component-reducer";
+import Modal from "../../../components/Modal";
+import CommonAlert from "../../../components/Common Alert/CommonAlert";
+import FileUploader from "../../../components/FIleUploader";
+import { Urls } from "../../../utils/url";
 const Wcc = () => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState(pagination);
@@ -57,20 +57,20 @@ const Wcc = () => {
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.vendorData?.getWccSubmodule;
     if (interdata.length > 0) {
-      return interdata[0]['overall_table_count'];
+      return interdata[0]["overall_table_count"];
     } else {
       return 0;
     }
   });
   const getStatusBadge = (value) => {
-    if (value === 'Approved') {
+    if (value === "Approved") {
       return (
         <span className="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
           {value}
         </span>
       );
     }
-    if (value === 'Rejected') {
+    if (value === "Rejected") {
       return (
         <span className="bg-red-100 text-red-700 px-2 py-1 rounded font-semibold">
           {value}
@@ -109,9 +109,9 @@ const Wcc = () => {
     if (assignDate) {
       let tempObj = {};
       const { start, end } = assignDate;
-      tempObj['start'] = start?.split('T')[0];
-      tempObj['end'] = end?.split('T')[0];
-      data = { ...data, startDate: tempObj['start'], endDate: tempObj['end'] };
+      tempObj["start"] = start?.split("T")[0];
+      tempObj["end"] = end?.split("T")[0];
+      data = { ...data, startDate: tempObj["start"], endDate: tempObj["end"] };
 
       strVal = objectToQueryString({
         ...data,
@@ -176,7 +176,7 @@ const Wcc = () => {
           {CheckTrueOrFalse(itm?.wccEligibility) &&
           itm?.wccNumber === undefined ? (
             <input
-              type={'checkbox'}
+              type={"checkbox"}
               // id={itm.uniqueId}
               // subId={itm.SubProjectId}
               checked={
@@ -203,7 +203,7 @@ const Wcc = () => {
                     const data = checkedChildData?.filter(
                       (checkChildItm) => itm?.ssid !== checkChildItm?.ssid,
                     );
-                    console.log(data, 'CheckChldata');
+                    console.log(data, "CheckChldata");
                     setCheckChildData(data);
                   }
                 }
@@ -218,7 +218,7 @@ const Wcc = () => {
         <>
           {itm?.isWccCreated === true ? (
             <input
-              type={'checkbox'}
+              type={"checkbox"}
               // id={itm.uniqueId}
               // subId={itm.SubProjectId}
               checked={wccPdfData?.some((d) => d.uniqueId === itm.uniqueId)}
@@ -251,13 +251,13 @@ const Wcc = () => {
       ),
       actions: (
         <>
-          {itm?.wccEligibility === 'WCC Generated' &&
-          getAccessType('Actions(Partner WCC)') === 'visible' &&
+          {itm?.wccEligibility === "WCC Generated" &&
+          getAccessType("Actions(Partner WCC)") === "visible" &&
           itm?.wccNumber !== undefined ? (
             <CstmButton
               child={
                 <DeleteButton
-                  name={''}
+                  name={""}
                   onClick={() => {
                     // let msgdata = {
                     //     show: true,
@@ -280,9 +280,9 @@ const Wcc = () => {
                       <>
                         <CommonAlert
                           selectedRow={itm}
-                          Heading={'Are you Sure ?'}
+                          Heading={"Are you Sure ?"}
                           getAllDAta={() => {
-                            console.log('CommingHEre');
+                            console.log("CommingHEre");
                             dispatch(
                               VendorActions.postDeSelectWCC(
                                 {
@@ -348,7 +348,7 @@ const Wcc = () => {
       {
         name: (
           <input
-            type={'checkbox'}
+            type={"checkbox"}
             checked={
               checkedData?.length === checkedChildData?.length &&
               checkedData?.length > 0
@@ -387,13 +387,13 @@ const Wcc = () => {
             }}
           />
         ),
-        value: 'checkboxProject',
-        style: 'min-w-[40px] max-w-[40px] text-center',
+        value: "checkboxProject",
+        style: "min-w-[40px] max-w-[40px] text-center",
       },
       {
-        name: 'Generate PDF',
-        value: 'generatePdf',
-        style: 'min-w-[20px] max-w-[200px] text-center',
+        name: "Generate PDF",
+        value: "generatePdf",
+        style: "min-w-[20px] max-w-[200px] text-center",
       },
       // {
       //   name: "Customer",
@@ -401,9 +401,9 @@ const Wcc = () => {
       //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
       {
-        name: 'Project Group',
-        value: 'projectGroup',
-        style: 'min-w-[160px] max-w-[220px] text-center',
+        name: "Project Group",
+        value: "projectGroup",
+        style: "min-w-[160px] max-w-[220px] text-center",
       },
       // {
       //   name: "Project ID",
@@ -411,29 +411,29 @@ const Wcc = () => {
       //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
       {
-        name: 'Project Type',
-        value: 'projectType',
-        style: 'min-w-[100px] max-w-[220px] text-center',
+        name: "Project Type",
+        value: "projectType",
+        style: "min-w-[100px] max-w-[220px] text-center",
       },
       {
-        name: 'Sub Project',
-        value: 'subProject',
-        style: 'min-w-[100px] max-w-[220px] text-center',
+        name: "Sub Project",
+        value: "subProject",
+        style: "min-w-[100px] max-w-[220px] text-center",
       },
       {
-        name: 'Site ID',
-        value: 'siteId',
-        style: 'min-w-[120px] max-w-[180px] text-center',
+        name: "Site ID",
+        value: "siteId",
+        style: "min-w-[120px] max-w-[180px] text-center",
       },
       {
-        name: 'SSID',
-        value: 'ssid',
-        style: 'min-w-[100px] max-w-[180px] text-center',
+        name: "SSID",
+        value: "ssid",
+        style: "min-w-[100px] max-w-[180px] text-center",
       },
       {
-        name: 'Vendor Name',
-        value: 'vendorName',
-        style: 'min-w-[250px] max-w-[300px] text-center',
+        name: "Vendor Name",
+        value: "vendorName",
+        style: "min-w-[250px] max-w-[300px] text-center",
       },
       // {
       //   name: "Vendor ID",
@@ -441,24 +441,24 @@ const Wcc = () => {
       //   style: "min-w-[140px] max-w-[200px] text-center",
       // },
       {
-        name: 'Vendor Item Code',
-        value: 'vendorItemCode',
-        style: 'min-w-[100px] max-w-[240px] text-center',
+        name: "Vendor Item Code",
+        value: "vendorItemCode",
+        style: "min-w-[100px] max-w-[240px] text-center",
       },
       {
-        name: 'Vendor Item Code Description',
-        value: 'vendorItemCodeDescription',
-        style: 'min-w-[120px] max-w-[5 00px] text-center',
+        name: "Vendor Item Code Description",
+        value: "vendorItemCodeDescription",
+        style: "min-w-[120px] max-w-[5 00px] text-center",
       },
       {
-        name: 'Qty',
-        value: 'quantity',
-        style: 'min-w-[60px] max-w-[160px] text-center',
+        name: "Qty",
+        value: "quantity",
+        style: "min-w-[60px] max-w-[160px] text-center",
       },
       {
-        name: 'Vendor Rate',
-        value: 'vendorRate',
-        style: 'min-w-[80px] max-w-[200px] text-center',
+        name: "Vendor Rate",
+        value: "vendorRate",
+        style: "min-w-[80px] max-w-[200px] text-center",
       },
       // {
       //   name: "PO Value",
@@ -471,60 +471,59 @@ const Wcc = () => {
       //   style: "min-w-[160px] max-w-[220px] text-center",
       // },
       {
-        name: 'PO Number',
-        value: 'poNumber',
-        style: 'min-w-[60px] max-w-[220px] text-center',
+        name: "PO Number",
+        value: "poNumber",
+        style: "min-w-[60px] max-w-[220px] text-center",
       },
       {
-        name: 'CDH',
-        value: 'cdh',
-        style: 'min-w-[60px] max-w-[140px] text-center',
+        name: "CDH",
+        value: "cdh",
+        style: "min-w-[60px] max-w-[140px] text-center",
       },
       {
-        name: 'PAT',
-        value: 'pat',
-        style: 'min-w-[40px] max-w-[160px] text-center',
+        name: "PAT",
+        value: "pat",
+        style: "min-w-[40px] max-w-[160px] text-center",
       },
       {
-        name: 'OCI',
-        value: 'oci',
-        style: 'min-w-[40px] max-w-[140px] text-center',
+        name: "OCI",
+        value: "oci",
+        style: "min-w-[40px] max-w-[140px] text-center",
       },
       {
-        name: 'SCFT',
-        value: 'scft',
-        style: 'min-w-[40px] max-w-[140px] text-center',
+        name: "SCFT",
+        value: "scft",
+        style: "min-w-[40px] max-w-[140px] text-center",
       },
       {
-        name: 'EMF',
-        value: 'emf',
-        style: 'min-w-[40px] max-w-[140px] text-center',
+        name: "EMF",
+        value: "emf",
+        style: "min-w-[40px] max-w-[140px] text-center",
       },
       {
-        name: 'WCC Eligibility',
-        value: 'wccEligibility',
-        style: 'min-w-[160px] max-w-[220px] text-center',
+        name: "WCC Eligibility",
+        value: "wccEligibility",
+        style: "min-w-[160px] max-w-[220px] text-center",
+      },
+      // {
+      //   name: "Status",
+      //   value: "action",
+      //   style: "min-w-[120px] max-w-[160px] text-center",
+      // },
+      {
+        name: "WCC Issuance Date",
+        value: "submissionDate",
+        style: "min-w-[160px] max-w-[220px] text-center",
       },
       {
-        name: 'Status',
-        value: 'action',
-        style: 'min-w-[120px] max-w-[160px] text-center',
+        name: "WCC Number",
+        value: "wccNumber",
+        style: "min-w-[160px] max-w-[220px] text-center",
       },
       {
-        name: 'Submission Date',
-        value: 'submissionDate',
-        style: 'min-w-[160px] max-w-[220px] text-center',
-      },
-
-      {
-        name: 'WCC Number',
-        value: 'wccNumber',
-        style: 'min-w-[160px] max-w-[220px] text-center',
-      },
-      {
-        name: 'Actions',
-        value: 'actions',
-        style: 'min-w-[160px] max-w-[220px] text-center',
+        name: "Actions",
+        value: "actions",
+        style: "min-w-[160px] max-w-[220px] text-center",
       },
     ],
     properties: {
@@ -533,20 +532,20 @@ const Wcc = () => {
 
     filter: [
       {
-        label: 'Site Id',
-        value: '',
-        name: 'siteId',
+        label: "Site Id",
+        value: "",
+        name: "siteId",
 
-        type: 'text',
+        type: "text",
       },
       {
-        label: 'Project Type',
-        value: '',
-        name: 'projectType',
+        label: "Project Type",
+        value: "",
+        name: "projectType",
 
         // type: "text",
-        type: 'select',
-        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        type: "select",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: projectTypeList,
         props: {
           onChange: (e) => {
@@ -562,21 +561,21 @@ const Wcc = () => {
         required: false,
       },
       {
-        label: 'Sub Project',
-        value: '',
-        name: 'subProject',
+        label: "Sub Project",
+        value: "",
+        name: "subProject",
 
         // type: "text",
-        type: 'select',
-        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        type: "select",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: subProjectList,
         required: false,
       },
       {
-        label: 'Vendor Name',
-        value: '',
-        type: 'text',
-        name: 'vendorName',
+        label: "Vendor Name",
+        value: "",
+        type: "text",
+        name: "vendorName",
       },
       // {
       //   label: 'Vendor Id',
@@ -586,31 +585,31 @@ const Wcc = () => {
       // },
 
       {
-        label: 'Vendor Item Code',
-        value: '',
-        name: 'vendorItemCode',
+        label: "Vendor Item Code",
+        value: "",
+        name: "vendorItemCode",
 
-        type: 'text',
+        type: "text",
       },
       {
-        label: 'PO Number',
-        value: '',
-        name: 'poNumber',
+        label: "PO Number",
+        value: "",
+        name: "poNumber",
 
-        type: 'text',
+        type: "text",
       },
       {
-        label: 'WCC Number',
-        value: '',
-        name: 'wccNumber',
+        label: "WCC Number",
+        value: "",
+        name: "wccNumber",
 
-        type: 'text',
+        type: "text",
       },
       {
-        label: 'Date Filter',
-        value: '',
-        name: 'dateFilter',
-        type: 'datetimeRangeNew',
+        label: "Date Filter",
+        value: "",
+        name: "dateFilter",
+        type: "datetimeRangeNew",
 
         // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         required: false,
@@ -619,15 +618,15 @@ const Wcc = () => {
         },
       },
       {
-        label: 'WCC Eligibility',
-        value: '',
-        type: 'select',
-        name: 'wccEligibility',
+        label: "WCC Eligibility",
+        value: "",
+        type: "select",
+        name: "wccEligibility",
         // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: [
-          { label: 'Yes', value: 'Yes' },
-          { label: 'No', value: 'No' },
-          { label: 'WCC Generated', value: 'WCC Generated' },
+          { label: "Yes", value: "Yes" },
+          { label: "No", value: "No" },
+          { label: "WCC Generated", value: "WCC Generated" },
         ],
       },
     ],
@@ -643,13 +642,13 @@ const Wcc = () => {
   };
 
   const onTableViewSubmit = (data) => {
-    data['fileType'] = 'wccUpload';
+    data["fileType"] = "wccUpload";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
         dispatch(VendorActions.getWccSubmodule(true, defaultPagination));
         setFileOpen(false);
-        resetting('');
+        resetting("");
       }),
     );
   };
@@ -662,7 +661,7 @@ const Wcc = () => {
             {checkVariable(checkedData) ? (
               <>
                 <ConditionalButton
-                  showType={'visible'}
+                  showType={"visible"}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
@@ -692,7 +691,7 @@ const Wcc = () => {
                     // );
                     // setmodalOpen(true);
                   }}
-                  name={'Create WCC'}
+                  name={"Create WCC"}
                 />
                 {/* <ConditionalButton
               showType={getAccessType("Upload(ManageEmployee)")}
@@ -707,7 +706,7 @@ const Wcc = () => {
             ) : checkVariable(checkedChildData) ? (
               <>
                 <ConditionalButton
-                  showType={'visible'}
+                  showType={"visible"}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
@@ -737,7 +736,7 @@ const Wcc = () => {
                     // );
                     // setmodalOpen(true);
                   }}
-                  name={'Create WCC'}
+                  name={"Create WCC"}
                 />
                 {/* <ConditionalButton
               showType={getAccessType("Upload(ManageEmployee)")}
@@ -754,7 +753,7 @@ const Wcc = () => {
             )}
             {wccPdfData?.length > 0 ? (
               <ConditionalButton
-                showType={'visible'}
+                showType={"visible"}
                 classes="w-auto mr-1"
                 onClick={(e) => {
                   // dispatch(
@@ -764,45 +763,45 @@ const Wcc = () => {
                   // );
                   dispatch(
                     CommonActions.commondownloadpost(
-                      '/wcc/download?',
+                      "/wcc/download?",
                       `${wccPdfData[0]?.wccNumber}.pdf`,
-                      'POST',
+                      "POST",
                       wccPdfData,
                     ),
                   );
                   setWccPdfData([]);
                 }}
-                name={'Generate PDF'}
+                name={"Generate PDF"}
               ></ConditionalButton>
             ) : (
               <></>
             )}
 
             <ConditionalButton
-              showType={getAccessType('Partner WCC(Upload)')}
-              name={'Upload File'}
+              showType={getAccessType("Partner WCC(Upload)")}
+              name={"Upload File"}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
             <ConditionalButton
-              showType={getAccessType('Partner WCC(Export)')}
+              showType={getAccessType("Partner WCC(Export)")}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
-                    '/export/wcc?' + objectToQueryString(filters),
-                    'WCC.xlsx',
+                    "/export/wcc?" + objectToQueryString(filters),
+                    "WCC.xlsx",
                   ),
                 );
               }}
-              name={'Export'}
+              name={"Export"}
             ></ConditionalButton>
           </div>
         }
         table={componentTable}
         filterAfter={onSubmit}
         dateInputReset={setAssignDate}
-        tableName={'WCC'}
+        tableName={"WCC"}
         handleSubmit={handleSubmit}
         data={checkArray(tableData) ? tableData : []}
         errors={errors}
@@ -815,15 +814,15 @@ const Wcc = () => {
         //     "/export/subVendor",
         //     "PartnerTeam.xlsx",
         //     ]}
-        heading={'Total Count:-'}
+        heading={"Total Count:-"}
       />
       <FileUploader
         isOpen={fileOpen}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={['/template/wccUpload.xlsx', 'WCC_File_template.xlsx']}
-        head={'Upload Upgrade File'}
+        tempbtnlink={["/template/wccUpload.xlsx", "WCC_File_template.xlsx"]}
+        head={"Upload Upgrade File"}
       />
 
       <Modal

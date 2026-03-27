@@ -1,21 +1,23 @@
-import Api from '../../utils/api';
-import { Urls } from '../../utils/url';
-import { ALERTS } from '../reducers/component-reducer';
+import Api from "../../utils/api";
+import { Urls } from "../../utils/url";
+import { ALERTS } from "../reducers/component-reducer";
 import {
   GET_MY_HOME,
   GET_MY_TASK,
   GET_PERSONAL_INFO,
   GET_MY_POLICY,
   GET_WCC_CDH_APPROVER,
-} from '../reducers/myHome-reducer';
+  GET_WEB_NOTIFY,
+  GET_CLEAR_NOTIFICATION,
+} from "../reducers/myHome-reducer";
 
 const MyHomeActions = {
   getMyHome:
-    (reset = true, args = '') =>
+    (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.MyHome}${args != '' ? '?' + args : ''}`,
+          url: `${Urls.MyHome}${args != "" ? "?" + args : ""}`,
           reset,
         });
         if (res?.status !== 200) return;
@@ -24,18 +26,18 @@ const MyHomeActions = {
       } catch (error) {}
     },
   getCdhApprover:
-    (reset = true, args = '') =>
+    (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.wcc_Chd_Approver}${args != '' ? '?' + args : ''}`,
+          url: `${Urls.wcc_Chd_Approver}${args != "" ? "?" + args : ""}`,
           reset,
         });
-        console.log(res?.data, '__Datta');
+        console.log(res?.data, "__Datta");
         if (res?.status !== 200) {
           let msgdata = {
             show: true,
-            icon: 'error',
+            icon: "error",
             buttons: [],
             type: 1,
             text: res?.data?.msg,
@@ -50,12 +52,12 @@ const MyHomeActions = {
     try {
       const res = await Api.post({
         data: data,
-        url: uniqueId == null ? Urls.MyHome : Urls.MyHome + '/' + uniqueId,
+        url: uniqueId == null ? Urls.MyHome : Urls.MyHome + "/" + uniqueId,
       });
       if (res?.status !== 201 && res?.status !== 200) {
         let msgdata = {
           show: true,
-          icon: 'error',
+          icon: "error",
           buttons: [],
           type: 1,
           text: res?.data?.msg,
@@ -69,7 +71,7 @@ const MyHomeActions = {
     }
   },
   postCdhMultiActions:
-    (data, cb, uniqueId, args = '') =>
+    (data, cb, uniqueId, args = "") =>
     async (dispatch, _) => {
       // console.log(data,"__data")
       try {
@@ -77,15 +79,15 @@ const MyHomeActions = {
           data: data,
           url:
             uniqueId == null
-              ? `${Urls.wcc_Chd_MultiActions}${args != '' ? '?' + args : ''}`
-              : `${Urls.wcc_Chd_MultiActions}${args != '' ? '?' + args : ''}` +
-                '/' +
+              ? `${Urls.wcc_Chd_MultiActions}${args != "" ? "?" + args : ""}`
+              : `${Urls.wcc_Chd_MultiActions}${args != "" ? "?" + args : ""}` +
+                "/" +
                 uniqueId,
         });
         if (res?.status !== 201 && res?.status !== 200) {
           let msgdata = {
             show: true,
-            icon: 'error',
+            icon: "error",
             buttons: [],
             type: 1,
             text: res?.data?.msg,
@@ -105,13 +107,13 @@ const MyHomeActions = {
         url:
           uniqueId == null
             ? Urls.wcc_Chd_Actions
-            : Urls.wcc_Chd_Actions + '/' + uniqueId,
-        contentType: 'multipart/form-data',
+            : Urls.wcc_Chd_Actions + "/" + uniqueId,
+        contentType: "multipart/form-data",
       });
       if (res?.status !== 201 && res?.status !== 200) {
         let msgdata = {
           show: true,
-          icon: 'error',
+          icon: "error",
           buttons: [],
           type: 1,
           text: res?.data?.msg,
@@ -126,11 +128,11 @@ const MyHomeActions = {
   },
 
   getPersonalInfo:
-    (reset = true, args = '') =>
+    (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.myHome_personal_info}${args != '' ? '?' + args : ''}`,
+          url: `${Urls.myHome_personal_info}${args != "" ? "?" + args : ""}`,
           reset,
         });
         if (res?.status !== 200) return;
@@ -140,11 +142,11 @@ const MyHomeActions = {
     },
 
   getMyTask:
-    (reset = true, args = '') =>
+    (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.user_myTask}${args != '' ? '?' + args : ''}`,
+          url: `${Urls.user_myTask}${args != "" ? "?" + args : ""}`,
           reset,
         });
         if (res?.status !== 200) return;
@@ -154,17 +156,60 @@ const MyHomeActions = {
     },
 
   getMyPolicy:
-    (reset = true, args = '') =>
+    (reset = true, args = "") =>
     async (dispatch, _) => {
       try {
         const res = await Api.get({
-          url: `${Urls.user_myPolicy}${args != '' ? '?' + args : ''}`,
+          url: `${Urls.user_myPolicy}${args != "" ? "?" + args : ""}`,
           reset,
         });
         if (res?.status !== 200) return;
         let dataAll = res?.data?.data;
         dispatch(GET_MY_POLICY({ dataAll, reset }));
       } catch (error) {}
+    },
+  getwebGlobalNotify:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.getwebGlobal}/${args}`,
+          reset,
+        });
+
+        if (res?.status !== 200) return null;
+
+        let dataAll = res?.data?.data;
+
+        dispatch(GET_WEB_NOTIFY({ dataAll, reset }));
+
+        return res.data;
+      } catch (error) {
+        return null;
+      }
+    },
+  getwebClearNotify:
+    (reset = true) =>
+    async (dispatch, _) => {
+      try {
+        // Send payload with { globalNotification: null }
+        const res = await Api.patch({
+          url: `${Urls.getwebClearNotify}`,
+          data: { globalNotification: "null" }, // ✅ payload
+          reset,
+        });
+
+        if (res?.status !== 200) return null;
+
+        const dataAll = res?.data?.data;
+
+        dispatch(GET_CLEAR_NOTIFICATION({ dataAll, reset }));
+
+        return res.data;
+      } catch (error) {
+        console.error("Error clearing global notifications:", error);
+        return null;
+      }
     },
 };
 export default MyHomeActions;

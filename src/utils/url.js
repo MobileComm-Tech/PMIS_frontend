@@ -27,16 +27,15 @@ export const Urls = {
   businessUnit: "/businessUnit",
 
   //Forms
-  wcc_Pat:"/wcc/getPatdata",
-  wcc_Oci:"/wcc/getocidata",
-  wcc_Scft:"/wcc/getscftdata",
-  wcc_Emf:"/wcc/getemfdata",
-  wcc_Cdh:"/wcc/getcdhdata",
-
+  wcc_Pat: "/wcc/getPatdata",
+  wcc_Oci: "/wcc/getocidata",
+  wcc_Scft: "/wcc/getscftdata",
+  wcc_Emf: "/wcc/getemfdata",
+  wcc_Cdh: "/wcc/getcdhdata",
 
   //My home
-  wcc_Chd_Approver:"/myHome/wcc/cdhApprover",
-  wcc_Chd_Actions:"/myHome/wcc/cdhApprover/action",
+  wcc_Chd_Approver: "/myHome/wcc/cdhApprover",
+  wcc_Chd_Actions: "/myHome/wcc/cdhApprover/action",
 
   // new urlP
   admin_userAccess: "/admin/userAccess",
@@ -273,27 +272,26 @@ export const Urls = {
   // super admin compiliance starts  -----
 
   projectTypeCompliance: "/admin/projectType",
-  get_customer:"/gp/customer",
-  complianceMsList:"/wccCompliance/mslist",
-  compliance_ProjectType:"/wccCompliance/projectTypeList",
-  compliance_SubProject:"/wccCompliance/projectTypeList",
-  compliance_WorkDescription:"/wccCompliance/workDescription",
-  post_Wcc_Compliance:"/wccCompliance/addCompliance",
+  get_customer: "/gp/customer",
+  complianceMsList: "/wccCompliance/mslist",
+  compliance_ProjectType: "/wccCompliance/projectTypeList",
+  compliance_SubProject: "/wccCompliance/projectTypeList",
+  compliance_WorkDescription: "/wccCompliance/workDescription",
+  post_Wcc_Compliance: "/wccCompliance/addCompliance",
   subProjectTypeCompliance: "/admin/projectSubType",
   activityAndOemCompliance: "/admin/projectSubTypeFieldName",
   addComplianceForm: "/admin/addComplianceForm",
-  getWccCompliance:"wcc/getCompliance",
-  
-  // cdh Approver
-  wccApprover:"/wcc/cdh_approver",
-  getWccEmployee:"/wcc/employee",
-  getWccProjectId:"/wcc/projectId",
-  wcc_Submodule:"/wcc/myTask",
-  create_Wcc:"/wcc/create",
-  delete_wcc_submodule:"/wcc/delete",
-  wcc_projectType:"/wcc/ProjectType",
-  wcc_subProject:"/wcc/subProject",
+  getWccCompliance: "wcc/getCompliance",
 
+  // cdh Approver
+  wccApprover: "/wcc/cdh_approver",
+  getWccEmployee: "/wcc/employee",
+  getWccProjectId: "/wcc/projectId",
+  wcc_Submodule: "/wcc/myTask",
+  create_Wcc: "/wcc/create",
+  delete_wcc_submodule: "/wcc/delete",
+  wcc_projectType: "/wcc/ProjectType",
+  wcc_subProject: "/wcc/subProject",
 
   admin_getComplianceapprover: "/admin/addComplianceApprover",
   complainceMilestoneCard: "/admin/complainceMilestoneCard",
@@ -348,7 +346,6 @@ export const Urls = {
   getPtwSiteId: "/ptw/getSiteId",
   getEmpNameList: "/ptw/getApproverFilter",
 
-
   // cdh Approver
   // wccApprover:"/wcc/cdh_approver",
   // getWccEmployee:"/wcc/employee",
@@ -356,13 +353,13 @@ export const Urls = {
 
   // Financial
   finance_unbilled: "/finance/unbilled",
-  
+
   //FORMS
-  wcc_Chd_MultiActions:"/myHome/wcc/cdhApprover/multiAction",
-  getWccProjectGroup:"/wcc/projectGroup",
-  
+  wcc_Chd_MultiActions: "/myHome/wcc/cdhApprover/multiAction",
+  getWccProjectGroup: "/wcc/projectGroup",
 
-
+  getwebGlobal: "/webGlobalNotify",
+  getwebClearNotify: "/webClearNotify",
 };
 
 export const WebSocketUrls = { siteAnalytics: "siteanalytics" };

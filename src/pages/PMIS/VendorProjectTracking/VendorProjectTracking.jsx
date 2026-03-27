@@ -151,7 +151,7 @@ const VendorProjectTracking = () => {
       ...data,
     });
     dispatch(
-      VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+      VendorActions.getVendorProjectTracking(true, objectToQueryString(data)),
     );
   };
 
@@ -172,10 +172,10 @@ const VendorProjectTracking = () => {
             true,
             objectToQueryString({
               ApproverType: "L1-Approver",
-            })
-          )
+            }),
+          ),
         );
-      })
+      }),
     );
   };
 
@@ -231,14 +231,14 @@ const VendorProjectTracking = () => {
               100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
-                  (iewq) => iewq?.mileStoneStatus == "Closed"
+                  (iewq) => iewq?.mileStoneStatus == "Closed",
                 ).length) /
                 itm?.milestoneArray?.length) *
                 100
             }`}
             text={`${
               itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == "Closed"
+                (iewq) => iewq?.mileStoneStatus == "Closed",
               ).length
             } / ${itm?.milestoneArray?.length}`}
           />
@@ -327,10 +327,10 @@ const VendorProjectTracking = () => {
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
-                                  ? itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)
-                                  : ""}
+                                    ? itwsw.assignerName
+                                        .split(" ")[0]
+                                        .substr(0, 1)
+                                    : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -395,7 +395,7 @@ const VendorProjectTracking = () => {
               //                     : ""}
               //                 </p>
               //               ))}
-                          
+
               //             <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
               //               {iewq.assignerResult.map((itws) => {
               //                 return itws.assignerName + ", ";
@@ -410,7 +410,7 @@ const VendorProjectTracking = () => {
               //     {iewq?.assignerResult?.[0]?.assignerName}
               //   </p>
               // </div>
-               <div className="flex justify-center">
+              <div className="flex justify-center">
                 {iewq?.assignerResult?.[0]?.assignerName ? (
                   <div className="relative group">
                     <p className="truncate max-w-[120px]">
@@ -420,7 +420,6 @@ const VendorProjectTracking = () => {
                         : iewq.assignerResult[0].assignerName}
                     </p>
 
-                   
                     {iewq.assignerResult[0].assignerName.length > 20 && (
                       <span className="pointer-events-none w-max absolute -top-8 left-1/2 -translate-x-1/2 bg-[#13b497] text-white text-sm rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100 z-50">
                         {iewq.assignerResult[0].assignerName}
@@ -515,17 +514,17 @@ const VendorProjectTracking = () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
                                           projectuniqueId,
-                                          strValFil
-                                        )
+                                          strValFil,
+                                        ),
                                       );
                                       setmodalOpen(false);
-                                    }
-                                  )
+                                    },
+                                  ),
                                 );
                               }}
                             />
                           </div>
-                        </>
+                        </>,
                       );
                     }}
                   >
@@ -631,17 +630,17 @@ const VendorProjectTracking = () => {
                                       dispatch(
                                         projectListActions.getProjectTypeAll(
                                           projectuniqueId,
-                                          strValFil
-                                        )
+                                          strValFil,
+                                        ),
                                       );
                                       setmodalOpen(false);
-                                    }
-                                  )
+                                    },
+                                  ),
                                 );
                               }}
                             />
                           </div>
-                        </>
+                        </>,
                       );
                     }}
                   >
@@ -665,12 +664,12 @@ const VendorProjectTracking = () => {
                       dispatch(
                         eventManagementActions.getmilestoneeventList(
                           true,
-                          iewq.uniqueId
-                        )
+                          iewq.uniqueId,
+                        ),
                       );
 
                       setmodalBody(
-                        <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />
+                        <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />,
                       );
                     }}
                   >
@@ -695,12 +694,12 @@ const VendorProjectTracking = () => {
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
-                                            projectuniqueId
-                                          )
+                                            projectuniqueId,
+                                          ),
                                         );
                                         dispatch(ALERTS({ show: false }));
-                                      }
-                                    )
+                                      },
+                                    ),
                                   );
                                 }}
                                 name={"OK"}
@@ -912,11 +911,11 @@ const VendorProjectTracking = () => {
                       dispatch(
                         eventManagementActions.getsiteeventList(
                           true,
-                          itm?.uniqueId
-                        )
+                          itm?.uniqueId,
+                        ),
                       );
                       setmodalBody(
-                        <EventLog type={"site"} unqeId={itm?.uniqueId} />
+                        <EventLog type={"site"} unqeId={itm?.uniqueId} />,
                       );
                     }}
                   >
@@ -941,12 +940,12 @@ const VendorProjectTracking = () => {
                                       () => {
                                         dispatch(
                                           projectListActions.getProjectTypeAll(
-                                            projectuniqueId
-                                          )
+                                            projectuniqueId,
+                                          ),
                                         );
                                         dispatch(ALERTS({ show: false }));
-                                      }
-                                    )
+                                      },
+                                    ),
                                   );
                                 }}
                                 name={"OK"}
@@ -1039,7 +1038,7 @@ const VendorProjectTracking = () => {
     },
     {
       label: "Date Range",
-      value: "",  
+      value: "",
       name: "assignDate",
       type: "datetimeRange",
       bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
@@ -1049,19 +1048,19 @@ const VendorProjectTracking = () => {
       },
     },
   ];
-    const poEligibility =
+  const poEligibility =
     useSelector((state) => {
       console.log(state?.vendorData?.getfilterPOEligibility, "gffdgdgfdgfd");
       return state?.vendorData?.getfilterPOEligibility;
     }) || [];
 
   const poEligibilityOptions = poEligibility?.map((item) => ({
-    label: item, 
-    value: item, 
+    label: item,
+    value: item,
   }));
 
   let table = {
-     columns: [
+    columns: [
       {
         name: "Site ID",
         value: "siteIdLink",
@@ -1087,8 +1086,7 @@ const VendorProjectTracking = () => {
       {
         name: "Project ID",
         value: "projectId",
-        style:
-          "min-w-[140px] max-w-[200px] text-center sticky  bg-[#3e454d] ",
+        style: "min-w-[140px] max-w-[200px] text-center sticky  bg-[#3e454d] ",
       },
       {
         name: "Project Type",
@@ -1573,7 +1571,7 @@ const VendorProjectTracking = () => {
       ...data,
     });
     dispatch(
-      VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+      VendorActions.getVendorProjectTracking(true, objectToQueryString(data)),
     );
   };
   useEffect(() => {
@@ -1582,7 +1580,7 @@ const VendorProjectTracking = () => {
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     dispatch(VendorActions.getVendorProjectTracking());
-     dispatch(VendorActions.getFilterPOEligibility(true, ""));
+    dispatch(VendorActions.getFilterPOEligibility(true, ""));
   }, []);
 
   return (
@@ -1643,21 +1641,25 @@ const VendorProjectTracking = () => {
         }
         headerButton={
           <div className="flex gap-1 ">
-            <Button
-              name="Upload"
-              classes="w-auto mr-1"
-              onClick={() => setFileOpen(true)}
-            />
+            {getAccessType("Project Tracking(Upload)") === "visible" ? (
+              <Button
+                name="Upload"
+                classes="w-auto mr-1"
+                onClick={() => setFileOpen(true)}
+              />
+            ) : (
+              <></>
+            )}
             <ConditionalButton
-              showType={getAccessType("Export(Site)")}
+              showType={getAccessType("Project Tracking(Export)")}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
                     "/export/vendor-project-tracking?" +
                       objectToQueryString(filters),
-                    "Vendor-Project-Tracking.xlsx"
-                  )
+                    "Vendor-Project-Tracking.xlsx",
+                  ),
                 );
               }}
               name={"Export"}
@@ -1701,7 +1703,10 @@ const VendorProjectTracking = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/PartnerManagementPOUpload.xlsx","PartnerManagementPOUpload.xlsx"]}
+        tempbtnlink={[
+          "/template/PartnerManagementPOUpload.xlsx",
+          "PartnerManagementPOUpload.xlsx",
+        ]}
       />
     </>
   );

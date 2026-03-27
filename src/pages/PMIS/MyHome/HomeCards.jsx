@@ -11,6 +11,9 @@ import MileStoneChart from "../Dashboard1/MileStoneChart";
 import ExpenseApprovalStatus from "../ExpenseAdvanceGraph/ExpenseApprovalStatus";
 import AdvanceApprovalStatus from "../ExpenseAdvanceGraph/AdvanceApprovalStatus";
 import TrendExpenseAdvance from "../ExpenseAdvanceGraph/TrendExpenseAdvance";
+import MyHomeActions from "../../../store/actions/myHome-actions";
+import Button from "../../../components/Button";
+import { baseUrl } from "../../../utils/url";
 
 const HomeCards = () => {
   const [type, settype] = useState(false);
@@ -27,7 +30,98 @@ const HomeCards = () => {
   useEffect(() => {
     dispatch(ComponentActions.breadcrumb("Home", "/home", 0, true));
   }, []);
+  useEffect(() => {
+    callGlobalNotify();
+  }, []);
 
+  const hasCalled = React.useRef(false);
+
+  const callGlobalNotify = async () => {
+    try {
+      // Prevent multiple calls
+      if (hasCalled.current) return;
+      hasCalled.current = true;
+
+      console.log("1️⃣ [API] Starting callGlobalNotify...");
+
+      const userData = JSON.parse(localStorage.getItem("user"));
+      const userId = userData?.uniqueId;
+
+      if (!userId) {
+        console.error("❌ No User ID found!");
+        dispatch(
+          ALERTS({
+            show: true,
+            text: "User ID not found",
+            icon: "error",
+            type: "message",
+          }),
+        );
+        return;
+      }
+
+      // Call API
+      const res = await dispatch(
+        MyHomeActions.getwebGlobalNotify(true, userId),
+      );
+
+      console.log("2️⃣ [API] Raw Response Data:", res?.data);
+
+      // Do not show modal if data is empty
+      if (!res?.data || res.data.length === 0) {
+        console.log("ℹ️ No notifications found for this user. Skipping modal.");
+        return;
+      }
+
+      const item = res.data[0];
+
+      const type = item?.type?.toLowerCase();
+      const fileName = item?.msg?.split("/").pop() || "file";
+
+      if (type === "message") {
+        dispatch(
+          ALERTS({
+            show: true,
+            text: item.msg,
+            icon: "info",
+            type: "message",
+          }),
+        );
+        console.log("3️⃣ Message Payload Dispatched:", item.msg);
+      } else if (type === "file") {
+        dispatch(
+          ALERTS({
+            show: true,
+            text: fileName,
+            filePath: item.msg,
+            icon: "info",
+            type: "file",
+          }),
+        );
+        console.log("3️⃣ File Payload Dispatched:", fileName);
+      } else {
+        console.warn("⚠️ Unknown notification type:", type);
+        dispatch(
+          ALERTS({
+            show: true,
+            text: "Unknown notification type",
+            icon: "warning",
+            type: "message",
+          }),
+        );
+      }
+    } catch (error) {
+      console.error("🔥 [API ERROR]:", error);
+      dispatch(
+        ALERTS({
+          show: true,
+          text: "Something went wrong",
+          icon: "error",
+          type: "message",
+        }),
+      );
+    }
+  };
   const graphs = [ExpenseApprovalStatus, AdvanceApprovalStatus, MileStoneChart];
 
   let showType1 = getAccessType("MS Status(Graph)");
@@ -67,14 +161,14 @@ const HomeCards = () => {
               "/home/myTask",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
-            
+
             [
               "My Entitlement",
               "bg-pcol",
               "/home/myPolicy",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
-           
+
             [
               "Claim & Advance",
               "bg-pcol",
@@ -101,7 +195,6 @@ const HomeCards = () => {
               <Unicons.UilFileAlt size="40" color="" />,
             ],
             // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
-            
           ].map((itm) => (
             <>
               {getAccessType(itm[0]) == "visible" ||
@@ -113,7 +206,7 @@ const HomeCards = () => {
                       dispatch(ComponentActions.globalUrlStore(itm[0], itm[2]));
                       navigate(itm[2]);
                       dispatch(
-                        ComponentActions.breadcrumb(itm[0], itm[2], 1, false)
+                        ComponentActions.breadcrumb(itm[0], itm[2], 1, false),
                       );
                     } else {
                       let msgdata = {

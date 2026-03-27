@@ -2,6 +2,8 @@ import React from "react";
 import { UilTimesCircle } from "@iconscout/react-unicons";
 import Button from "./Button";
 const Modal = ({
+  handleClear = () => {},
+  notifyClear = false,
   size,
   modalHead = "",
   children,
@@ -27,7 +29,7 @@ const Modal = ({
   const bgClass = {
     black: "bg-[#3e454d]",
   };
-
+  console.log("this is running", children);
   return (
     <div
       className={
@@ -53,6 +55,9 @@ const Modal = ({
             onClick={() => {
               setIsOpen((prev) => !prev);
               actionOnClose();
+              if (notifyClear) {
+                handleClear();
+              }
             }}
             className="absolute ml-auto w-fit top-1 right-3 p-1 hover:bg-main bg-transparent cursor-pointer rounded-md transition-all duration-300 shadow-md"
           >
