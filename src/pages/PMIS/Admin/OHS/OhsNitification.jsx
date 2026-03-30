@@ -11,7 +11,16 @@ import { useDispatch } from "react-redux";
 import { objectToQueryString } from "../../../../utils/commonFunnction";
 // import {pagination} from '../../../../components/CommonObjectsAndVariables';
 import { pagination } from "../../../../components/CommonObjectsAndVariables";
+const formatText = (text) => {
+  if (!text) return null;
 
+  return text.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
 const OhsNitification = () => {
   const {
     register: registerForm1,
@@ -73,10 +82,64 @@ const OhsNitification = () => {
     //   )
     // );
   };
+  const htmlToSimpleText = (html) => {
+    if (!html) return "";
 
+    return html
+      .replace(/<strong>(.*?)<\/strong>/g, "**$1**")
+      .replace(/<b>(.*?)<\/b>/g, "**$1**")
+      .replace(/<\/p>/g, "\n")
+      .replace(/<br\s*\/?>/g, "\n")
+      .replace(/<[^>]+>/g, "")
+      .trim();
+  };
+  // const handelNotification = async (data) => {
+  //   let res = null;
+  //   const url = `/globalNotify?File=${type === "text" ? `false` : `true`}`;
+  //   if (type === "file") {
+  //     const formDataSubmit = new FormData();
+  //     Object.keys(data)?.forEach((key) => {
+  //       const value = data[key];
+  //       if (value) {
+  //         formDataSubmit.append(
+  //           key,
+  //           value instanceof FileList ? value[0] : value,
+  //         );
+  //       }
+  //     });
+  //     res = await Api.post({
+  //       url,
+  //       contentType: "multipart/form-data",
+  //       data: formDataSubmit,
+  //     });
+  //   } else {
+  //     res = await Api.post({
+  //       url,
+  //       data,
+  //     });
+  //   }
+
+  //   if (res?.status === 201) {
+  //     let msgdata = {
+  //       show: true,
+  //       icon: "",
+  //       text: "Notification sent successfully.",
+  //     };
+  //     dispatch(ALERTS(msgdata));
+  //     setNotification(false);
+  //     getAllData();
+  //   }
+  // };
   const handelNotification = async (data) => {
     let res = null;
+
     const url = `/globalNotify?File=${type === "text" ? `false` : `true`}`;
+
+    // ✅ CLEAN TEXT HERE
+    if (type === "text" && data?.msg) {
+      data.msg = htmlToSimpleText(data.msg);
+    }
+
     if (type === "file") {
       const formDataSubmit = new FormData();
       Object.keys(data)?.forEach((key) => {
@@ -88,6 +151,7 @@ const OhsNitification = () => {
           );
         }
       });
+
       res = await Api.post({
         url,
         contentType: "multipart/form-data",
@@ -111,7 +175,6 @@ const OhsNitification = () => {
       getAllData();
     }
   };
-
   const table = {
     columns: [
       {
@@ -141,7 +204,7 @@ const OhsNitification = () => {
         label: "Message",
         value: "",
         name: "msg",
-        type: "text",
+        type: "richtext",
         required: true,
         classes: "w-full",
       },
@@ -243,7 +306,7 @@ const OhsNitification = () => {
                     Write your message.
                   </h1>
                   <CommonForm
-                    classes="  gap-4"
+                    classes="gap-4"
                     Form={form.text}
                     errors={errorsForm1}
                     register={registerForm1}

@@ -26,6 +26,7 @@
     "install": "^0.13.0",
     "jspdf": "^2.5.1",
     "leaflet": "^1.9.4",
+    "marked": "^17.0.5",
     "moment": "^2.29.4",
     "multiselect-react-dropdown": "^2.0.25",
     "ol": "^8.2.0",

@@ -86,6 +86,121 @@
 // };
 
 // export default SweetAlerts;
+// import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import Modal from "./Modal";
+// import { ALERTS } from "../store/reducers/component-reducer";
+// import MyHomeActions from "../store/actions/myHome-actions";
+// import {
+//   UilExclamationTriangle,
+//   UilInfoCircle,
+// } from "@iconscout/react-unicons";
+// import Button from "./Button";
+// import { baseUrl } from "../utils/url";
+
+// const SweetAlerts = () => {
+//   const dispatch = useDispatch();
+//   const swAlerts = useSelector((state) => state?.component?.alerts);
+
+//   const icons = {
+//     warning: <UilExclamationTriangle size={52} />,
+//     error: <UilExclamationTriangle size={52} />,
+//     info: <UilInfoCircle size={52} />,
+//     success: <UilInfoCircle size={52} />,
+//   };
+
+//   if (!swAlerts?.show) return null;
+//   const handleClear = async () => {
+//     try {
+//       console.log("🚀 Clear button clicked");
+
+//       const res = await dispatch(MyHomeActions.getwebClearNotify(true));
+
+//       console.log("✅ Clear API response:", res);
+
+//       dispatch(ALERTS({ show: false }));
+//     } catch (error) {
+//       console.error("❌ Error calling Clear API:", error);
+//       dispatch(
+//         ALERTS({
+//           show: true,
+//           text: "Failed to clear notifications",
+//           icon: "error",
+//           type: "message",
+//         }),
+//       );
+//     }
+//   };
+
+//   const renderButtons = () => {
+//     if (swAlerts.type === "file") {
+//       const url = new URL(swAlerts.filePath, baseUrl).toString();
+
+//       return (
+//         <>
+//           <Button
+//             classes="w-20 bg-[#13B497]"
+//             name="Download"
+//             onClick={() => {
+//               const link = document.createElement("a");
+//               link.href = url;
+//               link.download = swAlerts.text;
+//               link.target = "_blank";
+//               document.body.appendChild(link);
+//               link.click();
+//               document.body.removeChild(link);
+//             }}
+//           />
+//           <Button
+//             classes="w-15 bg-red-800"
+//             name="Clear"
+//             onClick={handleClear}
+//           />
+//         </>
+//       );
+//     }
+
+//     if (swAlerts.type === "message" || swAlerts.type === "file") {
+//       return (
+//         <Button classes="w-15 bg-red-800" name="Clear" onClick={handleClear} />
+//       );
+//     } else {
+//       return (
+//         <Button
+//           classes="w-15 bg-[#13B497]"
+//           name="OK"
+//           onClick={() => dispatch(ALERTS({ show: false }))}
+//         />
+//       );
+//     }
+//   };
+
+//   return (
+//     <Modal
+//       notifyClear={swAlerts.type === "file" || swAlerts.type === "message"}
+//       handleClear={handleClear}
+//       size="sm"
+//       isOpen={swAlerts.show}
+//       setIsOpen={() => dispatch(ALERTS({ show: false }))}
+//       header={null}
+//     >
+//       <div className="flex flex-col items-center px-4 py-4 w-auto max-w-[90vw]">
+//         <div className="text-red-400 text-3xl">{icons[swAlerts.icon]}</div>
+//         <div className="max-h-[70vh] overflow-y-auto px-4">
+//           <h1 className="text-white font-semibold mt-3 text-center break-words">
+//             {swAlerts.text}
+//           </h1>
+//         </div>
+//         <div className="mt-6 flex justify-evenly w-full max-w-xs">
+//           {renderButtons()}
+//         </div>
+//       </div>
+//     </Modal>
+//   );
+// };
+
+// export default SweetAlerts;
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
@@ -97,6 +212,40 @@ import {
 } from "@iconscout/react-unicons";
 import Button from "./Button";
 import { baseUrl } from "../utils/url";
+
+// Utility function to parse **bold** and *italic* text
+const parseFormattedText = (text) => {
+  if (!text) return null;
+
+  // Split the text by line breaks first
+  const lines = text.split("\n");
+
+  return lines.map((line, lineIndex) => {
+    const regex = /(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|([^*]+)/g;
+    const elements = [];
+    let match;
+
+    while ((match = regex.exec(line)) !== null) {
+      if (match[2]) {
+        // Bold
+        elements.push(<strong key={elements.length}>{match[2]}</strong>);
+      } else if (match[4]) {
+        // Italic
+        elements.push(<em key={elements.length}>{match[4]}</em>);
+      } else if (match[5]) {
+        // Plain text
+        elements.push(<span key={elements.length}>{match[5]}</span>);
+      }
+    }
+
+    // Wrap each line in a div with pre-wrap so line breaks are preserved
+    return (
+      <div key={lineIndex} style={{ whiteSpace: "pre-wrap" }}>
+        {elements}
+      </div>
+    );
+  });
+};
 
 const SweetAlerts = () => {
   const dispatch = useDispatch();
@@ -111,18 +260,12 @@ const SweetAlerts = () => {
 
   if (!swAlerts?.show) return null;
 
-  // 🔹 Clear button handler → hits API correctly
   const handleClear = async () => {
     try {
-      console.log("🚀 Clear button clicked");
-
       const res = await dispatch(MyHomeActions.getwebClearNotify(true));
-
-      console.log("✅ Clear API response:", res);
-
       dispatch(ALERTS({ show: false }));
     } catch (error) {
-      console.error("❌ Error calling Clear API:", error);
+      console.error("Error calling Clear API:", error);
       dispatch(
         ALERTS({
           show: true,
@@ -134,7 +277,6 @@ const SweetAlerts = () => {
     }
   };
 
-  // 🔹 Render buttons based on notification type
   const renderButtons = () => {
     if (swAlerts.type === "file") {
       const url = new URL(swAlerts.filePath, baseUrl).toString();
@@ -163,7 +305,6 @@ const SweetAlerts = () => {
       );
     }
 
-    // Default → message type
     if (swAlerts.type === "message" || swAlerts.type === "file") {
       return (
         <Button classes="w-15 bg-red-800" name="Clear" onClick={handleClear} />
@@ -192,7 +333,7 @@ const SweetAlerts = () => {
         <div className="text-red-400 text-3xl">{icons[swAlerts.icon]}</div>
         <div className="max-h-[70vh] overflow-y-auto px-4">
           <h1 className="text-white font-semibold mt-3 text-center break-words">
-            {swAlerts.text}
+            {parseFormattedText(swAlerts.text)}
           </h1>
         </div>
         <div className="mt-6 flex justify-evenly w-full max-w-xs">

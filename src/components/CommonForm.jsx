@@ -1,4 +1,3 @@
-
 // import Multiselect from "multiselect-react-dropdown";
 // import React, { useEffect, useState } from "react";
 // import DatePicker from "react-datepicker";
@@ -46,20 +45,17 @@
 //   reset = true,
 //   setQuantityValue,
 //   quantityValue={}
-  
+
 // }) => {
 //   const [value, onChange] = useState(new Date());
 //   const [selectedDate, setSelectedDate] = useState(true);
 //   const clearAllFields = () => {
 //   const allKeys = Object.keys(getValues()); // get all field names
- 
+
 // };
 //   useEffect(() => {
 //     clearAllFields()
 //   } , [])
-
-
- 
 
 //   return (
 //     <>
@@ -70,7 +66,7 @@
 //         encType="multipart/form-data"
 //       >
 //         {Form?.map((itm) => {
-          
+
 //           return (
 //             <>
 //               {itm.type == "heading" ? (
@@ -95,7 +91,7 @@
 //                   ) : (
 //                     <div className={`items-center justify-between ${itm?.visible==false? 'hidden':''}`}>
 //                       {
-                        
+
 //                         <label  className={`block text-sm font-medium text-white ml-3 dark:text-darkBg break-words `}>
 //                           {itm.label}
 //                           {itm?.required && (
@@ -135,7 +131,7 @@
 //                                 setValue={setValue}
 //                                 getValues={getValues}
 //                                 register={register}
-                               
+
 //                               />
 //                             )}
 //                           </div>
@@ -505,6 +501,7 @@ import NewSingleSelectForm50 from "./FormElements/NewSingleSelectForm50";
 import DateTime from "./FormElements/DateTime";
 import CustomSelectDropDown from "./CustomSelectDropDown";
 import { types, uiList } from "../utils/queryBuilder";
+import RichTextEditor from "./TextEditor/RichTextEditor";
 
 const CommonForm = ({
   classes,
@@ -530,12 +527,11 @@ const CommonForm = ({
     clearAllFields();
   }, []);
 
- 
   const customSelectStyles = {
     control: (base) => ({
       ...base,
       backgroundColor: "white",
-      borderColor: "#d1d5db", 
+      borderColor: "#d1d5db",
       color: "black",
       minHeight: 36,
     }),
@@ -547,11 +543,7 @@ const CommonForm = ({
     }),
     option: (base, { isFocused, isSelected }) => ({
       ...base,
-      backgroundColor: isSelected
-        ? "#e5e7eb" 
-        : isFocused
-        ? "#f3f4f6" 
-        : "white",
+      backgroundColor: isSelected ? "#e5e7eb" : isFocused ? "#f3f4f6" : "white",
       color: "black",
       cursor: "pointer",
     }),
@@ -561,7 +553,7 @@ const CommonForm = ({
     }),
     placeholder: (base) => ({
       ...base,
-      color: "#6b7280", 
+      color: "#6b7280",
     }),
   };
 
@@ -603,7 +595,6 @@ const CommonForm = ({
                 )}
 
                 <div className={uiList[itm.type]?.height + " mt-2 px-2 "}>
-                 
                   {itm.type === "searchableSelect" ? (
                     <Select
                       options={itm.option || []}
@@ -624,14 +615,13 @@ const CommonForm = ({
                         setValue(itm.name, selectedOption?.value);
                       }}
                       value={itm.option?.find(
-                        (option) => option.value === getValues(itm.name)
+                        (option) => option.value === getValues(itm.name),
                       )}
                       styles={customSelectStyles}
                       classNamePrefix="react-select"
                     />
                   ) : null}
 
-                 
                   {types.indexOf(itm.type) !== -1 && (
                     <TextBox
                       itm={itm}
@@ -645,31 +635,81 @@ const CommonForm = ({
 
                   {itm.type === "sdisabled" || itm.type === "hdisabled" ? (
                     <Disabled
-                      {...{ itm, errors, handleSubmit, setValue, getValues, register }}
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
                     />
                   ) : null}
 
-                   {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
+                  {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
 
                   {itm.type === "radio" && (
-                    <Radio {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <Radio
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "email" && (
-                    <Email {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <Email
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "checkbox" && (
-                    <CheckBox {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <CheckBox
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "file" && (
-                    <FilePicker {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <FilePicker
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "select" && (
                     <SelectDropDown
-                      {...{ itm, errors, handleSubmit, setValue, getValues, register }}
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
                     />
                   )}
 
@@ -690,63 +730,205 @@ const CommonForm = ({
                   )}
 
                   {itm.type === "autoSuggestion" && (
-                    <AutoSuggestion {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <AutoSuggestion
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "textarea" && (
-                    <TextArea {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <TextArea
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "datetime" && (
-                    <DatePicking {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <DatePicking
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "datetime2" && (
-                    <DatePicking2 {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <DatePicking2
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "datetimeRange" && (
-                    <DateRangePicking {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <DateRangePicking
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "datetime-local" && (
-                    <DateTime {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <DateTime
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "muitiSelect" && (
-                    <Multiselection {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <Multiselection
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newmuitiSelect2" && (
-                    <NewMultiselection {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewMultiselection
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newmuitiSelect3" && (
-                    <NewMultiselection3 {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewMultiselection3
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newmultiselect" && (
-                    <NewMultiSelectsForm {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewMultiSelectsForm
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newSingleSelect45" && (
-                    <NewSingleSelectForm45 {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewSingleSelectForm45
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newSingleSelect50" && (
-                    <NewSingleSelectForm50 {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewSingleSelectForm50
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newSingleSelectCommon" && (
-                    <NewSingleSelectCommon {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewSingleSelectCommon
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "BigmuitiSelect" && (
-                    <BigMultiselection {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <BigMultiselection
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
                   )}
 
                   {itm.type === "newMuitiSelect007" && (
-                    <NewMuitiSelect007 {...{ itm, errors, handleSubmit, setValue, getValues, register }} />
+                    <NewMuitiSelect007
+                      {...{
+                        itm,
+                        errors,
+                        handleSubmit,
+                        setValue,
+                        getValues,
+                        register,
+                      }}
+                    />
+                  )}
+                  {itm.type === "richtext" && (
+                    <RichTextEditor
+                      itm={itm}
+                      setValue={setValue}
+                      getValues={getValues}
+                    />
                   )}
                 </div>
               </div>
