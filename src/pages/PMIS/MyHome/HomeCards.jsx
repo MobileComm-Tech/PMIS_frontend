@@ -47,18 +47,18 @@ const HomeCards = () => {
       const userData = JSON.parse(localStorage.getItem("user"));
       const userId = userData?.uniqueId;
 
-      if (!userId) {
-        console.error("❌ No User ID found!");
-        dispatch(
-          ALERTS({
-            show: true,
-            text: "User ID not found",
-            icon: "error",
-            type: "message",
-          }),
-        );
-        return;
-      }
+      // if (!userId && window.location.pathname !== "/login") {
+      //   console.error("❌ No User ID found!");
+      //   dispatch(
+      //     ALERTS({
+      //       show: true,
+      //       text: "User ID not found",
+      //       icon: "error",
+      //       type: "message",
+      //     }),
+      //   );
+      //   return;
+      // }
 
       // Call API
       const res = await dispatch(
