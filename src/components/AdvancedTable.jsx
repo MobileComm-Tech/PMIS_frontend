@@ -12,6 +12,7 @@ import ConditionalButton from "./ConditionalButton";
 import ComponentActions from "../store/actions/component-actions";
 
 const AdvancedTable = ({
+  setstrVal,
   dateInputReset,
   tableName = "",
   headerButton,
@@ -113,7 +114,7 @@ const AdvancedTable = ({
 
   const onSubmit = (formdata) => {
     // console.log(formdata,"___formdata")
-    formdata["reseter"] = true;
+    formdata["reseter"] = false;
     const data = {
       ...activedFilter,
       ...formdata,
@@ -130,6 +131,7 @@ const AdvancedTable = ({
     setActiveFilter([]);
     setActivedFilter({});
     dateInputReset({ start: "", end: "" });
+    setstrVal({});
   };
 
   useEffect(() => {

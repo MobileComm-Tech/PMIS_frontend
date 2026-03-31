@@ -32,18 +32,25 @@ const CdhApprover = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalBody, setmodalBody] = useState(<></>);
   const [modalHead, setmodalHead] = useState(<></>);
-  const [strValFil, setstrVal] = useState("");
+  const [strValFil, setstrVal] = useState({});
   // const [strValFil, setstrVal] = useState(false);
   const [checkedData, setCheckData] = useState([]);
   const [checkedChildData, setCheckChildData] = useState([]);
-  const isApprovedView = strValFil?.includes("status=Approved");
-  const isRejectedView = strValFil?.includes("status=Rejected");
+  const isApprovedView =
+    strValFil?.status !== undefined && strValFil?.status === "Approved"
+      ? true
+      : false;
+  const isRejectedView =
+    strValFil?.status !== undefined && strValFil?.status === "Rejected"
+      ? true
+      : false;
+
   // const [strValFil, setstrVal] = useState(false);
 
   // useEffect(()=>{
   //     dispatch(VendorActions.getWccSubmodule());
   // },[])
-
+  console.log(strValFil, "____strValFil");
   const {
     register,
     handleSubmit,
@@ -309,7 +316,7 @@ const CdhApprover = () => {
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.myHomeData?.getWccCdhApprover;
-    if (interdata.length > 0) {
+    if (interdata?.length > 0) {
       return interdata[0]["overall_table_count"];
     } else {
       return 0;
@@ -649,7 +656,6 @@ const CdhApprover = () => {
             >
               <svg
                 width="15"
-                k
                 height="15"
                 viewBox="0 0 24 24"
                 fill="currentColor"
@@ -684,67 +690,348 @@ const CdhApprover = () => {
 
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
-    delete data.reseter;
+    console.log(data, strValFil, "___data");
 
-    let strVal = objectToQueryString(data);
-    setstrVal(strVal);
+    if (data?.reseter === false) {
+      delete data.reseter;
+      setstrVal({
+        ...strValFil,
+        ...data,
+      });
+    }
+
+    if (data?.reseter === true) {
+      console.log("rinmondif");
+      setstrVal({});
+    }
+
+    // let strVal = objectToQueryString(data);
+
     // setFilters({
     //   ...filters,
     //   ...data,
     // });
     console.log("data___", data);
     dispatch(MyHomeActions.getCdhApprover(true, objectToQueryString(data)));
+    // setstrVal({});
   };
   // console.log(strValFil, "strValFil");
+  console.log(isRejectedView, isApprovedView, "____isFilteredView");
   return (
     <>
       <AdvancedTable
+        setstrVal={setstrVal}
+        // headerButton={
+        //   <div className="flex">
+        //     {checkVariable(checkedData) ? (
+        //       <>
+        //         <div className="flex">
+        //           {/* <ConditionalButton
+        //             showType={"visible"}
+        //             classes="w-auto mr-1"
+        //             // onClick={() => navigate("/empdetails")}
+        //             onClick={() => {
+        //               setCheckData([]);
+        //               setCheckChildData([]);
+
+        //               dispatch(
+        //                 MyHomeActions.postCdhMultiActions(
+        //                   checkedData,
+        //                   () => {
+        //                     const defaultPagination = objectToQueryString({
+        //                       page: 1,
+        //                       limit: 50,
+        //                     });
+        //                     dispatch(
+        //                       MyHomeActions.getCdhApprover(
+        //                         true,
+        //                         defaultPagination,
+        //                       ),
+        //                     );
+        //                   },
+        //                   null,
+        //                   `status=Approved`,
+        //                 ),
+        //               );
+        //             }}
+        //             name={"Approve CDH"}
+        //           />
+        //           <ConditionalButton
+        //             showType={"visible"}
+        //             classes="w-auto mr-1 bg-[#EF4444]"
+        //             // onClick={() => navigate("/empdetails")}
+        //             onClick={() => {
+        //               handleReject();
+        //             }}
+        //             name={"Reject CDH"}
+        //           /> */}
+        //           {/* ❌ Hide Approve if already Approved */}
+        //           {!isApprovedView && (
+        //             <ConditionalButton
+        //               showType={"visible"}
+        //               classes="w-auto mr-1"
+        //               onClick={() => {
+        //                 setCheckData([]);
+        //                 setCheckChildData([]);
+
+        //                 dispatch(
+        //                   MyHomeActions.postCdhMultiActions(
+        //                     checkedData,
+        //                     () => {
+        //                       const defaultPagination = objectToQueryString({
+        //                         page: 1,
+        //                         limit: 50,
+        //                       });
+        //                       dispatch(
+        //                         MyHomeActions.getCdhApprover(
+        //                           true,
+        //                           defaultPagination,
+        //                         ),
+        //                       );
+        //                     },
+        //                     null,
+        //                     `status=Approved`,
+        //                   ),
+        //                 );
+        //               }}
+        //               name={"Approve CDH"}
+        //             />
+        //           )}
+
+        //           {/* ❌ Hide Reject if already Rejected */}
+        //           {!isRejectedView && (
+        //             <ConditionalButton
+        //               showType={"visible"}
+        //               classes="w-auto mr-1 bg-[#EF4444]"
+        //               onClick={() => {
+        //                 handleReject();
+        //               }}
+        //               name={"Reject CDH"}
+        //             />
+        //           )}
+        //         </div>
+        //       </>
+        //     ) : checkVariable(checkedChildData) ? (
+        //       <>
+        //         <div className="flex">
+        //           {/* <ConditionalButton
+        //             showType={"visible"}
+        //             classes="w-auto mr-1"
+        //             onClick={() => {
+        //               setCheckChildData([]);
+        //               setCheckData([]);
+        //               dispatch(
+        //                 MyHomeActions.postCdhMultiActions(
+        //                   checkedChildData,
+        //                   () => {
+        //                     const defaultPagination = objectToQueryString({
+        //                       page: 1,
+        //                       limit: 50,
+        //                     });
+        //                     dispatch(
+        //                       MyHomeActions.getCdhApprover(
+        //                         true,
+        //                         defaultPagination,
+        //                       ),
+        //                     );
+        //                   },
+        //                   null,
+        //                   `status=Approved`,
+        //                 ),
+        //               );
+        //             }}
+        //             name={"Approve CDH"}
+        //           />
+        //           <ConditionalButton
+        //             showType={"visible"}
+        //             classes="w-auto mr-1 bg-[#EF4444]"
+        //             onClick={() => {
+        //               setCheckChildData([]);
+        //               setCheckData([]);
+        //               dispatch(
+        //                 MyHomeActions.postCdhMultiActions(
+        //                   checkedChildData,
+        //                   () => {
+        //                     const defaultPagination = objectToQueryString({
+        //                       page: 1,
+        //                       limit: 50,
+        //                     });
+        //                     dispatch(
+        //                       MyHomeActions.getCdhApprover(
+        //                         true,
+        //                         defaultPagination,
+        //                       ),
+        //                     );
+        //                   },
+        //                   null,
+        //                   `status=Rejected`,
+        //                 ),
+        //               );
+        //             }}
+        //             name={"Reject CDH"}
+        //           /> */}
+        //           {/* ❌ Hide Approve if already Approved */}
+        //           {!isApprovedView && (
+        //             <ConditionalButton
+        //               showType={"visible"}
+        //               classes="w-auto mr-1"
+        //               onClick={() => {
+        //                 setCheckChildData([]);
+        //                 setCheckData([]);
+        //                 dispatch(
+        //                   MyHomeActions.postCdhMultiActions(
+        //                     checkedChildData,
+        //                     () => {
+        //                       const defaultPagination = objectToQueryString({
+        //                         page: 1,
+        //                         limit: 50,
+        //                       });
+        //                       dispatch(
+        //                         MyHomeActions.getCdhApprover(
+        //                           true,
+        //                           defaultPagination,
+        //                         ),
+        //                       );
+        //                     },
+        //                     null,
+        //                     `status=Approved`,
+        //                   ),
+        //                 );
+        //               }}
+        //               name={"Approve CDH"}
+        //             />
+        //           )}
+
+        //           {/* ❌ Hide Reject if already Rejected */}
+        //           {!isRejectedView && (
+        //             <ConditionalButton
+        //               showType={"visible"}
+        //               classes="w-auto mr-1 bg-[#EF4444]"
+        //               onClick={() => {
+        //                 setCheckChildData([]);
+        //                 setCheckData([]);
+        //                 dispatch(
+        //                   MyHomeActions.postCdhMultiActions(
+        //                     checkedChildData,
+        //                     () => {
+        //                       const defaultPagination = objectToQueryString({
+        //                         page: 1,
+        //                         limit: 50,
+        //                       });
+        //                       dispatch(
+        //                         MyHomeActions.getCdhApprover(
+        //                           true,
+        //                           defaultPagination,
+        //                         ),
+        //                       );
+        //                     },
+        //                     null,
+        //                     `status=Rejected`,
+        //                   ),
+        //                 );
+        //               }}
+        //               name={"Reject CDH"}
+        //             />
+        //           )}
+        //         </div>
+        //         {/* <ConditionalButton
+        //       showType={getAccessType("Upload(ManageEmployee)")}
+        //       name={"Delete"}
+        //       classes="w-auto mr-1"
+        //       onClick={() =>
+        //         // setFileOpen(true)
+        //           console.log("asdasd")
+        //       }
+        //     /> */}
+        //       </>
+        //     ) : (
+        //       <></>
+        //     )}
+        //     {/* <ConditionalButton
+        //       showType={getAccessType("Add New(ManageEmployee)")}
+        //       classes="w-auto mr-1"
+        //       // onClick={() => navigate("/empdetails")}
+        //       onClick={() => {
+        //         setmodalHead("Add Compliance");
+        //         setmodalBody(
+        //           <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
+        //         );
+        //         setmodalOpen(true);
+        //       }}
+        //       name={"Add New"}
+        //     /> */}
+        //     <ConditionalButton
+        //       showType={getAccessType("CDH Approver(Upload)")}
+        //       name={"Upload File"}
+        //       classes="w-auto mr-1"
+        //       onClick={() => setFileOpen(true)}
+        //     />
+        //     <ConditionalButton
+        //       showType={getAccessType("CDH Approver(Export)")}
+        //       name={"Export"}
+        //       classes="w-auto mr-1"
+        //       onClick={() =>
+        //         dispatch(
+        //           CommonActions.commondownloadpost(
+        //             `/export/myHome/wcc/cdhApproval${strValFil ? "?" + strValFil : ""}`,
+        //             // {exportTableName:"ptwBackupData"},
+        //             "WCC CDH Approval.xlsx",
+        //             "GET",
+        //           ),
+        //         )
+        //       }
+        //     />
+        //   </div>
+        // }
+
         headerButton={
           <div className="flex">
-            {checkVariable(checkedData) ? (
-              <>
-                <div className="flex">
-                  {/* <ConditionalButton
-                    showType={"visible"}
-                    classes="w-auto mr-1"
-                    // onClick={() => navigate("/empdetails")}
-                    onClick={() => {
-                      setCheckData([]);
-                      setCheckChildData([]);
+            {/* ❌ Hide bulk buttons when filtered */}
 
-                      dispatch(
-                        MyHomeActions.postCdhMultiActions(
-                          checkedData,
-                          () => {
-                            const defaultPagination = objectToQueryString({
-                              page: 1,
-                              limit: 50,
-                            });
-                            dispatch(
-                              MyHomeActions.getCdhApprover(
-                                true,
-                                defaultPagination,
-                              ),
-                            );
-                          },
-                          null,
-                          `status=Approved`,
-                        ),
-                      );
-                    }}
-                    name={"Approve CDH"}
-                  />
-                  <ConditionalButton
-                    showType={"visible"}
-                    classes="w-auto mr-1 bg-[#EF4444]"
-                    // onClick={() => navigate("/empdetails")}
-                    onClick={() => {
-                      handleReject();
-                    }}
-                    name={"Reject CDH"}
-                  /> */}
-                  {/* ❌ Hide Approve if already Approved */}
-                  {!isApprovedView && (
+            <>
+              {checkVariable(checkedData) && (
+                <div className="flex">
+                  {!isApprovedView && !isRejectedView ? (
+                    <>
+                      <ConditionalButton
+                        showType={"visible"}
+                        classes="w-auto mr-1"
+                        onClick={() => {
+                          setCheckData([]);
+                          setCheckChildData([]);
+
+                          dispatch(
+                            MyHomeActions.postCdhMultiActions(
+                              checkedData,
+                              () => {
+                                const defaultPagination = objectToQueryString({
+                                  page: 1,
+                                  limit: 50,
+                                });
+                                dispatch(
+                                  MyHomeActions.getCdhApprover(
+                                    true,
+                                    defaultPagination,
+                                  ),
+                                );
+                              },
+                              null,
+                              `status=Approved`,
+                            ),
+                          );
+                        }}
+                        name={"Approve CDH"}
+                      />
+                      <ConditionalButton
+                        showType={"visible"}
+                        classes="w-auto mr-1 bg-[#EF4444]"
+                        onClick={() => handleReject()}
+                        name={"Reject CDH"}
+                      />
+                    </>
+                  ) : isApprovedView ? (
+                    <></>
+                  ) : isRejectedView ? (
                     <ConditionalButton
                       showType={"visible"}
                       classes="w-auto mr-1"
@@ -774,176 +1061,32 @@ const CdhApprover = () => {
                       }}
                       name={"Approve CDH"}
                     />
+                  ) : (
+                    <></>
                   )}
 
-                  {/* ❌ Hide Reject if already Rejected */}
-                  {!isRejectedView && (
+                  {/* {!isApprovedView ? (
                     <ConditionalButton
                       showType={"visible"}
                       classes="w-auto mr-1 bg-[#EF4444]"
-                      onClick={() => {
-                        handleReject();
-                      }}
+                      onClick={() => handleReject()}
                       name={"Reject CDH"}
                     />
-                  )}
+                  ) : (
+                    <></>
+                  )} */}
                 </div>
-              </>
-            ) : checkVariable(checkedChildData) ? (
-              <>
-                <div className="flex">
-                  {/* <ConditionalButton
-                    showType={"visible"}
-                    classes="w-auto mr-1"
-                    onClick={() => {
-                      setCheckChildData([]);
-                      setCheckData([]);
-                      dispatch(
-                        MyHomeActions.postCdhMultiActions(
-                          checkedChildData,
-                          () => {
-                            const defaultPagination = objectToQueryString({
-                              page: 1,
-                              limit: 50,
-                            });
-                            dispatch(
-                              MyHomeActions.getCdhApprover(
-                                true,
-                                defaultPagination,
-                              ),
-                            );
-                          },
-                          null,
-                          `status=Approved`,
-                        ),
-                      );
-                    }}
-                    name={"Approve CDH"}
-                  />
-                  <ConditionalButton
-                    showType={"visible"}
-                    classes="w-auto mr-1 bg-[#EF4444]"
-                    onClick={() => {
-                      setCheckChildData([]);
-                      setCheckData([]);
-                      dispatch(
-                        MyHomeActions.postCdhMultiActions(
-                          checkedChildData,
-                          () => {
-                            const defaultPagination = objectToQueryString({
-                              page: 1,
-                              limit: 50,
-                            });
-                            dispatch(
-                              MyHomeActions.getCdhApprover(
-                                true,
-                                defaultPagination,
-                              ),
-                            );
-                          },
-                          null,
-                          `status=Rejected`,
-                        ),
-                      );
-                    }}
-                    name={"Reject CDH"}
-                  /> */}
-                  {/* ❌ Hide Approve if already Approved */}
-                  {!isApprovedView && (
-                    <ConditionalButton
-                      showType={"visible"}
-                      classes="w-auto mr-1"
-                      onClick={() => {
-                        setCheckChildData([]);
-                        setCheckData([]);
-                        dispatch(
-                          MyHomeActions.postCdhMultiActions(
-                            checkedChildData,
-                            () => {
-                              const defaultPagination = objectToQueryString({
-                                page: 1,
-                                limit: 50,
-                              });
-                              dispatch(
-                                MyHomeActions.getCdhApprover(
-                                  true,
-                                  defaultPagination,
-                                ),
-                              );
-                            },
-                            null,
-                            `status=Approved`,
-                          ),
-                        );
-                      }}
-                      name={"Approve CDH"}
-                    />
-                  )}
+              )}
+            </>
 
-                  {/* ❌ Hide Reject if already Rejected */}
-                  {!isRejectedView && (
-                    <ConditionalButton
-                      showType={"visible"}
-                      classes="w-auto mr-1 bg-[#EF4444]"
-                      onClick={() => {
-                        setCheckChildData([]);
-                        setCheckData([]);
-                        dispatch(
-                          MyHomeActions.postCdhMultiActions(
-                            checkedChildData,
-                            () => {
-                              const defaultPagination = objectToQueryString({
-                                page: 1,
-                                limit: 50,
-                              });
-                              dispatch(
-                                MyHomeActions.getCdhApprover(
-                                  true,
-                                  defaultPagination,
-                                ),
-                              );
-                            },
-                            null,
-                            `status=Rejected`,
-                          ),
-                        );
-                      }}
-                      name={"Reject CDH"}
-                    />
-                  )}
-                </div>
-                {/* <ConditionalButton
-              showType={getAccessType("Upload(ManageEmployee)")}
-              name={"Delete"}
-              classes="w-auto mr-1"
-              onClick={() => 
-                // setFileOpen(true)
-                  console.log("asdasd")
-              }
-            /> */}
-              </>
-            ) : (
-              <></>
-            )}
-            {/* <ConditionalButton
-              showType={getAccessType("Add New(ManageEmployee)")}
-              classes="w-auto mr-1"
-              // onClick={() => navigate("/empdetails")}
-              onClick={() => {
-                setmodalHead("Add Compliance");
-                setmodalBody(
-                  <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
-                );
-                setmodalOpen(true);
-              }}
-              name={"Add New"}
-            /> */}
+            {/* ✅ ALWAYS VISIBLE BUTTONS */}
             <ConditionalButton
               showType={getAccessType("CDH Approver(Upload)")}
               name={"Upload File"}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
+
             <ConditionalButton
               showType={getAccessType("CDH Approver(Export)")}
               name={"Export"}
@@ -951,8 +1094,9 @@ const CdhApprover = () => {
               onClick={() =>
                 dispatch(
                   CommonActions.commondownloadpost(
-                    `/export/myHome/wcc/cdhApproval${strValFil ? "?" + strValFil : ""}`,
-                    // {exportTableName:"ptwBackupData"},
+                    `/export/myHome/wcc/cdhApproval${
+                      strValFil ? "?" + objectToQueryString(strValFil) : ""
+                    }`,
                     "WCC CDH Approval.xlsx",
                     "GET",
                   ),
