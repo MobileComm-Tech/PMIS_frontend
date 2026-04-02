@@ -29,7 +29,7 @@ const Modal = ({
   const bgClass = {
     black: "bg-[#3e454d]",
   };
-  console.log("this is running", children);
+  // console.log("this is running", children);
   return (
     <div
       className={

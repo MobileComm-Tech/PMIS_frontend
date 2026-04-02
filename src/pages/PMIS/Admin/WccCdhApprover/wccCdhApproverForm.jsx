@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../../../../components/Modal';
-import CommonForm from '../../../../components/CommonForm';
-import Button from '../../../../components/Button';
-import WCCActions from '../../../../store/actions/wccApprover-actions';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../../../components/Modal";
+import CommonForm from "../../../../components/CommonForm";
+import Button from "../../../../components/Button";
+import WCCActions from "../../../../store/actions/wccApprover-actions";
 
 const WccApproverForm = ({
   isOpen,
@@ -17,10 +17,15 @@ const WccApproverForm = ({
   const [modalOpen, setmodalOpen] = useState(false);
   // Fetch dropdown data
   useEffect(() => {
-    dispatch(WCCActions.getWccProjectGroup(true, '', ''));
-    dispatch(WCCActions.getWccEmployee(true, '', ''));
+    dispatch(WCCActions.getWccProjectGroup(true, "", ""));
+    dispatch(WCCActions.getWccEmployee(true, "", ""));
   }, []);
-
+  const rawData = useSelector(
+    (state) => state?.wccApproverData?.getWccProjectGroup,
+  );
+  const fullState = useSelector((state) => state.wccApproverData);
+  console.log("FULL REDUX STATE:", fullState);
+  console.log("RAW BACKEND DATA:", rawData);
   // Employee List
   const employeeList = useSelector((state) => {
     return state?.wccApproverData?.getWccEmployee?.map((itm) => {
@@ -40,28 +45,35 @@ const WccApproverForm = ({
       };
     });
   });
+  // const wccProjectGroupList = useSelector(
+  //   (state) =>
+  //     state?.wccApproverData?.WccApproverData?.map((itm) => ({
+  //       name: itm?.projectGroup,
+  //       id: itm?.projectGroupId,
+  //     })) || [],
+  // );
 
   let Form = [
     {
-      label: 'Emp Name',
-      name: 'employeeId',
-      value: '',
+      label: "Emp Name",
+      name: "employeeId",
+      value: "",
       required: true,
-      type: 'select',
+      type: "select",
       option: employeeList,
-      classes: 'col-span-1',
+      classes: "col-span-1",
     },
     {
-      label: 'Project Group',
-      name: 'projectGroup',
-      type: 'BigmuitiSelect',
-      value: '',
-      option: wccProjectGroupList,
+      label: "Project Group",
+      name: "projectGroup",
+      type: "BigmuitiSelect",
+      value: "",
+      option: wccProjectGroupList?.length > 0 ? wccProjectGroupList : [],
       props: {
         onChange: (e) => {},
       },
-      classes: 'col-span-2',
-      width: '450px',
+      classes: "col-span-2",
+      width: "450px",
     },
   ];
 
@@ -84,7 +96,7 @@ const WccApproverForm = ({
       dispatch(
         WCCActions.updateWccApproverForm(formData, formValue.uniqueId, () => {
           setIsOpen(false);
-          dispatch(WCCActions.getWccEmployee(true, '', ''));
+          dispatch(WCCActions.getWccEmployee(true, "", ""));
           if (onSuccess) onSuccess();
         }),
       );
@@ -92,7 +104,7 @@ const WccApproverForm = ({
       dispatch(
         WCCActions.submitWccApproverForm(formData, () => {
           setIsOpen(false);
-          dispatch(WCCActions.getWccEmployee(true, '', ''));
+          dispatch(WCCActions.getWccEmployee(true, "", ""));
           if (onSuccess) onSuccess();
         }),
       );
@@ -108,9 +120,9 @@ const WccApproverForm = ({
     } else {
       reset({});
       Form.forEach((field) => {
-        if (field.name === 'employeeId') {
+        if (field.name === "employeeId") {
           setValue(field.name, formValue?.employeeUniqueId);
-        } else if (field.name === 'projectGroup') {
+        } else if (field.name === "projectGroup") {
           setValue(field.name, formValue?.projectGroupCombined);
         } else {
           setValue(field.name, formValue[field.name]);
@@ -122,11 +134,11 @@ const WccApproverForm = ({
   return (
     <>
       <Modal
-        size={'full'}
+        size={"full"}
         children={
           <>
             <CommonForm
-              classes={'grid-cols-2 gap-1'}
+              classes={"grid-cols-2 gap-1"}
               Form={Form}
               errors={errors}
               register={register}
@@ -141,7 +153,7 @@ const WccApproverForm = ({
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
-          classes={'grid-cols-1 gap-1'}
+          classes={"grid-cols-1 gap-1"}
           Form={Form}
           errors={errors}
           register={register}
@@ -150,9 +162,9 @@ const WccApproverForm = ({
         />
 
         <Button
-          classes={'mt-2 w-sm text-center flex mx-auto'}
+          classes={"mt-2 w-sm text-center flex mx-auto"}
           onClick={handleSubmit(onTableViewSubmit)}
-          name={formValue.uniqueId ? 'Update' : 'Submit'}
+          name={formValue.uniqueId ? "Update" : "Submit"}
         />
       </div>
     </>

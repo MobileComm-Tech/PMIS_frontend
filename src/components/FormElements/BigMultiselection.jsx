@@ -1,20 +1,25 @@
 import Multiselect from "multiselect-react-dropdown";
 import React from "react";
 
-const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register, height = "h-32"}) => {
-
-
-  let datew=[] 
+const BigMultiselection = ({
+  itm,
+  errors,
+  handleSubmit,
+  setValue,
+  getValues,
+  register,
+  height = "h-32",
+}) => {
+  let datew = [];
 
   if (getValues()[itm.name]) {
     let oldData = getValues()[itm.name].split(",");
-    datew=itm.option.filter((itm)=>{
-        if(oldData.indexOf(itm.id)!=-1){
-            return itm
-        }
-    })
+    datew = itm.option.filter((itm) => {
+      if (oldData.indexOf(itm.id) != -1) {
+        return itm;
+      }
+    });
   }
-
 
   return (
     <>
@@ -25,18 +30,17 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
         options={itm.option}
         showCheckbox
         singleSelect={itm.singleSelect ? itm.singleSelect : false}
-        selectedValues={datew} 
+        selectedValues={datew}
         onSelect={(e) => {
           let finalselection = e.map((itm) => {
             return itm.id;
           });
-          console.log("asfasfasdfasdasdf",finalselection);
+          console.log("asfasfasdfasdasdf", finalselection);
           setValue(itm.name, finalselection.join());
-          
-          if(itm.onSelecting){
-            itm.onSelecting(finalselection)
-          }
 
+          if (itm.onSelecting) {
+            itm.onSelecting(finalselection);
+          }
         }} // Function will trigger on select event
         onRemove={(e) => {
           let finalselection = e.map((itm) => {
@@ -47,8 +51,8 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
           } else {
             setValue(itm.name, finalselection.join());
           }
-          if(itm.onRemoving){
-            itm.onRemoving(finalselection)
+          if (itm.onRemoving) {
+            itm.onRemoving(finalselection);
           }
         }} // Function will trigger on remove event
         {...itm.props}
@@ -58,12 +62,12 @@ const BigMultiselection = ({itm,errors,handleSubmit,setValue,getValues,register,
             border: "none",
             "border-radius": "0px",
             padding: "0px",
-           
-            color: "black !important", 
-            
+
+            color: "black !important",
           },
           multiselectContainer: {
-            width:"100%",          },
+            width: "100%",
+          },
         }}
         className={`custom-scrollbar pt-1 text-black bg-white block ${height} rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6`}
       />

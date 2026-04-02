@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import PopupMenu from './PopupMenu';
-import { UilFilter } from '@iconscout/react-unicons';
-import DatePicker from 'react-datepicker';
-import Button from './Button';
-import Multiselection from './FormElements/Multiselection';
-import DateRangePicking from './FormElements/DateRangePicking';
-import ComponentActions from '../store/actions/component-actions';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import PopupMenu from "./PopupMenu";
+import { UilFilter } from "@iconscout/react-unicons";
+import DatePicker from "react-datepicker";
+import Button from "./Button";
+import Multiselection from "./FormElements/Multiselection";
+import DateRangePicking from "./FormElements/DateRangePicking";
+import ComponentActions from "../store/actions/component-actions";
+import { useDispatch } from "react-redux";
 
 const FilterView = ({
   tablefilter = [],
@@ -24,43 +24,43 @@ const FilterView = ({
 
   useEffect(() => {
     const handleEnterKey = (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         handleSubmit(onSubmit)();
       }
     };
 
-    document.addEventListener('keypress', handleEnterKey);
+    document.addEventListener("keypress", handleEnterKey);
     return () => {
-      document.removeEventListener('keypress', handleEnterKey);
+      document.removeEventListener("keypress", handleEnterKey);
     };
   }, [handleSubmit, onSubmit]);
 
-  useEffect(() => {
-    tablefilter.forEach((itm) => {
-      setValue(itm.name, getValues(itm.name) || '');
-    });
-  }, [tablefilter, setValue, getValues]);
+  // useEffect(() => {
+  //   tablefilter.forEach((itm) => {
+  //     setValue(itm.name, getValues(itm.name) || "");
+  //   });
+  // }, [tablefilter, setValue, getValues]);
 
   const handleClickOutside = (event) => {
     const dataExists = tablefilter?.map((itm) => {
-      if (itm?.type === 'datetimeRangeNew') {
+      if (itm?.type === "datetimeRangeNew") {
         return true;
       } else {
         return false;
       }
     });
     if (
-      !Array.from(event.target.classList)?.includes('not') &&
+      !Array.from(event.target.classList)?.includes("not") &&
       !dataExists?.includes(true)
     ) {
-      dispatch(ComponentActions.popmenu(location.pathname + '_' + name, false));
+      dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [close]);
 
@@ -68,7 +68,7 @@ const FilterView = ({
     <>
       {tablefilter.length > 0 && (
         <PopupMenu
-          name={'Filter'}
+          name={"Filter"}
           icon={<UilFilter size="32" />}
           child={
             <>
@@ -79,12 +79,12 @@ const FilterView = ({
                       {itm.label}
                     </label>
 
-                    {itm.type === 'select' && (
+                    {itm.type === "select" && (
                       <>
                         <select
                           {...register(itm.name, {
                             required: itm.required
-                              ? 'This field is required'
+                              ? "This field is required"
                               : false,
                             ...itm.props,
                           })}
@@ -102,25 +102,25 @@ const FilterView = ({
                           ))}
                         </select>
                         <p className="text-xs text-red-700">
-                          {errors[itm.name]?.message || ''}
+                          {errors[itm.name]?.message || ""}
                         </p>
                       </>
                     )}
 
-                    {itm.type === 'autoSuggestion' && (
+                    {itm.type === "autoSuggestion" && (
                       <>
                         <input
-                          list={'optiondata' + itm.label}
+                          list={"optiondata" + itm.label}
                           {...register(itm.name, {
                             required: itm.required
-                              ? 'This field is required'
+                              ? "This field is required"
                               : false,
                             ...itm.props,
                           })}
                           onChange={(e) => setValue(itm.name, e.target.value)}
                           className="bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
-                        <datalist id={'optiondata' + itm.label}>
+                        <datalist id={"optiondata" + itm.label}>
                           {itm.option.map((selitm) => (
                             <option key={selitm.label} value={selitm.label}>
                               {selitm.label}
@@ -130,13 +130,13 @@ const FilterView = ({
                       </>
                     )}
 
-                    {itm.type === 'text' && (
+                    {itm.type === "text" && (
                       <>
                         <input
                           type={itm.type}
                           {...register(itm.name, {
                             required: itm.required
-                              ? 'This field is required'
+                              ? "This field is required"
                               : false,
                             ...itm.props,
                           })}
@@ -144,12 +144,12 @@ const FilterView = ({
                           className="bg-white border-black border block h-8 w-44 m-1 rounded-md py-1.5 p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                         <p className="text-xs text-red-700">
-                          {errors[itm.name]?.message || ''}
+                          {errors[itm.name]?.message || ""}
                         </p>
                       </>
                     )}
 
-                    {itm.type === 'datetime' && (
+                    {itm.type === "datetime" && (
                       <>
                         <DatePicker
                           selected={
@@ -158,16 +158,16 @@ const FilterView = ({
                               : null
                           }
                           onChange={(date) => setValue(itm.name, date)}
-                          dateFormat={itm?.format || 'MM/dd/yyyy'}
+                          dateFormat={itm?.format || "MM/dd/yyyy"}
                           className="bg-white border-black border block h-8 w-44 rounded-md p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                         <p className="text-xs text-red-700">
-                          {errors[itm.name]?.message || ''}
+                          {errors[itm.name]?.message || ""}
                         </p>
                       </>
                     )}
 
-                    {itm.type === 'datetimeRange' && (
+                    {itm.type === "datetimeRange" && (
                       <>
                         <div
                           onClick={(e) => e.stopPropagation()}
@@ -192,7 +192,7 @@ const FilterView = ({
                             shouldCloseOnSelect={true}
                             showMonthYearPicker
                             dateFormat="MM/yyyy"
-                            className={`${itm.bg || 'bg-white border-black border'} block h-8 w-44 rounded-md p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
+                            className={`${itm.bg || "bg-white border-black border"} block h-8 w-44 rounded-md p-2 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                             placeholderText="Select month/year"
                             isClearable
                             popperClassName="z-50"
@@ -203,11 +203,11 @@ const FilterView = ({
                           />
                         </div>
                         <p className="text-xs text-red-700">
-                          {errors[itm.name]?.message || ''}
+                          {errors[itm.name]?.message || ""}
                         </p>
                       </>
                     )}
-                    {itm.type === 'datetimeRangeNew' && (
+                    {itm.type === "datetimeRangeNew" && (
                       <DateRangePicking
                         {...{
                           itm,
@@ -224,7 +224,7 @@ const FilterView = ({
               </div>
               <div className="w-18 py-3 flex justify-center grid-cols-1">
                 <Button
-                  name={'Filter'}
+                  name={"Filter"}
                   onClick={
                     handleSubmit(onSubmit)
                     // ()=>{console.log}
@@ -232,9 +232,9 @@ const FilterView = ({
                   classes="w-18 p-10 mx-2"
                 />
                 <Button
-                  name={'Reset'}
+                  name={"Reset"}
                   onClick={() => {
-                    tablefilter.forEach((itm) => setValue(itm.name, ''));
+                    tablefilter.forEach((itm) => setValue(itm.name, ""));
                     // onSubmit({})
                     onReset();
                   }}
