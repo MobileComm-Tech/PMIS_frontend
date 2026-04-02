@@ -469,39 +469,39 @@
 
 // export default CommonForm;
 
-import React, { useEffect, useState } from "react";
-import Select from "react-select"; // ✅ Imported react-select
-import Multiselect from "multiselect-react-dropdown";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select'; // ✅ Imported react-select
+import Multiselect from 'multiselect-react-dropdown';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 // Import your custom components
-import TextBox from "./FormElements/TextBox";
-import FilePicker from "./FormElements/FilePicker";
-import SelectDropDown from "./FormElements/SelectDropDown";
-import TextArea from "./FormElements/TextArea";
-import Multiselection from "./FormElements/Multiselection";
-import DatePicking from "./FormElements/DatePicking";
-import AutoSuggestion from "./FormElements/AutoSuggestion";
-import Radio from "./FormElements/Radio";
-import Disabled from "./FormElements/Disabled";
-import CheckBox from "./FormElements/CheckBox";
-import BigMultiselection from "./FormElements/BigMultiselection";
-import NewMultiSelectsForm from "./FormElements/NewMultiSelectForm";
-import NewMultiselection from "./FormElements/NewMultiselection";
-import Email from "./FormElements/Email";
-import NewMultiselection3 from "./NewMultiselection3";
-import NewSingleSelectForm45 from "./FormElements/NewSingleSelect45";
-import NewSingleSelectCommon from "./FormElements/NewSingleSelectCommon";
-import DatePicking2 from "./FormElements/DatePicking2";
-import NewMuitiSelect007 from "./NewMuitiSelect007";
-import DateRangePicking from "./FormElements/DateRangePicking";
-import NewSingleSelectForm50 from "./FormElements/NewSingleSelectForm50";
-import DateTime from "./FormElements/DateTime";
-import CustomSelectDropDown from "./CustomSelectDropDown";
-import { types, uiList } from "../utils/queryBuilder";
-import RichTextEditor from "./TextEditor/RichTextEditor";
+import TextBox from './FormElements/TextBox';
+import FilePicker from './FormElements/FilePicker';
+import SelectDropDown from './FormElements/SelectDropDown';
+import TextArea from './FormElements/TextArea';
+import Multiselection from './FormElements/Multiselection';
+import DatePicking from './FormElements/DatePicking';
+import AutoSuggestion from './FormElements/AutoSuggestion';
+import Radio from './FormElements/Radio';
+import Disabled from './FormElements/Disabled';
+import CheckBox from './FormElements/CheckBox';
+import BigMultiselection from './FormElements/BigMultiselection';
+import NewMultiSelectsForm from './FormElements/NewMultiSelectForm';
+import NewMultiselection from './FormElements/NewMultiselection';
+import Email from './FormElements/Email';
+import NewMultiselection3 from './NewMultiselection3';
+import NewSingleSelectForm45 from './FormElements/NewSingleSelect45';
+import NewSingleSelectCommon from './FormElements/NewSingleSelectCommon';
+import DatePicking2 from './FormElements/DatePicking2';
+import NewMuitiSelect007 from './NewMuitiSelect007';
+import DateRangePicking from './FormElements/DateRangePicking';
+import NewSingleSelectForm50 from './FormElements/NewSingleSelectForm50';
+import DateTime from './FormElements/DateTime';
+import CustomSelectDropDown from './CustomSelectDropDown';
+import { types, uiList } from '../utils/queryBuilder';
+import RichTextEditor from './TextEditor/RichTextEditor';
 
 const CommonForm = ({
   classes,
@@ -530,59 +530,59 @@ const CommonForm = ({
   const customSelectStyles = {
     control: (base) => ({
       ...base,
-      backgroundColor: "white",
-      borderColor: "#d1d5db",
-      color: "black",
+      backgroundColor: 'white',
+      borderColor: '#d1d5db',
+      color: 'black',
       minHeight: 36,
     }),
     menu: (base) => ({
       ...base,
-      backgroundColor: "white",
-      color: "black",
+      backgroundColor: 'white',
+      color: 'black',
       zIndex: 9999,
     }),
     option: (base, { isFocused, isSelected }) => ({
       ...base,
-      backgroundColor: isSelected ? "#e5e7eb" : isFocused ? "#f3f4f6" : "white",
-      color: "black",
-      cursor: "pointer",
+      backgroundColor: isSelected ? '#e5e7eb' : isFocused ? '#f3f4f6' : 'white',
+      color: 'black',
+      cursor: 'pointer',
     }),
     singleValue: (base) => ({
       ...base,
-      color: "black",
+      color: 'black',
     }),
     placeholder: (base) => ({
       ...base,
-      color: "#6b7280",
+      color: '#6b7280',
     }),
   };
 
   return (
     <form
       className={`overflow-scroll grid ${classes} ${
-        Form?.length > 12 ? " h-[70vh] " : " h-auto "
+        Form?.length > 12 ? ' h-[70vh] ' : ' h-auto '
       }`}
       encType="multipart/form-data"
     >
       {Form?.map((itm, idx) => {
         return (
           <React.Fragment key={idx}>
-            {itm.type === "heading" ? (
-              <div className={`${itm.classes ? itm.classes : "col-span-1"}`}>
+            {itm.type === 'heading' ? (
+              <div className={`${itm.classes ? itm.classes : 'col-span-1'}`}>
                 <h1 className="pl-8 break-words">{itm.label}</h1>
               </div>
             ) : null}
 
-            {itm.type !== "hidden" && itm.type !== "heading" ? (
+            {itm.type !== 'hidden' && itm.type !== 'heading' ? (
               <div
                 className={`mx-0 my-1 p-1 ${
-                  itm.classes ? itm.classes : "col-span-1"
+                  itm.classes ? itm.classes : 'col-span-1'
                 }`}
               >
                 {itm?.showlabel !== false && (
                   <div
                     className={`items-center justify-between ${
-                      itm?.visible === false ? "hidden" : ""
+                      itm?.visible === false ? 'hidden' : ''
                     }`}
                   >
                     <label className="block text-sm font-medium text-white ml-3 break-words">
@@ -594,13 +594,13 @@ const CommonForm = ({
                   </div>
                 )}
 
-                <div className={uiList[itm.type]?.height + " mt-2 px-2 "}>
-                  {itm.type === "searchableSelect" ? (
+                <div className={uiList[itm.type]?.height + ' mt-2 px-2 '}>
+                  {itm.type === 'searchableSelect' ? (
                     <Select
                       options={itm.option || []}
                       isSearchable
                       isDisabled={itm.disabled}
-                      placeholder={itm.placeholder || "Select..."}
+                      placeholder={itm.placeholder || 'Select...'}
                       onChange={(selectedOption) => {
                         const eventLike = {
                           target: {
@@ -633,7 +633,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "sdisabled" || itm.type === "hdisabled" ? (
+                  {itm.type === 'sdisabled' || itm.type === 'hdisabled' ? (
                     <Disabled
                       {...{
                         itm,
@@ -646,9 +646,9 @@ const CommonForm = ({
                     />
                   ) : null}
 
-                  {itm.type == "jsxcmpt" ? <>{itm.component}</> : <></>}
+                  {itm.type == 'jsxcmpt' ? <>{itm.component}</> : <></>}
 
-                  {itm.type === "radio" && (
+                  {itm.type === 'radio' && (
                     <Radio
                       {...{
                         itm,
@@ -661,7 +661,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "email" && (
+                  {itm.type === 'email' && (
                     <Email
                       {...{
                         itm,
@@ -674,7 +674,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "checkbox" && (
+                  {itm.type === 'checkbox' && (
                     <CheckBox
                       {...{
                         itm,
@@ -687,7 +687,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "file" && (
+                  {itm.type === 'file' && (
                     <FilePicker
                       {...{
                         itm,
@@ -700,7 +700,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "select" && (
+                  {itm.type === 'select' && (
                     <SelectDropDown
                       {...{
                         itm,
@@ -713,7 +713,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "customSelect" && (
+                  {itm.type === 'customSelect' && (
                     <CustomSelectDropDown
                       {...{
                         itm,
@@ -729,7 +729,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "autoSuggestion" && (
+                  {itm.type === 'autoSuggestion' && (
                     <AutoSuggestion
                       {...{
                         itm,
@@ -742,7 +742,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "textarea" && (
+                  {itm.type === 'textarea' && (
                     <TextArea
                       {...{
                         itm,
@@ -755,7 +755,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "datetime" && (
+                  {itm.type === 'datetime' && (
                     <DatePicking
                       {...{
                         itm,
@@ -768,7 +768,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "datetime2" && (
+                  {itm.type === 'datetime2' && (
                     <DatePicking2
                       {...{
                         itm,
@@ -781,7 +781,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "datetimeRange" && (
+                  {itm.type === 'datetimeRange' && (
                     <DateRangePicking
                       {...{
                         itm,
@@ -794,7 +794,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "datetime-local" && (
+                  {itm.type === 'datetime-local' && (
                     <DateTime
                       {...{
                         itm,
@@ -807,7 +807,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "muitiSelect" && (
+                  {itm.type === 'muitiSelect' && (
                     <Multiselection
                       {...{
                         itm,
@@ -820,7 +820,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newmuitiSelect2" && (
+                  {itm.type === 'newmuitiSelect2' && (
                     <NewMultiselection
                       {...{
                         itm,
@@ -833,7 +833,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newmuitiSelect3" && (
+                  {itm.type === 'newmuitiSelect3' && (
                     <NewMultiselection3
                       {...{
                         itm,
@@ -846,7 +846,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newmultiselect" && (
+                  {itm.type === 'newmultiselect' && (
                     <NewMultiSelectsForm
                       {...{
                         itm,
@@ -859,7 +859,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newSingleSelect45" && (
+                  {itm.type === 'newSingleSelect45' && (
                     <NewSingleSelectForm45
                       {...{
                         itm,
@@ -872,7 +872,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newSingleSelect50" && (
+                  {itm.type === 'newSingleSelect50' && (
                     <NewSingleSelectForm50
                       {...{
                         itm,
@@ -885,7 +885,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newSingleSelectCommon" && (
+                  {itm.type === 'newSingleSelectCommon' && (
                     <NewSingleSelectCommon
                       {...{
                         itm,
@@ -898,7 +898,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "BigmuitiSelect" && (
+                  {itm.type === 'BigmuitiSelect' && (
                     <BigMultiselection
                       {...{
                         itm,
@@ -911,7 +911,7 @@ const CommonForm = ({
                     />
                   )}
 
-                  {itm.type === "newMuitiSelect007" && (
+                  {itm.type === 'newMuitiSelect007' && (
                     <NewMuitiSelect007
                       {...{
                         itm,
@@ -923,7 +923,7 @@ const CommonForm = ({
                       }}
                     />
                   )}
-                  {itm.type === "richtext" && (
+                  {itm.type === 'richtext' && (
                     <RichTextEditor
                       itm={itm}
                       setValue={setValue}

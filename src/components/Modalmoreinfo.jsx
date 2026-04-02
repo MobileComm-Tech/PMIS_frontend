@@ -66,8 +66,9 @@
 // };
 
 // export default Modalmoreinfo;
-import React from "react";
-import { moreinfo } from "../utils/commonFunnction";
+
+import React from 'react';
+import { moreinfo } from '../utils/commonFunnction';
 
 const Modalmoreinfo = ({
   value,
@@ -76,31 +77,39 @@ const Modalmoreinfo = ({
   ctt = 100,
   pStyle = null,
 }) => {
-  if (!value) return null;
+  // ✅ Render JSX directly
+  if (React.isValidElement(value)) {
+    return value;
+  }
+
+  // ✅ safer check
+  if (value === null || value === undefined) return null;
 
   const parseLine = (text) => {
     const regex = /(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|([^\*\n]+)/g;
     const elements = [];
     let match;
+
     while ((match = regex.exec(text)) !== null) {
-      if (match[2])
+      if (match[2]) {
         elements.push(<strong key={elements.length}>{match[2]}</strong>);
-      else if (match[4])
+      } else if (match[4]) {
         elements.push(<em key={elements.length}>{match[4]}</em>);
-      else if (match[5])
+      } else if (match[5]) {
         elements.push(<span key={elements.length}>{match[5]}</span>);
+      }
     }
+
     return elements;
   };
 
-  // Parse text with multiple lines
   const parseText = (text) => {
     if (!text) return null;
 
     const str = String(text);
 
-    return str.split("\n").map((line, i) => (
-      <div key={i} style={{ whiteSpace: "pre-wrap" }}>
+    return str.split('\n').map((line, i) => (
+      <div key={i} style={{ whiteSpace: 'pre-wrap' }}>
         {parseLine(line)}
       </div>
     ));
@@ -108,7 +117,9 @@ const Modalmoreinfo = ({
 
   const renderText = (text) => <div>{parseText(text)}</div>;
 
-  if (value.length > 100) {
+  const strValue = String(value);
+
+  if (strValue.length > 100) {
     return (
       <div className="group flex flex-col relative items-center w-full">
         <p
@@ -122,16 +133,17 @@ const Modalmoreinfo = ({
             );
           }}
         >
-          {moreinfo(value, ctt) + "..."}
+          {moreinfo(value, ctt) + '...'}
         </p>
+
         <span className="pointer-events-none w-max absolute -top-1 -right-0 bg-green-400 z-50 rounded-md p-[4px] opacity-0 transition-opacity group-hover:opacity-100">
-          {"Tap for moreInfo..."}
+          Tap for moreInfo...
         </span>
       </div>
     );
   }
 
-  if (value === "Yes" || value === "No") {
+  if (value === 'Yes' || value === 'No') {
     return <p id="tdp1">{value}</p>;
   } else if (pStyle !== null) {
     return <p id="tdp">{value}</p>;
@@ -141,3 +153,80 @@ const Modalmoreinfo = ({
 };
 
 export default Modalmoreinfo;
+
+//  FAULT CODE
+// import React from 'react';
+// import { moreinfo } from '../utils/commonFunnction';
+
+// const Modalmoreinfo = ({
+//   value,
+//   setModalBody,
+//   setOpenModal,
+//   ctt = 100,
+//   pStyle = null,
+// }) => {
+//   if (!value) return null;
+
+//   const parseLine = (text) => {
+//     const regex = /(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|([^\*\n]+)/g;
+//     const elements = [];
+//     let match;
+//     while ((match = regex.exec(text)) !== null) {
+//       if (match[2])
+//         elements.push(<strong key={elements.length}>{match[2]}</strong>);
+//       else if (match[4])
+//         elements.push(<em key={elements.length}>{match[4]}</em>);
+//       else if (match[5])
+//         elements.push(<span key={elements.length}>{match[5]}</span>);
+//     }
+//     return elements;
+//   };
+
+//   // Parse text with multiple lines
+//   const parseText = (text) => {
+//     if (!text) return null;
+
+//     const str = String(text);
+
+//     return str.split('\n').map((line, i) => (
+//       <div key={i} style={{ whiteSpace: 'pre-wrap' }}>
+//         {parseLine(line)}
+//       </div>
+//     ));
+//   };
+
+//   const renderText = (text) => <div>{parseText(text)}</div>;
+
+//   if (value.length > 100) {
+//     return (
+//       <div className="group flex flex-col relative items-center w-full">
+//         <p
+//           className="cursor-pointer text-center"
+//           onClick={() => {
+//             setOpenModal(true);
+//             setModalBody(
+//               <div className="p-3 overflow-y-auto text-center text-white max-h-[70vh]">
+//                 {renderText(value)}
+//               </div>,
+//             );
+//           }}
+//         >
+//           {moreinfo(value, ctt) + '...'}
+//         </p>
+//         <span className="pointer-events-none w-max absolute -top-1 -right-0 bg-green-400 z-50 rounded-md p-[4px] opacity-0 transition-opacity group-hover:opacity-100">
+//           {'Tap for moreInfo...'}
+//         </span>
+//       </div>
+//     );
+//   }
+
+//   if (value === 'Yes' || value === 'No') {
+//     return <p id="tdp1">{value}</p>;
+//   } else if (pStyle !== null) {
+//     return <p id="tdp">{value}</p>;
+//   } else {
+//     return renderText(value);
+//   }
+// };
+
+// export default Modalmoreinfo;

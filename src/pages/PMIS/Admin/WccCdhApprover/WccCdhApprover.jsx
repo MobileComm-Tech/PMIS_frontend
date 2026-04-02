@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import EditButton from "../../../../components/EditButton";
-import DeleteButton from "../../../../components/DeleteButton";
-import AdvancedTable from "../../../../components/AdvancedTable";
-import Modal from "../../../../components/Modal";
-import Button from "../../../../components/Button";
-import CstmButton from "../../../../components/CstmButton";
-import FileUploader from "../../../../components/FIleUploader";
-import WccApproverForm from "./wccCdhApproverForm";
-import WCCApproverAction from "../../../../store/actions/wccApprover-actions";
-import CommonActions from "../../../../store/actions/common-actions";
-import { Urls } from "../../../../utils/url";
-import { objectToQueryString } from "../../../../utils/commonFunnction";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
-import { pagination } from "../../../../components/CommonObjectsAndVariables";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import EditButton from '../../../../components/EditButton';
+import DeleteButton from '../../../../components/DeleteButton';
+import AdvancedTable from '../../../../components/AdvancedTable';
+import Modal from '../../../../components/Modal';
+import Button from '../../../../components/Button';
+import CstmButton from '../../../../components/CstmButton';
+import FileUploader from '../../../../components/FIleUploader';
+import WccApproverForm from './wccCdhApproverForm';
+import WCCApproverAction from '../../../../store/actions/wccApprover-actions';
+import CommonActions from '../../../../store/actions/common-actions';
+import { Urls } from '../../../../utils/url';
+import { objectToQueryString } from '../../../../utils/commonFunnction';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import { pagination } from '../../../../components/CommonObjectsAndVariables';
 
 const WCCApprover = () => {
   const dispatch = useDispatch();
@@ -33,12 +33,9 @@ const WCCApprover = () => {
     formState: { errors },
   } = useForm();
 
-  const refreshData = (query = "") => {
+  const refreshData = (query = '') => {
     dispatch(
-      WCCApproverAction.WccApproverData(
-        true,
-        query || objectToQueryString(pagination),
-      ),
+      WCCApproverAction.WccApproverData(true, objectToQueryString(pagination)),
     );
   };
 
@@ -50,15 +47,15 @@ const WCCApprover = () => {
 
       projectGroupDisplay: itm?.projectGroupCombined
         ? itm.projectGroupCombined
-            .split(",")
+            .split(',')
             .filter((_, index) => index % 2 === 0)
-            .join(", ")
-        : "",
+            .join(', ')
+        : '',
 
       // For form autofill
       projectGroupIds: itm?.projectGroupCombined
         ? itm.projectGroupCombined
-            .split(",")
+            .split(',')
             .map((item) => item.trim())
             .filter((_, index) => index % 2 !== 0)
         : [],
@@ -70,8 +67,8 @@ const WCCApprover = () => {
             <EditButton
               name=""
               onClick={() => {
-                console.log(itm, "slkdfkshdkjfkj");
-                setmodalHead("Edit CDH Approver");
+                console.log(itm, 'slkdfkshdkjfkj');
+                setmodalHead('Edit CDH Approver');
                 setmodalBody(
                   <WccApproverForm
                     isOpen={true}
@@ -100,8 +97,8 @@ const WCCApprover = () => {
                 dispatch(
                   ALERTS({
                     show: true,
-                    icon: "warning",
-                    text: "Are you sure you want to delete?",
+                    icon: 'warning',
+                    text: 'Are you sure you want to delete?',
                     buttons: [
                       <Button
                         classes="w-15 bg-rose-400"
@@ -133,11 +130,11 @@ const WCCApprover = () => {
       ),
     }));
   });
-
+  console.log(WccApproverList, '__WccApproverList');
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.wccApproverData?.WccApproverData;
     if (interdata.length > 0) {
-      return interdata[0]["overall_table_count"];
+      return interdata[0]['overall_table_count'];
     } else {
       return 0;
     }
@@ -146,29 +143,29 @@ const WCCApprover = () => {
   const table = {
     columns: [
       {
-        name: "Emp Name",
-        value: "empName",
-        style: "text-center min-w-[150px]",
+        name: 'Emp Name',
+        value: 'empName',
+        style: 'text-center min-w-[150px]',
       },
       {
-        name: "Emp Email",
-        value: "employeeEmail",
-        style: "text-center min-w-[150px]",
+        name: 'Emp Email',
+        value: 'employeeEmail',
+        style: 'text-center min-w-[150px]',
       },
       {
-        name: "Project Group",
-        value: "projectGroupDisplay",
-        style: "text-center min-w-[150px]",
+        name: 'Project Group',
+        value: 'projectGroupDisplay',
+        style: 'text-center min-w-[150px]',
       },
       {
-        name: "Edit",
-        value: "edit",
-        style: "text-center min-w-[100px]",
+        name: 'Edit',
+        value: 'edit',
+        style: 'text-center min-w-[100px]',
       },
       {
-        name: "Delete",
-        value: "delete",
-        style: "text-center min-w-[100px]",
+        name: 'Delete',
+        value: 'delete',
+        style: 'text-center min-w-[100px]',
       },
     ],
     properties: {
@@ -176,14 +173,14 @@ const WCCApprover = () => {
     },
     filter: [
       {
-        label: "Employee Name",
-        type: "text",
-        name: "empName",
+        label: 'Employee Name',
+        type: 'text',
+        name: 'empName',
       },
       {
-        label: "Project Group",
-        type: "text",
-        name: "projectGroup",
+        label: 'Project Group',
+        type: 'text',
+        name: 'projectGroup',
       },
     ],
   };
@@ -197,9 +194,9 @@ const WCCApprover = () => {
 
     dispatch(WCCApproverAction.WccApproverData(value, strVal));
   };
-  console.log(strValFil, "strValFil");
+  console.log(strValFil, 'strValFil');
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "cdh_wccApprover";
+    data['fileType'] = 'cdh_wccApprover';
 
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
@@ -222,7 +219,7 @@ const WCCApprover = () => {
               name="Add New"
               classes="w-auto"
               onClick={() => {
-                setmodalHead("Add CDH Approver");
+                setmodalHead('Add CDH Approver');
                 setmodalBody(
                   <WccApproverForm
                     isOpen={true}
@@ -248,8 +245,8 @@ const WCCApprover = () => {
               onClick={() => {
                 dispatch(
                   CommonActions.commondownload(
-                    "/Export/cdh_approver?" + strValFil,
-                    "Export_WCC_CDH_Approver.xlsx",
+                    '/Export/cdh_approver?' + strValFil,
+                    'Export_WCC_CDH_Approver.xlsx',
                   ),
                 );
               }}
@@ -283,7 +280,7 @@ const WCCApprover = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/WCC_Approver.xlsx", "WCC CDH Approver.xlsx"]}
+        tempbtnlink={['/template/WCC_Approver.xlsx', 'WCC CDH Approver.xlsx']}
       />
     </>
   );

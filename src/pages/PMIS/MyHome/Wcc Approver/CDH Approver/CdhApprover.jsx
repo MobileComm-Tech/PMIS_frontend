@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import AdvancedTable from "../../../../../components/AdvancedTable";
+import React, { useEffect, useState } from 'react';
+import AdvancedTable from '../../../../../components/AdvancedTable';
 import {
   checkArray,
   CheckTrueOrFalse,
   CheckTrueOrFalseforApproval,
   checkTrueOrFalseDynamic,
   checkVariable,
-} from "../../../../../components/CommonObjectsAndVariables";
-import { useDispatch, useSelector } from "react-redux";
-import CommonActions from "../../../../../store/actions/common-actions";
-import FormssActions from "../../../../../store/actions/formss-actions";
-import ConditionalButton from "../../../../../components/ConditionalButton";
+} from '../../../../../components/CommonObjectsAndVariables';
+import { useDispatch, useSelector } from 'react-redux';
+import CommonActions from '../../../../../store/actions/common-actions';
+import FormssActions from '../../../../../store/actions/formss-actions';
+import ConditionalButton from '../../../../../components/ConditionalButton';
 import {
   getAccessType,
   objectToQueryString,
-} from "../../../../../utils/commonFunnction";
-import FileUploader from "../../../../../components/FIleUploader";
-import { Urls } from "../../../../../utils/url";
-import MyHomeActions from "../../../../../store/actions/myHome-actions";
-import { TbPlayerEjectFilled } from "react-icons/tb";
-import CdhApproverForm from "./CdhApproverForm";
-import Modal from "../../../../../components/Modal";
-import { useForm } from "react-hook-form";
-import CommonAlert from "../../../../../components/Common Alert/CommonAlert";
-import VendorActions from "../../../../../store/actions/vendor-actions";
+} from '../../../../../utils/commonFunnction';
+import FileUploader from '../../../../../components/FIleUploader';
+import { Urls } from '../../../../../utils/url';
+import MyHomeActions from '../../../../../store/actions/myHome-actions';
+import { TbPlayerEjectFilled } from 'react-icons/tb';
+import CdhApproverForm from './CdhApproverForm';
+import Modal from '../../../../../components/Modal';
+import { useForm } from 'react-hook-form';
+import CommonAlert from '../../../../../components/Common Alert/CommonAlert';
+import VendorActions from '../../../../../store/actions/vendor-actions';
 // import { Modal } from '@material-ui/core';
 
 const CdhApprover = () => {
@@ -37,11 +37,11 @@ const CdhApprover = () => {
   const [checkedData, setCheckData] = useState([]);
   const [checkedChildData, setCheckChildData] = useState([]);
   const isApprovedView =
-    strValFil?.status !== undefined && strValFil?.status === "Approved"
+    strValFil?.status !== undefined && strValFil?.status === 'Approved'
       ? true
       : false;
   const isRejectedView =
-    strValFil?.status !== undefined && strValFil?.status === "Rejected"
+    strValFil?.status !== undefined && strValFil?.status === 'Rejected'
       ? true
       : false;
 
@@ -50,7 +50,7 @@ const CdhApprover = () => {
   // useEffect(()=>{
   //     dispatch(VendorActions.getWccSubmodule());
   // },[])
-  console.log(strValFil, "____strValFil");
+  console.log(strValFil, '____strValFil');
   const {
     register,
     handleSubmit,
@@ -135,8 +135,8 @@ const CdhApprover = () => {
             }}
           />
         ),
-        value: "checkboxProject",
-        style: "min-w-[40px] max-w-[40px] text-center",
+        value: 'checkboxProject',
+        style: 'min-w-[40px] max-w-[40px] text-center',
       },
       // {
       //   name: "Customer",
@@ -144,9 +144,9 @@ const CdhApprover = () => {
       //   style: "min-w-[120px] max-w-[160px]",
       // },
       {
-        name: "Project Group",
-        value: "projectGroup",
-        style: "min-w-[120px] max-w-[180px] text-center",
+        name: 'Project Group',
+        value: 'projectGroup',
+        style: 'min-w-[120px] max-w-[180px] text-center',
       },
       // {
       //   name: "Project ID",
@@ -154,29 +154,29 @@ const CdhApprover = () => {
       //   style: "min-w-[180px] max-w-[320px] text-center",
       // },
       {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[100px] max-w-[180px] text-center",
+        name: 'Project Type',
+        value: 'projectType',
+        style: 'min-w-[100px] max-w-[180px] text-center',
       },
       {
-        name: "Sub Project",
-        value: "subProject",
-        style: "min-w-[140px] max-w-[180px] text-center",
+        name: 'Sub Project',
+        value: 'subProject',
+        style: 'min-w-[140px] max-w-[180px] text-center',
       },
       {
-        name: "Site ID",
-        value: "siteId",
-        style: "min-w-[120px] max-w-[160px] text-center",
+        name: 'Site ID',
+        value: 'siteId',
+        style: 'min-w-[120px] max-w-[160px] text-center',
       },
       {
-        name: "SSID",
-        value: "ssid",
-        style: "min-w-[80px] max-w-[120px] text-center",
+        name: 'SSID',
+        value: 'ssid',
+        style: 'min-w-[80px] max-w-[120px] text-center',
       },
       {
-        name: "Vendor Name",
-        value: "vendorName",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Vendor Name',
+        value: 'vendorName',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
       // {
       //   name: "Vendor ID",
@@ -184,9 +184,9 @@ const CdhApprover = () => {
       //   style: "min-w-[120px] max-w-[160px] text-center",
       // },
       {
-        name: "Vendor Item Code",
-        value: "vendorItemCode",
-        style: "min-w-[120px] max-w-[220px] text-center",
+        name: 'Vendor Item Code',
+        value: 'vendorItemCode',
+        style: 'min-w-[120px] max-w-[220px] text-center',
       },
       // {
       //   name: "Vendor Item Code Description",
@@ -194,14 +194,14 @@ const CdhApprover = () => {
       //   style: "min-w-[220px] max-w-[300px] text-center",
       // },
       {
-        name: "Qty",
-        value: "quantity",
-        style: "min-w-[60px] max-w-[120px] text-center",
+        name: 'Qty',
+        value: 'quantity',
+        style: 'min-w-[60px] max-w-[120px] text-center',
       },
       {
-        name: "Rate",
-        value: "vendorRate",
-        style: "min-w-[50px] max-w-[140px] text-center",
+        name: 'Rate',
+        value: 'vendorRate',
+        style: 'min-w-[50px] max-w-[140px] text-center',
       },
       // {
       //   name: "PO Value",
@@ -214,16 +214,16 @@ const CdhApprover = () => {
       //   style: "min-w-[80px] max-w-[180px] text-center",
       // },
       {
-        name: "PO No.",
-        value: "poNumber",
-        style: "min-w-[80px] max-w-[180px] text-center",
+        name: 'PO No.',
+        value: 'poNumber',
+        style: 'min-w-[80px] max-w-[180px] text-center',
       },
-      ...(getAccessType("CDH Approver(Action)") === "visible"
+      ...(getAccessType('CDH Approver(Action)') === 'visible'
         ? [
             {
-              name: "Action",
-              value: "action",
-              style: "min-w-[40px] max-w-[120px] text-center",
+              name: 'Action',
+              value: 'action',
+              style: 'min-w-[40px] max-w-[120px] text-center',
             },
           ]
         : []),
@@ -231,19 +231,19 @@ const CdhApprover = () => {
 
     filter: [
       {
-        label: "Site Id",
-        value: "",
-        name: "siteId",
-        type: "text",
+        label: 'Site Id',
+        value: '',
+        name: 'siteId',
+        type: 'text',
       },
       {
-        label: "Project Type",
-        value: "",
-        name: "projectType",
+        label: 'Project Type',
+        value: '',
+        name: 'projectType',
 
         // type: "text",
-        type: "select",
-        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        type: 'select',
+        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
         option: projectTypeList,
         props: {
           onChange: (e) => {
@@ -259,21 +259,21 @@ const CdhApprover = () => {
         required: false,
       },
       {
-        label: "Sub Project",
-        value: "",
-        name: "subProject",
+        label: 'Sub Project',
+        value: '',
+        name: 'subProject',
 
         // type: "text",
-        type: "select",
-        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+        type: 'select',
+        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
         option: subProjectList,
         required: false,
       },
       {
-        label: "Vendor Name",
-        value: "",
-        type: "text",
-        name: "vendorName",
+        label: 'Vendor Name',
+        value: '',
+        type: 'text',
+        name: 'vendorName',
       },
       // {
       //   label: "Vendor Id",
@@ -282,34 +282,34 @@ const CdhApprover = () => {
       //   type: "text",
       // },
       {
-        label: "Vendor Item Code",
-        value: "",
-        name: "vendorItemCode",
+        label: 'Vendor Item Code',
+        value: '',
+        name: 'vendorItemCode',
 
-        type: "text",
+        type: 'text',
       },
 
       {
-        label: "Status",
-        value: "",
-        type: "select",
-        name: "status",
+        label: 'Status',
+        value: '',
+        type: 'select',
+        name: 'status',
         // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: [
-          { label: "Approved", value: "Approved" },
-          { label: "Rejected", value: "Rejected" },
+          { label: 'Approved', value: 'Approved' },
+          { label: 'Rejected', value: 'Rejected' },
         ],
       },
     ],
   };
 
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "CdhApproverFileUpload";
+    data['fileType'] = 'CdhApproverFileUpload';
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FormssActions.getWccCdh());
         setFileOpen(false);
-        resetting("");
+        resetting('');
       }),
     );
   };
@@ -317,7 +317,7 @@ const CdhApprover = () => {
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.myHomeData?.getWccCdhApprover;
     if (interdata?.length > 0) {
-      return interdata[0]["overall_table_count"];
+      return interdata[0]['overall_table_count'];
     } else {
       return 0;
     }
@@ -329,20 +329,20 @@ const CdhApprover = () => {
     const sendData = {
       _id: itm?.uniqueId,
       rejected: false,
-      status: "Approved",
+      status: 'Approved',
     };
     setmodalBody(
       <>
         <CommonAlert
           selectedRow={itm}
-          Heading={"Are you Sure ?"}
+          Heading={'Are you Sure ?'}
           getAllDAta={() => {
             dispatch(
               MyHomeActions.postCdhActions(
                 {
                   vendorItemCode: itm?.vendorItemCode,
                   ssid: itm?.ssid,
-                  status: "Approved",
+                  status: 'Approved',
                 },
                 () => {
                   dispatch(MyHomeActions.getCdhApprover());
@@ -363,20 +363,20 @@ const CdhApprover = () => {
     const sendData = {
       _id: itm?.uniqueId,
       rejected: true,
-      status: "Rejected",
+      status: 'Rejected',
     };
     setmodalBody(
       <>
         <CommonAlert
           selectedRow={itm}
-          Heading={"Are you Sure?"}
+          Heading={'Are you Sure?'}
           getAllDAta={() => {
             dispatch(
               MyHomeActions.postCdhActions(
                 {
                   vendorItemCode: itm?.vendorItemCode,
                   ssid: itm?.ssid,
-                  status: "Rejected",
+                  status: 'Rejected',
                 },
                 () => {
                   dispatch(
@@ -405,13 +405,13 @@ const CdhApprover = () => {
     const sendData = {
       _id: itm?.uniqueId,
       rejected: true,
-      status: "Rejected",
+      status: 'Rejected',
     };
     setmodalBody(
       <>
         <CommonAlert
           selectedRow={itm}
-          Heading={"Are you Sure ?"}
+          Heading={'Are you Sure ?'}
           getAllDAta={() => {
             dispatch(
               MyHomeActions.postCdhMultiActions(
@@ -442,7 +442,7 @@ const CdhApprover = () => {
   };
 
   const handleApprove = (itm) => {
-    console.log("working Finr");
+    console.log('working Finr');
 
     setmodalOpen(true);
 
@@ -634,7 +634,7 @@ const CdhApprover = () => {
       action: (
         <div className="flex justify-end gap-2">
           {/* ✅ If status is APPROVED → only show REJECT */}
-          {checkTrueOrFalseDynamic(itm?.cdh, "Approved") ? (
+          {checkTrueOrFalseDynamic(itm?.cdh, 'Approved') ? (
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -646,7 +646,7 @@ const CdhApprover = () => {
               <TbPlayerEjectFilled size={28} />
             </button>
           ) : /* ✅ If status is REJECTED → only show APPROVE */
-          checkTrueOrFalseDynamic(itm?.cdh, "Rejected") ? (
+          checkTrueOrFalseDynamic(itm?.cdh, 'Rejected') ? (
             <button
               onClick={(e) => {
                 handleApproveWithNofileUpload(itm);
@@ -690,7 +690,7 @@ const CdhApprover = () => {
 
   const onSubmit = (data) => {
     let shouldReset = data.reseter;
-    console.log(data, strValFil, "___data");
+    console.log(data, strValFil, '___data');
 
     if (data?.reseter === false) {
       delete data.reseter;
@@ -701,7 +701,7 @@ const CdhApprover = () => {
     }
 
     if (data?.reseter === true) {
-      console.log("rinmondif");
+      console.log('rinmondif');
       setstrVal({});
     }
 
@@ -711,12 +711,12 @@ const CdhApprover = () => {
     //   ...filters,
     //   ...data,
     // });
-    console.log("data___", data);
+    console.log('data___', data);
     dispatch(MyHomeActions.getCdhApprover(true, objectToQueryString(data)));
     // setstrVal({});
   };
   // console.log(strValFil, "strValFil");
-  console.log(isRejectedView, isApprovedView, "____isFilteredView");
+  console.log(isRejectedView, isApprovedView, '____isFilteredView');
   return (
     <>
       <AdvancedTable
@@ -994,7 +994,7 @@ const CdhApprover = () => {
                   {!isApprovedView && !isRejectedView ? (
                     <>
                       <ConditionalButton
-                        showType={"visible"}
+                        showType={'visible'}
                         classes="w-auto mr-1"
                         onClick={() => {
                           setCheckData([]);
@@ -1020,20 +1020,20 @@ const CdhApprover = () => {
                             ),
                           );
                         }}
-                        name={"Approve CDH"}
+                        name={'Approve CDH'}
                       />
                       <ConditionalButton
-                        showType={"visible"}
+                        showType={'visible'}
                         classes="w-auto mr-1 bg-[#EF4444]"
                         onClick={() => handleReject()}
-                        name={"Reject CDH"}
+                        name={'Reject CDH'}
                       />
                     </>
                   ) : isApprovedView ? (
                     <></>
                   ) : isRejectedView ? (
                     <ConditionalButton
-                      showType={"visible"}
+                      showType={'visible'}
                       classes="w-auto mr-1"
                       onClick={() => {
                         setCheckData([]);
@@ -1059,7 +1059,7 @@ const CdhApprover = () => {
                           ),
                         );
                       }}
-                      name={"Approve CDH"}
+                      name={'Approve CDH'}
                     />
                   ) : (
                     <></>
@@ -1081,24 +1081,24 @@ const CdhApprover = () => {
 
             {/* ✅ ALWAYS VISIBLE BUTTONS */}
             <ConditionalButton
-              showType={getAccessType("CDH Approver(Upload)")}
-              name={"Upload File"}
+              showType={getAccessType('CDH Approver(Upload)')}
+              name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
 
             <ConditionalButton
-              showType={getAccessType("CDH Approver(Export)")}
-              name={"Export"}
+              showType={getAccessType('CDH Approver(Export)')}
+              name={'Export'}
               classes="w-auto mr-1"
               onClick={() =>
                 dispatch(
                   CommonActions.commondownloadpost(
                     `/export/myHome/wcc/cdhApproval${
-                      strValFil ? "?" + objectToQueryString(strValFil) : ""
+                      strValFil ? '?' + objectToQueryString(strValFil) : ''
                     }`,
-                    "WCC CDH Approval.xlsx",
-                    "GET",
+                    'WCC CDH Approval.xlsx',
+                    'GET',
                   ),
                 )
               }
@@ -1145,7 +1145,7 @@ const CdhApprover = () => {
         // }
         table={table}
         filterAfter={onSubmit}
-        tableName={"CDH Approver"}
+        tableName={'CDH Approver'}
         handleSubmit={handleSubmit}
         data={checkArray(tableData) ? tableData : []} // ✅ EMPTY TABLE
         errors={errors}
@@ -1159,7 +1159,7 @@ const CdhApprover = () => {
         //     "/export/subVendor",
         //     "PartnerTeam.xlsx",
         //     ]}
-        heading={"Total Count:-"}
+        heading={'Total Count:-'}
       />
 
       <FileUploader
@@ -1168,10 +1168,10 @@ const CdhApprover = () => {
         setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={[
-          "/template/cdhApproverUpload.xlsx",
-          "CDH_Approver_template.xlsx",
+          '/template/cdhApproverUpload.xlsx',
+          'CDH_Approver_template.xlsx',
         ]}
-        head={"Upload Upgrade File"}
+        head={'Upload Upgrade File'}
       />
 
       <Modal

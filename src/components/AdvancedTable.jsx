@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Button from "./Button";
-import PopupMenu from "./PopupMenu";
-import { UilColumns, UilExclamationTriangle } from "@iconscout/react-unicons";
-import Modalmoreinfo from "./Modalmoreinfo";
-import Modal from "./Modal";
-import { getAccessType, objectToArray } from "../utils/commonFunnction";
-import FilterView from "./FilterView";
-import { useDispatch } from "react-redux";
-import CommonActions from "../store/actions/common-actions";
-import ConditionalButton from "./ConditionalButton";
-import ComponentActions from "../store/actions/component-actions";
+import React, { useEffect, useState } from 'react';
+import Button from './Button';
+import PopupMenu from './PopupMenu';
+import { UilColumns, UilExclamationTriangle } from '@iconscout/react-unicons';
+import Modalmoreinfo from './Modalmoreinfo';
+import Modal from './Modal';
+import { getAccessType, objectToArray } from '../utils/commonFunnction';
+import FilterView from './FilterView';
+import { useDispatch } from 'react-redux';
+import CommonActions from '../store/actions/common-actions';
+import ConditionalButton from './ConditionalButton';
+import ComponentActions from '../store/actions/component-actions';
 
 const AdvancedTable = ({
   setstrVal,
   dateInputReset,
-  tableName = "",
+  tableName = '',
   headerButton,
   templateButton,
   exportButton,
@@ -34,16 +34,16 @@ const AdvancedTable = ({
   getValues,
   totalCount = 0,
   showTotalCount = true,
-  actions = ["Edit", "Delete"],
+  actions = ['Edit', 'Delete'],
   icon,
   checkboxshow = false,
-  delurl = "",
-  geturl = "",
-  getaccessAdd = "",
-  getaccessExport = "",
-  heading = "",
-  searchView = "",
-  TableHeight = "h-[68vh]",
+  delurl = '',
+  geturl = '',
+  getaccessAdd = '',
+  getaccessExport = '',
+  heading = '',
+  searchView = '',
+  TableHeight = 'h-[68vh]',
 }) => {
   const [hide, setHide] = useState([]);
   const [finalData, setFinalData] = useState([]);
@@ -78,7 +78,7 @@ const AdvancedTable = ({
         page: page,
         limit: rrp,
       };
-      sessionStorage.setItem("page", value);
+      sessionStorage.setItem('page', value);
 
       filterAfter(filters);
       setActivedFilter(filters);
@@ -92,7 +92,7 @@ const AdvancedTable = ({
   let dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
-  const [modalBody, setModalBody] = useState("");
+  const [modalBody, setModalBody] = useState('');
   table.properties = {
     ...table.properties,
     rpp: [50, 100, 500, 1000],
@@ -106,7 +106,7 @@ const AdvancedTable = ({
       page: value,
       limit: RPP,
     };
-    sessionStorage.setItem("page", value);
+    sessionStorage.setItem('page', value);
     filterAfter(filters);
     setActivedFilter(filters);
     setActiveFilter(objectToArray(filters));
@@ -114,7 +114,7 @@ const AdvancedTable = ({
 
   const onSubmit = (formdata) => {
     // console.log(formdata,"___formdata")
-    formdata["reseter"] = false;
+    formdata['reseter'] = false;
     const data = {
       ...activedFilter,
       ...formdata,
@@ -123,14 +123,14 @@ const AdvancedTable = ({
     filterAfter(data);
     setActivedFilter(data);
     setActiveFilter(objectToArray(data));
-    dispatch(ComponentActions.popmenu(location.pathname + "_" + name, false));
+    dispatch(ComponentActions.popmenu(location.pathname + '_' + name, false));
   };
 
   const onReset = () => {
     filterAfter({ reseter: true });
     setActiveFilter([]);
     setActivedFilter({});
-    dateInputReset({ start: "", end: "" });
+    dateInputReset({ start: '', end: '' });
     setstrVal({});
   };
 
@@ -148,7 +148,7 @@ const AdvancedTable = ({
   useEffect(() => {
     function addClassToAllChildren(el) {
       if (el) {
-        el.classList.add("not");
+        el.classList.add('not');
         const children = el.children;
 
         for (let i = 0; i < children.length; i++) {
@@ -157,7 +157,7 @@ const AdvancedTable = ({
       }
     }
 
-    const element = document.querySelector("#add-not");
+    const element = document.querySelector('#add-not');
     addClassToAllChildren(element);
   }, []);
 
@@ -226,7 +226,7 @@ const AdvancedTable = ({
             <div className="flex flex-row">
               {selectedRows.length > 0 && (
                 <Button
-                  name={""}
+                  name={''}
                   classes="w-full mr-1 bg-rose-500 text-white"
                   onClick={() => setShowDeleteModal(true)}
                 >
@@ -247,9 +247,9 @@ const AdvancedTable = ({
                 getValues={getValues}
               />
               <PopupMenu
-                name={"Hide/Unhide"}
+                name={'Hide/Unhide'}
                 icon={
-                  icon ? icon : <UilColumns size="32" className={"hello"} />
+                  icon ? icon : <UilColumns size="32" className={'hello'} />
                 }
                 child={
                   <>
@@ -293,7 +293,7 @@ const AdvancedTable = ({
               {headerButton}
               {templateButton ? (
                 <Button
-                  name={"Template"}
+                  name={'Template'}
                   classes="w-full mx-1"
                   onClick={() => {
                     dispatch(
@@ -312,10 +312,10 @@ const AdvancedTable = ({
               {exportButton ? (
                 <ConditionalButton
                   showType={getAccessType(getaccessExport)}
-                  name={"Export"}
+                  name={'Export'}
                   classes="w-full mr-1"
                   onClick={() => {
-                    if (tableName === "AccrualRevenueTrend") {
+                    if (tableName === 'AccrualRevenueTrend') {
                       dispatch(
                         CommonActions.commondownloadpost(
                           exportButton[0],
@@ -324,7 +324,7 @@ const AdvancedTable = ({
                           exportButton[3],
                         ),
                       );
-                    } else if (tableName === "AcctualWorkdoneform") {
+                    } else if (tableName === 'AcctualWorkdoneform') {
                       dispatch(
                         CommonActions.commondownloadpost(
                           exportButton[0],
@@ -333,7 +333,7 @@ const AdvancedTable = ({
                           exportButton[3],
                         ),
                       );
-                    } else if (tableName === "EvmFinancialForm") {
+                    } else if (tableName === 'EvmFinancialForm') {
                       dispatch(
                         CommonActions.commondownloadpost(
                           exportButton[0],
@@ -342,7 +342,7 @@ const AdvancedTable = ({
                           exportButton[3],
                         ),
                       );
-                    } else if (tableName === "PLform") {
+                    } else if (tableName === 'PLform') {
                       dispatch(
                         CommonActions.commondownloadpost(
                           exportButton[0],
@@ -351,7 +351,7 @@ const AdvancedTable = ({
                           exportButton[3],
                         ),
                       );
-                    } else if (tableName === "SobTable") {
+                    } else if (tableName === 'SobTable') {
                       dispatch(
                         CommonActions.commondownloadpost(
                           exportButton[0],
@@ -377,8 +377,8 @@ const AdvancedTable = ({
               )}
               {exportSiteButton ? (
                 <ConditionalButton
-                  showType={getAccessType("Download Project")}
-                  name={"Export Site"}
+                  showType={getAccessType('Download Project')}
+                  name={'Export Site'}
                   classes="w-full mr-1"
                   onClick={() => {
                     dispatch(
@@ -396,8 +396,8 @@ const AdvancedTable = ({
               )}
               {exportSiteWithTask ? (
                 <ConditionalButton
-                  showType={getAccessType("Download Project")}
-                  name={"Export Site with task"}
+                  showType={getAccessType('Download Project')}
+                  name={'Export Site with task'}
                   classes="w-full mr-1"
                   onClick={() => {
                     dispatch(
@@ -415,7 +415,7 @@ const AdvancedTable = ({
               )}
               {UploadSites ? (
                 <Button
-                  name={"Upload Sites"}
+                  name={'Upload Sites'}
                   classes="w-full mr-1"
                   onClick={() => {
                     dispatch(
@@ -433,7 +433,7 @@ const AdvancedTable = ({
               )}
               {UploadTask ? (
                 <Button
-                  name={"Upload Task"}
+                  name={'Upload Task'}
                   classes="w-full"
                   onClick={() => {
                     dispatch(
@@ -474,41 +474,41 @@ const AdvancedTable = ({
                     return hide.indexOf(String(index)) == -1 ? (
                       <>
                         {actions.includes(itts.name) ? (
-                          ["Edit", ""].includes(itts.name) ? (
+                          ['Edit', ''].includes(itts.name) ? (
                             <th
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                             >
                               <span className="text-white text-[14px]">
-                                {"Actions"}
+                                {'Actions'}
                               </span>
                             </th>
-                          ) : !actions.includes("Edit") ? (
+                          ) : !actions.includes('Edit') ? (
                             <td
                               colSpan={actions.length}
                               className={`border-primaryLine h-10  border-[1.5px] bg-primaryLine min-w-[200px] max-w-[200px] text-center`}
                             >
                               <span className="text-white text-[14px]">
-                                {"Actions"}
+                                {'Actions'}
                               </span>
                             </td>
                           ) : (
-                            ""
+                            ''
                           )
                         ) : (
                           <>
                             <th
                               className={`border-primaryLine border-[1.5px] h-10  ${
-                                itts?.bg ? itts?.bg : "bg-primaryLine"
+                                itts?.bg ? itts?.bg : 'bg-primaryLine'
                               } ${
                                 itts.style
                                   ? itts.style
-                                  : " min-w-[300px] max-w-[500px]"
+                                  : ' min-w-[300px] max-w-[500px]'
                               }`}
                             >
                               <span
                                 className={` ${
-                                  itts?.text ? itts?.text : "text-white"
+                                  itts?.text ? itts?.text : 'text-white'
                                 }  text-[14px]`}
                               >
                                 {itts.name}
@@ -558,7 +558,7 @@ const AdvancedTable = ({
                               className={`text-[12px] h-2 pl-1 border-[#0e8670] border-[0.1px] overflow-hidden text-white ${
                                 innerItm.style
                                   ? innerItm.style
-                                  : " min-w-[300px] max-w-[500px]"
+                                  : ' min-w-[300px] max-w-[500px]'
                               }`}
                             >
                               {React.isValidElement(itm[innerItm.value]) ? (
@@ -600,20 +600,20 @@ const AdvancedTable = ({
                     {table.columns.map((itts, index) => {
                       return hide.indexOf(String(index)) == -1 ? (
                         <>
-                          {["Edit", "Delete"].includes(itts.name) ? (
-                            ["Edit"].includes(itts.name) ? (
+                          {['Edit', 'Delete'].includes(itts.name) ? (
+                            ['Edit'].includes(itts.name) ? (
                               <th
                                 colSpan={actions.length}
                                 className={
-                                  " border-pcol border-[0.1px] bg-primaryLine "
+                                  ' border-pcol border-[0.1px] bg-primaryLine '
                                 }
                               >
                                 <span className="text-white text-[12px]">
-                                  {"Actions"}
+                                  {'Actions'}
                                 </span>
                               </th>
                             ) : (
-                              ""
+                              ''
                             )
                           ) : (
                             <>
@@ -665,12 +665,12 @@ const AdvancedTable = ({
                   index + 1 == pages.length ? (
                     <span
                       onClick={(e) => {
-                        callApiPagination(index + 1, "558");
+                        callApiPagination(index + 1, '558');
                       }}
                       className={`border cursor-pointer px-2 mx-2 ${
                         currentPage == index + 1
-                          ? "bg-pcol text-white border-primaryLine"
-                          : "bg-white text-black border-primaryLine"
+                          ? 'bg-pcol text-white border-primaryLine'
+                          : 'bg-white text-black border-primaryLine'
                       } `}
                     >
                       {index + 1}
@@ -685,8 +685,8 @@ const AdvancedTable = ({
                     }}
                     className={`border cursor-pointer border-primaryLine ${
                       currentPage == index + 1
-                        ? "bg-pcol text-white"
-                        : "bg-white"
+                        ? 'bg-pcol text-white'
+                        : 'bg-white'
                     } px-2 mx-2`}
                   >
                     {index + 1}
@@ -702,7 +702,7 @@ const AdvancedTable = ({
         children={modalBody}
         setIsOpen={setOpenModal}
         isOpen={openModal}
-        size={"sm"}
+        size={'sm'}
       />
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
@@ -710,7 +710,7 @@ const AdvancedTable = ({
           <div className="bg-white p-4 rounded-lg shadow-xl">
             <UilExclamationTriangle className="text-red-500 flex mx-auto w-14 h-14" />
             <p className="mt-4">{`Are you sure you want to delete ${
-              selectedRows.length > 1 ? "these rows" : "this row"
+              selectedRows.length > 1 ? 'these rows' : 'this row'
             }?`}</p>
             <div className="mt-6 flex justify-center space-x-4">
               <Button
