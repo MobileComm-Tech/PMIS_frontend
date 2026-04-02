@@ -119,6 +119,7 @@ const WCCApprover = () => {
                         }}
                       />,
                       <Button
+                        classes="w-15 bg-[#13B497]"
                         name="Cancel"
                         onClick={() => dispatch(ALERTS({ show: false }))}
                       />,

@@ -250,7 +250,7 @@ const parseFormattedText = (text) => {
 const SweetAlerts = () => {
   const dispatch = useDispatch();
   const swAlerts = useSelector((state) => state?.component?.alerts);
-
+  console.log("🚀 swAlerts:", swAlerts);
   const icons = {
     warning: <UilExclamationTriangle size={52} />,
     error: <UilExclamationTriangle size={52} />,
@@ -320,6 +320,14 @@ const SweetAlerts = () => {
     }
   };
 
+  if (swAlerts?.buttons !== undefined) {
+    <div className="mt-6  flex justify-evenly w-48">
+      {swAlerts?.buttons?.map((itms) => {
+        return itms;
+      })}
+    </div>;
+  }
+
   return (
     <Modal
       notifyClear={swAlerts.type === "file" || swAlerts.type === "message"}
@@ -329,17 +337,29 @@ const SweetAlerts = () => {
       setIsOpen={() => dispatch(ALERTS({ show: false }))}
       header={null}
     >
-      <div className="flex flex-col items-center px-4 py-4 w-auto max-w-[90vw]">
-        <div className="text-red-400 text-3xl">{icons[swAlerts.icon]}</div>
-        <div className="max-h-[70vh] overflow-y-auto px-4">
-          <h1 className="text-white font-semibold mt-3 text-center break-words">
-            {parseFormattedText(swAlerts.text)}
-          </h1>
+      {swAlerts?.buttons !== undefined ? (
+        <div className="flex h-full flex-col px-2 items-center">
+          <div className="text-red-400">{icons[swAlerts?.icon]}</div>
+          <h1 className="text-white font-semibold mt-3">{swAlerts?.text}</h1>
+          <div className="mt-6  flex justify-evenly w-[100%]">
+            {swAlerts?.buttons?.map((itms) => {
+              return itms;
+            })}
+          </div>
         </div>
-        <div className="mt-6 flex justify-evenly w-full max-w-xs">
-          {renderButtons()}
+      ) : (
+        <div className="flex flex-col items-center px-4 py-4 w-auto max-w-[90vw]">
+          <div className="text-red-400 text-3xl">{icons[swAlerts.icon]}</div>
+          <div className="max-h-[70vh] overflow-y-auto px-4">
+            <h1 className="text-white font-semibold mt-3 text-center break-words">
+              {parseFormattedText(swAlerts.text)}
+            </h1>
+          </div>
+          <div className="mt-6 flex justify-evenly w-full max-w-xs">
+            {renderButtons()}
+          </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 };
