@@ -1,16 +1,36 @@
 export const pagination = { page: 1, limit: 50 };
 export const range = { start: 1, end: 7 };
-export const masterUnitRateWithActivityFilter="isActivity=True"
+export const masterUnitRateWithActivityFilter = 'isActivity=True';
 
-
-export const CheckTrueOrFalseforApproval = ( key)=>{
-
-    if(key === "Yes" || key==='Rejected'){
-        return true
-    }else{
-        return false
-    }
-}
+export const CheckTrueOrFalseforApproval = (key) => {
+  if (key === 'Yes' || key === 'Rejected') {
+    return true;
+  } else {
+    return false;
+  }
+};
+export const wccAccessInFormsKey = {
+  PAT: {
+    upload: 'PAT(Upload File)',
+    export: 'PAT(Export)',
+  },
+  OCI: {
+    upload: 'OCI(Upload File)',
+    export: 'OCI(Export)',
+  },
+  SCFT: {
+    upload: 'SCFT(Upload File)',
+    export: 'SCFT(Export)',
+  },
+  EMF: {
+    upload: 'EMF(Upload File)',
+    export: 'EMF(Export)',
+  },
+  CDH: {
+    upload: 'CDH(Upload File)',
+    export: 'CDH(Export)',
+  },
+};
 
 // old function
 // export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{
@@ -27,7 +47,7 @@ export const CheckTrueOrFalseforApproval = ( key)=>{
 //                 break;
 //             }
 //         }
-        
+
 //         if (falseKey) {
 //             alert("Please select the Quantity Code for all the filled ItemCodes (and vice versa).");
 //             return false;
@@ -44,14 +64,10 @@ export const CheckTrueOrFalseforApproval = ( key)=>{
 //             // const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
 //             const itemCodeDescription =data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",").slice(2).join(",") :""
 
-
-            
-            
 //             const quantityValue = data[quantityKey];
 
 //             if (quantityValue && quantityValue !== "") {
 //                 const numbericQuantity = Number(quantityValue);
-
 
 //                 if (isNaN(numbericQuantity)) {
 //                     alert(`Quantity ${i} must be a valid number.`);
@@ -80,10 +96,6 @@ export const CheckTrueOrFalseforApproval = ( key)=>{
 //          return data;
 // }
 
-
-
-
-
 // export const  quantitySelectTypeOptions =(changeTo)=>{
 //     console.log("callingtime")
 //     const optionQuantityArray=[]
@@ -108,117 +120,120 @@ export const CheckTrueOrFalseforApproval = ( key)=>{
 //     return optionQuantityArray
 // }
 
-
 //New function
 
-export const calculateCompletionCriteriaPaylaod =(itemCodeAllInputs,data,mileStoneName)=>{
-     let falseKey = false;
-        for (let i = 0; i < itemCodeAllInputs.length/2; i++) {
-            const itemCode = data[`itemCode0${i+1}`]?.trim();
-            const quantityCode = data[`quantity0${i+1}`];
+export const calculateCompletionCriteriaPaylaod = (
+  itemCodeAllInputs,
+  data,
+  mileStoneName,
+) => {
+  let falseKey = false;
+  for (let i = 0; i < itemCodeAllInputs.length / 2; i++) {
+    const itemCode = data[`itemCode0${i + 1}`]?.trim();
+    const quantityCode = data[`quantity0${i + 1}`];
 
-            if (
-                ((itemCode && !quantityCode) ||
-                (!itemCode && quantityCode))&& i===0
-            ) {
-                falseKey = true;
-                break;
-            }
-        }
-        
-        if (falseKey) {
-            alert("Please select the Quantity Code for all the filled ItemCodes (and vice versa).");
-            return false;
-        }
-            let totalAmount= 0;
-           for (let i = range.start; i <= range.end; i++) {
-            const quantityKey = `quantity0${i}`;
-            const itemCodeKey = `itemCode0${i}`;
-            const itemDescriptionKey=`itemCodeDescription0${i}`
-            const itemRate=`itemRate0${i}`;
+    if (
+      ((itemCode && !quantityCode) || (!itemCode && quantityCode)) &&
+      i === 0
+    ) {
+      falseKey = true;
+      break;
+    }
+  }
 
-            const itemCodeValueData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[0]:""
-            const itemCodeRateData = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[1]:""
-            // const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
-            const itemCodeDescription =data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",").slice(2).join(",") :""
+  if (falseKey) {
+    alert(
+      'Please select the Quantity Code for all the filled ItemCodes (and vice versa).',
+    );
+    return false;
+  }
+  let totalAmount = 0;
+  for (let i = range.start; i <= range.end; i++) {
+    const quantityKey = `quantity0${i}`;
+    const itemCodeKey = `itemCode0${i}`;
+    const itemDescriptionKey = `itemCodeDescription0${i}`;
+    const itemRate = `itemRate0${i}`;
 
+    const itemCodeValueData =
+      data[itemCodeKey]?.length > 0 ? data[itemCodeKey]?.split(',')[0] : '';
+    const itemCodeRateData =
+      data[itemCodeKey]?.length > 0 ? data[itemCodeKey]?.split(',')[1] : '';
+    // const itemCodeDescription = data[itemCodeKey]?.length>0?  data[itemCodeKey]?.split(",")[2]:""
+    const itemCodeDescription =
+      data[itemCodeKey]?.length > 0
+        ? data[itemCodeKey]?.split(',').slice(2).join(',')
+        : '';
 
-            
-            
-            const quantityValue = data[quantityKey];
+    const quantityValue = data[quantityKey];
 
+    if (quantityValue && quantityValue !== '') {
+      const numbericQuantity = Number(quantityValue);
 
-            if (quantityValue && quantityValue !== "") {
-                const numbericQuantity = Number(quantityValue);
-
-
-                if (isNaN(numbericQuantity)) {
-                    alert(`Quantity ${i} must be a valid number.`);
-                    return false;
-                }
-
-                if (numbericQuantity < 0 ) {
-                    alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
-                    return false;
-                }
-                // else if(numbericQuantity>50000 ){
-                //     alert(`Quantity ${i} should be less than 50000`);
-                //     return;
-                // }
-
-                totalAmount+=Number(itemCodeRateData)*Number(quantityValue);
-                if(['MS1']?.includes(mileStoneName)){
-                data[itemRate] = Number(itemCodeRateData);
-                data[itemCodeKey]=itemCodeValueData;
-                data[itemDescriptionKey] = itemCodeDescription
-                data[quantityKey] = numbericQuantity;
-                }
-            }
-            if(i==2){
-                // console.log(data[itemCodeKey],"___itemCodeKey__")
-            }
-            if(data[itemCodeKey]===""){
-                delete  data[itemCodeKey]
-                delete  data[quantityKey]
-                delete  data[itemDescriptionKey]
-                delete  data[itemRate]
-            }
-        }
-         data['amount'] = totalAmount;
-         return data;
-}
-
-export const checkArray =(data)=>{
-    if(Array.isArray(data)&& data?.length>0){
-        return true;
-    }else{
+      if (isNaN(numbericQuantity)) {
+        alert(`Quantity ${i} must be a valid number.`);
         return false;
-    }
-}
+      }
 
-export const checkVariable = (data)=>{
-    // console.log(data?.length,"___ahsbjckadsd")
-    if(data!==undefined && data?.length>0 ){
-        return true
-    }else{
-        return false
-    }
-}
-
-export const CheckTrueOrFalse = ( key)=>{
-
-    if(key === "Yes"){
-        return true
-    }else{
-        return false
-    }
-}
-
-export const checkTrueOrFalseDynamic =(key,value)=>{
-
-    if(key === value){
-        return true;
-    }else{
+      if (numbericQuantity < 0) {
+        alert(`Quantity ${i} cannot be less than ${numbericQuantity}`);
         return false;
+      }
+      // else if(numbericQuantity>50000 ){
+      //     alert(`Quantity ${i} should be less than 50000`);
+      //     return;
+      // }
+
+      totalAmount += Number(itemCodeRateData) * Number(quantityValue);
+      if (['MS1']?.includes(mileStoneName)) {
+        data[itemRate] = Number(itemCodeRateData);
+        data[itemCodeKey] = itemCodeValueData;
+        data[itemDescriptionKey] = itemCodeDescription;
+        data[quantityKey] = numbericQuantity;
+      }
     }
-}
+    if (i == 2) {
+      // console.log(data[itemCodeKey],"___itemCodeKey__")
+    }
+    if (data[itemCodeKey] === '') {
+      delete data[itemCodeKey];
+      delete data[quantityKey];
+      delete data[itemDescriptionKey];
+      delete data[itemRate];
+    }
+  }
+  data['amount'] = totalAmount;
+  return data;
+};
+
+export const checkArray = (data) => {
+  if (Array.isArray(data) && data?.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const checkVariable = (data) => {
+  // console.log(data?.length,"___ahsbjckadsd")
+  if (data !== undefined && data?.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const CheckTrueOrFalse = (key) => {
+  if (key === 'Yes') {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const checkTrueOrFalseDynamic = (key, value) => {
+  if (key === value) {
+    return true;
+  } else {
+    return false;
+  }
+};

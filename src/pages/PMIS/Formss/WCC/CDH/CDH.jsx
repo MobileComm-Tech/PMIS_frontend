@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
-import AdvancedTable from "../../../../../components/AdvancedTable";
-import { checkArray } from "../../../../../components/CommonObjectsAndVariables";
-import { useDispatch, useSelector } from "react-redux";
-import CommonActions from "../../../../../store/actions/common-actions";
-import FormssActions from "../../../../../store/actions/formss-actions";
-import ConditionalButton from "../../../../../components/ConditionalButton";
+import React, { useEffect, useState } from 'react';
+import AdvancedTable from '../../../../../components/AdvancedTable';
+import {
+  checkArray,
+  wccAccessInFormsKey,
+} from '../../../../../components/CommonObjectsAndVariables';
+import { useDispatch, useSelector } from 'react-redux';
+import CommonActions from '../../../../../store/actions/common-actions';
+import FormssActions from '../../../../../store/actions/formss-actions';
+import ConditionalButton from '../../../../../components/ConditionalButton';
 import {
   getAccessType,
   objectToQueryString,
-} from "../../../../../utils/commonFunnction";
-import FileUploader from "../../../../../components/FIleUploader";
-import { Urls } from "../../../../../utils/url";
+} from '../../../../../utils/commonFunnction';
+import FileUploader from '../../../../../components/FIleUploader';
+import { Urls } from '../../../../../utils/url';
 
 const CDH = () => {
   const dispatch = useDispatch();
@@ -23,24 +26,24 @@ const CDH = () => {
   const table = {
     columns: [
       {
-        name: "SSID",
-        value: "ssid",
-        style: "min-w-[80px] max-w-[120px] text-center",
+        name: 'SSID',
+        value: 'ssid',
+        style: 'min-w-[80px] max-w-[120px] text-center',
       },
       {
-        name: "Vendor Item Code",
-        value: "itemCode",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: 'Vendor Item Code',
+        value: 'itemCode',
+        style: 'min-w-[140px] max-w-[200px] text-center',
       },
       {
-        name: "Compliance",
-        value: "compliance",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: 'Compliance',
+        value: 'compliance',
+        style: 'min-w-[140px] max-w-[200px] text-center',
       },
       {
-        name: "Status",
-        value: "status",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Status',
+        value: 'status',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
     ],
     properties: {
@@ -66,12 +69,12 @@ const CDH = () => {
   //   Table Data ends here
 
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "cdhUpload";
+    data['fileType'] = 'cdhUpload';
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FormssActions.getWccCdh());
         setFileOpen(false);
-        resetting("");
+        resetting('');
       }),
     );
   };
@@ -88,7 +91,7 @@ const CDH = () => {
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getWccCdh;
     if (interdata.length > 0) {
-      return interdata[0]["overall_table_count"];
+      return interdata[0]['overall_table_count'];
     } else {
       return 0;
     }
@@ -113,22 +116,22 @@ const CDH = () => {
               name={"Add New"}
             /> */}
             <ConditionalButton
-              showType={getAccessType("Upload(ManageEmployee)")}
-              name={"Upload File"}
+              showType={getAccessType(wccAccessInFormsKey?.CDH?.upload)}
+              name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
             <ConditionalButton
-              showType={getAccessType("Upgrade(ManageEmployee)")}
-              name={"Export"}
+              showType={getAccessType(wccAccessInFormsKey?.CDH?.export)}
+              name={'Export'}
               classes="w-auto mr-1"
               onClick={() =>
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/wcc/export/cdh",
+                    '/wcc/export/cdh',
                     // {exportTableName:"ptwBackupData"},
-                    "Export_CDH_Master_Data.xlsx",
-                    "GET",
+                    'Export_CDH_Master_Data.xlsx',
+                    'GET',
                   ),
                 )
               }
@@ -175,7 +178,7 @@ const CDH = () => {
         // }
         table={table}
         // filterAfter={onSubmit}
-        tableName={"ManageEmployee"}
+        tableName={'ManageEmployee'}
         // handleSubmit={handleSubmit}
         data={checkArray(tableData) ? tableData : []} // ✅ EMPTY TABLE
         // errors={errors}
@@ -189,7 +192,7 @@ const CDH = () => {
         //     "/export/subVendor",
         //     "PartnerTeam.xlsx",
         //     ]}
-        heading={"Total Count:-"}
+        heading={'Total Count:-'}
       />
 
       <FileUploader
@@ -197,8 +200,8 @@ const CDH = () => {
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/cdhUpload.xlsx", "CDH_File_template.xlsx"]}
-        head={"Upload Upgrade File"}
+        tempbtnlink={['/template/cdhUpload.xlsx', 'CDH_File_template.xlsx']}
+        head={'Upload Upgrade File'}
       />
     </>
   );

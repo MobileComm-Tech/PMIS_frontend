@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import AdvancedTable from '../../../../../components/AdvancedTable';
-import { checkArray } from '../../../../../components/CommonObjectsAndVariables';
+import {
+  checkArray,
+  wccAccessInFormsKey,
+} from '../../../../../components/CommonObjectsAndVariables';
 import { useDispatch, useSelector } from 'react-redux';
 import FileUploader from '../../../../../components/FIleUploader';
 import ConditionalButton from '../../../../../components/ConditionalButton';
@@ -114,13 +117,13 @@ const PAT = () => {
               name={"Add New"}
             /> */}
             <ConditionalButton
-              showType={getAccessType('Upload(ManageEmployee)')}
+              showType={getAccessType(wccAccessInFormsKey?.PAT?.upload)}
               name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
             <ConditionalButton
-              showType={getAccessType('Upgrade(ManageEmployee)')}
+              showType={getAccessType(wccAccessInFormsKey?.PAT?.export)}
               name={'Export'}
               classes="w-auto mr-1"
               onClick={() =>

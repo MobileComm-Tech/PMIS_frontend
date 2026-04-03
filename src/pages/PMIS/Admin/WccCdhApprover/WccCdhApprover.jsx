@@ -192,7 +192,7 @@ const WCCApprover = () => {
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
 
-    dispatch(WCCApproverAction.WccApproverData(value, strVal));
+    dispatch(WCCApproverAction.WccApproverData(true, strVal));
   };
   console.log(strValFil, 'strValFil');
   const onTableViewSubmit = (data) => {

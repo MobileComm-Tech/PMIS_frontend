@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import AdvancedTable from '../../../../../components/AdvancedTable';
-import { checkArray } from '../../../../../components/CommonObjectsAndVariables';
+import {
+  checkArray,
+  wccAccessInFormsKey,
+} from '../../../../../components/CommonObjectsAndVariables';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonActions from '../../../../../store/actions/common-actions';
 import FormssActions from '../../../../../store/actions/formss-actions';
@@ -113,13 +116,13 @@ const EMF = () => {
               name={"Add New"}
             /> */}
             <ConditionalButton
-              showType={getAccessType('Upload(ManageEmployee)')}
+              showType={getAccessType(wccAccessInFormsKey?.EMF?.upload)}
               name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
             <ConditionalButton
-              showType={getAccessType('Upgrade(ManageEmployee)')}
+              showType={getAccessType(wccAccessInFormsKey?.EMF?.export)}
               name={'Export'}
               classes="w-auto mr-1"
               onClick={() =>
