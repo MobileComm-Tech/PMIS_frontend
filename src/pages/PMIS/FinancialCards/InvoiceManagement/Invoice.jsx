@@ -412,7 +412,8 @@ const Invoice = () => {
     ],
   };
   const onSubmit = (data) => {
-    let value = data.reseter;
+    // let value = data.reseter;
+    let value = true
     delete data.reseter;
     let strVal=objectToQueryString(data)
     setstrVal(strVal)
