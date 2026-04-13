@@ -79,8 +79,9 @@ const Unbilled = () => {
     //     }
     //     return updateditm
     // });
-    let interdata = state?.financeData?.getUnbillled || [];
-    return interdata;
+    // let interdata = state?.financeData?.getUnbillled || [];
+    // return interdata;
+    return state?.financeData?.getUnbillled || [];
   });
   let dbConfigTotalCount = useSelector((state) => {
     // let interdata = state?.financeData?.getPoLifeCycle || []\
@@ -263,17 +264,37 @@ const Unbilled = () => {
   //     delete data.reseter
   //     dispatch(FinanceActions.getPoLifeCycle(value, objectToQueryString(data)))
   // }
-  const onSubmit = (data) => {
-    delete data.reseter;
+
+  
+  // Changes 13-04-2026
+  // const onSubmit = (data) => {
+  //   delete data.reseter;
+  //   let strVal = objectToQueryString(data);
+  //   setstrVal(strVal);
+  //   dispatch(FinanceActions.getUnbilled(true, '', strVal, customerId));
+  // };
+    const onSubmit = (data) => {
+    let value = data?.reseter;
+    delete data?.reseter;
+
     let strVal = objectToQueryString(data);
     setstrVal(strVal);
-    dispatch(FinanceActions.getUnbilled(true, '', strVal, customerId));
+
+    dispatch(
+      FinanceActions.getUnbilled(
+        true,
+        strVal,
+        customerId
+      )
+    );
   };
 
   useEffect(() => {
     // dispatch(FinanceActions.getPoLifeCycle())
     dispatch(GET_UNBILLED({ dataAll: [], reset: true }));
-    dispatch(FinanceActions.getUnbilled(true, '', '', customerId));
+    // Changes 13-04-2026
+    // dispatch(FinanceActions.getUnbilled(true, '', '',customerId));
+    dispatch(FinanceActions.getUnbilled(true, '', customerId));
   }, []);
 
   const onTableViewSubmit = (data) => {
