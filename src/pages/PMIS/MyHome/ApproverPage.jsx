@@ -24,8 +24,7 @@ import { GET_APPROVER_PAGE } from "../../../store/reducers/ptw-reducer";
 import PTWApproverFormEdit from "../../../components/PTW form Edit Approver Page/PTWApproverFormEdit";
 import { FaRegFileExcel, FaRegFilePdf } from "react-icons/fa";
 import { LuLogs } from "react-icons/lu";
-
-
+import { ALERTS } from "../../../store/reducers/component-reducer";
 
 const ApproverPage = () => {
   const dispatch = useDispatch();
@@ -45,9 +44,12 @@ const ApproverPage = () => {
   let { uniqueId } = JSON.parse(localStorage.getItem("user"));
   const Data = useRef("");
   const options = [
-
-
-    ...(type === 'l1Approver' ? [{ id: "Submitted", name: "Submitted" }, { id: "L1-Rejected", name: "L1-Rejected" }] : []),
+    ...(type === "l1Approver"
+      ? [
+          { id: "Submitted", name: "Submitted" },
+          { id: "L1-Rejected", name: "L1-Rejected" },
+        ]
+      : []),
     { id: "L1-Approved", name: "L1-Approved" },
     { id: "L2-Approved", name: "L2-Approved" },
 
@@ -96,46 +98,47 @@ const ApproverPage = () => {
   };
   const handleContinue = async () => {
     const res = await Api.post({
-      url: '/approverData',
+      url: "/approverData",
       data: {
         userUniqueId: uniqueId,
-        ApproverType: type === 'l1Approver' ? 'l1Approver' : 'l2Approver',
-        status: selectedItems?.map(item => item.id)
-      }
-    })
+        ApproverType: type === "l1Approver" ? "l1Approver" : "l2Approver",
+        status: selectedItems?.map((item) => item.id),
+      },
+    });
 
     if (res?.status === 200) {
       dispatch(GET_APPROVER_PAGE({ dataAll: res?.data?.data, reset: true }));
-      setFilter(false)
-      
+      setFilter(false);
     } else {
       dispatch(ALERTS(res?.data));
     }
-
-  }
+  };
 
   const handleEdit = async (item) => {
     const res = await Api.get({
       url: `/ptwFormData?ptwNumber=${item?.ptwNumber}`,
-    })
+    });
     // console.log(item, "___itemdata")
     if (res?.status === 200) {
-
       // console.log(res?.data?.data, 'afsdfasdfasdfasdfasdfs')
 
-      const formType = res?.data?.data?.formType
-      const formData = res?.data?.data?.formData
+      const formType = res?.data?.data?.formType;
+      const formData = res?.data?.data?.formData;
       // console.log(formType, "__FormType")
 
-
-      setmodalBody(<PTWApproverFormEdit formType={formType} formData={formData} setmodalOpen={setmodalOpen} flowType={res?.data?.data?.flow} itemData={item} setmodalHead={setmodalHead} />)
-      setmodalOpen(true)
-
-
+      setmodalBody(
+        <PTWApproverFormEdit
+          formType={formType}
+          formData={formData}
+          setmodalOpen={setmodalOpen}
+          flowType={res?.data?.data?.flow}
+          itemData={item}
+          setmodalHead={setmodalHead}
+        />,
+      );
+      setmodalOpen(true);
     }
-  }
-
-
+  };
 
   const extractRowData = (rowData) => {
     const extractedData = {};
@@ -157,28 +160,29 @@ const ApproverPage = () => {
       rejectionReason: data,
       approved: false,
       empId: uniqueId,
-      ApproverType: type === 'l1Approver' ? 'L1-Approver' : 'L2-Approver',
-      status: type === 'l1Approver' ? 'L1-Rejected' : 'L2-Rejected',
+      ApproverType: type === "l1Approver" ? "L1-Approver" : "L2-Approver",
+      status: type === "l1Approver" ? "L1-Rejected" : "L2-Rejected",
     };
     const res = await Api.patch({
       url: `/submit/rejection/${id}?ptwNumber=${selectedRow?.ptwNumber}`,
       data: allData,
-    })
+    });
     if (res?.status === 200) {
-      setRejectionModal(false)
-      dataAll()
+      setRejectionModal(false);
+      dataAll();
     }
   };
 
   const table = {
     columns: [
       {
-        name: "PTW No.",
+        name: "PTW Number",
         value: "ptwNumber",
-        style: "text-center min-w-[100px]",
+        style:
+          "text-center sticky left-0 w-[180px] min-w-[180px] max-w-[180px] bg-[#3e454d] z-30",
         render: (value, row) => (
           <span
-            className="text-blue-600 hover:text-blue-800 cursor-pointer underline font-medium"
+            className="text-blue-900 hover:text-blue-800 cursor-pointer underline font-medium"
             onClick={() => handlePTWClick(row)}
             title="Click to view PTW details"
           >
@@ -188,19 +192,19 @@ const ApproverPage = () => {
       },
 
       {
+        name: "Site ID",
+        value: "siteId",
+        style:
+          "text-center sticky left-[180px] w-[120px] min-w-[120px] max-w-[120px] bg-[#3e454d] z-20",
+      },
+      {
         name: "Milestone",
         value: "Milestone",
         style: "text-center min-w-[100px]",
       },
       {
-        name: "Site ID",
-        value: "siteId",
-        style: "text-center min-w-[100px]",
-      },
-      {
         name: "SSID",
         value: "ssId",
-
         style: "text-center min-w-[100px]",
       },
       {
@@ -314,12 +318,13 @@ const ApproverPage = () => {
         style: "text-center min-w-[120px]",
         render: (value, row) => (
           <span
-            className={`px-2 py-1 rounded text-xs font-medium ${value === "Approved"
+            className={`px-2 py-1 rounded text-xs font-medium ${
+              value === "Approved"
                 ? "bg-green-100 text-green-800"
                 : value === "Rejected"
                   ? "bg-red-100 text-red-800"
                   : "bg-yellow-100 text-yellow-800"
-              }`}
+            }`}
           >
             {value}
           </span>
@@ -363,7 +368,7 @@ const ApproverPage = () => {
     filter: [],
   };
 
-  const handleApprove = (rowData) => { };
+  const handleApprove = (rowData) => {};
   const handleReject = async (itm) => {
     const res = await Api.get({
       url: "/show/ptw/rejectionreason",
@@ -372,28 +377,27 @@ const ApproverPage = () => {
     if (res?.status === 200) {
       RejectionForm.current = {
         mId: itm?.mileStoneId,
-        form: res?.data?.data[0]["rejectionreason"]?.map(
-          (item) => {
-            return {
-              ...item,
-              label: item?.fieldName,
+        form: res?.data?.data[0]["rejectionreason"]?.map((item) => {
+          return {
+            ...item,
+            label: item?.fieldName,
 
-              // disabled :  item?.dataType === 'AutoFill' ? true : false ,
-              name: item?.fieldName,
-              type:
-                item?.dataType === "AutoFill"
-                  ? "sdisabled"
-                  : item?.dataType === "Dropdown"
-                    ? "select"
-                    : item?.dataType === "DateTime"
-                      ? "datetime-local"
-                      : item?.dataType?.toLowerCase() === "date"
-                        ? "datetime"
-                        : item?.dataType === "img"
-                          ? "file"
-                          : item?.dataType?.toLowerCase(),
-              ...(item?.dataType === "Dropdown"
-                ? {
+            // disabled :  item?.dataType === 'AutoFill' ? true : false ,
+            name: item?.fieldName,
+            type:
+              item?.dataType === "AutoFill"
+                ? "sdisabled"
+                : item?.dataType === "Dropdown"
+                  ? "select"
+                  : item?.dataType === "DateTime"
+                    ? "datetime-local"
+                    : item?.dataType?.toLowerCase() === "date"
+                      ? "datetime"
+                      : item?.dataType === "img"
+                        ? "file"
+                        : item?.dataType?.toLowerCase(),
+            ...(item?.dataType === "Dropdown"
+              ? {
                   option: item?.dropdownValue.split(",")?.map((item) => {
                     return {
                       label: item.trim(),
@@ -401,13 +405,12 @@ const ApproverPage = () => {
                     };
                   }),
                 }
-                : {}),
+              : {}),
 
-              required: item?.required === "Yes" ? true : false,
-            };
-          }
-        )
-      }
+            required: item?.required === "Yes" ? true : false,
+          };
+        }),
+      };
 
       setRejectionModal(true);
     }
@@ -415,7 +418,7 @@ const ApproverPage = () => {
 
   const handleApprover = (rowData) => {
     // console.log(rowData, "___rowadsdad");
-    
+
     setmodalHead(rowData?.ptwNumber || "Select Approver");
 
     let modalBodyData = <></>;
@@ -434,7 +437,7 @@ const ApproverPage = () => {
             setmodalOpen={setmodalOpen}
             setSelectedRow={setSelectedRow}
           />
-        </>
+        </>,
       );
     } else {
       const sendData = {
@@ -447,11 +450,11 @@ const ApproverPage = () => {
           <CommonAlert
             selectedRow={rowData}
             Heading={"Are you Sure ?"}
-            getAllDAta = {dataAll}
+            getAllDAta={dataAll}
             setmodalOpen={setmodalOpen}
             sendData={sendData}
           />
-        </>
+        </>,
       );
     }
 
@@ -504,8 +507,8 @@ const ApproverPage = () => {
         endpoint,
         `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()}.pdf`,
         "POST",
-        { rowData, columns: table["columns"] }
-      )
+        { rowData, columns: table["columns"] },
+      ),
     );
   };
 
@@ -530,14 +533,15 @@ const ApproverPage = () => {
     dispatch(
       CommonActions.commondownloadpost(
         endpoint,
-        `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()
+        `PTW_${
+          extractedData.ptwNumber || rowData.ptwNumber || Date.now()
         }.xlsx`,
         "POST",
         {
           rowData,
           columns: table["columns"],
-        }
-      )
+        },
+      ),
     );
   };
 
@@ -581,8 +585,7 @@ const ApproverPage = () => {
         <div className="flex justify-center gap-2">
           <button
             onClick={() => {
-
-              handlePdfDownload(itm)
+              handlePdfDownload(itm);
             }}
             className="bg-red-500 text-white text-xs p-1 rounded-md hover:bg-red-600 transition flex items-center gap-1"
             title="Download PDF"
@@ -602,57 +605,70 @@ const ApproverPage = () => {
         <div className="flex justify-end gap-2">
           <button
             onClick={(e) => {
-                dispatch(
-                  CommonActions.commondownloadpost(
-                    `/ptwLogsExport?mileStoneId=${itm?.mileStoneId}&logsCollection=ptwRaiseTicketLogs`,
-                    "Export_PTW_Approval_Logs.xlsx",
-                    "GET",
-                    {}
-                  )
-                );
-              }}
+              dispatch(
+                CommonActions.commondownloadpost(
+                  `/ptwLogsExport?mileStoneId=${itm?.mileStoneId}&logsCollection=ptwRaiseTicketLogs`,
+                  "Export_PTW_Approval_Logs.xlsx",
+                  "GET",
+                  {},
+                ),
+              );
+            }}
             className="bg-blue-500 text-white text-xs p-1 rounded hover:bg-blue-600 transition flex items-center gap-1"
             title="Logs"
           >
             <LuLogs size={28} />
-
           </button>
-          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEdit(itm);
-            }}
-            className="bg-yellow-500 text-white text-xs p-1 rounded hover:bg-yellow-600 transition flex items-center gap-1"
-            title="Edit"
-          >
-            <AiOutlineEdit size={28} />
-
-          </button>}
+          {(type === "l1Approver"
+            ? ["Submitted"].includes(itm.status)
+            : ["L1-Approved"].includes(itm.status)) && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEdit(itm);
+              }}
+              className="bg-yellow-500 text-white text-xs p-1 rounded hover:bg-yellow-600 transition flex items-center gap-1"
+              title="Edit"
+            >
+              <AiOutlineEdit size={28} />
+            </button>
+          )}
           {/* {console.log(type, 'fasdfasdfasdfasdfasdf')} */}
-          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleApprover(itm);
-            }}
-            className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
-            title="Approve"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
-            </svg>
-
-          </button>}
-          {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleReject(itm);
-            }}
-            className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
-            title="Reject"
-          >
-            <TbPlayerEjectFilled size={28} />
-
-          </button>}
+          {(type === "l1Approver"
+            ? ["Submitted"].includes(itm.status)
+            : ["L1-Approved"].includes(itm.status)) && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleApprover(itm);
+              }}
+              className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
+              title="Approve"
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+              </svg>
+            </button>
+          )}
+          {(type === "l1Approver"
+            ? ["Submitted"].includes(itm.status)
+            : ["L1-Approved"].includes(itm.status)) && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleReject(itm);
+              }}
+              className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+              title="Reject"
+            >
+              <TbPlayerEjectFilled size={28} />
+            </button>
+          )}
         </div>
       ),
     }));
@@ -679,7 +695,7 @@ const ApproverPage = () => {
           name="Reject"
           classes="bg-red-500 hover:bg-red-600 text-white px-2 py-1 text-xs mr-1"
           onClick={() => handleApproveReject(item, "REJECTED")}
-        />
+        />,
       );
     }
 
@@ -689,7 +705,7 @@ const ApproverPage = () => {
         name="Download"
         classes="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 text-xs mr-1"
         onClick={() => handleDownload(item)}
-      />
+      />,
     );
 
     if (item.ptwStatus === "APPROVED") {
@@ -699,7 +715,7 @@ const ApproverPage = () => {
           name="Log"
           classes="bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 text-xs"
           onClick={() => handleLog(item)}
-        />
+        />,
       );
     }
 
@@ -732,7 +748,7 @@ const ApproverPage = () => {
               }
             />
           </div>
-        </div>
+        </div>,
       );
       setmodalOpen(true);
     } else {
@@ -750,10 +766,9 @@ const ApproverPage = () => {
 
     dispatch(
       PTWActions.updatePTWStatus(data, () => {
-        
         dataAll();
         handleModalClose();
-      })
+      }),
     );
   };
 
@@ -763,8 +778,8 @@ const ApproverPage = () => {
         "/Export/ptwDocument",
         `PTW_${item.ptwNo}.pdf`,
         "POST",
-        { ptwId: item.ptwId }
-      )
+        { ptwId: item.ptwId },
+      ),
     );
   };
 
@@ -804,7 +819,7 @@ const ApproverPage = () => {
             onClick={() => submitLog(item)}
           />
         </div>
-      </div>
+      </div>,
     );
     setmodalOpen(true);
   };
@@ -815,18 +830,16 @@ const ApproverPage = () => {
   };
 
   const onSubmit = (data) => {
-   
-
-     let value = data.reseter;
+    let value = data.reseter;
     delete data.reseter;
     // const strVal = objectToQueryString(data);
     let strVal = objectToQueryString(data);
-    if(strVal?.length>0){
-      strVal = strVal+"&"+objectToQueryString({ ApproverType: type })
-    }else{
-      strVal =objectToQueryString({ ApproverType: type })
+    if (strVal?.length > 0) {
+      strVal = strVal + "&" + objectToQueryString({ ApproverType: type });
+    } else {
+      strVal = objectToQueryString({ ApproverType: type });
     }
-    
+
     dispatch(PTWActions.getApproverPage(true, strVal));
   };
 
@@ -836,7 +849,7 @@ const ApproverPage = () => {
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
         dispatch(PTWActions.getApproverPage(true, ""));
-      })
+      }),
     );
   };
 
@@ -887,62 +900,70 @@ const ApproverPage = () => {
                 classes="h-full "
                 name={<CiFilter size={32} />}
                 onClick={() => {
-                  setSelectedItems([])
-                  setFilter(filter ? false : true)
+                  setSelectedItems([]);
+                  setFilter(filter ? false : true);
                 }}
                 title="Filter"
               />
-              {filter && <div className="absolute w-[250px]  -right-3  top-12 z-[9999999]">
-                <div className="max-w-md mx-auto p-3 bg-white  rounded-lg shadow-lg ">
-                  <h1 className="text-xl font-semibold text-center  text-gray-700 my-2">Select Filter</h1>
-                  <hr className="mb-3" />
+              {filter && (
+                <div className="absolute w-[250px]  -right-3  top-12 z-[9999999]">
+                  <div className="max-w-md mx-auto p-3 bg-white  rounded-lg shadow-lg ">
+                    <h1 className="text-xl font-semibold text-center  text-gray-700 my-2">
+                      Select Filter
+                    </h1>
+                    <hr className="mb-3" />
 
-                  <div className="space-y-3  mb-6">
-
-                    <label className="flex items-center space-x-3 cursor-pointer mb-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedItems.length === options.length}
-                        onChange={(e) => handleSelectAll(e.target.checked)}
-                        className="w-4 h-4 text-gray-700 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                      />
-                      <span className="text-gray-800 font-semibold text-lg"> All</span>
-                    </label>
-
-                    {options.map((option) => (
-                      <label
-                        key={option.id}
-                        className="flex items-center space-x-3 cursor-pointer"
-                      >
+                    <div className="space-y-3  mb-6">
+                      <label className="flex items-center space-x-3 cursor-pointer mb-2">
                         <input
                           type="checkbox"
-                          checked={selectedItems.some((item) => item.id === option.id)}
-                          onChange={() =>
-                            handleCheckboxChange(option.id, option.name)
-                          }
+                          checked={selectedItems.length === options.length}
+                          onChange={(e) => handleSelectAll(e.target.checked)}
                           className="w-4 h-4 text-gray-700 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                         />
-                        <span className="text-gray-700 text-lg">{option.name}</span>
+                        <span className="text-gray-800 font-semibold text-lg">
+                          {" "}
+                          All
+                        </span>
                       </label>
-                    ))}
 
+                      {options.map((option) => (
+                        <label
+                          key={option.id}
+                          className="flex items-center space-x-3 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedItems.some(
+                              (item) => item.id === option.id,
+                            )}
+                            onChange={() =>
+                              handleCheckboxChange(option.id, option.name)
+                            }
+                            className="w-4 h-4 text-gray-700 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          />
+                          <span className="text-gray-700 text-lg">
+                            {option.name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        if (selectedItems.length) {
+                          handleContinue();
+                        } else {
+                          setFilter(false);
+                        }
+                      }}
+                      className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
+                    >
+                      Continue
+                    </button>
                   </div>
-
-                  <button
-                    onClick={() => {
-                      if (selectedItems.length) {
-                        handleContinue()
-                      }
-                      else {
-                        setFilter(false)
-                      }
-                    }}
-                    className="w-full bg-[#13B497] text-white py-2 px-4 rounded-lg hover:bg-[#0c8b74] transition-colors duration-200 font-medium"
-                  >
-                    Continue
-                  </button>
                 </div>
-              </div>}
+              )}
             </div>
 
             <Button
@@ -960,11 +981,11 @@ const ApproverPage = () => {
 
                 dispatch(
                   CommonActions.commondownloadpost(
-                    `/ptwTableExport?exportTableName=${type === 'l1Approver' ? 'L1ApproverExport' : 'L2ApproverExport'}&ids=${type === "l1Approver" ? ((selectedItems?.map(i => i.id).join(",")).length === 0 ? "Submitted" : selectedItems?.map(i => i.id).join(",")) : ((selectedItems?.map(i => i.id).join(",")).length === 0 ? "L1-Approved" : selectedItems?.map(i => i.id).join(","))}`,
+                    `/ptwTableExport?exportTableName=${type === "l1Approver" ? "L1ApproverExport" : "L2ApproverExport"}&ids=${type === "l1Approver" ? ((selectedItems?.map((i) => i.id).join(",")).length === 0 ? "Submitted" : selectedItems?.map((i) => i.id).join(",")) : (selectedItems?.map((i) => i.id).join(",")).length === 0 ? "L1-Approved" : selectedItems?.map((i) => i.id).join(",")}`,
                     "Export_Approval.xlsx",
                     "GET",
-                    {}
-                  )
+                    {},
+                  ),
                 );
               }}
             />
@@ -978,8 +999,12 @@ const ApproverPage = () => {
         data={approverList?.map((item) => {
           return {
             ...item,
-            ptwNumber: <p className="text-blue-600 cursor-pointer hover:underline">{item?.ptwNumber}</p>
-          }
+            ptwNumber: (
+              <p className="text-[#F4D3A8] cursor-pointer hover:underline">
+                {item?.ptwNumber}
+              </p>
+            ),
+          };
         })}
         errors={errors}
         register={register}
@@ -988,7 +1013,7 @@ const ApproverPage = () => {
         totalCount={approverTotalCount}
         heading="Total Count :-"
         selectable={true}
-        onSelectionChange={(selectedItems) => { }}
+        onSelectionChange={(selectedItems) => {}}
         defaultHide={true}
       />
       <Modal
@@ -1002,54 +1027,54 @@ const ApproverPage = () => {
         size="lg"
         modalHead={<h1>Rejection Reason</h1>}
         children={
-          <div className="h-full" >
+          <div className="h-full">
             <CommonForm
               classes="grid-cols-2 h-full  "
               Form={RejectionForm.current && RejectionForm.current?.form}
               errors={errors}
               register={register}
-                setValue={setValue}
-                getValues={getValues}
-              />
-              {errors.root && (
-                <p className="text-red-500 text-sm mt-2">{errors.root.message}</p>
-              )}
-              <Button
-                name="Submit"
-                classes="w-fit"
-                onClick={handleSubmit((data) => {
-                  const values = Object.values(data);
-                  const hasAnyValue = values.some(
-                    (value) =>
-                      value !== null && value !== undefined && value !== ""
-                  );
+              setValue={setValue}
+              getValues={getValues}
+            />
+            {errors.root && (
+              <p className="text-red-500 text-sm mt-2">{errors.root.message}</p>
+            )}
+            <Button
+              name="Submit"
+              classes="w-fit"
+              onClick={handleSubmit((data) => {
+                const values = Object.values(data);
+                const hasAnyValue = values.some(
+                  (value) =>
+                    value !== null && value !== undefined && value !== "",
+                );
 
-                  if (!hasAnyValue) {
-                    setError("root", {
-                      type: "manual",
-                      message: "At least one field is required",
-                    });
-                    return;
-                  }
+                if (!hasAnyValue) {
+                  setError("root", {
+                    type: "manual",
+                    message: "At least one field is required",
+                  });
+                  return;
+                }
 
-                  handleRejection(data, RejectionForm.current?.mId);
-                })}
-              />
-            </div>
-          }
-          isOpen={rejectionModal}
-          setIsOpen={setRejectionModal}
-        />
-        <FileUploader
-          isOpen={fileOpen}
-          fileUploadUrl={""}
-          onTableViewSubmit={onTableViewSubmit}
-          setIsOpen={setFileOpen}
-          tempbtn={true}
-          tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
-        />
-      </>
-    );
-  };
+                handleRejection(data, RejectionForm.current?.mId);
+              })}
+            />
+          </div>
+        }
+        isOpen={rejectionModal}
+        setIsOpen={setRejectionModal}
+      />
+      <FileUploader
+        isOpen={fileOpen}
+        fileUploadUrl={""}
+        onTableViewSubmit={onTableViewSubmit}
+        setIsOpen={setFileOpen}
+        tempbtn={true}
+        tempbtnlink={["/template/MDB_Approver.xlsx", "MDB_Approver.xlsx"]}
+      />
+    </>
+  );
+};
 
-  export default ApproverPage;
+export default ApproverPage;

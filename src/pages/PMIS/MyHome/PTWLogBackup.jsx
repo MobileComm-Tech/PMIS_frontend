@@ -7,14 +7,17 @@ import CommonActions from "../../../store/actions/common-actions";
 import Button from "../../../components/Button";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import AdminActions from "../../../store/actions/admin-actions";
+import SearchBarView from "../../../components/SearchBarView";
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [requesterTerm, setRequesterTerm] = useState("");
   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
   // console.log(dataAll, "csddsffffdff");
-const [strValFil, setstrVal] = useState(false);
+  const [strValFil, setstrVal] = useState("");
   const ptwBackupData = useSelector(
-    (state) => state?.ptwData?.getPtwLogBackup || []
-    
+    (state) => state?.ptwData?.getPtwLogBackup || [],
   );
   const extractRowData = (rowData) => {
     const extractedData = {};
@@ -31,24 +34,22 @@ const [strValFil, setstrVal] = useState(false);
     return extractedData;
   };
 
-
   useEffect(() => {
-    const defaultPagination = objectToQueryString({"page":1, "limit":50})
-    dispatch(AdminActions.getManageSite())
-    fetchPTWLogBackupData(true,defaultPagination);
+    const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
+    dispatch(AdminActions.getManageSite());
+    fetchPTWLogBackupData(true, defaultPagination);
   }, []);
 
-
   let siteList = useSelector((state) => {
-         return state?.adminData?.getManageSite?.map((itm) => {
-             return {
-                 label: itm?.siteId,
-                 value: itm?.siteId
-             }
-         })
-     })
+    return state?.adminData?.getManageSite?.map((itm) => {
+      return {
+        label: itm?.siteId,
+        value: itm?.siteId,
+      };
+    });
+  });
 
-   const handleExcelDownload = (rowData) => {
+  const handleExcelDownload = (rowData) => {
     // console.log("Downloading Excel for:", rowData);
 
     const extractedData = extractRowData(rowData);
@@ -82,14 +83,13 @@ const [strValFil, setstrVal] = useState(false);
         "POST",
         {
           rowData,
-          columns: table["columns"]
-        } 
-
-      )
+          columns: table["columns"],
+        },
+      ),
     );
   };
 
-   const handlePdfDownload = (rowData) => {
+  const handlePdfDownload = (rowData) => {
     // console.log("Downloading PDF for:", rowData);
 
     const extractedData = extractRowData(rowData);
@@ -118,16 +118,15 @@ const [strValFil, setstrVal] = useState(false);
         endpoint,
         `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()}.pdf`,
         "POST",
-        { rowData , columns: table["columns"]}
-      )
+        { rowData, columns: table["columns"] },
+      ),
     );
   };
 
-
-  const tableData = ptwBackupData?.map((itm)=>{
+  const tableData = ptwBackupData?.map((itm) => {
     return {
       ...itm,
-      ptwFormStatus:(
+      ptwFormStatus: (
         <div className="flex justify-center gap-2">
           <button
             onClick={() => handlePdfDownload(itm)}
@@ -151,13 +150,10 @@ const [strValFil, setstrVal] = useState(false);
           </button>
         </div>
       ),
-    }
-  })
+    };
+  });
 
   // console.log(ptwBackupData, "___ptwBackupData");
-
-
-
 
   const {
     register,
@@ -168,18 +164,16 @@ const [strValFil, setstrVal] = useState(false);
   } = useForm();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const fetchPTWLogBackupData = (reset = true, additionalArgs = "") => {
-    dispatch(PTWActions.getPtwLogBackup(reset,additionalArgs));
+    dispatch(PTWActions.getPtwLogBackup(reset, additionalArgs));
   };
 
   useEffect(() => {
-    const defaultPagination = objectToQueryString({"page":1, "limit":50})
-    fetchPTWLogBackupData(true,defaultPagination);
+    const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
+    fetchPTWLogBackupData(true, defaultPagination);
   }, []);
-
-
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -194,10 +188,21 @@ const [strValFil, setstrVal] = useState(false);
     dispatch(PTWActions.getPtwLogBackup(true, args));
   };
 
+  const debounceRef = React.useRef(null);
+
+  const debounceSearch = (query) => {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      dispatch(PTWActions.getPtwLogBackup(true, query));
+    }, 700);
+  };
   const table = {
     columns: [
       {
-        name: "PTW",
+        name: "PTW Number",
         value: "ptwNumber",
         style: "text-center min-w-[150px]",
       },
@@ -330,16 +335,36 @@ const [strValFil, setstrVal] = useState(false);
     },
 
     filter: [
+      {
+        label: "Site ID",
+        type: "select",
+        name: "siteId",
+        option: siteList,
+        props: {},
+      },
+      // {
+      //   label: "PTW Number",
+      //   type: "text",
+      //   name: "ptwNumber",
+      //   props: {
+      //     placeholder: "Search PTW Number",
+      //     onChange: (e) => {
+      //       const value = e.target.value;
 
-             {
-                label: "Site ID",
-                type: "select",
-                name: "siteId",
-                option:siteList,
-                props: {
-                }
-            },
+      //       const query = value
+      //         ? `ptwNumber=${value}&${strValFil || ""}`
+      //         : strValFil;
 
+      //       debounceSearch(query);
+      //     },
+      //   },
+      // },
+      {
+        label: "Project ID",
+        type: "text",
+        name: "projectID",
+        props: {},
+      },
     ],
   };
 
@@ -359,25 +384,21 @@ const [strValFil, setstrVal] = useState(false);
     // }`;
 
     // setCurrentPage(1);
-     let value = data.reseter;
-        delete data.reseter;
-        // const strVal = objectToQueryString(data);
-        // const strVal = objectToQueryString(data);
-        // if(strVal?.length>0){
-        //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
-        // }else{
-        //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
-        // }
-        // console.log(strVal,"___strVal__")
-  
+    let value = data.reseter;
+    delete data.reseter;
+    // const strVal = objectToQueryString(data);
+    // const strVal = objectToQueryString(data);
+    // if(strVal?.length>0){
+    //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
+    // }else{
+    //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
+    // }
+    // console.log(strVal,"___strVal__")
 
     const strVal = objectToQueryString(data);
-        setstrVal(strVal);
+    setstrVal(strVal);
 
-          dispatch(PTWActions.getPtwLogBackup(true, strVal));
-
-      
-
+    dispatch(PTWActions.getPtwLogBackup(true, strVal));
   };
 
   useEffect(() => {
@@ -389,30 +410,83 @@ const [strValFil, setstrVal] = useState(false);
     }
   }, [dataAll]);
 
-  
   return (
     <>
       <AdvancedTable
-       headerButton={
-            <div className="flex gap-2"> 
-             
-              <Button
-                name={"Export"}
-                classes="w-auto bg-teal-500 hover:bg-teal-600"
-                onClick={(e) => {
-               dispatch(
-                   CommonActions.commondownloadpost(
-                      "/ptwTableExport?exportTableName=ptwLogBackup&"+strValFil,
-                      // {exportTableName:"ptwBackupData"},
-                      "New_file.xlsx",
-                      "GET",
-                     
-                    )
-               )
-                }}
-              />
-            </div>
-          }
+        searchView={
+          <>
+            <SearchBarView
+              onblur={() => {}}
+              onchange={(e) => {
+                const value = e.target.value;
+                setSearchTerm(value);
+
+                if (debounceRef.current) clearTimeout(debounceRef.current);
+
+                debounceRef.current = setTimeout(() => {
+                  let baseParams = {
+                    page: 1,
+                    limit: rowsPerPage,
+                  };
+
+                  if (value) {
+                    baseParams.ptwNumber = value;
+                  }
+
+                  let query = objectToQueryString(baseParams);
+
+                  if (strValFil) {
+                    query = query + "&" + strValFil;
+                  }
+
+                  dispatch(PTWActions.getPtwLogBackup(true, query));
+                }, 700);
+              }}
+              placeHolder={"PTW Number"}
+            />
+            <SearchBarView
+              onblur={() => {}}
+              onchange={(e) => {
+                const value = e.target.value;
+
+                if (debounceRef.current) {
+                  clearTimeout(debounceRef.current);
+                }
+
+                if (!value) {
+                  const resetQuery = `page=1&limit=${rowsPerPage}&${strValFil || ""}`;
+                  dispatch(PTWActions.getPtwLogBackup(true, resetQuery));
+                  return;
+                }
+
+                const query =
+                  `page=1&limit=${rowsPerPage}&createdBy=${value}&` +
+                  (strValFil || "");
+
+                debounceSearch(query);
+              }}
+              placeHolder={"PTW Requester"}
+            />
+          </>
+        }
+        headerButton={
+          <div className="flex gap-2">
+            <Button
+              name={"Export"}
+              classes="w-auto bg-teal-500 hover:bg-teal-600"
+              onClick={(e) => {
+                dispatch(
+                  CommonActions.commondownloadpost(
+                    "/ptwTableExport?exportTableName=ptwLogBackup&" + strValFil,
+                    // {exportTableName:"ptwBackupData"},
+                    "New_file.xlsx",
+                    "GET",
+                  ),
+                );
+              }}
+            />
+          </div>
+        }
         table={table}
         filterAfter={onSubmit}
         tableName="PTW Log Backup Table"
@@ -449,11 +523,11 @@ export default PTWLogBackup;
 // const PTWLogBackup = () => {
 //   const dispatch = useDispatch();
 //   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
-  // console.log(dataAll, "csddsffffdff");
+// console.log(dataAll, "csddsffffdff");
 
 //   const ptwBackupData = useSelector(
 //     (state) => state?.ptwData?.getPtwLogBackup || []
-    
+
 //   );
 //   const extractRowData = (rowData) => {
 //     const extractedData = {};
@@ -505,7 +579,7 @@ export default PTWLogBackup;
 //         {
 //           rowData,
 //           columns: table["columns"]
-//         } 
+//         }
 
 //       )
 //     );
@@ -545,7 +619,6 @@ export default PTWLogBackup;
 //     );
 //   };
 
-
 //   const tableData = ptwBackupData?.map((itm)=>{
 //     return {
 //       ...itm,
@@ -578,9 +651,6 @@ export default PTWLogBackup;
 
 //   console.log(ptwBackupData, "___ptwBackupData");
 
-
-
-
 //   const {
 //     register,
 //     handleSubmit,
@@ -600,8 +670,6 @@ export default PTWLogBackup;
 //     const defaultPagination = objectToQueryString({"page":1, "limit":50})
 //     fetchPTWLogBackupData(true,defaultPagination);
 //   }, []);
-
-
 
 //   const handlePageChange = (newPage) => {
 //     setCurrentPage(newPage);
@@ -787,13 +855,12 @@ export default PTWLogBackup;
 //     }
 //   }, [dataAll]);
 
-  
 //   return (
 //     <>
 //       <AdvancedTable
 //        headerButton={
-//             <div className="flex gap-2"> 
-             
+//             <div className="flex gap-2">
+
 //               <Button
 //                 name={"Export"}
 //                 classes="w-auto bg-teal-500 hover:bg-teal-600"
@@ -804,7 +871,7 @@ export default PTWLogBackup;
 //                       // {exportTableName:"ptwBackupData"},
 //                       "New_file.xlsx",
 //                       "GET",
-                     
+
 //                     )
 //                   );
 //                 }}

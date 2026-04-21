@@ -156,6 +156,7 @@ import SCFT from "../pages/PMIS/Formss/WCC/SCFT/SCFT";
 import EMF from "../pages/PMIS/Formss/WCC/EMF/EMF";
 import CDH from "../pages/PMIS/Formss/WCC/CDH/CDH";
 import CdhApprover from "../pages/PMIS/MyHome/Wcc Approver/CDH Approver/CdhApprover";
+import PTWTaskAllocation from "../pages/PMIS/Admin/PTWTaskAllocation/PTWTaskallocation";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -908,7 +909,6 @@ export const Sidebar_content = {
       subMenu: [],
     },
 
-
     {
       name: "",
       link: "/forms/WCC",
@@ -1180,6 +1180,20 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+
+    {
+      name: "PTW Task Allocation",
+      link: "/hr/superAdmin/ptwtaskAllocation",
+      subMenu: [],
+      component: <PTWTaskAllocation />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
+    },
+
     {
       name: "WCC",
       link: "/superAdmin/WCC/Compliance",
@@ -1187,7 +1201,7 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-       {
+    {
       name: "WCC",
       link: "/superAdmin/WCC/CDH Approver",
       component: <WccL1Approver />,

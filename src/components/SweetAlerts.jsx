@@ -311,10 +311,22 @@ const SweetAlerts = () => {
       );
     } else {
       return (
+        // <Button
+        //   classes="w-15 bg-[#13B497]"
+        //   name={swAlerts?.confirmButtonText || "OK"}
+        //   // name="OK"
+        //   onClick={() => dispatch(ALERTS({ show: false }))}
+        // />
         <Button
           classes="w-15 bg-[#13B497]"
-          name="OK"
-          onClick={() => dispatch(ALERTS({ show: false }))}
+          name={swAlerts?.confirmButtonText || "OK"}
+          onClick={async () => {
+            if (swAlerts?.onConfirm) {
+              await swAlerts.onConfirm();
+            }
+
+            dispatch(ALERTS({ show: false }));
+          }}
         />
       );
     }
