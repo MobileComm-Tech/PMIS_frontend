@@ -1,7 +1,7 @@
-// export const baseUrl = "https://devapi.mcpspmis.com";
-// export const backendassetUrl = "https://devapi.mcpspmis.com/";
-// // export const baseUrl = "https://api.mcpspmis.com";
-// // export const backendassetUrl = "https://api.mcpspmis.com/";
+export const baseUrl = "https://devapi.mcpspmis.com";
+export const backendassetUrl = "https://devapi.mcpspmis.com/";
+// export const baseUrl = "https://api.mcpspmis.com";
+// export const backendassetUrl = "https://api.mcpspmis.com/";
 // export const routesObjects = {
 //   partnerTeamForm: "/vendorPartnerForm",
 //   partnerTeam: "/vendor/partnerTeam",
@@ -365,8 +365,8 @@
 
 // export const WebSocketUrls = { siteAnalytics: "siteanalytics" };
 
-export const baseUrl = "https://devapi.mcpspmis.com";
-export const backendassetUrl = "https://devapi.mcpspmis.com/";
+// export const baseUrl = "https://devapi.mcpspmis.com";
+// export const backendassetUrl = "https://devapi.mcpspmis.com/";
 // export const baseUrl = 'https://api.mcpspmis.com';
 // export const backendassetUrl = 'https://api.mcpspmis.com/';
 export const routesObjects = {

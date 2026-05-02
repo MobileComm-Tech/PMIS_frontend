@@ -4433,14 +4433,14 @@ const MyTask = () => {
                   <option value="">Select L1 Approver</option>
                   {res?.data?.data?.length > 0
                     ? res?.data?.data
-                        ?.filter((item) => item?.ApproverType === "L1-Approver")
-                        ?.map((item) => {
-                          return (
-                            <option className="" value={item?.empId}>
-                              {item?.empName}
-                            </option>
-                          );
-                        })
+                      ?.filter((item) => item?.ApproverType === "L1-Approver")
+                      ?.map((item) => {
+                        return (
+                          <option className="" value={item?.empId}>
+                            {item?.empName}
+                          </option>
+                        );
+                      })
                     : []}
                 </select>
               </div>
@@ -4462,11 +4462,10 @@ const MyTask = () => {
   const handleApprovalData = async () => {
     const dropdown = document.getElementById("dropdown");
     const res = await Api.patch({
-      url: `/getPtwApprover/${sessionStorage.getItem("opid")}${
-        sessionStorage.getItem("operationId") !== undefined
+      url: `/getPtwApprover/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined
           ? "?operation_id=" + sessionStorage.getItem("operationId")
           : ""
-      }`,
+        }`,
       data: {
         empId: dropdown.value,
         ApproverType: "L1-Approver",
@@ -4573,11 +4572,12 @@ const MyTask = () => {
           ptwModalHead.value,
         )
       ) {
+        const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
         const newData = {
           projectID: mileStoneItemRef.current?.projectId,
           projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
           siteUid: mileStoneItemRef.current?.siteUid,
-          siteId: mileStoneItemRef.current?.siteId,
+          siteId: activeSiteId,
           customerName: mileStoneItemRef.current?.customerName,
           subProject: mileStoneItemRef.current?.SubProject,
           circle: mileStoneItemRef.current?.CIRCLE,
@@ -4586,6 +4586,19 @@ const MyTask = () => {
           Milestone: mileStoneItemRef.current?.Milestone,
           [ptwModalHead.value]: {},
         };
+        // const newData = {
+        //   projectID: mileStoneItemRef.current?.projectId,
+        //   projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
+        //   siteUid: mileStoneItemRef.current?.siteUid,
+        //   siteId: mileStoneItemRef.current?.siteId,
+        //   customerName: mileStoneItemRef.current?.customerName,
+        //   subProject: mileStoneItemRef.current?.SubProject,
+        //   circle: mileStoneItemRef.current?.CIRCLE,
+        //   circleId: mileStoneItemRef.current?.circleId,
+        //   mileStoneId: mileStoneItemRef.current?.mileStoneId,
+        //   Milestone: mileStoneItemRef.current?.Milestone,
+        //   [ptwModalHead.value]: {},
+        // };
 
         // console.log('called ..............', newData, '123456789876543212345678765432')
 
@@ -4596,35 +4609,31 @@ const MyTask = () => {
         });
 
         const url = isPtwRaise
-          ? `/regeneratePtw/${formType}/${
-              ptwModalHead.value
-            }/${sessionStorage.getItem("opid")}`
-          : `/submit/ptw/${formType}/${ptwModalHead.value}${
-              sessionStorage.getItem("opid")
-                ? `/${sessionStorage.getItem("opid")}${
-                    sessionStorage.getItem("operationId")
-                      ? "?operation_id=" + sessionStorage.getItem("operationId")
-                      : ""
-                  }`
-                : ""
-            }`;
+          ? `/regeneratePtw/${formType}/${ptwModalHead.value
+          }/${sessionStorage.getItem("opid")}`
+          : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
+            ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
+              ? "?operation_id=" + sessionStorage.getItem("operationId")
+              : ""
+            }`
+            : ""
+          }`;
 
         res = sessionStorage.getItem("opid")
           ? await Api.patch({ url, data: newData })
           : await Api.post({ url, data: newData });
       }
-
-      // Handle special forms (photo, ptwphoto, teamdetails, vehicle)
       else {
         const formData = new FormData();
-
+        const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
         formData.append("projectID", mileStoneItemRef.current?.projectId);
         formData.append("siteUid", mileStoneItemRef.current?.siteUid);
         formData.append(
           "projectuniqueId",
           mileStoneItemRef.current?.projectuniqueId,
         );
-        formData.append("siteId", mileStoneItemRef.current?.siteId);
+        formData.append("siteId", activeSiteId);
+        //formData.append("siteId", mileStoneItemRef.current?.siteId);
         formData.append("customerName", mileStoneItemRef.current?.customerName);
         formData.append("circle", mileStoneItemRef.current?.CIRCLE);
         formData.append("circleId", mileStoneItemRef.current?.circleId);
@@ -4642,18 +4651,15 @@ const MyTask = () => {
         // console.log(data, 'adfasdfasdfsadf')
 
         const url = isPtwRaise
-          ? `/regeneratePtw/${formType}/${
-              ptwModalHead.value
-            }/${sessionStorage.getItem("opid")}`
-          : `/submit/ptw/${formType}/${ptwModalHead.value}${
-              sessionStorage.getItem("opid")
-                ? `/${sessionStorage.getItem("opid")}${
-                    sessionStorage.getItem("operationId")
-                      ? "?operation_id=" + sessionStorage.getItem("operationId")
-                      : ""
-                  }`
-                : ""
-            }`;
+          ? `/regeneratePtw/${formType}/${ptwModalHead.value
+          }/${sessionStorage.getItem("opid")}`
+          : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
+            ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
+              ? "?operation_id=" + sessionStorage.getItem("operationId")
+              : ""
+            }`
+            : ""
+          }`;
 
         res = await Api.patch({
           url,
@@ -4661,6 +4667,53 @@ const MyTask = () => {
           data: formData,
         });
       }
+      // Handle special forms (photo, ptwphoto, teamdetails, vehicle)
+      // else {
+      //   const formData = new FormData();
+
+      //   formData.append("projectID", mileStoneItemRef.current?.projectId);
+      //   formData.append("siteUid", mileStoneItemRef.current?.siteUid);
+      //   formData.append(
+      //     "projectuniqueId",
+      //     mileStoneItemRef.current?.projectuniqueId,
+      //   );
+      //   formData.append("siteId", mileStoneItemRef.current?.siteId);
+      //   formData.append("customerName", mileStoneItemRef.current?.customerName);
+      //   formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+      //   formData.append("circleId", mileStoneItemRef.current?.circleId);
+      //   formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+      //   formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+      //   // Append each field (file or text)
+      //   Object.keys(data)?.forEach((key) => {
+      //     const value = data[key];
+      //     if (value) {
+      //       formData.append(key, value instanceof FileList ? value[0] : value);
+      //     }
+      //   });
+
+      //   // console.log(data, 'adfasdfasdfsadf')
+
+      //   const url = isPtwRaise
+      //     ? `/regeneratePtw/${formType}/${
+      //         ptwModalHead.value
+      //       }/${sessionStorage.getItem("opid")}`
+      //     : `/submit/ptw/${formType}/${ptwModalHead.value}${
+      //         sessionStorage.getItem("opid")
+      //           ? `/${sessionStorage.getItem("opid")}${
+      //               sessionStorage.getItem("operationId")
+      //                 ? "?operation_id=" + sessionStorage.getItem("operationId")
+      //                 : ""
+      //             }`
+      //           : ""
+      //       }`;
+
+      //   res = await Api.patch({
+      //     url,
+      //     contentType: "multipart/form-data",
+      //     data: formData,
+      //   });
+      // }
 
       // Handle response
       // console.log(res?.data?.operation_id,"___res___")
@@ -4668,7 +4721,7 @@ const MyTask = () => {
         sessionStorage.setItem(
           "opid",
           sessionStorage.getItem("opid") ||
-            mileStoneItemRef.current?.mileStoneId,
+          mileStoneItemRef.current?.mileStoneId,
         );
 
         sessionStorage.setItem(
@@ -4735,12 +4788,11 @@ const MyTask = () => {
       <>
         <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
           <CommonForm
-            classes={` ${
-              subFormRef.current[ptwModalHead.value] &&
-              subFormRef.current[ptwModalHead.value]?.length > 3
+            classes={` ${subFormRef.current[ptwModalHead.value] &&
+                subFormRef.current[ptwModalHead.value]?.length > 3
                 ? "grid-cols-3"
                 : "grid-cols-1"
-            }  gap-1`}
+              }  gap-1`}
             Form={form}
             errors={errors}
             register={register}
@@ -4783,9 +4835,17 @@ const MyTask = () => {
       subFormRef.current[
         ptwModalHead.value === "vehicle" ? vehicleType : ptwModalHead.value
       ]?.forEach((item) => {
-        // console.log(item, 'asdfasdfasdfasdfa')
         if (item?.dataType === "AutoFill") {
-          setValue(item?.fieldName, mileStoneItemRef.current[item?.fieldName]);
+
+          let valueToSet = mileStoneItemRef.current[item?.fieldName];
+
+
+          if (item?.fieldName === "Site Id" || item?.fieldName === "siteId") {
+            valueToSet = mileStoneItemRef.current["FAR SITE ID"] || mileStoneItemRef.current[item?.fieldName];
+          }
+
+          setValue(item?.fieldName, valueToSet);
+
         }
       });
     } else {
@@ -4871,13 +4931,13 @@ const MyTask = () => {
                         : item?.dataType?.toLowerCase(),
             ...(item?.dataType === "Dropdown"
               ? {
-                  option: item?.dropdownValue.split(",")?.map((item) => {
-                    return {
-                      label: item.trim(),
-                      value: item.trim(),
-                    };
-                  }),
-                }
+                option: item?.dropdownValue.split(",")?.map((item) => {
+                  return {
+                    label: item.trim(),
+                    value: item.trim(),
+                  };
+                }),
+              }
               : {}),
             // ...(item?.dataType === 'img' ? {
             //   props: {
@@ -4921,6 +4981,7 @@ const MyTask = () => {
   }, [formName]);
 
   let dbConfigList = useSelector((state) => {
+    6;
     let interdata = state?.myHomeData?.getmyTask || [];
     return interdata?.map((itm) => {
       let updateditm = {
@@ -4970,20 +5031,18 @@ const MyTask = () => {
         CompletionBar: (
           <ProgressBar
             notifyType={"success"}
-            percent={`${
-              100 -
+            percent={`${100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
                   (iewq) => iewq?.mileStoneStatus == "Closed",
                 ).length) /
                 itm?.milestoneArray?.length) *
-                100
-            }`}
-            text={`${
-              itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == "Closed",
-              ).length
-            } / ${itm?.milestoneArray?.length}`}
+              100
+              }`}
+            text={`${itm?.milestoneArray?.filter(
+              (iewq) => iewq?.mileStoneStatus == "Closed",
+            ).length
+              } / ${itm?.milestoneArray?.length}`}
           />
         ),
 
@@ -5067,16 +5126,16 @@ const MyTask = () => {
                               >
                                 {" "}
                                 {itwsw.assignerName &&
-                                itwsw.assignerName.trim().split(" ").length > 1
+                                  itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                      .split(" ")[0]
-                                      .substr(0, 1)}${itwsw.assignerName
+                                    .split(" ")[0]
+                                    .substr(0, 1)}${itwsw.assignerName
                                       .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
                                     ? itwsw.assignerName
-                                        .split(" ")[0]
-                                        .substr(0, 1)
+                                      .split(" ")[0]
+                                      .substr(0, 1)
                                     : ""}
                               </p>
                             ))}
@@ -5222,19 +5281,18 @@ const MyTask = () => {
                           ? "Raise PTW Again"
                           : "Raise PTW"
                       }
-                      className={`p-[1px] px-2 ${
-                        !iewq?.isPtwTaskAllowed
+                      className={`p-[1px] px-2 ${!iewq?.isPtwTaskAllowed
                           ? "cursor-not-allowed opacity-60"
                           : !iewq?.isPtwRaise ||
-                              [
-                                "L1-Rejected",
-                                "Closed",
-                                "Auto Closed",
-                                "L2-Rejected",
-                              ].includes(iewq?.ptwStatus)
+                            [
+                              "L1-Rejected",
+                              "Closed",
+                              "Auto Closed",
+                              "L2-Rejected",
+                            ].includes(iewq?.ptwStatus)
                             ? "cursor-pointer"
                             : "cursor-not-allowed opacity-60"
-                      } rounded-md bg-[#13B497]`}
+                        } rounded-md bg-[#13B497]`}
                     >
                       <LuTicketCheck size={20} />
                     </span>
@@ -5253,13 +5311,12 @@ const MyTask = () => {
                         }
                       }}
                       title="Close PTW"
-                      className={`p-[1px] ${
-                        iewq?.isPtwRaise &&
-                        iewq?.isL2Approve &&
-                        !["Closed", "Auto Closed"].includes(iewq?.ptwStatus)
+                      className={`p-[1px] ${iewq?.isPtwRaise &&
+                          iewq?.isL2Approve &&
+                          !["Closed", "Auto Closed"].includes(iewq?.ptwStatus)
                           ? "cursor-pointer"
                           : "cursor-not-allowed opacity-60"
-                      } px-2 rounded-md bg-[#F43F5E]`}
+                        } px-2 rounded-md bg-[#F43F5E]`}
                     >
                       <LuTicketX size={20} />
                     </span>
@@ -5277,17 +5334,16 @@ const MyTask = () => {
                           setmodalHead("Rejection Reason's");
                         }}
                         title={"Rejection Reason"}
-                        className={`p-[1px] px-2 ${
-                          !iewq?.isPtwRaise ||
-                          [
-                            "L1-Rejected",
-                            "Closed",
-                            "Auto Closed",
-                            "L2-Rejected",
-                          ].includes(iewq?.ptwStatus)
+                        className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
+                            [
+                              "L1-Rejected",
+                              "Closed",
+                              "Auto Closed",
+                              "L2-Rejected",
+                            ].includes(iewq?.ptwStatus)
                             ? "cursor-pointer"
                             : "cursor-not-allowed opacity-60"
-                        } rounded-md bg-[#F43F5E]`}
+                          } rounded-md bg-[#F43F5E]`}
                       >
                         <MdSmsFailed size={20} />
                       </span>
@@ -5984,12 +6040,12 @@ const MyTask = () => {
       },
       ...(getAccessType("PTW Raise Actions") !== "invisible"
         ? [
-            {
-              name: "PTW status",
-              value: "ptwStatus",
-              style: "min-w-[271px] max-w-[280px] text-center",
-            },
-          ]
+          {
+            name: "PTW status",
+            value: "ptwStatus",
+            style: "min-w-[271px] max-w-[280px] text-center",
+          },
+        ]
         : []),
     ],
     childList: [""],
@@ -6076,12 +6132,12 @@ const MyTask = () => {
         },
         ...(getAccessType("PTW Raise Actions") !== "invisible"
           ? [
-              {
-                name: "PTW status",
-                value: "ptwStatus",
-                style: "min-w-[240px] max-w-[280px] text-center",
-              },
-            ]
+            {
+              name: "PTW status",
+              value: "ptwStatus",
+              style: "min-w-[240px] max-w-[280px] text-center",
+            },
+          ]
           : []),
 
         // {
@@ -6191,7 +6247,7 @@ const MyTask = () => {
     dispatch(GET_FILTER_MYTASK_SUBPROJECT({ dataAll: [], reset: true }));
   }, []);
 
-  const handleBulkDelte = () => {};
+  const handleBulkDelte = () => { };
 
   const handleContinue = (opId) => {
     if (selectedItems.length === 0) {
@@ -6286,7 +6342,7 @@ const MyTask = () => {
         searchView={
           <>
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => { }}
               onchange={(e) => {
                 const siteNameQuery =
                   (e.target.value ? "siteName=" + (e.target.value + "&") : "") +
@@ -6298,7 +6354,7 @@ const MyTask = () => {
             />
 
             <SearchBarView
-              onblur={(e) => {}}
+              onblur={(e) => { }}
               onchange={(e) => {
                 const milestoneQuery =
                   (e.target.value

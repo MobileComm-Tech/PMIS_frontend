@@ -187,13 +187,13 @@ const SuperAdmin = () => {
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],
-            [
-              "OHS Guidelines",
-              "bg-pcol",
-              "/superAdmin/OHS",
-              <Unicons.UilPagerduty size="32" color="" />,
-              "border-b-[#b8e0d2]",
-            ],
+            // [
+            //   "OHS Guidelines",
+            //   "bg-pcol",
+            //   "/superAdmin/OHS",
+            //   <Unicons.UilPagerduty size="32" color="" />,
+            //   "border-b-[#b8e0d2]",
+            // ],
             [
               "WCC",
               "bg-pcol",

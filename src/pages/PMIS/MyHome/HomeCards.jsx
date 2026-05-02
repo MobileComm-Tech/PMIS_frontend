@@ -194,6 +194,13 @@ const HomeCards = () => {
               "/home/PtwLogBackup",
               <Unicons.UilFileAlt size="40" color="" />,
             ],
+             [
+                          "OHS Guidelines",
+                          "bg-pcol",
+                          "/home/OHS",
+                          <Unicons.UilPagerduty size="32" color="" />,
+                          "border-b-[#b8e0d2]",
+                        ],
             // ["PTW Log Backup", "bg-pcol", "/superAdmin/PTWLogBackup"],
           ].map((itm) => (
             <>

@@ -137,7 +137,7 @@ import ApproverPage from "../pages/PMIS/MyHome/ApproverPage";
 import PTWApproverPage from "../pages/PMIS/MyHome/PTWApproverPage";
 import ApproverPageL2 from "../pages/PMIS/MyHome/ApproverPAgeL2";
 import PTWApproverPageL2 from "../pages/PMIS/MyHome/PTWApproverPageL2";
-import OhsNitification from "../pages/PMIS/Admin/OHS/OhsNitification";
+
 import UserAccessManagement from "../pages/Admin/UserAccessManagement/UserAccessManagement";
 import AccuralRevenueMasterWithActivity from "../pages/PMIS/Admin/Accural Revenue Master With Activit/AccuralRevenueMasterWithActivity";
 import ManageVendorPartnerTeamForm from "../pages/PMIS/Vendor Partner Team/ManageVendorPartnerTeamForm";
@@ -157,6 +157,7 @@ import EMF from "../pages/PMIS/Formss/WCC/EMF/EMF";
 import CDH from "../pages/PMIS/Formss/WCC/CDH/CDH";
 import CdhApprover from "../pages/PMIS/MyHome/Wcc Approver/CDH Approver/CdhApprover";
 import PTWTaskAllocation from "../pages/PMIS/Admin/PTWTaskAllocation/PTWTaskallocation";
+import OhsNitification from "../pages/PMIS/MyHome/OHS/OhsNitification";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -312,12 +313,7 @@ export const Sidebar_content = {
       subMenu: [],
       component: <ManageUserProjectAllocation />,
     },
-    {
-      name: "",
-      link: "/superAdmin/OHS",
-      subMenu: [],
-      component: <OhsNitification />,
-    },
+    
     {
       name: "",
       link: "/hr/superAdmin/manageProfile",
@@ -415,6 +411,12 @@ export const Sidebar_content = {
       link: "/home/PtwLogBackup",
       subMenu: [],
       component: <PTWLogBackup />,
+    },
+    {
+      name: "OHS Guidelines",
+      link: "/home/OHS",
+      subMenu: [],
+      component: <OhsNitification />,
     },
 
     {

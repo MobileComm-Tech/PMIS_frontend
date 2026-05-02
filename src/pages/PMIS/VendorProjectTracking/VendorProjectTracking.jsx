@@ -459,7 +459,7 @@
 //                                   : ""}
 //                               </p>
 //                             ))}
-                         
+
 //                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
 //                             {iewq.assignerResult.map((itws) => {
 //                               return itws.vendorCode + ", ";
@@ -3314,60 +3314,59 @@
 // // };
 // // export default VendorProjectTracking;
 
-
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as Unicons from '@iconscout/react-unicons';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../../../components/Modal';
-import Button from '../../../components/Button';
-import DeleteButton from '../../../components/DeleteButton';
-import CstmButton from '../../../components/CstmButton';
-import ToggleButton from '../../../components/ToggleButton';
-import { MdMessage } from 'react-icons/md';
-import { UilSearch } from '@iconscout/react-unicons';
-import PopupMenu from '../../../components/PopupMenu';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as Unicons from "@iconscout/react-unicons";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../../components/Modal";
+import Button from "../../../components/Button";
+import DeleteButton from "../../../components/DeleteButton";
+import CstmButton from "../../../components/CstmButton";
+import ToggleButton from "../../../components/ToggleButton";
+import { MdMessage } from "react-icons/md";
+import { UilSearch } from "@iconscout/react-unicons";
+import PopupMenu from "../../../components/PopupMenu";
 import {
   getAccessType,
   objectToQueryString,
   parseTwoDigit,
-} from '../../../utils/commonFunnction';
-import { ALERTS } from '../../../store/reducers/component-reducer';
-import CommonActions from '../../../store/actions/common-actions';
-import { Urls } from '../../../utils/url';
-import OperationManagementActions from '../../../store/actions/admin-actions';
-import AdminActions from '../../../store/actions/admin-actions';
-import { useNavigate, useParams } from 'react-router-dom';
-import projectListActions from '../../../store/actions/projectList-actions';
-import AdvancedTableExpandable from '../../../components/AdvancedTableExpandable';
-import SearchBarView from '../../../components/SearchBarView';
+} from "../../../utils/commonFunnction";
+import { ALERTS } from "../../../store/reducers/component-reducer";
+import CommonActions from "../../../store/actions/common-actions";
+import { Urls } from "../../../utils/url";
+import OperationManagementActions from "../../../store/actions/admin-actions";
+import AdminActions from "../../../store/actions/admin-actions";
+import { useNavigate, useParams } from "react-router-dom";
+import projectListActions from "../../../store/actions/projectList-actions";
+import AdvancedTableExpandable from "../../../components/AdvancedTableExpandable";
+import SearchBarView from "../../../components/SearchBarView";
 
-import ProgressBar from '../../../components/ProgressBar';
-import { onehundcolor } from '../../../utils/queryBuilder';
-import ConditionalButton from '../../../components/ConditionalButton';
-import eventManagementActions from '../../../store/actions/eventLogs-actions';
-import EventLog from '../../../components/EventLogs';
-import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from '../../../store/reducers/admin-reducer';
-import FilterActions from '../../../store/actions/filter-actions';
-import ManageProjectSiteIdForm from '../Admin/ManageProjectSiteId/ManageProjectSiteIdForm';
-import AllocateProjectForm from '../Admin/ManageProjectSiteId/AllocateProjectForm';
-import ManageMilestoneSite from '../Admin/ManageSite/ManageMilestoneSite';
+import ProgressBar from "../../../components/ProgressBar";
+import { onehundcolor } from "../../../utils/queryBuilder";
+import ConditionalButton from "../../../components/ConditionalButton";
+import eventManagementActions from "../../../store/actions/eventLogs-actions";
+import EventLog from "../../../components/EventLogs";
+import { GET_ONE_MANAGE_PROJECT_TYPE_DY_FORM } from "../../../store/reducers/admin-reducer";
+import FilterActions from "../../../store/actions/filter-actions";
+import ManageProjectSiteIdForm from "../Admin/ManageProjectSiteId/ManageProjectSiteIdForm";
+import AllocateProjectForm from "../Admin/ManageProjectSiteId/AllocateProjectForm";
+import ManageMilestoneSite from "../Admin/ManageSite/ManageMilestoneSite";
 import {
   GET_CIRCLE_WITH_PG_DATA,
   GET_MAPPED_DATA,
-} from '../../../store/reducers/projectList-reducer';
-import MyHomeActions from '../../../store/actions/myHome-actions';
-import VendorActions from '../../../store/actions/vendor-actions';
-import moment from 'moment/moment';
-import CommonForm from '../../../components/CommonForm';
-import gpTrackingActions from '../../../store/actions/gpTrackingActions';
-import Api from '../../../utils/api';
-import { GET_PROJECT_TYPE } from '../../../store/reducers/vendor-reducer';
-import FileUploader from '../../../components/FIleUploader';
+} from "../../../store/reducers/projectList-reducer";
+import MyHomeActions from "../../../store/actions/myHome-actions";
+import VendorActions from "../../../store/actions/vendor-actions";
+import moment from "moment/moment";
+import CommonForm from "../../../components/CommonForm";
+import gpTrackingActions from "../../../store/actions/gpTrackingActions";
+import Api from "../../../utils/api";
+import { GET_PROJECT_TYPE } from "../../../store/reducers/vendor-reducer";
+import FileUploader from "../../../components/FIleUploader";
 
 const VendorProjectTracking = () => {
-  let permission = JSON.parse(localStorage.getItem('permission')) || {};
-  let user = JSON.parse(localStorage.getItem('user'));
+  let permission = JSON.parse(localStorage.getItem("permission")) || {};
+  let user = JSON.parse(localStorage.getItem("user"));
   let rolename = user?.roleName;
 
   // console.log(permission?.pmpermission,"permission")
@@ -3375,7 +3374,7 @@ const VendorProjectTracking = () => {
   const [assignDate, setAssignDate] = useState();
   // console.log(getAccessType("Add Site"), "getAccessType");
   const { projectuniqueId } = useParams();
-  const [ValGm, setValGm] = useState('Month');
+  const [ValGm, setValGm] = useState("Month");
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalFullOpen, setmodalFullOpen] = useState(false);
   const [modalFullBody, setmodalFullBody] = useState(<></>);
@@ -3383,15 +3382,15 @@ const VendorProjectTracking = () => {
   const currrentYear = new Date().getFullYear();
   const [year, setyear] = useState(currrentYear);
   const [globalData, setGlobalData] = useState({});
-  const [extraColumns, setExtraColumns] = useState('');
-  const [SiteId, setSiteId] = useState('Add');
+  const [extraColumns, setExtraColumns] = useState("");
+  const [SiteId, setSiteId] = useState("Add");
   const [parentsite, setparentsite] = useState([]);
   const [childsite, setchildsite] = useState([]);
   const [modalBody, setmodalBody] = useState(<></>);
   const [getmultiSelect, setmultiSelect] = useState([]);
-  const endDate = moment().format('Y');
+  const endDate = moment().format("Y");
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [selectType, setSelectType] = useState('');
+  const [selectType, setSelectType] = useState("");
   const [modalHead, setmodalHead] = useState(<></>);
   const [filters, setFilters] = useState({});
   const [old, setOld] = useState(<></>);
@@ -3399,50 +3398,50 @@ const VendorProjectTracking = () => {
   const [fileOpen, setFileOpen] = useState(false);
 
   const cleanPayload = (obj) => {
-  return Object.fromEntries(
-    Object.entries(obj).filter(
-      ([_, v]) =>
-        v !== undefined &&
-        v !== null &&
-        v !== '' &&
-        !(Array.isArray(v) && v.length === 0)
-    )
-  );
-};
+    return Object.fromEntries(
+      Object.entries(obj).filter(
+        ([_, v]) =>
+          v !== undefined &&
+          v !== null &&
+          v !== "" &&
+          !(Array.isArray(v) && v.length === 0),
+      ),
+    );
+  };
 
   let Month = [
-    { id: 1, name: 'Jan' },
-    { id: 2, name: 'Feb' },
-    { id: 3, name: 'Mar' },
-    { id: 4, name: 'Apr' },
-    { id: 5, name: 'May' },
-    { id: 6, name: 'Jun' },
-    { id: 7, name: 'Jul' },
-    { id: 8, name: 'Aug' },
-    { id: 9, name: 'Sep' },
-    { id: 10, name: 'Oct' },
-    { id: 11, name: 'Nov' },
-    { id: 12, name: 'Dec' },
+    { id: 1, name: "Jan" },
+    { id: 2, name: "Feb" },
+    { id: 3, name: "Mar" },
+    { id: 4, name: "Apr" },
+    { id: 5, name: "May" },
+    { id: 6, name: "Jun" },
+    { id: 7, name: "Jul" },
+    { id: 8, name: "Aug" },
+    { id: 9, name: "Sep" },
+    { id: 10, name: "Oct" },
+    { id: 11, name: "Nov" },
+    { id: 12, name: "Dec" },
   ];
   let listYear = [];
   for (let ywq = 2023; ywq <= +endDate; ywq++) {
     listYear.push(ywq);
   }
   let listDict = {
-    '': [],
+    "": [],
     Month: [
-      { id: 1, name: 'Jan' },
-      { id: 2, name: 'Feb' },
-      { id: 3, name: 'Mar' },
-      { id: 4, name: 'Apr' },
-      { id: 5, name: 'May' },
-      { id: 6, name: 'Jun' },
-      { id: 7, name: 'Jul' },
-      { id: 8, name: 'Aug' },
-      { id: 9, name: 'Sep' },
-      { id: 10, name: 'Oct' },
-      { id: 11, name: 'Nov' },
-      { id: 12, name: 'Dec' },
+      { id: 1, name: "Jan" },
+      { id: 2, name: "Feb" },
+      { id: 3, name: "Mar" },
+      { id: 4, name: "Apr" },
+      { id: 5, name: "May" },
+      { id: 6, name: "Jun" },
+      { id: 7, name: "Jul" },
+      { id: 8, name: "Aug" },
+      { id: 9, name: "Sep" },
+      { id: 10, name: "Oct" },
+      { id: 11, name: "Nov" },
+      { id: 12, name: "Dec" },
     ],
   };
 
@@ -3459,11 +3458,11 @@ const VendorProjectTracking = () => {
   } = useForm();
   let dispatch = useDispatch();
 
-  let showTypeforAction = getAccessType('Actions(Site)');
+  let showTypeforAction = getAccessType("Actions(Site)");
 
   let shouldIncludeEditColumn = false;
 
-  if (showTypeforAction === 'visible') {
+  if (showTypeforAction === "visible") {
     shouldIncludeEditColumn = true;
   }
 
@@ -3485,40 +3484,41 @@ const VendorProjectTracking = () => {
   //   );
   // };
 
-  const handleAddActivity = React.useCallback((data) => {
-  let finalData = { ...data };
+  const handleAddActivity = React.useCallback(
+    (data) => {
+      let finalData = { ...data };
 
-  if (assignDate?.start && assignDate?.end) {
-    finalData.start = assignDate.start.split('T')[0];
-    finalData.end = assignDate.end.split('T')[0];
-  }
+      if (assignDate?.start && assignDate?.end) {
+        finalData.start = assignDate.start.split("T")[0];
+        finalData.end = assignDate.end.split("T")[0];
+      }
 
+      finalData = cleanPayload(finalData);
 
-  finalData = cleanPayload(finalData);
+      setFilters((prev) => ({
+        ...prev,
+        ...finalData,
+      }));
 
-    setFilters((prev) => ({
-      ...prev,
-      ...finalData,
-    }));
-
-    dispatch(
-      VendorActions.getVendorProjectTracking(
-        true,
-        objectToQueryString(finalData)
-      )
-    );
-  }, [assignDate, dispatch]);
+      dispatch(
+        VendorActions.getVendorProjectTracking(
+          true,
+          objectToQueryString(finalData),
+        ),
+      );
+    },
+    [assignDate, dispatch],
+  );
 
   const projectType = useSelector((state) => {
     return state.vendorData.getProjectType.map((item) => ({
       label: item?.projectType,
-      value: item?.uid?.join(','),
+      value: item?.uid?.join(","),
     }));
   });
 
-
   const onTableViewSubmit = (data) => {
-    data['fileType'] = 'PartnerManagementPOUpload';
+    data["fileType"] = "PartnerManagementPOUpload";
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         setFileOpen(false);
@@ -3526,7 +3526,7 @@ const VendorProjectTracking = () => {
           PTWActions.getL1ApproverData(
             true,
             objectToQueryString({
-              ApproverType: 'L1-Approver',
+              ApproverType: "L1-Approver",
             }),
           ),
         );
@@ -3574,26 +3574,26 @@ const VendorProjectTracking = () => {
             //   // setmodalBody(<ManageProjectSiteIdForm projectuniqueId={projectuniqueId} isOpen={modalOpen} setIsOpen={setmodalOpen} resetting={true} formValue={{}} />)
             // }}
           >
-            {itm['Site Id']}
+            {itm["Site Id"]}
           </p>
         ),
 
         // CompletionBar: <ProgressBar notifyType={"success"} text={`${100 - ((itm.milestoneArray.length - itm.milestoneArray.filter(iewq => iewq.mileStoneStatus == "Close").length) / itm.milestoneArray.length * 100)}`} />,
         CompletionBar: (
           <ProgressBar
-            notifyType={'success'}
+            notifyType={"success"}
             percent={`${
               100 -
               ((itm?.milestoneArray?.length -
                 itm?.milestoneArray?.filter(
-                  (iewq) => iewq?.mileStoneStatus == 'Closed',
+                  (iewq) => iewq?.mileStoneStatus == "Closed",
                 ).length) /
                 itm?.milestoneArray?.length) *
                 100
             }`}
             text={`${
               itm?.milestoneArray?.filter(
-                (iewq) => iewq?.mileStoneStatus == 'Closed',
+                (iewq) => iewq?.mileStoneStatus == "Closed",
               ).length
             } / ${itm?.milestoneArray?.length}`}
           />
@@ -3602,22 +3602,22 @@ const VendorProjectTracking = () => {
         siteage: itm.siteageing ? (
           itm.siteageing >= 0 ? (
             <p className="text-[#13b497] font-extrabold">
-              {itm.siteageing + ' Days'}
+              {itm.siteageing + " Days"}
             </p>
           ) : (
             <p className="text-rose-400 font-extrabold">
-              {itm.siteageing + ' Days'}
+              {itm.siteageing + " Days"}
             </p>
           )
         ) : (
-          ''
+          ""
         ),
 
         milestoneArray: itm?.milestoneArray?.map((iewq) => {
-          console.log(iewq, 'iewqiewqiewqiewq');
+          console.log(iewq, "iewqiewqiewqiewq");
           return {
             ...iewq,
-            SubProject: '',
+            SubProject: "",
 
             MileDevName: (
               <div className="flex ">
@@ -3673,19 +3673,19 @@ const VendorProjectTracking = () => {
                                 key={index}
                                 className={`flex justify-center items-center mx-0.5 rounded-full text-white w-8 h-8 ${onehundcolor[index]}`}
                               >
-                                {' '}
+                                {" "}
                                 {itwsw.assignerName &&
-                                itwsw.assignerName.trim().split(' ').length > 1
+                                itwsw.assignerName.trim().split(" ").length > 1
                                   ? `${itwsw.assignerName
-                                      .split(' ')[0]
+                                      .split(" ")[0]
                                       .substr(0, 1)}${itwsw.assignerName
-                                      .split(' ')[1]
+                                      .split(" ")[1]
                                       .substr(0, 1)}`
                                   : itwsw.assignerName
                                     ? itwsw.assignerName
-                                        .split(' ')[0]
+                                        .split(" ")[0]
                                         .substr(0, 1)
-                                    : ''}
+                                    : ""}
                               </p>
                             ))}
                           {/* {iewq.assignerResult
@@ -3709,14 +3709,14 @@ const VendorProjectTracking = () => {
                             ))} */}
                           <span class="pointer-events-none w-max absolute -top-8 bg-gray-500 z-[100px] rounded-lg p-2 opacity-0 transition-opacity group-hover:opacity-100">
                             {iewq.assignerResult.map((itws) => {
-                              return itws.assignerName + ', ';
+                              return itws.assignerName + ", ";
                             })}
                           </span>
                         </div>
                       </div>
                     </>
                   ) : (
-                    'Unassigned'
+                    "Unassigned"
                   )}
                 </p>
               </div>
@@ -3771,7 +3771,7 @@ const VendorProjectTracking = () => {
                     <p className="truncate max-w-[120px]">
                       {iewq.assignerResult[0].assignerName.length > 20
                         ? iewq.assignerResult[0].assignerName.slice(0, 20) +
-                          '...'
+                          "..."
                         : iewq.assignerResult[0].assignerName}
                     </p>
 
@@ -3831,13 +3831,13 @@ const VendorProjectTracking = () => {
             ),
 
             mileStoneStatusUpda:
-              iewq.mileStoneStatus == 'Closed' && rolename == 'Admin' ? (
+              iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer"
                     onClick={() => {
                       setmodalOpen(true);
-                      setmodalHead('If you want to OPEN the task again');
+                      setmodalHead("If you want to OPEN the task again");
                       setmodalBody(
                         <>
                           <div className="flex justify-between">
@@ -3845,7 +3845,7 @@ const VendorProjectTracking = () => {
                               htmlFor=""
                               className="w-auto flex text-[#13b497] font-extrabold pl-20 whitespace-nowrap"
                             >
-                              {' '}
+                              {" "}
                               Current Status:
                             </label>
                             <p className="w-20 rounded-xl font-extrabold justify-center text-yellow-500 bg-slate-500 flex text- mr-28 whitespace-nowrap">
@@ -3854,11 +3854,11 @@ const VendorProjectTracking = () => {
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
                             <Button
-                              classes={'mt-2 w-sm text-center flex mx-auto'}
+                              classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
                               onClick={() => {
                                 let finaldata = {
-                                  mileStoneStatus: 'Open',
+                                  mileStoneStatus: "Open",
                                 };
                                 dispatch(
                                   projectListActions.globalProjectTypeDataPatch(
@@ -3931,37 +3931,37 @@ const VendorProjectTracking = () => {
             taskmageing:
               iewq.taskageing >= 0 ? (
                 <p className="text-[#13b497] font-extrabold">
-                  {iewq.taskageing + ' Days'}
+                  {iewq.taskageing + " Days"}
                 </p>
               ) : (
                 <p className="text-rose-400 font-extrabold">
-                  {iewq.taskageing + ' Days'}
+                  {iewq.taskageing + " Days"}
                 </p>
               ),
             Predecessor: iewq.Predecessor,
             CompletionBar: (
               <ProgressBar
-                notifyType={iewq.taskageing >= 0 ? 'success' : 'alert'}
-                percent={iewq.mileStoneStatus == 'Open' ? '0' : '100'}
+                notifyType={iewq.taskageing >= 0 ? "success" : "alert"}
+                percent={iewq.mileStoneStatus == "Open" ? "0" : "100"}
                 text={
-                  parseTwoDigit(iewq.mileStoneStatus == 'Open' ? '0' : '100') +
-                  ' %'
+                  parseTwoDigit(iewq.mileStoneStatus == "Open" ? "0" : "100") +
+                  " %"
                 }
               />
             ),
             editing:
-              iewq.mileStoneStatus == 'Closed' && rolename == 'Admin' ? (
+              iewq.mileStoneStatus == "Closed" && rolename == "Admin" ? (
                 <>
                   <p
                     className="cursor-pointer bg-green-500 p-1 rounded-2xl my-auto"
                     onClick={() => {
                       setmodalOpen(true);
-                      setmodalHead('');
+                      setmodalHead("");
                       setmodalBody(
                         <>
                           <div className="flex justify-between">
                             <label htmlFor="" className="font-bold">
-                              {' '}
+                              {" "}
                               Status:
                             </label>
                             <p className="bg-green-400 rounded-lg w-16 text-center">
@@ -3970,11 +3970,11 @@ const VendorProjectTracking = () => {
                           </div>
                           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
                             <Button
-                              classes={'mt-2 w-sm text-center flex mx-auto'}
+                              classes={"mt-2 w-sm text-center flex mx-auto"}
                               name="Open Task"
                               onClick={() => {
                                 let finaldata = {
-                                  mileStoneStatus: 'Open',
+                                  mileStoneStatus: "Open",
                                 };
                                 dispatch(
                                   projectListActions.globalProjectTypeDataPatch(
@@ -4015,7 +4015,7 @@ const VendorProjectTracking = () => {
                       setmodalFullOpen((prev) => !prev);
                       // dispatch(AdminActions.getProject())
 
-                      setmodalHead('Event Log');
+                      setmodalHead("Event Log");
                       dispatch(
                         eventManagementActions.getmilestoneeventList(
                           true,
@@ -4024,7 +4024,7 @@ const VendorProjectTracking = () => {
                       );
 
                       setmodalBody(
-                        <EventLog type={'milestone'} unqeId={iewq?.uniqueId} />,
+                        <EventLog type={"milestone"} unqeId={iewq?.uniqueId} />,
                       );
                     }}
                   >
@@ -4033,11 +4033,11 @@ const VendorProjectTracking = () => {
                   <CstmButton
                     child={
                       <DeleteButton
-                        name={''}
+                        name={""}
                         onClick={() => {
                           let msgdata = {
                             show: true,
-                            icon: 'warning',
+                            icon: "warning",
 
                             buttons: [
                               <Button
@@ -4057,18 +4057,18 @@ const VendorProjectTracking = () => {
                                     ),
                                   );
                                 }}
-                                name={'OK'}
+                                name={"OK"}
                               />,
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log('snnsnsnsns');
+                                  console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
-                                name={'Cancel'}
+                                name={"Cancel"}
                               />,
                             ],
-                            text: 'Are you sure you want to Delete?',
+                            text: "Are you sure you want to Delete?",
                           };
                           dispatch(ALERTS(msgdata));
                         }}
@@ -4262,7 +4262,7 @@ const VendorProjectTracking = () => {
                     className=""
                     onClick={() => {
                       setmodalFullOpen((prev) => !prev);
-                      setmodalHead('Event Log');
+                      setmodalHead("Event Log");
                       dispatch(
                         eventManagementActions.getsiteeventList(
                           true,
@@ -4270,7 +4270,7 @@ const VendorProjectTracking = () => {
                         ),
                       );
                       setmodalBody(
-                        <EventLog type={'site'} unqeId={itm?.uniqueId} />,
+                        <EventLog type={"site"} unqeId={itm?.uniqueId} />,
                       );
                     }}
                   >
@@ -4279,11 +4279,11 @@ const VendorProjectTracking = () => {
                   <CstmButton
                     child={
                       <DeleteButton
-                        name={''}
+                        name={""}
                         onClick={() => {
                           let msgdata = {
                             show: true,
-                            icon: 'warning',
+                            icon: "warning",
                             buttons: [
                               <Button
                                 classes="w-15 bg-rose-400"
@@ -4303,18 +4303,18 @@ const VendorProjectTracking = () => {
                                     ),
                                   );
                                 }}
-                                name={'OK'}
+                                name={"OK"}
                               />,
                               <Button
                                 classes="w-auto"
                                 onClick={() => {
-                                  console.log('snnsnsnsns');
+                                  console.log("snnsnsnsns");
                                   dispatch(ALERTS({ show: false }));
                                 }}
-                                name={'Cancel'}
+                                name={"Cancel"}
                               />,
                             ],
-                            text: 'Are you sure you want to Delete?',
+                            text: "Are you sure you want to Delete?",
                           };
                           dispatch(ALERTS(msgdata));
                         }}
@@ -4324,7 +4324,7 @@ const VendorProjectTracking = () => {
                 </>
               </div>
             ) : (
-              ''
+              ""
             )}
           </>
         ),
@@ -4346,17 +4346,17 @@ const VendorProjectTracking = () => {
     useSelector((state) => {
       let interdata = state?.vendorData?.getvendorProjectTracking || 0;
       if (interdata.length > 0) {
-        return interdata[0]['overall_table_count'];
+        return interdata[0]["overall_table_count"];
       }
     }) || [];
 
   let formD = [
     {
-      label: 'Year',
-      name: 'year',
-      value: 'Select',
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
-      type: 'select',
+      label: "Year",
+      name: "year",
+      value: "Select",
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+      type: "select",
       option: listYear.map((itmYr) => {
         return {
           label: itmYr,
@@ -4365,38 +4365,38 @@ const VendorProjectTracking = () => {
       }),
       props: {
         onChange: (e) => {
-          setValue('year', e.target.value);
+          setValue("year", e.target.value);
           setyear(e.target.value);
         },
       },
       required: false,
-      classes: 'col-span-1 h-38px',
+      classes: "col-span-1 h-38px",
     },
     {
       label: ValGm,
-      name: 'viewBy',
-      value: 'Select',
-      type: 'newmuitiSelect2',
+      name: "viewBy",
+      value: "Select",
+      type: "newmuitiSelect2",
       option: listDict[ValGm].map((dasd) => {
         return {
           value: dasd?.id,
           label: dasd?.name,
         };
       }),
-      minWidth: 'min-w-[260px]',
+      minWidth: "min-w-[260px]",
       props: {
         selectType: selectType,
       },
       hasSelectAll: true,
       required: false,
-      classes: 'w-full w-[300px] h-10',
+      classes: "w-full w-[300px] h-10",
     },
     {
-      label: 'Date Range',
-      value: '',
-      name: 'assignDate',
-      type: 'datetimeRange',
-      bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+      label: "Date Range",
+      value: "",
+      name: "assignDate",
+      type: "datetimeRange",
+      bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
       required: false,
       onChange: (data) => {
         setAssignDate(data);
@@ -4405,7 +4405,7 @@ const VendorProjectTracking = () => {
   ];
   const poEligibility =
     useSelector((state) => {
-      console.log(state?.vendorData?.getfilterPOEligibility, 'gffdgdgfdgfd');
+      console.log(state?.vendorData?.getfilterPOEligibility, "gffdgdgfdgfd");
       return state?.vendorData?.getfilterPOEligibility;
     }) || [];
 
@@ -4417,87 +4417,87 @@ const VendorProjectTracking = () => {
   let table = {
     columns: [
       {
-        name: 'Site ID',
-        value: 'siteIdLink',
+        name: "Site ID",
+        value: "siteIdLink",
         style:
-          'min-w-[140px]  max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer',
+          "min-w-[140px]  max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
       },
       {
-        name: 'SSID',
-        value: 'systemId',
+        name: "SSID",
+        value: "systemId",
         style:
-          'min-w-[140px]  max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-[140px] bg-[#3e454d] z-20 cursor-pointer',
+          "min-w-[140px]  max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-[140px] bg-[#3e454d] z-20 cursor-pointer",
       },
       {
-        name: 'Customer',
-        value: 'Customer',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Customer",
+        value: "Customer",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Project Group',
-        value: 'projectGroupName',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Project Group",
+        value: "projectGroupName",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Project ID',
-        value: 'projectId',
-        style: 'min-w-[140px] max-w-[200px] text-center sticky  bg-[#3e454d] ',
+        name: "Project ID",
+        value: "projectId",
+        style: "min-w-[140px] max-w-[200px] text-center sticky  bg-[#3e454d] ",
       },
       {
-        name: 'Project Type',
-        value: 'projectType',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Project Type",
+        value: "projectType",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Sub Project',
-        value: 'subProject',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Sub Project",
+        value: "subProject",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
 
       {
-        name: 'Vendor Name',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Vendor Name",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Vendor ID',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Vendor ID",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Task Allocation Date',
-        value: 'assignDate',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Task Allocation Date",
+        value: "assignDate",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'MS Completition Date',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "MS Completition Date",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Task Closure Date',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Task Closure Date",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Ageing',
-        value: 'siteageing',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Ageing",
+        value: "siteageing",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Predecessor',
-        value: 'Predecessor',
-        style: 'min-w-[240px] max-w-[240px] text-center',
+        name: "Predecessor",
+        value: "Predecessor",
+        style: "min-w-[240px] max-w-[240px] text-center",
       },
       {
-        name: 'MS1 Completion Date',
-        value: 'MS1Date',
-        style: 'min-w-[240px] max-w-[240px] text-center',
+        name: "MS1 Completion Date",
+        value: "MS1Date",
+        style: "min-w-[240px] max-w-[240px] text-center",
       },
       {
-        name: 'MS2 Completion Date',
-        value: 'MS2Date',
-        style: 'min-w-[240px] max-w-[240px] text-center',
+        name: "MS2 Completion Date",
+        value: "MS2Date",
+        style: "min-w-[240px] max-w-[240px] text-center",
       },
 
       //   {
@@ -4533,49 +4533,49 @@ const VendorProjectTracking = () => {
       //     style: "min-w-[140px] max-w-[200px] text-center",
       //   },
       {
-        name: 'MS Status',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "MS Status",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Vendor Item Code',
-        value: 'vendorItemCode2',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Vendor Item Code",
+        value: "vendorItemCode2",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Vendor Item Code Description',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Vendor Item Code Description",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Quantity',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Quantity",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Vendor Rate',
-        value: 'vendorRate2',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Vendor Rate",
+        value: "vendorRate2",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'PO Value',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "PO Value",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'Activity Month',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "Activity Month",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'PO eligibility (Yes/No)',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "PO eligibility (Yes/No)",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
       {
-        name: 'PO Number',
-        value: '',
-        style: 'min-w-[140px] max-w-[200px] text-center',
+        name: "PO Number",
+        value: "",
+        style: "min-w-[140px] max-w-[200px] text-center",
       },
 
       // {
@@ -4608,140 +4608,140 @@ const VendorProjectTracking = () => {
       //   style: "min-w-[50px] max-w-[100px] text-center",
       // },
     ],
-    childList: [''],
+    childList: [""],
     childs: {
       milestoneArray: [
         {
-          name: '',
-          value: 'checkboxProject',
-          style: 'min-w-[40px] max-w-[40px] text-center',
+          name: "",
+          value: "checkboxProject",
+          style: "min-w-[40px] max-w-[40px] text-center",
         },
         {
-          name: 'Site ID',
-          value: 'SiteNaming',
+          name: "Site ID",
+          value: "SiteNaming",
           style:
-            'min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer',
+            "min-w-[140px] max-w-[200px] text-center font-extrabold hover:text-[#CA8A04] focus:outline-none hover:font-semibold  sticky left-0 bg-[#3e454d] z-20 cursor-pointer",
         },
         {
-          name: 'SSID',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "SSID",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Customer',
-          value: 'customer',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Customer",
+          value: "customer",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Project Group',
-          value: 'projectGroup',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Project Group",
+          value: "projectGroup",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Project ID',
-          value: 'projectId',
+          name: "Project ID",
+          value: "projectId",
           style:
-            'min-w-[140px] max-w-[200px] sticky left-[140px] bg-[#3e454d] text-center z-20',
+            "min-w-[140px] max-w-[200px] sticky left-[140px] bg-[#3e454d] text-center z-20",
         },
         {
-          name: 'Project Type',
-          value: 'projectType',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Project Type",
+          value: "projectType",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Sub Project',
-          value: 'SubProject',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Sub Project",
+          value: "SubProject",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Vendor Name',
-          value: 'VendorName',
-          style: 'min-w-[180px] max-w-[180px] text-center',
+          name: "Vendor Name",
+          value: "VendorName",
+          style: "min-w-[180px] max-w-[180px] text-center",
         },
         {
-          name: 'Vendor ID',
-          value: 'VendorId',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Vendor ID",
+          value: "VendorId",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Task Allocation Date',
-          value: 'assignDate',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Task Allocation Date",
+          value: "assignDate",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'MS Completition Date',
-          value: 'CC_Completion Date',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "MS Completition Date",
+          value: "CC_Completion Date",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Task Closure Date',
-          value: 'Task Closure',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Task Closure Date",
+          value: "Task Closure",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Ageing',
-          value: 'taskmageing',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Ageing",
+          value: "taskmageing",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Predecessor',
-          value: 'Predecessor',
-          style: 'min-w-[240px] max-w-[240px] text-center',
+          name: "Predecessor",
+          value: "Predecessor",
+          style: "min-w-[240px] max-w-[240px] text-center",
         },
         {
-          name: 'MS1 Completion Date',
-          value: 'ms1CompletitionDate',
-          style: 'min-w-[240px] max-w-[240px] text-center',
+          name: "MS1 Completion Date",
+          value: "ms1CompletitionDate",
+          style: "min-w-[240px] max-w-[240px] text-center",
         },
         {
-          name: 'MS2 Completion Date',
-          value: 'ms2CompletitionDate',
-          style: 'min-w-[240px] max-w-[240px] text-center',
+          name: "MS2 Completion Date",
+          value: "ms2CompletitionDate",
+          style: "min-w-[240px] max-w-[240px] text-center",
         },
         {
-          name: 'MS Status',
-          value: 'mileStoneStatusUpda',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "MS Status",
+          value: "mileStoneStatusUpda",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Vendor Item Code',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Vendor Item Code",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Vendor Code Description',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Vendor Code Description",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Quantity',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Quantity",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Vendor Rate',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Vendor Rate",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'PO Value',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "PO Value",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'Activity Month',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "Activity Month",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'PO eligibility (Yes/No)',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "PO eligibility (Yes/No)",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
         {
-          name: 'PO Number',
-          value: '',
-          style: 'min-w-[140px] max-w-[200px] text-center',
+          name: "PO Number",
+          value: "",
+          style: "min-w-[140px] max-w-[200px] text-center",
         },
 
         // {
@@ -4802,11 +4802,11 @@ const VendorProjectTracking = () => {
     },
     filter: [
       {
-        label: 'Customer',
-        value: '',
-        name: 'customerId',
-        type: 'select',
-        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        label: "Customer",
+        value: "",
+        name: "customerId",
+        type: "select",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: customerList,
         props: {
           onChange: (e) => {
@@ -4822,42 +4822,42 @@ const VendorProjectTracking = () => {
         required: false,
       },
       {
-        label: 'Project Type',
-        value: '',
-        type: 'select',
-        name: 'projectType',
+        label: "Project Type",
+        value: "",
+        type: "select",
+        name: "projectType",
         option: projectType,
       },
       {
-        label: 'Site Id',
-        value: '',
-        name: 'siteId',
+        label: "Site Id",
+        value: "",
+        name: "siteId",
 
-        type: 'text',
+        type: "text",
       },
       {
-        label: 'Milestone',
-        value: '',
-        name: 'milestone',
-        type: 'text',
+        label: "Milestone",
+        value: "",
+        name: "milestone",
+        type: "text",
       },
       {
-        label: 'Vendor Name',
-        value: '',
-        type: 'text',
-        name: 'vendorName',
+        label: "Vendor Name",
+        value: "",
+        type: "text",
+        name: "vendorName",
       },
       {
-        label: 'Vendor Code',
-        value: '',
-        name: 'vendorCode',
-        type: 'text',
+        label: "Vendor Code",
+        value: "",
+        name: "vendorCode",
+        type: "text",
       },
       {
-        label: 'Activity Month',
-        value: '',
-        name: 'completionMonth',
-        type: 'datetimeRange',
+        label: "Activity Month",
+        value: "",
+        name: "completionMonth",
+        type: "datetimeRange",
         // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         required: false,
         props: {
@@ -4867,11 +4867,11 @@ const VendorProjectTracking = () => {
         },
       },
       {
-        label: 'PO Eligibility',
-        value: '',
-        type: 'select',
-        name: 'poEligibility',
-        bg: 'bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]',
+        label: "PO Eligibility",
+        value: "",
+        type: "select",
+        name: "poEligibility",
+        bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
         option: poEligibilityOptions,
         // props: {
         //   onChange: (e) => {
@@ -4931,32 +4931,32 @@ const VendorProjectTracking = () => {
   // };
 
   const onSubmit = (data) => {
-  let shouldReset = data.reseter;
-  delete data.reseter;
+    let shouldReset = data.reseter;
+    delete data.reseter;
 
-  let finalData = cleanPayload(data);
+    let finalData = cleanPayload(data);
 
-  setstrVal(objectToQueryString(finalData));
+    setstrVal(objectToQueryString(finalData));
 
-  setFilters((prev) => ({
-    ...prev,
-    ...finalData,
-  }));
+    setFilters((prev) => ({
+      ...prev,
+      ...finalData,
+    }));
 
-  dispatch(
-    VendorActions.getVendorProjectTracking(
-      true,
-      objectToQueryString(finalData)
-    )
-  );
-};
+    dispatch(
+      VendorActions.getVendorProjectTracking(
+        true,
+        objectToQueryString(finalData),
+      ),
+    );
+  };
   // useEffect(() => {
   //   console.log('runhjdsfk');
   // });
   useEffect(() => {
     dispatch(gpTrackingActions.getGPCustomer());
     dispatch(VendorActions.getVendorProjectTracking());
-    dispatch(VendorActions.getFilterPOEligibility(true, ''));
+    dispatch(VendorActions.getFilterPOEligibility(true, ""));
     reset({});
   }, []);
 
@@ -5018,7 +5018,7 @@ const VendorProjectTracking = () => {
         }
         headerButton={
           <div className="flex gap-1 ">
-            {getAccessType('Project Tracking(Upload)') === 'visible' ? (
+            {getAccessType("Project Tracking(Upload)") === "visible" ? (
               <Button
                 name="Upload"
                 classes="w-auto mr-1"
@@ -5028,24 +5028,24 @@ const VendorProjectTracking = () => {
               <></>
             )}
             <ConditionalButton
-              showType={getAccessType('Project Tracking(Export)')}
+              showType={getAccessType("Project Tracking(Export)")}
               classes="w-auto "
               onClick={(e) => {
                 dispatch(
                   CommonActions.commondownload(
-                    '/export/vendor-project-tracking?' +
+                    "/export/vendor-project-tracking?" +
                       objectToQueryString(filters),
-                    'Vendor-Project-Tracking.xlsx',
+                    "Vendor-Project-Tracking.xlsx",
                   ),
                 );
               }}
-              name={'Export'}
+              name={"Export"}
             ></ConditionalButton>
           </div>
         }
         table={table}
         filterAfter={onSubmit}
-        tableName={'UserListTable'}
+        tableName={"UserListTable"}
         handleSubmit={handleSubmit}
         data={dbConfigList[0]?.uniqueId ? dbConfigList : []}
         errors={errors}
@@ -5056,19 +5056,19 @@ const VendorProjectTracking = () => {
         getmultiSelect={getmultiSelect}
         setmultiSelect={setmultiSelect}
         totalCount={dbConfigTotalCount}
-        heading={'Total Sites:-'}
+        heading={"Total Sites:-"}
         TableHeight="h-[52vh]"
       />
 
       <Modal
-        size={'sm'}
+        size={"sm"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
       <Modal
-        size={'full'}
+        size={"full"}
         modalHead={modalHead}
         children={modalBody}
         isOpen={modalFullOpen}
@@ -5076,13 +5076,13 @@ const VendorProjectTracking = () => {
       />
       <FileUploader
         isOpen={fileOpen}
-        fileUploadUrl={''}
+        fileUploadUrl={""}
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={[
-          '/template/PartnerManagementPOUpload.xlsx',
-          'PartnerManagementPOUpload.xlsx',
+          "/template/PartnerManagementPOUpload.xlsx",
+          "PartnerManagementPOUpload.xlsx",
         ]}
       />
     </>

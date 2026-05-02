@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import AdvancedTable from "../../../components/AdvancedTable";
@@ -8,14 +8,27 @@ import Button from "../../../components/Button";
 import { objectToQueryString } from "../../../utils/commonFunnction";
 import AdminActions from "../../../store/actions/admin-actions";
 import SearchBarView from "../../../components/SearchBarView";
+import DateRangePicking from "../../../components/FormElements/DateRangePicking";
+import { UilSearch } from "@iconscout/react-unicons";
+import NewMultiSelects from "../../../components/NewMultiSelect";
 const PTWLogBackup = () => {
   const dispatch = useDispatch();
-
+  const [selectedStatus, setSelectedStatus] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [finalQuery, setFinalQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [requesterTerm, setRequesterTerm] = useState("");
+  const [resetKey, setResetKey] = useState(0);
   const dataAll = useSelector((state) => state?.ptwData?.getPtwLogBackup || []);
+  const PTW_STATUS_MAP = {
+    Active: ["Submitted", "L1-Approved", "L2-Approved"],
+    Rejected: ["L1-Rejected", "L2-Rejected"],
+    Closed: ["Closed", "Auto Closed"],
+  };
   // console.log(dataAll, "csddsffffdff");
   const [strValFil, setstrVal] = useState("");
+  const dateRef = useRef(null);
   const ptwBackupData = useSelector(
     (state) => state?.ptwData?.getPtwLogBackup || [],
   );
@@ -49,6 +62,13 @@ const PTWLogBackup = () => {
     });
   });
 
+//   const buildStatusQuery = (selected) => {
+//   if (!selected) return "";
+
+//   const values = PTW_STATUS_MAP[selected] || [];
+//   return values.length ? `status=${values.join(",")}` : "";
+// };
+
   const handleExcelDownload = (rowData) => {
     // console.log("Downloading Excel for:", rowData);
 
@@ -77,8 +97,7 @@ const PTWLogBackup = () => {
     dispatch(
       CommonActions.commondownloadpost(
         endpoint,
-        `PTW_${
-          extractedData.ptwNumber || rowData.ptwNumber || Date.now()
+        `PTW_${extractedData.ptwNumber || rowData.ptwNumber || Date.now()
         }.xlsx`,
         "POST",
         {
@@ -122,6 +141,19 @@ const PTWLogBackup = () => {
       ),
     );
   };
+
+  // const buildStatusQuery = (selected) => {
+  //   if (!selected?.length) return "";
+
+  //   let values = [];
+
+  //   selected.forEach((status) => {
+  //     values = [...values, ...(PTW_STATUS_MAP[status] || [])];
+  //   });
+
+  //   return values.length ? values.join(",") : "";
+  // };
+
 
   const tableData = ptwBackupData?.map((itm) => {
     return {
@@ -202,13 +234,8 @@ const PTWLogBackup = () => {
   const table = {
     columns: [
       {
-        name: "PTW Number",
-        value: "ptwNumber",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "PTW Requester",
-        value: "createdBy",
+        name: "Site Id",
+        value: "siteId",
         style: "text-center min-w-[150px]",
       },
       {
@@ -217,48 +244,18 @@ const PTWLogBackup = () => {
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Site Id",
-        value: "siteId",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "SSID",
-        value: "ssId",
-        style: "text-center min-w-[150px]",
-      },
-      // {
-      //   name: "Unique ID",
-      //   value: "uniqueId",
-      //   style: "text-center min-w-[150px]",
-      // },
-      {
-        name: "SR Number",
-        value: "SRNumber",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "Project Group",
-        value: "projectGroupName",
-        style: "text-center min-w-[150px]",
-      },
-      {
         name: "Project ID",
         value: "projectID",
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Project Type",
-        value: "projectType",
+        name: "Type of Work",
+        value: "TYPE OF WORK",
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Sub Project",
-        value: "subProject",
-        style: "text-center min-w-[150px]",
-      },
-      {
-        name: "Activity",
-        value: "activity",
+        name: "PTW Number",
+        value: "ptwNumber",
         style: "text-center min-w-[150px]",
       },
       {
@@ -267,15 +264,94 @@ const PTWLogBackup = () => {
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Approval/Rejection Date",
-        value: "approvedOrRejectionDate",
+        name: "Submitted by Name",
+        value: "createdBy",
         style: "text-center min-w-[150px]",
       },
       {
-        name: "Completion Date",
-        value: "complitionDate",
+        name: "Submitted by Mobile Number",
+        value: "SUBMITTED_BY_MOBILE_NUMBER",
         style: "text-center min-w-[150px]",
       },
+      {
+        name: "Status",
+        value: "status",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "1st Level Manager Name",
+        value: "1ST_LEVEL_MANAGER_NAME",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "1st Level Manager Mobile Number",
+        value: "1ST_LEVEL_MANAGER_MOBILE_NUMBER",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "Approved by 2nd Level on",
+        value: "APPROVED_BY_2ND_LEVEL_ON",
+        style: "text-center min-w-[150px]",
+      },
+      {
+        name: "2nd Level Manager Name",
+        value: "2ND_LEVEL_MANAGER_NAME",
+        style: "text-center min-w-[150px]",
+      },
+      // {
+      //   name: "PTW Requester",
+      //   value: "createdBy",
+      //   style: "text-center min-w-[150px]",
+      // },
+
+
+      // {
+      //   name: "SSID",
+      //   value: "ssId",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "Unique ID",
+      //   value: "uniqueId",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "SR Number",
+      //   value: "SRNumber",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "Project Group",
+      //   value: "projectGroupName",
+      //   style: "text-center min-w-[150px]",
+      // },
+
+      // {
+      //   name: "Project Type",
+      //   value: "projectType",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "Sub Project",
+      //   value: "subProject",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "Activity",
+      //   value: "activity",
+      //   style: "text-center min-w-[150px]",
+      // },
+
+      // {
+      //   name: "Approval/Rejection Date",
+      //   value: "approvedOrRejectionDate",
+      //   style: "text-center min-w-[150px]",
+      // },
+      // {
+      //   name: "Completion Date",
+      //   value: "complitionDate",
+      //   style: "text-center min-w-[150px]",
+      // },
       {
         name: "PTW Form & Checklist Attachment",
         value: "ptwFormStatus",
@@ -324,11 +400,7 @@ const PTWLogBackup = () => {
           );
         },
       },
-      {
-        name: "Current Status",
-        value: "status",
-        style: "text-center min-w-[150px]",
-      },
+
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -337,9 +409,9 @@ const PTWLogBackup = () => {
     filter: [
       {
         label: "Site ID",
-        type: "select",
+        type: "text",
         name: "siteId",
-        option: siteList,
+        //option: siteList,
         props: {},
       },
       // {
@@ -365,42 +437,103 @@ const PTWLogBackup = () => {
         name: "projectID",
         props: {},
       },
+      {
+        label: "PTW Status",
+        type: "select",
+        name: "ptwStatus",
+        option: [
+          { label: "Active", value: "Active" },
+          { label: "Rejected", value: "Rejected" },
+          { label: "Closed", value: "Closed" },
+        ],
+        props: {}
+      }
     ],
   };
+  useEffect(() => {
+    const input = dateRef.current?.querySelector("input");
 
-  const onSubmit = (data) => {
-    // console.log("Filter form submitted:", data);
+    if (!input) return;
 
-    // const queryParams = new URLSearchParams();
-    // Object.keys(data).forEach((key) => {
-    //   if (data[key] && data[key] !== "") {
-    //     queryParams.append(key, data[key]);
-    //   }
-    // });
+    const handleInput = (e) => {
+      if (!e.target.value) {
+        setStartDate(null);
+        setEndDate(null);
 
-    // const filterArgs = queryParams.toString();
-    // const args = `page=1&limit=${rowsPerPage}${
-    //   filterArgs ? "&" + filterArgs : ""
-    // }`;
+        const resetQuery = `page=1&limit=${rowsPerPage}`;
+        dispatch(PTWActions.getPtwLogBackup(true, resetQuery));
+        setFinalQuery(resetQuery);
+        setResetKey((prev) => prev + 1);
+      }
+    };
 
-    // setCurrentPage(1);
-    let value = data.reseter;
-    delete data.reseter;
-    // const strVal = objectToQueryString(data);
-    // const strVal = objectToQueryString(data);
-    // if(strVal?.length>0){
-    //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
-    // }else{
-    //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
-    // }
-    // console.log(strVal,"___strVal__")
+    input.addEventListener("input", handleInput);
 
-    const strVal = objectToQueryString(data);
-    setstrVal(strVal);
+    return () => {
+      input.removeEventListener("input", handleInput);
+    };
+  }, [rowsPerPage, strValFil]);
+  // const onSubmit = (data) => {
+  //   // console.log("Filter form submitted:", data);
 
-    dispatch(PTWActions.getPtwLogBackup(true, strVal));
-  };
+  //   // const queryParams = new URLSearchParams();
+  //   // Object.keys(data).forEach((key) => {
+  //   //   if (data[key] && data[key] !== "") {
+  //   //     queryParams.append(key, data[key]);
+  //   //   }
+  //   // });
 
+  //   // const filterArgs = queryParams.toString();
+  //   // const args = `page=1&limit=${rowsPerPage}${
+  //   //   filterArgs ? "&" + filterArgs : ""
+  //   // }`;
+
+  //   // setCurrentPage(1);
+  //   let value = data.reseter;
+  //   delete data.reseter;
+  //   // const strVal = objectToQueryString(data);
+  //   // const strVal = objectToQueryString(data);
+  //   // if(strVal?.length>0){
+  //   //   strVal = strVal+"&"+objectToQueryString({ ApproverType: "L2-Approver" })
+  //   // }else{
+  //   //   strVal =objectToQueryString({ ApproverType: "L2-Approver" })
+  //   // }
+  //   // console.log(strVal,"___strVal__")
+  //   const statusQuery = buildStatusQuery(selectedStatus);
+
+  //   let strVal = objectToQueryString(data);
+
+  //   if (statusQuery) {
+  //     strVal += `&${statusQuery}`;
+  //   }
+  //   // const strVal = objectToQueryString(data);
+  //   setstrVal(strVal);
+  //   setFinalQuery(strVal);
+  //   dispatch(PTWActions.getPtwLogBackup(true, strVal));
+  // };
+
+
+ const onSubmit = (data) => {
+  let strVal = objectToQueryString(data);
+
+  const selected = data.ptwStatus;
+
+  if (selected) {
+    const values =
+      PTW_STATUS_MAP[selected]?.length > 0
+        ? PTW_STATUS_MAP[selected]
+        : [];
+
+    if (values.length) {
+      strVal += `&status=${values.join(",")}`;
+    }
+  }
+
+  setstrVal(strVal);
+  setFinalQuery(strVal);
+
+  dispatch(PTWActions.getPtwLogBackup(true, strVal));
+};
   useEffect(() => {
     if (dataAll && dataAll.length > 0) {
       // console.log("PTW Data received:", dataAll);
@@ -416,7 +549,7 @@ const PTWLogBackup = () => {
         searchView={
           <>
             <SearchBarView
-              onblur={() => {}}
+              onblur={() => { }}
               onchange={(e) => {
                 const value = e.target.value;
                 setSearchTerm(value);
@@ -435,17 +568,21 @@ const PTWLogBackup = () => {
 
                   let query = objectToQueryString(baseParams);
 
-                  if (strValFil) {
-                    query = query + "&" + strValFil;
-                  }
+                  // if (statusQuery) {
+                  //   query += `&${statusQuery.replace("status=", "status=")}`;
+                  // }
 
+                  if (strValFil) {
+                    query += `&${strValFil}`;
+                  }
+                  setFinalQuery(query);
                   dispatch(PTWActions.getPtwLogBackup(true, query));
                 }, 700);
               }}
               placeHolder={"PTW Number"}
             />
             <SearchBarView
-              onblur={() => {}}
+              onblur={() => { }}
               onchange={(e) => {
                 const value = e.target.value;
 
@@ -454,7 +591,7 @@ const PTWLogBackup = () => {
                 }
 
                 if (!value) {
-                  const resetQuery = `page=1&limit=${rowsPerPage}&${strValFil || ""}`;
+                  const resetQuery = `page=1&limit=${rowsPerPage}`;
                   dispatch(PTWActions.getPtwLogBackup(true, resetQuery));
                   return;
                 }
@@ -462,11 +599,80 @@ const PTWLogBackup = () => {
                 const query =
                   `page=1&limit=${rowsPerPage}&createdBy=${value}&` +
                   (strValFil || "");
-
+                setFinalQuery(query);
                 debounceSearch(query);
               }}
               placeHolder={"PTW Requester"}
             />
+
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <div ref={dateRef}>
+                <DateRangePicking
+                  key={resetKey}
+
+                  itm={{
+                    name: "dateRange",
+                    formatop: "YYYY-MM-DD",
+                    onChange: ({ start, end }) => {
+                      setStartDate(start);
+                      setEndDate(end);
+                    },
+                  }}
+                />
+              </div>
+
+              <Button
+                classes="flex h-fit"
+                name=""
+                icon={<UilSearch className="w-5 m-2 h-5" />}
+                onClick={() => {
+                  if (!startDate || !endDate) return;
+
+                  const fromDate = new Date(startDate)
+                    .toISOString()
+                    .split("T")[0];
+                  const toDate = new Date(endDate).toISOString().split("T")[0];
+
+                  const query =
+                    `page=1&limit=${rowsPerPage}&start=${fromDate}&end=${toDate}` +
+                    (strValFil ? `&${strValFil}` : "");
+                  setFinalQuery(query);
+                  dispatch(PTWActions.getPtwLogBackup(true, query));
+                }}
+              />
+            </div>
+            {/* <NewMultiSelects
+              label="PTW Status"
+              name="ptwStatus"
+              placeholder="PTW Status"
+              option={[
+                { label: "Active", value: "Active" },
+                { label: "Rejected", value: "Rejected" },
+                { label: "Closed", value: "Closed" },
+              ]}
+              value={selectedStatus}
+              cb={(selected) => {
+                setSelectedStatus(selected);
+
+                let query = `page=1&limit=${rowsPerPage}`;
+
+                if (selected.length) {
+                  const values = selected.flatMap(
+                    (s) => PTW_STATUS_MAP[s.value] || []
+                  );
+
+                  // IMPORTANT: no encoding
+                  query += `&status=${values.join(",")}`;
+                }
+
+                if (strValFil) {
+                  query += `&${strValFil}`;
+                }
+
+                setFinalQuery(query);
+                dispatch(PTWActions.getPtwLogBackup(true, query));
+              }}
+            /> */}
           </>
         }
         headerButton={
@@ -474,10 +680,11 @@ const PTWLogBackup = () => {
             <Button
               name={"Export"}
               classes="w-auto bg-teal-500 hover:bg-teal-600"
-              onClick={(e) => {
+              onClick={() => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/ptwTableExport?exportTableName=ptwLogBackup&" + strValFil,
+                    "/ptwTableExport?exportTableName=ptwLogBackup&" +
+                    finalQuery,
                     // {exportTableName:"ptwBackupData"},
                     "New_file.xlsx",
                     "GET",
