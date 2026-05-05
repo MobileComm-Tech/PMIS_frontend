@@ -4463,8 +4463,8 @@ const MyTask = () => {
     const dropdown = document.getElementById("dropdown");
     const res = await Api.patch({
       url: `/getPtwApprover/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId") !== undefined
-          ? "?operation_id=" + sessionStorage.getItem("operationId")
-          : ""
+        ? "?operation_id=" + sessionStorage.getItem("operationId")
+        : ""
         }`,
       data: {
         empId: dropdown.value,
@@ -4563,21 +4563,42 @@ const MyTask = () => {
 
   const handleAddActivity = async (data, formType) => {
     let res = null;
-    // console.log(ptwModalHead.value, 'fasdfasdfsadfasdfasdfasdf')
 
     try {
-      // Handle normal (non-photo/vehicle) forms
+    
+
+      const currentMilestone =
+        mileStoneItemRef.current?.Milestone ||
+        mileStoneItemRef.current?.Name;
+
+ 
+      const hasFarEndCondition =
+        ["Dismantle-Far End", "Installation-Far End"]
+          .includes(currentMilestone?.trim());
+
+    
+      const farSiteId = mileStoneItemRef.current?.["FAR SITE ID"];
+      const normalSiteId =
+        mileStoneItemRef.current?.["Site Id"] ||
+        mileStoneItemRef.current?.siteId;
+
+      const activeSiteId = hasFarEndCondition
+        ? farSiteId || normalSiteId
+        : normalSiteId;
+
+      
+
+      // ---------------- NORMAL FORMS ----------------
       if (
         !["photo", "ptwphoto", "teamdetails", "vehicle"].includes(
-          ptwModalHead.value,
+          ptwModalHead.value
         )
       ) {
-        const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
         const newData = {
           projectID: mileStoneItemRef.current?.projectId,
           projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
           siteUid: mileStoneItemRef.current?.siteUid,
-          siteId: activeSiteId,
+          siteId: activeSiteId, // ✅ FIXED
           customerName: mileStoneItemRef.current?.customerName,
           subProject: mileStoneItemRef.current?.SubProject,
           circle: mileStoneItemRef.current?.CIRCLE,
@@ -4586,21 +4607,6 @@ const MyTask = () => {
           Milestone: mileStoneItemRef.current?.Milestone,
           [ptwModalHead.value]: {},
         };
-        // const newData = {
-        //   projectID: mileStoneItemRef.current?.projectId,
-        //   projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
-        //   siteUid: mileStoneItemRef.current?.siteUid,
-        //   siteId: mileStoneItemRef.current?.siteId,
-        //   customerName: mileStoneItemRef.current?.customerName,
-        //   subProject: mileStoneItemRef.current?.SubProject,
-        //   circle: mileStoneItemRef.current?.CIRCLE,
-        //   circleId: mileStoneItemRef.current?.circleId,
-        //   mileStoneId: mileStoneItemRef.current?.mileStoneId,
-        //   Milestone: mileStoneItemRef.current?.Milestone,
-        //   [ptwModalHead.value]: {},
-        // };
-
-        // console.log('called ..............', newData, '123456789876543212345678765432')
 
         Object.keys(data)?.forEach((key) => {
           if (data[key]) {
@@ -4609,8 +4615,7 @@ const MyTask = () => {
         });
 
         const url = isPtwRaise
-          ? `/regeneratePtw/${formType}/${ptwModalHead.value
-          }/${sessionStorage.getItem("opid")}`
+          ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}`
           : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
             ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
               ? "?operation_id=" + sessionStorage.getItem("operationId")
@@ -4623,24 +4628,24 @@ const MyTask = () => {
           ? await Api.patch({ url, data: newData })
           : await Api.post({ url, data: newData });
       }
+
+      // ---------------- FILE FORMS ----------------
       else {
         const formData = new FormData();
-        const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
+
         formData.append("projectID", mileStoneItemRef.current?.projectId);
         formData.append("siteUid", mileStoneItemRef.current?.siteUid);
         formData.append(
           "projectuniqueId",
-          mileStoneItemRef.current?.projectuniqueId,
+          mileStoneItemRef.current?.projectuniqueId
         );
-        formData.append("siteId", activeSiteId);
-        //formData.append("siteId", mileStoneItemRef.current?.siteId);
+        formData.append("siteId", activeSiteId); // ✅ FIXED
         formData.append("customerName", mileStoneItemRef.current?.customerName);
         formData.append("circle", mileStoneItemRef.current?.CIRCLE);
         formData.append("circleId", mileStoneItemRef.current?.circleId);
         formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
         formData.append("Milestone", mileStoneItemRef.current?.Milestone);
 
-        // Append each field (file or text)
         Object.keys(data)?.forEach((key) => {
           const value = data[key];
           if (value) {
@@ -4648,11 +4653,8 @@ const MyTask = () => {
           }
         });
 
-        // console.log(data, 'adfasdfasdfsadf')
-
         const url = isPtwRaise
-          ? `/regeneratePtw/${formType}/${ptwModalHead.value
-          }/${sessionStorage.getItem("opid")}`
+          ? `/regeneratePtw/${formType}/${ptwModalHead.value}/${sessionStorage.getItem("opid")}`
           : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
             ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
               ? "?operation_id=" + sessionStorage.getItem("operationId")
@@ -4667,74 +4669,28 @@ const MyTask = () => {
           data: formData,
         });
       }
-      // Handle special forms (photo, ptwphoto, teamdetails, vehicle)
-      // else {
-      //   const formData = new FormData();
 
-      //   formData.append("projectID", mileStoneItemRef.current?.projectId);
-      //   formData.append("siteUid", mileStoneItemRef.current?.siteUid);
-      //   formData.append(
-      //     "projectuniqueId",
-      //     mileStoneItemRef.current?.projectuniqueId,
-      //   );
-      //   formData.append("siteId", mileStoneItemRef.current?.siteId);
-      //   formData.append("customerName", mileStoneItemRef.current?.customerName);
-      //   formData.append("circle", mileStoneItemRef.current?.CIRCLE);
-      //   formData.append("circleId", mileStoneItemRef.current?.circleId);
-      //   formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
-      //   formData.append("Milestone", mileStoneItemRef.current?.Milestone);
-
-      //   // Append each field (file or text)
-      //   Object.keys(data)?.forEach((key) => {
-      //     const value = data[key];
-      //     if (value) {
-      //       formData.append(key, value instanceof FileList ? value[0] : value);
-      //     }
-      //   });
-
-      //   // console.log(data, 'adfasdfasdfsadf')
-
-      //   const url = isPtwRaise
-      //     ? `/regeneratePtw/${formType}/${
-      //         ptwModalHead.value
-      //       }/${sessionStorage.getItem("opid")}`
-      //     : `/submit/ptw/${formType}/${ptwModalHead.value}${
-      //         sessionStorage.getItem("opid")
-      //           ? `/${sessionStorage.getItem("opid")}${
-      //               sessionStorage.getItem("operationId")
-      //                 ? "?operation_id=" + sessionStorage.getItem("operationId")
-      //                 : ""
-      //             }`
-      //           : ""
-      //       }`;
-
-      //   res = await Api.patch({
-      //     url,
-      //     contentType: "multipart/form-data",
-      //     data: formData,
-      //   });
-      // }
-
-      // Handle response
-      // console.log(res?.data?.operation_id,"___res___")
+      // ---------------- RESPONSE ----------------
       if (res?.status === 200 || res?.status === 201) {
         sessionStorage.setItem(
           "opid",
           sessionStorage.getItem("opid") ||
-          mileStoneItemRef.current?.mileStoneId,
+          mileStoneItemRef.current?.mileStoneId
         );
 
         sessionStorage.setItem(
           "operationId",
-          sessionStorage.getItem("operationId") || res?.data?.operation_id,
+          sessionStorage.getItem("operationId") ||
+          res?.data?.operation_id
         );
-        // Special redirect after photo
+
         if (ptwModalHead.value === "photo") {
           setSelect(true);
           reset();
           setPtwModalHead({ title: "", value: "formSelection" });
           return;
         }
+
         if (isMultiStep) {
           const nextIndex = currentStepIndex + 1;
 
@@ -4743,30 +4699,36 @@ const MyTask = () => {
             const nextForm = selectedItems[nextIndex];
             setPtwModalHead({ title: nextForm.name, value: nextForm.id });
           } else {
-            // Final step (show vehicle form)
             setIsMultiStep(false);
             setPtwModalFullOpen(false);
             getApprovalsData(res?.data?.operation_id);
+
             if (formType === "drivetestactivity" && vehicleType !== "") {
               setPtwModalHead({ title: "", value: "vehicle" });
               setPtwDriveTest(true);
-            } else {
             }
           }
 
           reset();
           return;
         }
+
         if (
           allFormType.includes(
-            ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.title,
+            ptwModalHead.value === "checklist"
+              ? "photo"
+              : ptwModalHead.title
           )
         ) {
           setPtwModalHead({
             title:
-              ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.title,
+              ptwModalHead.value === "checklist"
+                ? "Photo"
+                : ptwModalHead.title,
             value:
-              ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value,
+              ptwModalHead.value === "checklist"
+                ? "photo"
+                : ptwModalHead.value,
           });
         } else {
           setSelect(true);
@@ -4775,23 +4737,267 @@ const MyTask = () => {
           return;
         }
 
-        // Fallback (non-multi-step)
-
         reset();
       }
     } catch (err) {
       console.error("Error in handleAddActivity:", err);
     }
   };
+
+  // const handleAddActivity = async (data, formType) => {
+  //   let res = null;
+  //   // console.log(ptwModalHead.value, 'fasdfasdfsadfasdfasdfasdf')
+
+  //   try {
+  //       const currentMilestone =
+  //     mileStoneItemRef.current?.Milestone ||
+  //     mileStoneItemRef.current?.Name;
+
+
+  //   const hasFarEndCondition =
+  //     ["Dismantle-Far End", "Installation-Far End"]
+  //       .includes(currentMilestone?.trim());
+
+
+  //   const farSiteId = mileStoneItemRef.current?.["FAR SITE ID"];
+  //   const normalSiteId =
+  //     mileStoneItemRef.current?.["Site Id"] ||
+  //     mileStoneItemRef.current?.siteId;
+
+  //   const activeSiteId = hasFarEndCondition
+  //     ? farSiteId || normalSiteId
+  //     : normalSiteId;
+  //         console.log("👉 Current Milestone:", currentMilestone);
+  //   console.log("👉 FarEndCondition:", hasFarEndCondition);
+  //   console.log("👉 FAR SITE ID:", farSiteId);
+  //   console.log("👉 NORMAL SITE ID:", normalSiteId);
+  //   console.log("👉 FINAL siteId:", activeSiteId);
+  //     // Handle normal (non-photo/vehicle) forms
+  //     if (
+  //       !["photo", "ptwphoto", "teamdetails", "vehicle"].includes(
+  //         ptwModalHead.value,
+  //       )
+  //     ) {
+  //       // const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
+  //       const newData = {
+  //         projectID: mileStoneItemRef.current?.projectId,
+  //         projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
+  //         siteUid: mileStoneItemRef.current?.siteUid,
+  //         siteId: activeSiteId,
+  //         customerName: mileStoneItemRef.current?.customerName,
+  //         subProject: mileStoneItemRef.current?.SubProject,
+  //         circle: mileStoneItemRef.current?.CIRCLE,
+  //         circleId: mileStoneItemRef.current?.circleId,
+  //         mileStoneId: mileStoneItemRef.current?.mileStoneId,
+  //         Milestone: mileStoneItemRef.current?.Milestone,
+  //         [ptwModalHead.value]: {},
+  //       };
+  //       // const newData = {
+  //       //   projectID: mileStoneItemRef.current?.projectId,
+  //       //   projectuniqueId: mileStoneItemRef.current?.projectuniqueId,
+  //       //   siteUid: mileStoneItemRef.current?.siteUid,
+  //       //   siteId: mileStoneItemRef.current?.siteId,
+  //       //   customerName: mileStoneItemRef.current?.customerName,
+  //       //   subProject: mileStoneItemRef.current?.SubProject,
+  //       //   circle: mileStoneItemRef.current?.CIRCLE,
+  //       //   circleId: mileStoneItemRef.current?.circleId,
+  //       //   mileStoneId: mileStoneItemRef.current?.mileStoneId,
+  //       //   Milestone: mileStoneItemRef.current?.Milestone,
+  //       //   [ptwModalHead.value]: {},
+  //       // };
+
+  //       // console.log('called ..............', newData, '123456789876543212345678765432')
+
+  //       Object.keys(data)?.forEach((key) => {
+  //         if (data[key]) {
+  //           newData[ptwModalHead.value][key] = data[key];
+  //         }
+  //       });
+
+  //       const url = isPtwRaise
+  //         ? `/regeneratePtw/${formType}/${ptwModalHead.value
+  //         }/${sessionStorage.getItem("opid")}`
+  //         : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
+  //           ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
+  //             ? "?operation_id=" + sessionStorage.getItem("operationId")
+  //             : ""
+  //           }`
+  //           : ""
+  //         }`;
+
+  //       res = sessionStorage.getItem("opid")
+  //         ? await Api.patch({ url, data: newData })
+  //         : await Api.post({ url, data: newData });
+  //     }
+  //     else {
+  //       const formData = new FormData();
+  //       const activeSiteId = mileStoneItemRef.current?.["FAR SITE ID"] || mileStoneItemRef.current?.siteId;
+  //       formData.append("projectID", mileStoneItemRef.current?.projectId);
+  //       formData.append("siteUid", mileStoneItemRef.current?.siteUid);
+  //       formData.append(
+  //         "projectuniqueId",
+  //         mileStoneItemRef.current?.projectuniqueId,
+  //       );
+  //       formData.append("siteId", activeSiteId);
+  //       //formData.append("siteId", mileStoneItemRef.current?.siteId);
+  //       formData.append("customerName", mileStoneItemRef.current?.customerName);
+  //       formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+  //       formData.append("circleId", mileStoneItemRef.current?.circleId);
+  //       formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+  //       formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+  //       // Append each field (file or text)
+  //       Object.keys(data)?.forEach((key) => {
+  //         const value = data[key];
+  //         if (value) {
+  //           formData.append(key, value instanceof FileList ? value[0] : value);
+  //         }
+  //       });
+
+  //       // console.log(data, 'adfasdfasdfsadf')
+
+  //       const url = isPtwRaise
+  //         ? `/regeneratePtw/${formType}/${ptwModalHead.value
+  //         }/${sessionStorage.getItem("opid")}`
+  //         : `/submit/ptw/${formType}/${ptwModalHead.value}${sessionStorage.getItem("opid")
+  //           ? `/${sessionStorage.getItem("opid")}${sessionStorage.getItem("operationId")
+  //             ? "?operation_id=" + sessionStorage.getItem("operationId")
+  //             : ""
+  //           }`
+  //           : ""
+  //         }`;
+
+  //       res = await Api.patch({
+  //         url,
+  //         contentType: "multipart/form-data",
+  //         data: formData,
+  //       });
+  //     }
+  //     // Handle special forms (photo, ptwphoto, teamdetails, vehicle)
+  //     // else {
+  //     //   const formData = new FormData();
+
+  //     //   formData.append("projectID", mileStoneItemRef.current?.projectId);
+  //     //   formData.append("siteUid", mileStoneItemRef.current?.siteUid);
+  //     //   formData.append(
+  //     //     "projectuniqueId",
+  //     //     mileStoneItemRef.current?.projectuniqueId,
+  //     //   );
+  //     //   formData.append("siteId", mileStoneItemRef.current?.siteId);
+  //     //   formData.append("customerName", mileStoneItemRef.current?.customerName);
+  //     //   formData.append("circle", mileStoneItemRef.current?.CIRCLE);
+  //     //   formData.append("circleId", mileStoneItemRef.current?.circleId);
+  //     //   formData.append("mileStoneId", mileStoneItemRef.current?.mileStoneId);
+  //     //   formData.append("Milestone", mileStoneItemRef.current?.Milestone);
+
+  //     //   // Append each field (file or text)
+  //     //   Object.keys(data)?.forEach((key) => {
+  //     //     const value = data[key];
+  //     //     if (value) {
+  //     //       formData.append(key, value instanceof FileList ? value[0] : value);
+  //     //     }
+  //     //   });
+
+  //     //   // console.log(data, 'adfasdfasdfsadf')
+
+  //     //   const url = isPtwRaise
+  //     //     ? `/regeneratePtw/${formType}/${
+  //     //         ptwModalHead.value
+  //     //       }/${sessionStorage.getItem("opid")}`
+  //     //     : `/submit/ptw/${formType}/${ptwModalHead.value}${
+  //     //         sessionStorage.getItem("opid")
+  //     //           ? `/${sessionStorage.getItem("opid")}${
+  //     //               sessionStorage.getItem("operationId")
+  //     //                 ? "?operation_id=" + sessionStorage.getItem("operationId")
+  //     //                 : ""
+  //     //             }`
+  //     //           : ""
+  //     //       }`;
+
+  //     //   res = await Api.patch({
+  //     //     url,
+  //     //     contentType: "multipart/form-data",
+  //     //     data: formData,
+  //     //   });
+  //     // }
+
+  //     // Handle response
+  //     // console.log(res?.data?.operation_id,"___res___")
+  //     if (res?.status === 200 || res?.status === 201) {
+  //       sessionStorage.setItem(
+  //         "opid",
+  //         sessionStorage.getItem("opid") ||
+  //         mileStoneItemRef.current?.mileStoneId,
+  //       );
+
+  //       sessionStorage.setItem(
+  //         "operationId",
+  //         sessionStorage.getItem("operationId") || res?.data?.operation_id,
+  //       );
+  //       // Special redirect after photo
+  //       if (ptwModalHead.value === "photo") {
+  //         setSelect(true);
+  //         reset();
+  //         setPtwModalHead({ title: "", value: "formSelection" });
+  //         return;
+  //       }
+  //       if (isMultiStep) {
+  //         const nextIndex = currentStepIndex + 1;
+
+  //         if (nextIndex < selectedItems.length) {
+  //           setCurrentStepIndex(nextIndex);
+  //           const nextForm = selectedItems[nextIndex];
+  //           setPtwModalHead({ title: nextForm.name, value: nextForm.id });
+  //         } else {
+  //           // Final step (show vehicle form)
+  //           setIsMultiStep(false);
+  //           setPtwModalFullOpen(false);
+  //           getApprovalsData(res?.data?.operation_id);
+  //           if (formType === "drivetestactivity" && vehicleType !== "") {
+  //             setPtwModalHead({ title: "", value: "vehicle" });
+  //             setPtwDriveTest(true);
+  //           } else {
+  //           }
+  //         }
+
+  //         reset();
+  //         return;
+  //       }
+  //       if (
+  //         allFormType.includes(
+  //           ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.title,
+  //         )
+  //       ) {
+  //         setPtwModalHead({
+  //           title:
+  //             ptwModalHead.value === "checklist" ? "Photo" : ptwModalHead.title,
+  //           value:
+  //             ptwModalHead.value === "checklist" ? "photo" : ptwModalHead.value,
+  //         });
+  //       } else {
+  //         setSelect(true);
+  //         reset();
+  //         setPtwModalHead({ title: "", value: "formSelection" });
+  //         return;
+  //       }
+
+  //       // Fallback (non-multi-step)
+
+  //       reset();
+  //     }
+  //   } catch (err) {
+  //     console.error("Error in handleAddActivity:", err);
+  //   }
+  // };
   const setForm = (form, formName) => {
     setPtwModalBody(
       <>
         <div className="w-full flex flex-col items-center p-4 min-h-[50vh] max-h-full ">
           <CommonForm
             classes={` ${subFormRef.current[ptwModalHead.value] &&
-                subFormRef.current[ptwModalHead.value]?.length > 3
-                ? "grid-cols-3"
-                : "grid-cols-1"
+              subFormRef.current[ptwModalHead.value]?.length > 3
+              ? "grid-cols-3"
+              : "grid-cols-1"
               }  gap-1`}
             Form={form}
             errors={errors}
@@ -4832,22 +5038,47 @@ const MyTask = () => {
 
   useEffect(() => {
     if (!isPtwRaise) {
+
+      const milestoneArray = mileStoneItemRef.current?.milestoneArray || [];
+
+      const currentMilestone =
+        mileStoneItemRef.current?.Milestone ||
+        mileStoneItemRef.current?.Name;
+
+      const hasFarEndCondition =
+        ["Dismantle-Far End", "Installation-Far End"]
+          .includes(currentMilestone?.trim());
+
+
+
       subFormRef.current[
         ptwModalHead.value === "vehicle" ? vehicleType : ptwModalHead.value
       ]?.forEach((item) => {
+
         if (item?.dataType === "AutoFill") {
 
           let valueToSet = mileStoneItemRef.current[item?.fieldName];
 
 
           if (item?.fieldName === "Site Id" || item?.fieldName === "siteId") {
-            valueToSet = mileStoneItemRef.current["FAR SITE ID"] || mileStoneItemRef.current[item?.fieldName];
+
+            const farSiteId = mileStoneItemRef.current["FAR SITE ID"];
+            const normalSiteId =
+              mileStoneItemRef.current["Site Id"] ||
+              mileStoneItemRef.current["SITE ID"];
+
+
+            valueToSet = hasFarEndCondition
+              ? farSiteId
+              : normalSiteId;
+
+        
           }
 
           setValue(item?.fieldName, valueToSet);
-
         }
       });
+
     } else {
       subFormRef.current[ptwModalHead.value]?.forEach((item) => {
         if (
@@ -4861,11 +5092,50 @@ const MyTask = () => {
         }
       });
     }
+
     if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
       setForm(subFormRef.current[ptwModalHead.value], formName);
       setPtwModalFullOpen(true);
     }
+
   }, [ptwModalHead.value, vehicleType]);
+
+  // useEffect(() => {
+  //   if (!isPtwRaise) {
+  //     subFormRef.current[
+  //       ptwModalHead.value === "vehicle" ? vehicleType : ptwModalHead.value
+  //     ]?.forEach((item) => {
+  //       if (item?.dataType === "AutoFill") {
+
+  //         let valueToSet = mileStoneItemRef.current[item?.fieldName];
+
+
+  //         if (item?.fieldName === "Site Id" || item?.fieldName === "siteId") {
+  //           valueToSet = mileStoneItemRef.current["FAR SITE ID"] || mileStoneItemRef.current[item?.fieldName];
+  //         }
+
+  //         setValue(item?.fieldName, valueToSet);
+
+  //       }
+  //     });
+  //   } else {
+  //     subFormRef.current[ptwModalHead.value]?.forEach((item) => {
+  //       if (
+  //         allFormType.includes(ptwModalHead.value) &&
+  //         isRaiseFormData.current[ptwModalHead.value]
+  //       ) {
+  //         setValue(
+  //           item?.fieldName,
+  //           isRaiseFormData.current[ptwModalHead.value][item?.fieldName],
+  //         );
+  //       }
+  //     });
+  //   }
+  //   if (ptwModalHead.value && ptwModalHead.value !== "vehicle") {
+  //     setForm(subFormRef.current[ptwModalHead.value], formName);
+  //     setPtwModalFullOpen(true);
+  //   }
+  // }, [ptwModalHead.value, vehicleType]);
 
   let subProjectList = useSelector((state) => {
     return state?.filterData?.getMyTaskSubProject.map((itm) => {
@@ -5282,16 +5552,16 @@ const MyTask = () => {
                           : "Raise PTW"
                       }
                       className={`p-[1px] px-2 ${!iewq?.isPtwTaskAllowed
-                          ? "cursor-not-allowed opacity-60"
-                          : !iewq?.isPtwRaise ||
-                            [
-                              "L1-Rejected",
-                              "Closed",
-                              "Auto Closed",
-                              "L2-Rejected",
-                            ].includes(iewq?.ptwStatus)
-                            ? "cursor-pointer"
-                            : "cursor-not-allowed opacity-60"
+                        ? "cursor-not-allowed opacity-60"
+                        : !iewq?.isPtwRaise ||
+                          [
+                            "L1-Rejected",
+                            "Closed",
+                            "Auto Closed",
+                            "L2-Rejected",
+                          ].includes(iewq?.ptwStatus)
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-60"
                         } rounded-md bg-[#13B497]`}
                     >
                       <LuTicketCheck size={20} />
@@ -5312,10 +5582,10 @@ const MyTask = () => {
                       }}
                       title="Close PTW"
                       className={`p-[1px] ${iewq?.isPtwRaise &&
-                          iewq?.isL2Approve &&
-                          !["Closed", "Auto Closed"].includes(iewq?.ptwStatus)
-                          ? "cursor-pointer"
-                          : "cursor-not-allowed opacity-60"
+                        iewq?.isL2Approve &&
+                        !["Closed", "Auto Closed"].includes(iewq?.ptwStatus)
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed opacity-60"
                         } px-2 rounded-md bg-[#F43F5E]`}
                     >
                       <LuTicketX size={20} />
@@ -5335,14 +5605,14 @@ const MyTask = () => {
                         }}
                         title={"Rejection Reason"}
                         className={`p-[1px] px-2 ${!iewq?.isPtwRaise ||
-                            [
-                              "L1-Rejected",
-                              "Closed",
-                              "Auto Closed",
-                              "L2-Rejected",
-                            ].includes(iewq?.ptwStatus)
-                            ? "cursor-pointer"
-                            : "cursor-not-allowed opacity-60"
+                          [
+                            "L1-Rejected",
+                            "Closed",
+                            "Auto Closed",
+                            "L2-Rejected",
+                          ].includes(iewq?.ptwStatus)
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-60"
                           } rounded-md bg-[#F43F5E]`}
                       >
                         <MdSmsFailed size={20} />

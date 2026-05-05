@@ -62,12 +62,12 @@ const PTWLogBackup = () => {
     });
   });
 
-//   const buildStatusQuery = (selected) => {
-//   if (!selected) return "";
+  //   const buildStatusQuery = (selected) => {
+  //   if (!selected) return "";
 
-//   const values = PTW_STATUS_MAP[selected] || [];
-//   return values.length ? `status=${values.join(",")}` : "";
-// };
+  //   const values = PTW_STATUS_MAP[selected] || [];
+  //   return values.length ? `status=${values.join(",")}` : "";
+  // };
 
   const handleExcelDownload = (rowData) => {
     // console.log("Downloading Excel for:", rowData);
@@ -407,6 +407,22 @@ const PTWLogBackup = () => {
     },
 
     filter: [
+       {
+        label: "Date Range",
+        type: "datetimeRangeNew",
+        name: "dateRange",
+        render: ({ value, onChange }) => (
+          <DateRangePicking
+            itm={{
+              name: "dateRange",
+              formatop: "YYYY-MM-DD",
+              onChange: ({ start, end }) => {
+                onChange({ start, end });
+              },
+            }}
+          />
+        ),
+      },
       {
         label: "Site ID",
         type: "text",
@@ -447,7 +463,8 @@ const PTWLogBackup = () => {
           { label: "Closed", value: "Closed" },
         ],
         props: {}
-      }
+      },
+     
     ],
   };
   useEffect(() => {
@@ -514,19 +531,31 @@ const PTWLogBackup = () => {
 
 
  const onSubmit = (data) => {
-  let strVal = objectToQueryString(data);
+  let payload = { ...data };
 
-  const selected = data.ptwStatus;
+  delete payload.dateRange;
 
-  if (selected) {
-    const values =
-      PTW_STATUS_MAP[selected]?.length > 0
-        ? PTW_STATUS_MAP[selected]
-        : [];
+  let strVal = objectToQueryString(payload);
 
+
+  if (data.ptwStatus) {
+    const values = PTW_STATUS_MAP[data.ptwStatus] || [];
     if (values.length) {
       strVal += `&status=${values.join(",")}`;
     }
+  }
+
+
+  if (data.dateRange?.start && data.dateRange?.end) {
+    const fromDate = new Date(data.dateRange.start)
+      .toISOString()
+      .split("T")[0];
+
+    const toDate = new Date(data.dateRange.end)
+      .toISOString()
+      .split("T")[0];
+
+    strVal += `&start=${fromDate}&end=${toDate}`;
   }
 
   setstrVal(strVal);
@@ -534,6 +563,27 @@ const PTWLogBackup = () => {
 
   dispatch(PTWActions.getPtwLogBackup(true, strVal));
 };
+  //  const onSubmit = (data) => {
+  //   let strVal = objectToQueryString(data);
+
+  //   const selected = data.ptwStatus;
+
+  //   if (selected) {
+  //     const values =
+  //       PTW_STATUS_MAP[selected]?.length > 0
+  //         ? PTW_STATUS_MAP[selected]
+  //         : [];
+
+  //     if (values.length) {
+  //       strVal += `&status=${values.join(",")}`;
+  //     }
+  //   }
+
+  //   setstrVal(strVal);
+  //   setFinalQuery(strVal);
+
+  //   dispatch(PTWActions.getPtwLogBackup(true, strVal));
+  // };
   useEffect(() => {
     if (dataAll && dataAll.length > 0) {
       // console.log("PTW Data received:", dataAll);
@@ -605,7 +655,7 @@ const PTWLogBackup = () => {
               placeHolder={"PTW Requester"}
             />
 
-            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            {/* <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
               <div ref={dateRef}>
                 <DateRangePicking
                   key={resetKey}
@@ -640,7 +690,7 @@ const PTWLogBackup = () => {
                   dispatch(PTWActions.getPtwLogBackup(true, query));
                 }}
               />
-            </div>
+            </div> */}
             {/* <NewMultiSelects
               label="PTW Status"
               name="ptwStatus"
