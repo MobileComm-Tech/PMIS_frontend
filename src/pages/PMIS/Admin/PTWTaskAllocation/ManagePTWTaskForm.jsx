@@ -312,6 +312,10 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     })),
   );
 
+
+  useEffect(() => {
+  console.log("FORM VALUES:", getValues());
+}, [watch("customer"), watch("projectType"), watch("subProject"), watch("milestone")]);
   useEffect(() => {
     dispatch(AdminActions.getManageCustomer());
   }, [dispatch]);
@@ -343,7 +347,7 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   // useEffect(() => {
   //   if (!isOpen) return;
 
-  //   // ✅ EDIT MODE
+
   //   if (isEdit && formValue) {
   //     const milestoneString = Array.isArray(formValue?.milList)
   //       ? formValue.milList.map((m) => m?.fieldName || m).join(",")
@@ -402,18 +406,20 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   // -------------------------
   // SUB PROJECT LIST
   // -------------------------
-  const subProjectList = useMemo(() => {
-    return [
-      ...new Map(
-        ptwTaskList
-          .filter((item) => item.projectType === selectedProjectType)
-          .map((item) => [
-            item.subProject,
-            { label: item.subProject, value: item.subProject },
-          ]),
-      ).values(),
-    ];
-  }, [ptwTaskList, selectedProjectType]);
+ const subProjectList = useMemo(() => {
+  if (!selectedProjectType) return [];
+
+  return [
+    ...new Map(
+      ptwTaskList
+        .filter((item) => item.projectType === selectedProjectType)
+        .map((item) => [
+          item.subProject,
+          { label: item.subProject, value: item.subProject },
+        ])
+    ).values(),
+  ];
+}, [ptwTaskList, selectedProjectType]);
 
   // -------------------------
   // MILESTONE LIST (FIXED SAFELY)
@@ -432,21 +438,39 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   //   return list;
   // }, [ptwTaskList, selectedSubProject]);
 
+  // const milestoneList = useMemo(() => {
+  //   if (!selectedSubProject) return [];
+
+  //   const task = ptwTaskList.find(
+  //     (item) => item.subProject === selectedSubProject,
+  //   );
+
+  //   return (
+  //     task?.MileStone?.map((ms) => ({
+  //       name: ms?.fieldName,
+  //       id: ms?.fieldName,
+  //     })) || []
+  //   );
+  // }, [ptwTaskList, selectedSubProject]);
+
+
   const milestoneList = useMemo(() => {
-    if (!selectedSubProject) return [];
+    if (!selectedSubProject || !selectedProjectType) return [];
 
     const task = ptwTaskList.find(
-      (item) => item.subProject === selectedSubProject,
+      (item) =>
+        item.subProject === selectedSubProject &&
+        item.projectType === selectedProjectType
     );
 
+    console.log("tsk", task)
     return (
       task?.MileStone?.map((ms) => ({
         name: ms?.fieldName,
         id: ms?.fieldName,
       })) || []
     );
-  }, [ptwTaskList, selectedSubProject]);
-
+  }, [ptwTaskList, selectedSubProject, selectedProjectType]);
   const FormFields = [
     {
       label: "Customer Name",
@@ -471,62 +495,115 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     },
 
     {
-      label: "Project Type",
-      name: "projectType",
-      type: formValue?.uniqueId !== undefined ? "text" : "select",
-      required: true,
-      disabled: formValue?.uniqueId !== undefined ? true : false,
-      option: projectList,
-      classes: "col-span-1",
-      props: {
-        //disabled: !selectedCustomer,
-        onChange: (e) => {
-          const val = e.target.value;
+  label: "Project Type",
+  name: "projectType",
+  type: formValue?.uniqueId !== undefined ? "text" : "select",
+  required: true,
+  disabled: formValue?.uniqueId !== undefined ? true : false,
+  option: projectList,
+  classes: "col-span-1",
 
-          setValue("projectType", val);
-          setValue("subProject", "");
-          setValue("milestone", "");
-        },
-      },
+  props: {
+    onChange: (e) => {
+      const val = e.target.value;
+
+      
+      setValue("projectType", val, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+
+      console.log("PROJECT TYPE SELECTED:", val);
+
+      // reset dependent
+      setValue("subProject", "");
+      setValue("milestone", "");
+
+      if (val && selectedCustomer) {
+        console.log("🔥 API HIT: projectType");
+
+        dispatch(
+          HrActions.getPTWTask(
+            true,
+            selectedCustomer,
+            `projectType=${val}`
+          )
+        );
+      }
     },
+  },
+},
+    // {
+    //   label: "Project Type",
+    //   name: "projectType",
+    //   type: formValue?.uniqueId !== undefined ? "text" : "select",
+    //   required: true,
+    //   disabled: formValue?.uniqueId !== undefined ? true : false,
+    //   option: projectList,
+    //   classes: "col-span-1",
+     
+    //    props: {
+    // ...register("projectType", {
+    //   onChange: (e) => {
+    //     const val = e.target.value;
 
-    {
-      label: "Sub Project",
-      name: "subProject",
-      type: formValue?.uniqueId !== undefined ? "text" : "select",
-      required: true,
-      disabled: formValue?.uniqueId !== undefined ? true : false,
-      option: subProjectList,
-      classes: "col-span-1",
-      props: {
-        //disabled: !selectedProjectType,
-        // onChange: (e) => {
-        //   const val = e.target.value;
+    //     console.log("RHF CHANGE:", val);
 
-        //   setValue("subProject", val);
-        //   setValue("milestone", "");
+    //     setValue("subProject", "");
+    //     setValue("milestone", "");
 
-        //   const customer = getValues("customer");
-        //   const projectType = getValues("projectType");
+    //     if (val && selectedCustomer) {
+    //       dispatch(
+    //         HrActions.getPTWTask(
+    //           true,
+    //           selectedCustomer,
+    //           `projectType=${val}`
+    //         )
+    //       );
+    //     }
+    //   },
+    // }),
+  
+    //   },
+    // },
 
-        //   if (val && customer && projectType) {
-        //     dispatch(
-        //       HrActions.getPTWTask(
-        //         true,
-        //         customer,
-        //         `projectType=${projectType}&subProject=${val}`,
-        //       ),
-        //     );
-        //   }
-        // },
-        onChange: (e) => {
-          const val = e.target.value;
+   {
+  label: "Sub Project",
+  name: "subProject",
+  type: formValue?.uniqueId !== undefined ? "text" : "select",
+  required: true,
+  disabled: formValue?.uniqueId !== undefined ? true : false,
+  option: subProjectList,
+  classes: "col-span-1",
 
-          setValue("subProject", val);
-          setValue("milestone", "");
-        },
-      },
+  props: {
+    onChange: (e) => {
+      const val = e.target.value;
+
+    
+      setValue("subProject", val, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+
+  
+
+      setValue("milestone", "");
+
+      if (val && selectedCustomer && selectedProjectType) {
+      
+
+        dispatch(
+          HrActions.getPTWTask(
+            true,
+            selectedCustomer,
+            `projectType=${selectedProjectType}&subProject=${val}`
+          )
+        );
+      }
     },
+  },
+},
 
     {
       label: "Milestone List",
@@ -602,20 +679,27 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
       .filter(Boolean);
 
     const currentTask = ptwTaskList.find(
-      (item) => item.subProject === data.subProject,
+      (item) => item.subProject === data.subProject
     );
-
-    const selectedMilestones =
+const selectedMilestones =
       currentTask?.MileStone?.filter((ms) =>
         selectedNames.includes(ms.fieldName),
       ) || [];
-
     const payload = {
       customer: isEdit ? formValue?.customerId : data.customer,
       projectType: data.projectType,
       subProject: data.subProject,
       mileStone: selectedMilestones,
     };
+
+    
+
+    // const payload = {
+    //   customer: isEdit ? formValue?.customerId : data.customer,
+    //   projectType: data.projectType,
+    //   subProject: data.subProject,
+    //   mileStone: selectedMilestones,
+    // };
 
     dispatch(
       HrActions.postPTWTask(
