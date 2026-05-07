@@ -52,6 +52,10 @@ const PTWLogBackup = () => {
     dispatch(AdminActions.getManageSite());
     fetchPTWLogBackupData(true, defaultPagination);
   }, []);
+  //   useEffect(() => {
+  //   const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
+  //   fetchPTWLogBackupData(true, defaultPagination);
+  // }, []);
 
   let siteList = useSelector((state) => {
     return state?.adminData?.getManageSite?.map((itm) => {
@@ -202,10 +206,7 @@ const PTWLogBackup = () => {
     dispatch(PTWActions.getPtwLogBackup(reset, additionalArgs));
   };
 
-  useEffect(() => {
-    const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
-    fetchPTWLogBackupData(true, defaultPagination);
-  }, []);
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -546,17 +547,33 @@ const PTWLogBackup = () => {
   }
 
 
-  if (data.dateRange?.start && data.dateRange?.end) {
-    const fromDate = new Date(data.dateRange.start)
-      .toISOString()
-      .split("T")[0];
+if (data.dateRange?.start && data.dateRange?.end) {
 
-    const toDate = new Date(data.dateRange.end)
-      .toISOString()
-      .split("T")[0];
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
 
-    strVal += `&start=${fromDate}&end=${toDate}`;
-  }
+    return `${year}-${month}-${day}`;
+  };
+
+  const fromDate = formatDate(data.dateRange.start);
+  const toDate = formatDate(data.dateRange.end);
+
+  strVal += `&start=${fromDate}&end=${toDate}`;
+}
+  // if (data.dateRange?.start && data.dateRange?.end) {
+  //   const fromDate = new Date(data.dateRange.start)
+  //     .toISOString()
+  //     .split("T")[0];
+
+  //   const toDate = new Date(data.dateRange.end)
+  //     .toISOString()
+  //     .split("T")[0];
+
+  //   strVal += `&start=${fromDate}&end=${toDate}`;
+  // }
 
   setstrVal(strVal);
   setFinalQuery(strVal);
