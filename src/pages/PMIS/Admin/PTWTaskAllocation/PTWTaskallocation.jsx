@@ -57,7 +57,9 @@ const PTWTaskAllocation = () => {
                 HrActions.getPTWTask(
                   true,
                   itm.customerId,
-                  `projectType=${itm.projectType}&subProject=${itm.subProject}`,
+                  `projectType=${encodeURIComponent(
+                    itm.projectType
+                  )}&subProject=${encodeURIComponent(itm.subProject)}`,
                 ),
               );
               setSelectedData(itm); // Set the row data
@@ -110,6 +112,15 @@ const PTWTaskAllocation = () => {
       />
     ),
   }));
+
+  const onSubmit = (data) => {
+    dispatch(
+      HrActions.getPTWTaskTable(
+        true,
+        objectToQueryString(data)
+      )
+    );
+  };
 
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.hrReducer?.getPTWTaskTable;
@@ -235,7 +246,7 @@ const PTWTaskAllocation = () => {
           </div>
         }
         table={table}
-        // filterAfter={onSubmit}
+        filterAfter={onSubmit}
         tableName={"UserListTable"}
         handleSubmit={handleSubmit}
         data={dbConfigList}

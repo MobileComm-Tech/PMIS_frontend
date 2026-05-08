@@ -533,39 +533,7 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
     },
   },
 },
-    // {
-    //   label: "Project Type",
-    //   name: "projectType",
-    //   type: formValue?.uniqueId !== undefined ? "text" : "select",
-    //   required: true,
-    //   disabled: formValue?.uniqueId !== undefined ? true : false,
-    //   option: projectList,
-    //   classes: "col-span-1",
-     
-    //    props: {
-    // ...register("projectType", {
-    //   onChange: (e) => {
-    //     const val = e.target.value;
-
-    //     console.log("RHF CHANGE:", val);
-
-    //     setValue("subProject", "");
-    //     setValue("milestone", "");
-
-    //     if (val && selectedCustomer) {
-    //       dispatch(
-    //         HrActions.getPTWTask(
-    //           true,
-    //           selectedCustomer,
-    //           `projectType=${val}`
-    //         )
-    //       );
-    //     }
-    //   },
-    // }),
   
-    //   },
-    // },
 
    {
   label: "Sub Project",
@@ -575,34 +543,57 @@ const ManageTaskForm = ({ isOpen, setIsOpen, resetting, formValue = {} }) => {
   disabled: formValue?.uniqueId !== undefined ? true : false,
   option: subProjectList,
   classes: "col-span-1",
+props: {
+  onChange: (e) => {
+    const val = e.target.value;
 
-  props: {
-    onChange: (e) => {
-      const val = e.target.value;
+    setValue("subProject", val, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+
+    setValue("milestone", "");
+
+    if (val && selectedCustomer && selectedProjectType) {
+      dispatch(
+        HrActions.getPTWTask(
+          true,
+          selectedCustomer,
+          `projectType=${encodeURIComponent(
+            selectedProjectType
+          )}&subProject=${encodeURIComponent(val)}`
+        )
+      );
+    }
+  },
+},
+  // props: {
+  //   onChange: (e) => {
+  //     const val = e.target.value;
 
     
-      setValue("subProject", val, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
+  //     setValue("subProject", val, {
+  //       shouldDirty: true,
+  //       shouldValidate: true,
+  //     });
 
   
 
-      setValue("milestone", "");
+  //     setValue("milestone", "");
 
-      if (val && selectedCustomer && selectedProjectType) {
+  //     if (val && selectedCustomer && selectedProjectType) {
       
 
-        dispatch(
-          HrActions.getPTWTask(
-            true,
-            selectedCustomer,
-            `projectType=${selectedProjectType}&subProject=${val}`
-          )
-        );
-      }
-    },
-  },
+  //       dispatch(
+  //         HrActions.getPTWTask(
+  //           true,
+  //           selectedCustomer,
+  //           `projectType=${selectedProjectType}&subProject=${val}`
+  //         )
+  //       );
+  //     }
+  //   },
+  // },
 },
 
     {
