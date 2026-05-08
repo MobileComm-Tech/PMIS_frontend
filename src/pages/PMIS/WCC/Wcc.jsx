@@ -26,7 +26,10 @@ import FileUploader from '../../../components/FIleUploader';
 import { Urls } from '../../../utils/url';
 const Wcc = () => {
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState(pagination);
+const [filters, setFilters] = useState({
+  page: 1,
+  limit: 50,
+});
   const [fileOpen, setFileOpen] = useState(false);
   const [checkedData, setCheckData] = useState([]);
   const [checkedChildData, setCheckChildData] = useState([]);
@@ -99,38 +102,64 @@ const Wcc = () => {
   //     );
   //   };
 
+
+
   const onSubmit = (data) => {
-    // console.log(data,"__data__")
-    let shouldReset = data.reseter;
-    delete data.reseter;
+  delete data.reseter;
 
-    let strVal = objectToQueryString({ ...data, ...pagination });
-    // console.log(strVal,"___strVal__")
-    if (assignDate) {
-      let tempObj = {};
-      const { start, end } = assignDate;
-      tempObj['start'] = start?.split('T')[0];
-      tempObj['end'] = end?.split('T')[0];
-      data = { ...data, startDate: tempObj['start'], endDate: tempObj['end'] };
-
-      strVal = objectToQueryString({
-        ...data,
-        ...pagination,
-      });
-    }
-
-    // console.log(data,"___data")
-    setstrVal(strVal);
-    setFilters({
-      ...filters,
-      ...data,
-    });
-
-    dispatch(
-      VendorActions.getWccSubmodule(true, strVal),
-      // VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
-    );
+  let payload = {
+    ...filters,
+    ...data,
   };
+
+  if (assignDate) {
+    const { start, end } = assignDate;
+
+    payload.startDate = start?.split('T')[0];
+    payload.endDate = end?.split('T')[0];
+  }
+
+  setFilters(payload);
+
+  dispatch(
+    VendorActions.getWccSubmodule(
+      true,
+      objectToQueryString(payload)
+    )
+  );
+};
+  // const onSubmit = (data) => {
+  //   // console.log(data,"__data__")
+  //   let shouldReset = data.reseter;
+  //   delete data.reseter;
+
+  //   let strVal = objectToQueryString({ ...data, ...pagination });
+  //   // console.log(strVal,"___strVal__")
+  //   if (assignDate) {
+  //     let tempObj = {};
+  //     const { start, end } = assignDate;
+  //     tempObj['start'] = start?.split('T')[0];
+  //     tempObj['end'] = end?.split('T')[0];
+  //     data = { ...data, startDate: tempObj['start'], endDate: tempObj['end'] };
+
+  //     strVal = objectToQueryString({
+  //       ...data,
+  //       ...pagination,
+  //     });
+  //   }
+
+  //   // console.log(data,"___data")
+  //   setstrVal(strVal);
+  //   setFilters({
+  //     ...filters,
+  //     ...data,
+  //   });
+
+  //   dispatch(
+  //     VendorActions.getWccSubmodule(true, strVal),
+  //     // VendorActions.getVendorProjectTracking(true, objectToQueryString(data))
+  //   );
+  // };
   //   useEffect(() => {
   //     const defaultPagination = objectToQueryString({"page":1, "limit":50})
   //    dispatch(VendorActions.getWccSubmodule(true,defaultPagination))
@@ -217,40 +246,81 @@ const Wcc = () => {
         </>
       ),
       generatePdf: (
-        <>
-          {itm?.isWccCreated === true ? (
-            <input
-              type={'checkbox'}
-              // id={itm.uniqueId}
-              // subId={itm.SubProjectId}
-              checked={wccPdfData?.some((d) => d.uniqueId === itm.uniqueId)}
-              value={itm.uniqueId}
-              onChange={(e) => {
-                if (e?.target?.checked) {
-                  const tempObj = {
-                    ssid: itm?.ssid,
-                    vendorItemCode: itm?.vendorItemCode,
-                    wccNumber: itm?.wccNumber,
-                    uniqueId: itm?.uniqueId,
-                  };
-                  setWccPdfData((prev) => [...prev, ...[tempObj]]);
-                } else {
-                  // console.log(e?.target?.checked,"___peinfoes")
+  <>
+    {itm?.isWccCreated === true ? (
+      <input
+        type={'checkbox'}
+        // Check if this specific row is in the selected PDF data
+        checked={wccPdfData?.some((d) => d.uniqueId === itm.uniqueId)}
+        value={itm.uniqueId}
+        onChange={(e) => {
+          const isChecked = e.target.checked;
+          const currentWccNumber = itm?.wccNumber;
 
-                  const data = wccPdfData?.filter(
-                    (bar) => bar?.uniqueId !== itm?.uniqueId,
-                  );
-                  // console.log(itm, wccPdfData, '__itm');
-                  // console.log(data, '___wccData');
-                  setWccPdfData(data);
-                }
-              }}
-            />
-          ) : (
-            <></>
-          )}
-        </>
-      ),
+          if (isChecked) {
+            // 1. Find all rows in the current table that have the same WCC Number
+            const relatedRows = tableData
+              .filter((row) => row.wccNumber === currentWccNumber)
+              .map((row) => ({
+                ssid: row?.ssid,
+                vendorItemCode: row?.vendorItemCode,
+                wccNumber: row?.wccNumber,
+                uniqueId: row?.uniqueId,
+              }));
+
+            // 2. Add all these rows to the state (preventing duplicates)
+            setWccPdfData((prev) => {
+              const otherRows = prev.filter(p => p.wccNumber !== currentWccNumber);
+              return [...otherRows, ...relatedRows];
+            });
+          } else {
+            // 3. If unchecking, remove all rows associated with this WCC Number
+            setWccPdfData((prev) =>
+              prev.filter((row) => row.wccNumber !== currentWccNumber)
+            );
+          }
+        }}
+      />
+    ) : (
+      <></>
+    )}
+  </>
+),
+      // generatePdf: (
+      //   <>
+      //     {itm?.isWccCreated === true ? (
+      //       <input
+      //         type={'checkbox'}
+      //         // id={itm.uniqueId}
+      //         // subId={itm.SubProjectId}
+      //         checked={wccPdfData?.some((d) => d.uniqueId === itm.uniqueId)}
+      //         value={itm.uniqueId}
+      //         onChange={(e) => {
+      //           if (e?.target?.checked) {
+      //             const tempObj = {
+      //               ssid: itm?.ssid,
+      //               vendorItemCode: itm?.vendorItemCode,
+      //               wccNumber: itm?.wccNumber,
+      //               uniqueId: itm?.uniqueId,
+      //             };
+      //             setWccPdfData((prev) => [...prev, ...[tempObj]]);
+      //           } else {
+      //             // console.log(e?.target?.checked,"___peinfoes")
+
+      //             const data = wccPdfData?.filter(
+      //               (bar) => bar?.uniqueId !== itm?.uniqueId,
+      //             );
+      //             // console.log(itm, wccPdfData, '__itm');
+      //             // console.log(data, '___wccData');
+      //             setWccPdfData(data);
+      //           }
+      //         }}
+      //       />
+      //     ) : (
+      //       <></>
+      //     )}
+      //   </>
+      // ),
       actions: (
         <>
           {itm?.wccEligibility === 'WCC Generated' &&
@@ -345,10 +415,12 @@ const Wcc = () => {
     }));
   });
   console.log(checkedChildData, '___checkedChildData');
+  []
   const componentTable = {
     columns: [
       {
         name: (
+
           <input
             type={'checkbox'}
             checked={
