@@ -5,6 +5,8 @@ export const backendassetUrl = "https://api.mcpspmis.com/";
 // export const routesObjects = {
 //   partnerTeamForm: "/vendorPartnerForm",
 //   partnerTeam: "/vendor/partnerTeam",
+
+
 // };
 
 // // export const baseUrl = "https://api.mcpspmis.com"

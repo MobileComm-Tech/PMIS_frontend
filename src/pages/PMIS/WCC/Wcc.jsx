@@ -736,7 +736,7 @@ const [filters, setFilters] = useState({
             {checkVariable(checkedData) ? (
               <>
                 <ConditionalButton
-                  showType={'visible'}
+                  showType={getAccessType('Create WCC')}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
@@ -781,7 +781,7 @@ const [filters, setFilters] = useState({
             ) : checkVariable(checkedChildData) ? (
               <>
                 <ConditionalButton
-                  showType={'visible'}
+                  showType={getAccessType('Create WCC')}
                   classes="w-auto mr-1"
                   // onClick={() => navigate("/empdetails")}
                   onClick={() => {
