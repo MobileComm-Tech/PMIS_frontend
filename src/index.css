@@ -821,3 +821,155 @@ td p {
   writing-mode: sideways-lr;
   text-orientation: upright;
 }
+
+
+.pivot-dark .pvtUi {
+  color: rgb(13, 12, 12);
+  width: auto !important;
+  font-size: 12px;
+}
+
+.pivot-dark .pvtAxisContainer,
+.pivot-dark .pvtVals
+
+ {
+  background: #1f2937 !important;
+  border: 1px solid #4b5563 !important;
+  max-width: 40px;
+  min-width: 20px;
+  padding: 2px !important;
+  border-radius: 6px;
+}
+
+.pivot-dark .pvtHorizList 
+
+ {
+  background: #1f2937 !important;
+  border: 1px solid #4b5563 !important;
+  max-width: 850px;
+  min-width: 850px;
+  padding: 6px !important;
+  border-radius: 6px;
+  font-size: 15px;
+
+}
+
+
+.pivot-dark .pvtDropdown
+
+.pivot-dark select {
+  background: #1f2937 !important;
+  color: rgb(14, 13, 13) !important;
+  max-width: 80px;
+  font-size: 15px;
+  padding: 4px;
+}
+
+
+.pivot-dark .pvtUnused {
+  max-width: 180px;
+  min-height: 80px;
+}
+
+
+.pivot-dark table {
+  width: auto !important;
+}
+
+
+.pivot-dark .pvtRendererArea {
+  width: 1000px !important;
+  max-width: 1000px !important;
+  overflow: auto;
+  background: #1f2937 
+}
+
+
+.pivot-dark .js-plotly-plot,
+.pivot-dark .plot-container {
+  width: 800px !important;
+  max-width: 800px !important;
+  height: 360px !important;
+}
+
+
+.pivot-dark td,
+.pivot-dark th {
+  font-size: 11px !important;
+  padding: 4px !important;
+}
+
+
+/* REMOVE WHITE TRANSITION FLASH */
+
+.pivot-dark .svg-container {
+  transition: none !important;
+}
+
+
+/* FIX DEFAULT PLOTLY BAR COLORS */
+
+.pivot-dark .trace.bars rect {
+  fill: #7dd3fc !important;
+}
+
+
+/* MULTI BAR SERIES COLORS */
+
+.pivot-dark .trace:nth-child(1) rect {
+  fill: #5776dd !important;
+}
+
+.pivot-dark .trace:nth-child(2) rect {
+  fill: #eb6811 !important;
+}
+
+.pivot-dark .trace:nth-child(3) rect {
+  fill: #fda4af !important;
+}
+
+.pivot-dark .trace:nth-child(4) rect {
+  fill: #fcd34d !important;
+}
+
+.pivot-dark .trace:nth-child(5) rect {
+  fill: #c4b5fd !important;
+}
+
+
+
+
+/* AXIS LINES */
+
+.pivot-dark .xlines path,
+.pivot-dark .ylines path,
+.pivot-dark .xaxislayer path,
+.pivot-dark .yaxislayer path {
+  stroke: #6b7280 !important;
+}
+
+
+/* AXIS TEXT */
+
+.pivot-dark .xtick text,
+.pivot-dark .ytick text {
+  fill: #d1d5db !important;
+}
+
+
+/* LEGEND TEXT */
+
+.pivot-dark .legendtext {
+  fill: #e5e7eb !important;
+}
+
+
+/* HOVER LABEL */
+
+.pivot-dark .hoverlayer .hovertext rect {
+  fill: #111827 !important;
+}
+
+.pivot-dark .hoverlayer .hovertext text {
+  fill: #f9fafb !important;
+}

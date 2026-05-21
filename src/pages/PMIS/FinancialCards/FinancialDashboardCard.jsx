@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CCDash from "../../../components/CCDash";
 import ComponentActions from "../../../store/actions/component-actions";
 import FinanceActions from "../../../store/actions/finance-actions";
-
+import { getAccessType } from "../../../utils/commonFunnction";
 const FinancialDashboardCard = () => {
 
   let dispatch = useDispatch();
@@ -28,31 +28,110 @@ const FinancialDashboardCard = () => {
   }, []);
 
   return  (
-      <CCDash
-        approveddata={dbConfigList?.map((itm) => {
-          return (
-            <>
-              <div
-                className={`border-[1px] border-[#186757] bg-pcol ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-full lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
-                onClick={() => {
-                  dispatch(ComponentActions.globalUrlStore(itm["customerName"], "/financial"));
-                  navigate(`${"/financial"}/${itm["customerName"]}/${itm["customerId"]}`);
-                }}
-              >
-                {itm["companyimg"] && itm["companyimg"] != "" && (
-                  <>
-                    <img
-                     className="m-auto w-[50px] md:w-[40px] xl:w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
-                      src={backendassetUrl + itm["companyimg"]}
-                    />
-                  </>
-                )}
-                <div className="m-auto md:text-sm md:text-center xl:text-base">{itm["customerName"]}</div>
-              </div>
-            </>
-          );
-        })}
-      />
+      // <CCDash
+      //   approveddata={dbConfigList?.map((itm) => {
+      //     return (
+      //       <>
+      //         <div
+      //           className={`border-[1px] border-[#186757] bg-pcol ${itm[1]} shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-full lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
+      //           onClick={() => {
+      //             dispatch(ComponentActions.globalUrlStore(itm["customerName"], "/financial"));
+      //             navigate(`${"/financial"}/${itm["customerName"]}/${itm["customerId"]}`);
+      //           }}
+      //         >
+      //           {itm["companyimg"] && itm["companyimg"] != "" && (
+      //             <>
+      //               <img
+      //                className="m-auto w-[50px] md:w-[40px] xl:w-[50px] rounded-md hover:border-b-slate-600 border-b-[2px] border-b-slate-700"
+      //                 src={backendassetUrl + itm["companyimg"]}
+      //               />
+      //             </>
+      //           )}
+      //           <div className="m-auto md:text-sm md:text-center xl:text-base">{itm["customerName"]}</div>
+      //         </div>
+      //       </>
+      //     );
+      //   })}
+      // />
+
+    <CCDash
+  approveddata={[
+
+    // ✅ STATIC BUTTON
+    (
+      getAccessType("Unbilled Dashboard") === "visible" ||
+      getAccessType("Unbilled Dashboard") === "disabled"
+    ) ? (
+      <div
+        className="border-[1px] border-[#186757] bg-pcol shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-full lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:bg-pcolhover"
+        onClick={() => {
+
+          if (getAccessType("Unbilled Dashboard") === "visible") {
+
+            dispatch(
+              ComponentActions.globalUrlStore(
+                "Unbilled Dashboard",
+                "/financial/unbilledDashboard"
+              )
+            );
+
+            navigate("/financial/unbilledDashboard");
+
+          } else {
+
+            let msgdata = {
+              show: true,
+              icon: "error",
+              buttons: [],
+              type: 1,
+              text: "This option is disabled",
+            };
+
+            dispatch(ALERTS(msgdata));
+          }
+        }}
+      >
+        <div className="m-auto flex items-center gap-2">
+          <span>Unbilled Dashboard</span>
+        </div>
+      </div>
+    ) : (
+      <></>
+    ),
+
+    // ✅ DYNAMIC BUTTONS
+    ...(dbConfigList?.map((itm) => {
+      return (
+        <div
+          className={`border-[1px] border-[#186757] bg-pcol shadow-md hover:shadow-rxl w-full sm:w-11/12 md:w-full lg:w-3/4 xl:w-full h-16 flex cursor-pointer rounded-lg hover:scale-105 transition-all duration-500 font-oxygen font-extrabold hover:text-lg hover:bg-pcolhover`}
+          onClick={() => {
+            dispatch(
+              ComponentActions.globalUrlStore(
+                itm["customerName"],
+                "/financial"
+              )
+            );
+
+            navigate(
+              `/financial/${itm["customerName"]}/${itm["customerId"]}`
+            );
+          }}
+        >
+          {itm["companyimg"] && (
+            <img
+              className="m-auto w-[50px] md:w-[40px] xl:w-[50px] rounded-md"
+              src={backendassetUrl + itm["companyimg"]}
+            />
+          )}
+
+          <div className="m-auto md:text-sm md:text-center xl:text-base">
+            {itm["customerName"]}
+          </div>
+        </div>
+      );
+    }) || []),
+  ]}
+/>
   );
 };
 export default FinancialDashboardCard;

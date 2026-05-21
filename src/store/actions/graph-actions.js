@@ -37,6 +37,7 @@ import {
     GET_GRAPH_P_AND_L_FORMS,
     GET_GRAPH_P_AND_L_TRENDS,
     GET_GRAPH_PROJECT_TYPE_UNBILLED,
+     GET_GRAPH_UNBILLED,
     
  } from "../reducers/graph-reducer"
 
@@ -1042,5 +1043,58 @@ const GraphActions = {
             return;
         }
     },
+
+
+getGraphUnbilled:
+  (reset = true, args = "") =>
+  async (dispatch, _) => {
+    try {
+      const res = await Api.get({
+        url: `${Urls.graph_unbilled}${
+          args !== "" ? "?" + args : ""
+        }`,
+      });
+
+      if (res?.status !== 200) return;
+
+      let dataAll = res?.data?.data || [];
+
+      dispatch(
+        GET_GRAPH_UNBILLED({
+          dataAll,
+          reset,
+        })
+      );
+    } catch (error) {}
+  },
+
+postGraphUnbilled:
+  (data, cb) =>
+  async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url: Urls.graph_unbilled,
+      });
+
+      if (
+        res?.status !== 201 &&
+        res?.status !== 200
+      ) {
+        cb && cb();
+      } else {
+        let dataAll = res?.data?.data || [];
+
+        dispatch(
+          GET_GRAPH_UNBILLED({
+            dataAll,
+            reset: true,
+          })
+        );
+      }
+    } catch (error) {
+      return;
+    }
+  },
 }
 export default GraphActions;

@@ -15,7 +15,8 @@ const initialState = {
     getForecastCOGS: [],
     getCircle: [],
     getCircleSubProjectType: [],
-    getPvaData: []
+    getPvaData: [],
+    getFormsUnBilled: [],
 }
 
 const FormssReducer = createSlice({
@@ -135,7 +136,15 @@ const FormssReducer = createSlice({
             } else {
                 state.getPvaData = [...state.getPvaData, ...payload.dataAll]
             }
-        }
+        },
+
+        GET_UNBILLED: (state, { payload }) => {
+            if (payload.reset) {
+                state.getFormsUnBilled = payload.dataAll
+            } else {
+                state.getFormsUnBilled = [...state.getFormsUnBilled, ...payload.dataAll]
+            }
+        },
 
     }
 })
@@ -156,5 +165,6 @@ export const {
     GET_ACCRUAL_REVENUE_TREND,
     GET_SOB,
     GET_SOB_DYNAMIIC,
+    GET_UNBILLED,
 } = FormssReducer.actions
 export default FormssReducer.reducer

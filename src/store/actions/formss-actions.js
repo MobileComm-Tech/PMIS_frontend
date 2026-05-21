@@ -16,6 +16,7 @@ import {
     GET_WCC_EMF,
     GET_WCC_CDH,
     GET_WCC_SCFT,
+    GET_UNBILLED,
 }
     from "../reducers/formss-reducer"
 
@@ -465,5 +466,83 @@ const FormssActions = {
         } catch (error) {
         }
     },
+
+     getFormsUnBilled:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.forms_UnBIlled}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+
+        dispatch(GET_UNBILLED({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+//   postFormsUnBilled: (data, cb) => async (dispatch, _) => {
+//     try {
+//     //   const res = await Api.post({ data: data, url: Urls.forms_UnBIlled })
+ 
+//       const res = await Api.post({
+//         data: data,
+//         url:
+//           data?.uniqueId == null
+//             ? Urls.forms_UnBIlled
+//             : Urls.forms_UnBIlled + "/" + data?.uniqueId,
+//       });
+//       if (res?.status !== 201 && res?.status !== 200) {
+//         let msgdata = {
+//           show: true,
+//           icon: "error",
+//           buttons: [],
+//           type: 1,
+//           text: res?.data?.msg,
+//         };
+//         dispatch(ALERTS(msgdata));
+//         cb();
+//       } else {
+//         let dataAll = res?.data?.data;
+//         dispatch(GET_UNBILLED({ dataAll, reset: true }));
+//       }
+//     } catch (error) {
+//       return;
+//     }
+//   },
+
+postFormsUnBilled: (data, cb) => async (dispatch, _) => {
+  try {
+    const res = await Api.post({
+      data: data,
+      url:
+        data?.uniqueId == null
+          ? Urls.forms_UnBIlled
+          : Urls.forms_UnBIlled + "/" + data?.uniqueId,
+    });
+
+    if (res?.status !== 201 && res?.status !== 200) {
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: res?.data?.msg,
+      };
+
+      dispatch(ALERTS(msgdata));
+
+      return;
+    }
+
+    // SUCCESS
+    if (cb) cb();
+
+  } catch (error) {
+    return;
+  }
+}
+
 }
 export default FormssActions;

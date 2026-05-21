@@ -158,6 +158,8 @@ import CDH from "../pages/PMIS/Formss/WCC/CDH/CDH";
 import CdhApprover from "../pages/PMIS/MyHome/Wcc Approver/CDH Approver/CdhApprover";
 import PTWTaskAllocation from "../pages/PMIS/Admin/PTWTaskAllocation/PTWTaskallocation";
 import OhsNitification from "../pages/PMIS/MyHome/OHS/OhsNitification";
+import FormsUnBilled from "../pages/PMIS/Formss/Unbilled/Unbilled";
+import UnbilledDashboard from "../pages/PMIS/FinancialCards/UnbilledDashboard";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -743,6 +745,13 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+
+       {
+      name: "",
+      link: "/financial/unbilledDashboard",
+      subMenu: [],
+      component: <UnbilledDashboard />,
+    },
     {
       name: "",
       link: "/financial/:customer/:customerId/poManagement",
@@ -919,6 +928,16 @@ export const Sidebar_content = {
       subMenu: [],
     },
     // FORMS WCC COMPONENTS STARTS HERE
+
+ {
+      name: "",
+      link: "/forms/Unbilled",
+      component: <FormsUnBilled />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+
     {
       name: "",
       link: "/forms/WCC/PAT",
