@@ -176,13 +176,13 @@ colOrder: "value_z_to_a",
           margin: {
             t: 30,
             b: 100,
-            l: 60,
-            r: 20,
+            l: 50,
+            r: 10,
           },
 
           // xaxis: {
-          //   gridcolor: "#374151",
-          //   linecolor: "#4b5563",
+          //   // gridcolor: "#374151",
+          //   // linecolor: "#4b5563",
           //   tickfont: {
           //     color: "#d1d5db",
           //     size: 10,
