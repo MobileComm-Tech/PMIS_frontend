@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -57,7 +55,7 @@ const UnbilledDashboard = () => {
     // rowOrder: "value_a_to_z",
     // colOrder: "value_a_to_z",
     rowOrder: "value_z_to_a",
-colOrder: "value_z_to_a",
+    colOrder: "value_z_to_a",
   });
 
   useEffect(() => {
@@ -72,7 +70,7 @@ colOrder: "value_z_to_a",
         item?.currentUnbilledBucket ||
         "N/A",
 
-      // "Total Unbilled": Number(item?.totalUnbilled) || 0,
+      // "Total Unbilled": Math.round(Number(item?.totalUnbilled) || 0),
       "Total Unbilled": ((Number(item?.totalUnbilled) || 0) / 100000).toFixed(
         4,
       ),
@@ -88,6 +86,25 @@ colOrder: "value_z_to_a",
   }, [graphData]);
 
   const [filteredData, setFilteredData] = useState([]);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     document.querySelectorAll(".js-plotly-plot").forEach((el) => {
+  //       if (!el?._fullData) return;
+
+  //       const update = {};
+
+  //       el._fullData.forEach((trace, i) => {
+  //         update[`hovertemplate[${i}]`] =
+  //           "%{x}<br>%{y}<extra></extra>";
+  //       });
+
+  //       window.Plotly?.update(el, {}, update);
+  //     });
+  //   }, 0);
+
+  //   return () => clearTimeout(timer);
+  // }, [filteredData, pivotState]);
 
   useEffect(() => {
     setFilteredData(formattedData);
@@ -152,63 +169,62 @@ colOrder: "value_z_to_a",
     // }, 1); // bumped to 500ms for safety
 
     const timer = setTimeout(() => {
-  const plotDivs = document.querySelectorAll(
-    ".pivot-dark .js-plotly-plot"
-  );
+      const plotDivs = document.querySelectorAll(".pivot-dark .js-plotly-plot");
 
-  plotDivs.forEach((div) => {
-    if (div && div._fullLayout) {
-      div.style.background = "#1f2937";
-      div.style.transition = "none";
+      plotDivs.forEach((div) => {
+        if (div && div._fullLayout) {
+          div.style.background = "#1f2937";
+          div.style.transition = "none";
 
-      requestAnimationFrame(() => {
-        window.Plotly?.relayout(div, {
-          colorway: pastelPalette,
+          requestAnimationFrame(() => {
+            window.Plotly?.relayout(div, {
+              colorway: pastelPalette,
 
-          paper_bgcolor: "#1f2937",
-          plot_bgcolor: "#1f2937",
+              // paper_bgcolor: "#1f2937",
+              // plot_bgcolor: "#1f2937",
+              paper_bgcolor: "#ffffff",
+              plot_bgcolor: "#ffffff",
+              font: {
+                color: "#1f2937",
+                family: "sans-serif",
+              },
 
-          font: {
-            color: "#d1d5db",
-            family: "sans-serif",
-          },
+              margin: {
+                t: 30,
+                b: 100,
+                l: 50,
+                r: 10,
+              },
 
-          margin: {
-            t: 30,
-            b: 100,
-            l: 50,
-            r: 10,
-          },
+              // xaxis: {
+              //   // gridcolor: "#374151",
+              //   // linecolor: "#4b5563",
+              //   tickfont: {
+              //     color: "#d1d5db",
+              //     size: 10,
+              //   },
+              // },
 
-          // xaxis: {
-          //   // gridcolor: "#374151",
-          //   // linecolor: "#4b5563",
-          //   tickfont: {
-          //     color: "#d1d5db",
-          //     size: 10,
-          //   },
-          // },
+              // yaxis: {
+              //   gridcolor: "#374151",
+              //   linecolor: "#4b5563",
+              //   tickfont: {
+              //     color: "#d1d5db",
+              //     size: 10,
+              //   },
+              // },
+            });
 
-          // yaxis: {
-          //   gridcolor: "#374151",
-          //   linecolor: "#4b5563",
-          //   tickfont: {
-          //     color: "#d1d5db",
-          //     size: 10,
-          //   },
-          // },
-        });
+            /* FORCE SVG DARK IMMEDIATELY */
+            // const bgRects = div.querySelectorAll(".bg");
 
-        /* FORCE SVG DARK IMMEDIATELY */
-        const bgRects = div.querySelectorAll(".bg");
-
-        bgRects.forEach((bg) => {
-          bg.style.fill = "#1f2937";
-        });
+            // bgRects.forEach((bg) => {
+            //   bg.style.fill = "#1f2937";
+            // });
+          });
+        }
       });
-    }
-  });
-}, 0);
+    }, 0);
     return () => clearTimeout(timer);
   }, [filteredData, pivotState]);
 
@@ -301,11 +317,23 @@ colOrder: "value_z_to_a",
             plotlyOptions={{
               yaxis: {
                 ticksuffix: " L",
+                // tickformat: ",d",
+                  tickformat: ",.0f",
               },
+
+              hovermode: "closest",
+
+              hoverlabel: {
+                namelength: 0,
+              },
+              // hovertemplate: "%{x}<br>%{y}<extra></extra>",
+             hovertemplate: "%{x}<br>%{y:,.0f} L<extra></extra>",
 
               annotations: [
                 {
                   text: `Unbilled:- ₹${(finalUnbilled / 100000).toFixed(2)} L`,
+                  // text: `Unbilled:- ₹${(Math.round(finalUnbilled))} L`,
+
                   x: 0.8,
                   y: 1.1,
                   xref: "paper",
@@ -313,7 +341,7 @@ colOrder: "value_z_to_a",
                   showarrow: false,
                   font: {
                     size: 15,
-                    color: "#ffffff",
+                    color: "#1f2937",
                   },
                 },
               ],
@@ -321,7 +349,6 @@ colOrder: "value_z_to_a",
               margin: {
                 t: 100,
               },
-              
             }}
             // onChange={(s) => setPivotState(s)}
             onChange={(s) => {
@@ -340,7 +367,7 @@ colOrder: "value_z_to_a",
                 // rowOrder: s.rowOrder || "value_a_to_z",
                 // colOrder: s.colOrder || "value_a_to_z",
                 rowOrder: s.rowOrder || "value_z_to_a",
-colOrder: s.colOrder || "value_z_to_a",
+                colOrder: s.colOrder || "value_z_to_a",
               });
             }}
             renderers={{

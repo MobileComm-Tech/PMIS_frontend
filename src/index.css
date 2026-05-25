@@ -945,7 +945,7 @@ td p {
 .pivot-dark .ylines path,
 .pivot-dark .xaxislayer path,
 .pivot-dark .yaxislayer path {
-  stroke: #6b7280 !important;
+  stroke: #806b6e !important;
 }
 
 
@@ -953,14 +953,14 @@ td p {
 
 .pivot-dark .xtick text,
 .pivot-dark .ytick text {
-  fill: #d1d5db !important;
+  fill: #1f2937 !important;
 }
 
 
 /* LEGEND TEXT */
 
 .pivot-dark .legendtext {
-  fill: #e5e7eb !important;
+  fill: #1f2937 !important;
 }
 
 
