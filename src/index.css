@@ -953,14 +953,14 @@ td p {
 
 .pivot-dark .xtick text,
 .pivot-dark .ytick text {
-  fill: #1f2937 !important;
+  fill: #bac1ca !important;
 }
 
 
 /* LEGEND TEXT */
 
 .pivot-dark .legendtext {
-  fill: #1f2937 !important;
+  fill: #bac1ca !important;
 }
 
 

@@ -131,42 +131,6 @@ const UnbilledDashboard = () => {
       "#bbf7d0",
     ];
 
-    // const timer = setTimeout(() => {
-    //   const plotDivs = document.querySelectorAll(".pivot-dark .js-plotly-plot");
-    //   plotDivs.forEach((div) => {
-    //     if (div._fullLayout) {
-    //       window.Plotly?.relayout(div, {
-    //         colorway: pastelPalette,
-    //         paper_bgcolor: "#1f2937",
-    //         plot_bgcolor: "#1f2937",
-    //         // showlegend: true,                    // ← force legend ON
-    //         font: { color: "#d1d5db", family: "sans-serif" },
-    //         // legend: {
-    //         //   bgcolor: "#111827",
-    //         //   bordercolor: "#4b5563",
-    //         //   borderwidth: 1,
-    //         //   font: { color: "#d1d5db", size: 11 },
-    //         //   orientation: "h",                  // horizontal legend below chart
-    //         //   x: 0,
-    //         //   y: -0.25,                          // push below x-axis
-    //         // },
-    //         margin: { t: 30, b: 100, l: 60, r: 20 }, // extra bottom for legend
-    //         // xaxis: {
-    //         //   gridcolor: "#374151",
-    //         //   linecolor: "#4b5563",
-    //         //   tickfont: { color: "#d1d5db", size: 10 },
-    //         //   title: { font: { color: "#d1d5db" } },
-    //         // },
-    //         // // yaxis: {
-    //         //   gridcolor: "#374151",
-    //         //   linecolor: "#4b5563",
-    //         //   tickfont: { color: "#d1d5db", size: 10 },
-    //         //   title: { font: { color: "#d1d5db" } },
-    //         // },
-    //       });
-    //     }
-    //   });
-    // }, 1); // bumped to 500ms for safety
 
     const timer = setTimeout(() => {
       const plotDivs = document.querySelectorAll(".pivot-dark .js-plotly-plot");
@@ -180,12 +144,12 @@ const UnbilledDashboard = () => {
             window.Plotly?.relayout(div, {
               colorway: pastelPalette,
 
-              // paper_bgcolor: "#1f2937",
-              // plot_bgcolor: "#1f2937",
-              paper_bgcolor: "#ffffff",
-              plot_bgcolor: "#ffffff",
+              paper_bgcolor: "#1f2937",
+              plot_bgcolor: "#1f2937",
+              // paper_bgcolor: "#ffffff",
+              // plot_bgcolor: "#ffffff",
               font: {
-                color: "#1f2937",
+                color: "#ffffff",
                 family: "sans-serif",
               },
 
@@ -215,12 +179,23 @@ const UnbilledDashboard = () => {
               // },
             });
 
+  //           const traceCount = div._fullData?.length || 0;
+  // if (traceCount > 0) {
+  //   const traceUpdate = {
+  //     hovertemplate: Array(traceCount).fill("%{y:,.0f} L<extra></extra>"),
+  //     "hoverlabel.bgcolor": Array(traceCount).fill("rgba(0,0,0,0)"),
+  //     "hoverlabel.bordercolor": Array(traceCount).fill("rgba(0,0,0,0)"),
+  //     "hoverlabel.font.color": Array(traceCount).fill("#ffffff"),
+  //     "hoverlabel.font.size": Array(traceCount).fill(13),
+  //   };
+  //   window.Plotly?.restyle(div, traceUpdate);
+  // }
             /* FORCE SVG DARK IMMEDIATELY */
-            // const bgRects = div.querySelectorAll(".bg");
+            const bgRects = div.querySelectorAll(".bg");
 
-            // bgRects.forEach((bg) => {
-            //   bg.style.fill = "#1f2937";
-            // });
+            bgRects.forEach((bg) => {
+              bg.style.fill = "#1f2937";
+            });
           });
         }
       });
@@ -318,16 +293,30 @@ const UnbilledDashboard = () => {
               yaxis: {
                 ticksuffix: " L",
                 // tickformat: ",d",
-                  tickformat: ",.0f",
+                tickformat: ",.0f",
               },
 
               hovermode: "closest",
 
+              // hoverlabel: {
+              //   namelength: 0,
+              // },
               hoverlabel: {
-                namelength: 0,
+                namelength: 0, // ← hides trace name completely
+                bgcolor: "rgba(0,0,0,0)",
+                bordercolor: "rgba(0,0,0,0)",
+                font: {
+                  color: "#1f2937",
+                  size: 13,
+                },
               },
+
+              hovertemplate: "%{y:,.0f} L<extra></extra>",
+
+              // hovertemplate: "%{x}<br>%{y:,.0f} L<extra></extra>",
+
               // hovertemplate: "%{x}<br>%{y}<extra></extra>",
-             hovertemplate: "%{x}<br>%{y:,.0f} L<extra></extra>",
+              //  hovertemplate: "%{x}<br>%{y:,.0f} L<extra></extra>",
 
               annotations: [
                 {
@@ -341,7 +330,7 @@ const UnbilledDashboard = () => {
                   showarrow: false,
                   font: {
                     size: 15,
-                    color: "#1f2937",
+                    color: "#bac1ca",
                   },
                 },
               ],
