@@ -375,6 +375,9 @@ const [strValFil, setstrVal] = useState(defaultPagination);
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         heading={"Total Count :-  "}
+  //       checkboxshow={true}
+  // delurl={Urls.forms_UnBIlled}
+  // geturl={FormssActions.getFormsUnBilled(true, strValFil)}
       />
       <Modal
         size={"sm"}

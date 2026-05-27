@@ -884,13 +884,20 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
+        {
       name: "",
-      link: "/forms/AopTracking",
+      link: "/forms/USTP&LTracking",
       component: <AOPTracking />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
+    // {
+    //   name: "",
+    //   link: "/forms/AopTracking",
+    //   component: <AOPTracking />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
     {
       name: "",
       link: "/forms/forcastCOGSTracking",
@@ -912,9 +919,16 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    {
+    // {
+    //   name: "",
+    //   link: "/forms/gpTracking",
+    //   component: <GPTracking />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
+     {
       name: "",
-      link: "/forms/gpTracking",
+      link: "/forms/P&LTracking",
       component: <GPTracking />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],

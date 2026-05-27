@@ -330,6 +330,7 @@ const AdvancedTableExpandableOneRow = ({
               "Activity Month",
               "PO eligibility (Yes/No)",
               "PO Number",
+              // "WCC Number",
               "Quantity",
               "Vendor Code Description",
               "PO Value",
@@ -388,6 +389,8 @@ const AdvancedTableExpandableOneRow = ({
                     </span>
                   ) : innerItem.name === "PO Number" ? (
                     finalData[item?.workDescription]?.[0]?.["poNumber"]
+                    //  ) : innerItem.name === "WCC Number" ? (
+                    // finalData[item?.workDescription]?.[0]?.["wccNumber"]
                   ) : innerItem.name === "Quantity" ? (
                     finalData[item?.workDescription]?.[0]?.["quantity"]
                   ) : innerItem.name === "Vendor Code Description" ? (

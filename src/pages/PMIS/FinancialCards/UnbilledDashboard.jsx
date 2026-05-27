@@ -132,74 +132,117 @@ const UnbilledDashboard = () => {
     ];
 
 
-    const timer = setTimeout(() => {
-      const plotDivs = document.querySelectorAll(".pivot-dark .js-plotly-plot");
+const timer = setTimeout(() => {
+  const plotDivs = document.querySelectorAll(".pivot-dark .js-plotly-plot");
 
-      plotDivs.forEach((div) => {
-        if (div && div._fullLayout) {
-          div.style.background = "#1f2937";
-          div.style.transition = "none";
+  plotDivs.forEach((div) => {
+    if (div && div._fullLayout) {
+      div.style.background = "#1f2937";
+      div.style.transition = "none";
 
-          requestAnimationFrame(() => {
-            window.Plotly?.relayout(div, {
-              colorway: pastelPalette,
+      requestAnimationFrame(() => {
+        window.Plotly?.relayout(div, {
+          colorway: pastelPalette,
+          paper_bgcolor: "#1f2937",
+          plot_bgcolor: "#1f2937",
+          font: { color: "#ffffff", family: "sans-serif" },
+          margin: { t: 60, b: 50, l: 50, r: 10 }, // ← tight bottom
+          xaxis: {
+            // tickangle: 5,        // ← force horizontal, no rotation
+            tickfont: { size: 9, color: "#ffffff" },
+            automargin: false,   // ← prevent plotly from auto-expanding margin
+          },
+        });
 
-              paper_bgcolor: "#1f2937",
-              plot_bgcolor: "#1f2937",
-              // paper_bgcolor: "#ffffff",
-              // plot_bgcolor: "#ffffff",
-              font: {
-                color: "#ffffff",
-                family: "sans-serif",
-              },
+        // ── restyle traces ──────────────────────────────────────
+        // const traceCount = div._fullData?.length || 0;
+        // if (traceCount > 0) {
+        //   window.Plotly?.restyle(div, {
+        //     hovertemplate: Array(traceCount).fill("%{x}<br>%{y:,.0f} L<extra></extra>"),
+        //     "hoverlabel.bgcolor": Array(traceCount).fill("rgba(0,0,0,0)"),
+        //     "hoverlabel.bordercolor": Array(traceCount).fill("rgba(0,0,0,0)"),
+        //     "hoverlabel.font.color": Array(traceCount).fill("#ffffff"),
+        //     "hoverlabel.font.size": Array(traceCount).fill(13),
+        //   });
+        // }
 
-              margin: {
-                t: 30,
-                b: 100,
-                l: 50,
-                r: 10,
-              },
+        // ── force dark bg ───────────────────────────────────────
+        div.querySelectorAll(".bg").forEach((bg) => {
+          bg.style.fill = "#1f2937";
+        });
 
-              // xaxis: {
-              //   // gridcolor: "#374151",
-              //   // linecolor: "#4b5563",
-              //   tickfont: {
-              //     color: "#d1d5db",
-              //     size: 10,
-              //   },
-              // },
+        // ── truncate x-axis labels + full text tooltip ──────────
+        setTimeout(() => {
+          div.querySelectorAll(".xaxislayer-above .xtick text").forEach((el) => {
+            // grab from tspan if present, else text directly
+            const tspan = el.querySelector("tspan") || el;
+            const full = (tspan.textContent || "").trim();
 
-              // yaxis: {
-              //   gridcolor: "#374151",
-              //   linecolor: "#4b5563",
-              //   tickfont: {
-              //     color: "#d1d5db",
-              //     size: 10,
-              //   },
-              // },
+            if (full.length > 8) {
+              tspan.textContent = full.substring(0, 8) + "…";
+            }
+
+            el.style.cursor = "default";
+
+            // clone to remove stale listeners
+            const fresh = el.cloneNode(true);
+            el.parentNode?.replaceChild(fresh, el);
+
+            fresh.addEventListener("mouseenter", (e) => {
+              let tip = document.getElementById("xtick-tooltip");
+              if (!tip) {
+                tip = document.createElement("div");
+                tip.id = "xtick-tooltip";
+                tip.style.cssText = `
+                  position: fixed;
+                  background: #111827;
+                  color: #f4d3a8;
+                  border: 1px solid #4b5563;
+                  padding: 5px 10px;
+                  border-radius: 6px;
+                  font-size: 12px;
+                  font-family: sans-serif;
+                  pointer-events: none;
+                  z-index: 99999;
+                  white-space: nowrap;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+                  transform: translateX(-50%);
+                `;
+                document.body.appendChild(tip);
+              }
+              tip.textContent = full;
+              tip.style.left = `${e.clientX}px`;
+              tip.style.top = `${e.clientY - 44}px`;
+              tip.style.display = "block";
             });
 
-  //           const traceCount = div._fullData?.length || 0;
-  // if (traceCount > 0) {
-  //   const traceUpdate = {
-  //     hovertemplate: Array(traceCount).fill("%{y:,.0f} L<extra></extra>"),
-  //     "hoverlabel.bgcolor": Array(traceCount).fill("rgba(0,0,0,0)"),
-  //     "hoverlabel.bordercolor": Array(traceCount).fill("rgba(0,0,0,0)"),
-  //     "hoverlabel.font.color": Array(traceCount).fill("#ffffff"),
-  //     "hoverlabel.font.size": Array(traceCount).fill(13),
-  //   };
-  //   window.Plotly?.restyle(div, traceUpdate);
-  // }
-            /* FORCE SVG DARK IMMEDIATELY */
-            const bgRects = div.querySelectorAll(".bg");
+            fresh.addEventListener("mousemove", (e) => {
+              const tip = document.getElementById("xtick-tooltip");
+              if (tip) {
+                tip.style.left = `${e.clientX}px`;
+                tip.style.top = `${e.clientY - 44}px`;
+              }
+            });
 
-            bgRects.forEach((bg) => {
-              bg.style.fill = "#1f2937";
+            fresh.addEventListener("mouseleave", () => {
+              const tip = document.getElementById("xtick-tooltip");
+              if (tip) tip.style.display = "none";
             });
           });
-        }
+        }, 200);
       });
-    }, 0);
+    }
+  });
+}, 0);
+
+return () => {
+  clearTimeout(timer);
+  document.getElementById("xtick-tooltip")?.remove();
+};
+// return () => {
+//   clearTimeout(timer);
+//   document.getElementById("xtick-tooltip")?.remove(); // cleanup on unmount
+// };
     return () => clearTimeout(timer);
   }, [filteredData, pivotState]);
 

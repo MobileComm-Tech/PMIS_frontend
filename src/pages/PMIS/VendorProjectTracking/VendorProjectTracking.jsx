@@ -4579,6 +4579,12 @@ const VendorProjectTracking = () => {
       },
 
       // {
+      //   name: "WCC Number",
+      //   value: "",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
+
+      // {
       //   name: "Billing Status",
       //   value: "siteBillingStatus",
       //   style: "min-w-[140px] max-w-[200px] text-center",
@@ -4743,6 +4749,11 @@ const VendorProjectTracking = () => {
           value: "",
           style: "min-w-[140px] max-w-[200px] text-center",
         },
+      //    {
+      //   name: "WCC Number",
+      //   value: "",
+      //   style: "min-w-[140px] max-w-[200px] text-center",
+      // },
 
         // {
         //   name: "Planned Start Date",

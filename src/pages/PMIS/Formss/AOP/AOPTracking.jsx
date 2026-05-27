@@ -873,7 +873,145 @@ const AOPTracking = () => {
   if (actionVisibility === false) {
     shouldIncludeEditColumn = false;
   }
-  let table = {
+  // let table = {
+  //   columns: [
+  //     {
+  //       name: "Year",
+  //       value: "year",
+  //       style: "px-1 text-center  text-3xl",
+  //       bg: "bg-sky-200",
+  //     },
+  //     {
+  //       name: "Month",
+  //       value: "month",
+  //       style: "px-1 text-center",
+  //       bg: "bg-sky-200",
+  //     },
+
+  //     {
+  //       name: "Bussiness Unit",
+  //       value: "businessUnit",
+  //       style: "px-1 text-center",
+  //       bg: "bg-sky-200",
+  //     },
+  //     {
+  //       name: "Customer",
+  //       value: "customerName",
+  //       style: "px-2 text-center",
+  //       bg: "bg-sky-500",
+  //     },
+  //     {
+  //       name: "UST Project ID",
+  //       value: "ustProjectID",
+  //       style: "min-w-[140px] max-w-[200px] text-center",
+  //       bg: "bg-sky-500",
+  //     },
+  //     {
+  //       name: "MCT Project ID",
+  //       value: "costCenter",
+  //       style: "px-2 text-center",
+  //       bg: "bg-sky-500",
+  //     },
+  //     {
+  //       name: "Zone",
+  //       value: "zone",
+  //       style: "px-2 text-center",
+  //       bg: "bg-sky-500",
+  //     },
+  //     {
+  //       name: "Planned Revenue",
+  //       value: "planRevenue",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Planned COGS",
+  //       value: "COGS",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Planned Gross Profit",
+  //       value: "planGp",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Planned Gross Margin(%)",
+  //       value: "gm",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Planned SGNA",
+  //       value: "SGNA",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Planned Net Profit(%)",
+  //       value: "np",
+  //       style: "px-2 text-center",
+  //       bg: "bg-orange-400",
+  //     },
+  //     {
+  //       name: "Actual Revenue",
+  //       value: "actualRevenue",
+  //       style: "px-2 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     {
+  //       name: "Actual COGS",
+  //       value: "actualCOGS",
+  //       style: "px-2 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     {
+  //       name: "Actual Gross Profit",
+  //       value: "actualGp",
+  //       style: "px-2 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     {
+  //       name: "Actual Gross Margin(%)",
+  //       value: "actualGm",
+  //       style: "px-2 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     {
+  //       name: "Actual SGNA",
+  //       value: "actualSGNA",
+  //       style: "px-2 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     {
+  //       name: "Actual Net Profit(%)",
+  //       value: "actualNp",
+  //       style: "px-6 text-center",
+  //       bg: "bg-green-600",
+  //     },
+  //     ...newColumns,
+  //     ...(shouldIncludeEditColumn
+  //       ? [
+  //           {
+  //             name: "Edit",
+  //             value: "edit",
+  //             style: "min-w-[50px] max-w-[80px] text-center",
+  //           },
+  //           {
+  //             name: "Delete",
+  //             value: "delete",
+  //             style: "min-w-[50px] max-w-[80px] text-center",
+  //           },
+  //         ]
+  //       : []),
+  //   ],
+  //   properties: {
+  //     rpp: [10, 20, 50, 100],
+  //   },
+  //   filter: [],
+  // };
+   let table = {
     columns: [
       {
         name: "Year",
@@ -991,20 +1129,24 @@ const AOPTracking = () => {
         bg: "bg-green-600",
       },
       ...newColumns,
-      ...(shouldIncludeEditColumn
-        ? [
-            {
-              name: "Edit",
-              value: "edit",
-              style: "min-w-[50px] max-w-[80px] text-center",
-            },
-            {
-              name: "Delete",
-              value: "delete",
-              style: "min-w-[50px] max-w-[80px] text-center",
-            },
-          ]
-        : []),
+    ...(shouldIncludeEditColumn &&
+(getAccessType("UST P&L Tracking(Actions)") === "visible" ||
+ getAccessType("UST P&L Tracking(Actions)") === "disabled")
+  ? [
+      {
+        name: "Edit",
+        value: "edit",
+        showType: getAccessType("UST P&L Tracking(Actions)"),
+        style: "min-w-[50px] max-w-[80px] text-center",
+      },
+      {
+        name: "Delete",
+        value: "delete",
+        showType: getAccessType("UST P&L Tracking(Actions)"),
+        style: "min-w-[50px] max-w-[80px] text-center",
+      },
+    ]
+  : []),
     ],
     properties: {
       rpp: [10, 20, 50, 100],
