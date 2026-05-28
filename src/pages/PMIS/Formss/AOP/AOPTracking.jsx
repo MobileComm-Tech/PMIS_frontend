@@ -182,6 +182,10 @@ const AOPTracking = () => {
     { label: "Dec", value: 12 },
   ];
   let dispatch = useDispatch();
+    const formatPercent = (value) => {
+    if (!isFinite(value) || isNaN(value)) return "0.00 %";
+    return `${value.toFixed(2)} %`;
+  };
   let rows = useSelector((state) => {
     return Array.isArray(state.table?.tableContent)
       ? state.table.tableContent.map((item) => {
@@ -204,9 +208,17 @@ const AOPTracking = () => {
             ...item,
             month: index,
             gm: (item?.gm * 100).toFixed(2) + " %",
-            actualNp: (item?.actualNp * 100).toFixed(2) + " %",
-            np: (item?.np * 100).toFixed(2) + " %",
-            actualGm: (item?.actualGm * 100).toFixed(2) + " %",
+            // actualNp: (item?.actualNp * 100).toFixed(2) + " %",
+            // np: (item?.np * 100).toFixed(2) + " %",
+            // actualGm: (item?.actualGm * 100).toFixed(2) + " %",
+                  np: formatPercent(
+            ((item?.planGp - item?.SGNA) / item?.planRevenue) * 100
+          ),
+          actualNp: formatPercent(
+            ((item?.actualGp - item?.actualSGNA) / item?.actualRevenue) * 100
+          ),
+
+          actualGm: (item?.actualGm * 100).toFixed(2) + " %",
             edit: (
               <CstmButton
                 className={"p-2"}

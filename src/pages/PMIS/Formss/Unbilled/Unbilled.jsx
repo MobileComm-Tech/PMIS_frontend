@@ -28,16 +28,18 @@ import { useNavigate } from "react-router-dom";
 const FormsUnBilled = () => {
   const dispatch = useDispatch();
   const [fileOpen, setFileOpen] = useState(false);
-//   const [strValFil, setstrVal] = useState(false);
+  //   const [strValFil, setstrVal] = useState(false);
 
-// const [strValFil, setstrVal] = useState("page=1&limit=50");
-const defaultPagination = objectToQueryString({
-  page: 1,
-  limit: 50,
-});
+  // const [strValFil, setstrVal] = useState("page=1&limit=50");
+  const defaultPagination = objectToQueryString({
+    page: 1,
+    limit: 50,
+  });
 
-const [strValFil, setstrVal] = useState(defaultPagination);
+  const [strValFil, setstrVal] = useState(defaultPagination);
   const [modalFormValue, setModalFormValue] = useState({});
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalHead, setmodalHead] = useState("");
   const [modalKey, setModalKey] = useState(0);
@@ -74,6 +76,29 @@ const [strValFil, setstrVal] = useState(defaultPagination);
 
   const table = {
     columns: [
+      {
+        name: (
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={(e) => {
+              const checked = e.target.checked;
+
+              setSelectAll(checked);
+
+              if (checked) {
+                setSelectedRows(tableData.map((itm) => itm.uniqueId));
+              } else {
+                setSelectedRows([]);
+              }
+            }}
+          />
+        ),
+
+        value: "checkbox",
+
+        style: "min-w-[60px] max-w-[60px] text-center",
+      },
       {
         name: "Customer",
         value: "customer",
@@ -253,7 +278,7 @@ const [strValFil, setstrVal] = useState(defaultPagination);
   useEffect(() => {
     const defaultPagination = objectToQueryString({ page: 1, limit: 50 });
     dispatch(FormssActions.getFormsUnBilled(true, defaultPagination));
-      // FormssActions.getFormsUnBilled(true, defaultPagination)
+    // FormssActions.getFormsUnBilled(true, defaultPagination)
     dispatch(gpTrackingActions.getGPCustomer());
   }, []);
 
@@ -278,6 +303,76 @@ const [strValFil, setstrVal] = useState(defaultPagination);
             }
           />
         ),
+
+        checkbox: (
+          <input
+            type="checkbox"
+            checked={selectedRows.includes(itm.uniqueId)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectedRows((prev) => [...prev, itm.uniqueId]);
+              } else {
+                setSelectedRows((prev) =>
+                  prev.filter((id) => id !== itm.uniqueId),
+                );
+              }
+            }}
+          />
+        ),
+
+        // delete: (
+        //   <CstmButton
+        //     child={
+        //       <DeleteButton
+        //         name={""}
+        //         onClick={() => {
+        //           let msgdata = {
+        //             show: true,
+        //             icon: "warning",
+        //             buttons: [
+        //               <Button
+        //                 classes="w-15 bg-rose-400"
+        //                 onClick={() => {
+        //                   dispatch(
+        //                     CommonActions.deleteApiCallerBulk(
+        //                       `/form/unbilled/multidelete`,
+        //                       {
+        //                         uniqueIds: [itm?.uniqueId],
+        //                       },
+        //                       () => {
+        //                         dispatch(
+        //                           FormssActions.getFormsUnBilled(
+        //                             true,
+        //                             strValFil,
+        //                           ),
+        //                         );
+
+        //                         dispatch(ALERTS({ show: false }));
+        //                       },
+        //                     ),
+        //                   );
+        //                 }}
+        //                 name={"OK"}
+        //               />,
+
+        //               <Button
+        //                 classes="w-auto"
+        //                 onClick={() => {
+        //                   dispatch(ALERTS({ show: false }));
+        //                 }}
+        //                 name={"Cancel"}
+        //               />,
+        //             ],
+
+        //             text: "Are you sure you want to Delete?",
+        //           };
+
+        //           dispatch(ALERTS(msgdata));
+        //         }}
+        //       ></DeleteButton>
+        //     }
+        //   />
+        // ),
 
         delete: (
           <CstmButton
@@ -341,6 +436,61 @@ const [strValFil, setstrVal] = useState(defaultPagination);
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
+           {selectedRows.length > 0 && (
+  <Button
+    name={`Delete (${selectedRows.length})`}
+    classes="w-auto bg-rose-400"
+    onClick={() => {
+      let msgdata = {
+        show: true,
+        icon: "warning",
+
+        buttons: [
+          <Button
+            classes="w-15 bg-rose-400"
+            onClick={() => {
+              dispatch(
+                CommonActions.postApiCallerBulk(
+                  "/form/unbilled/multidelete",
+                  {
+                    uniqueIds: selectedRows,
+                  },
+                  () => {
+                    dispatch(
+                      FormssActions.getFormsUnBilled(
+                        true,
+                        strValFil,
+                      ),
+                    );
+
+                    setSelectedRows([]);
+                    setSelectAll(false);
+
+                    dispatch(ALERTS({ show: false }));
+                  },
+                ),
+              );
+            }}
+            name={"OK"}
+          />,
+
+          <Button
+            classes="w-auto"
+            onClick={() => {
+              dispatch(ALERTS({ show: false }));
+            }}
+            name={"Cancel"}
+          />,
+        ],
+
+        text: "Are you sure you want to Delete?",
+      };
+
+      dispatch(ALERTS(msgdata));
+    }}
+  />
+)}
+
             <Button
               name={"Upload"}
               classes="w-auto"
@@ -375,9 +525,9 @@ const [strValFil, setstrVal] = useState(defaultPagination);
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         heading={"Total Count :-  "}
-  //       checkboxshow={true}
-  // delurl={Urls.forms_UnBIlled}
-  // geturl={FormssActions.getFormsUnBilled(true, strValFil)}
+        //        checkboxshow={true}
+        // delurl={"/form/unbilled/multidelete"}
+        // geturl={FormssActions.getFormsUnBilled()}
       />
       <Modal
         size={"sm"}
@@ -389,7 +539,7 @@ const [strValFil, setstrVal] = useState(defaultPagination);
           key={modalKey}
           formValue={modalFormValue}
           setIsOpen={setmodalOpen}
-           refreshQuery={strValFil}
+          refreshQuery={strValFil}
         />
       </Modal>
 

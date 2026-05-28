@@ -136,6 +136,33 @@ const CommonActions = {
     }
   },
 
+  postApiCallerBulk: (urls, data, cb) => async (dispatch, _) => {
+  try {
+    const res = await Api.post({
+      url: urls,
+      data,
+    });
+
+    if (res?.status !== 201 && res?.status !== 200) {
+      let msgdata = {
+        show: true,
+        icon: "error",
+        buttons: [],
+        type: 1,
+        text: res?.data?.msg,
+      };
+
+      dispatch(ALERTS(msgdata));
+
+      cb && cb();
+    } else {
+      cb && cb();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+},
+
   // commondownload: (urls, filename, method = "GET", data = {}, cb) => async (dispatch, _) => {
 
   //     const res = await Api.blobFile({ url: urls, method: method, data: data })
