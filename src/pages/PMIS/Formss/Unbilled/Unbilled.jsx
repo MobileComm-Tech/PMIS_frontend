@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import Modal from "../../../../components/Modal";
-import AdvancedTable from "../../../../components/AdvancedTable";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Modal from '../../../../components/Modal';
+import AdvancedTable from '../../../../components/AdvancedTable';
 import {
   checkArray,
   wccAccessInFormsKey,
-} from "../../../../components/CommonObjectsAndVariables";
-import { useDispatch, useSelector } from "react-redux";
-import CommonActions from "../../../../store/actions/common-actions";
-import FormssActions from "../../../../store/actions/formss-actions";
-import Button from "../../../../components/Button";
-import gpTrackingActions from "../../../../store/actions/gpTrackingActions";
+} from '../../../../components/CommonObjectsAndVariables';
+import { useDispatch, useSelector } from 'react-redux';
+import CommonActions from '../../../../store/actions/common-actions';
+import FormssActions from '../../../../store/actions/formss-actions';
+import Button from '../../../../components/Button';
+import gpTrackingActions from '../../../../store/actions/gpTrackingActions';
 import {
   getAccessType,
   objectToQueryString,
-} from "../../../../utils/commonFunnction";
-import FileUploader from "../../../../components/FIleUploader";
-import { Urls } from "../../../../utils/url";
-import FilterActions from "../../../../store/actions/filter-actions";
-import CstmButton from "../../../../components/CstmButton";
-import EditButton from "../../../../components/EditButton";
-import DeleteButton from "../../../../components/DeleteButton";
-import { ALERTS } from "../../../../store/reducers/component-reducer";
-import FormsUnBilledForm from "./FormsUnBilledForm";
-import { useNavigate } from "react-router-dom";
-import ConditionalButton from "../../../../components/ConditionalButton";
+} from '../../../../utils/commonFunnction';
+import FileUploader from '../../../../components/FIleUploader';
+import { Urls } from '../../../../utils/url';
+import FilterActions from '../../../../store/actions/filter-actions';
+import CstmButton from '../../../../components/CstmButton';
+import EditButton from '../../../../components/EditButton';
+import DeleteButton from '../../../../components/DeleteButton';
+import { ALERTS } from '../../../../store/reducers/component-reducer';
+import FormsUnBilledForm from './FormsUnBilledForm';
+import { useNavigate } from 'react-router-dom';
+import ConditionalButton from '../../../../components/ConditionalButton';
 const FormsUnBilled = () => {
   const dispatch = useDispatch();
   const [fileOpen, setFileOpen] = useState(false);
@@ -43,7 +43,7 @@ const FormsUnBilled = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   // const [fileOpen, setFileOpen] = useState(false);
   const [fileOpen2, setFileOpen2] = useState(false);
-  const [modalHead, setmodalHead] = useState("");
+  const [modalHead, setmodalHead] = useState('');
   const [modalKey, setModalKey] = useState(0);
   const navigate = useNavigate();
 
@@ -67,14 +67,13 @@ const FormsUnBilled = () => {
     });
   });
 
+  let showType = getAccessType('Unbilled Tracking(Actions)');
 
-    let showType = getAccessType('Unbilled Tracking(Actions)');
-  
-    let shouldIncludeEditColumn = false;
-  
-    if (showType === 'visible') {
-      shouldIncludeEditColumn = true;
-    }
+  let shouldIncludeEditColumn = false;
+
+  if (showType === 'visible') {
+    shouldIncludeEditColumn = true;
+  }
   //   let projectTypeList = useSelector((state) => {
   //     return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
   //       return {
@@ -84,29 +83,27 @@ const FormsUnBilled = () => {
   //     });
   //   });
 
-const reduxState = useSelector((state) => state);
+  const reduxState = useSelector((state) => state);
 
-// useEffect(() => {
-//   console.log("REDUX STATE", reduxState);
-// }, [reduxState]);
+  // useEffect(() => {
+  //   console.log("REDUX STATE", reduxState);
+  // }, [reduxState]);
 
-// const userData = useSelector((state) => state?.authData?.userData);
-// console.log("userData", userData);
+  // const userData = useSelector((state) => state?.authData?.userData);
+  // console.log("userData", userData);
 
-// const userRole = useSelector(
-//   (state) => state?.authData?.userData?.userRoleName
-// );
+  // const userRole = useSelector(
+  //   (state) => state?.authData?.userData?.userRoleName
+  // );
 
-const userRole = useSelector(
-  (state) => state?.auth?.user?.userRoleName
-);
+  const userRole = useSelector((state) => state?.auth?.user?.userRoleName);
 
-console.log("userRole =>", userRole);
-// const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
+  console.log('userRole =>', userRole);
+  // const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
 
-// const userRole = loginData?.userRoleName;
+  // const userRole = loginData?.userRoleName;
 
-// console.log("userRole =>", userRole);
+  // console.log("userRole =>", userRole);
 
   const table = {
     columns: [
@@ -129,99 +126,99 @@ console.log("userRole =>", userRole);
           />
         ),
 
-        value: "checkbox",
+        value: 'checkbox',
 
-        style: "min-w-[60px] max-w-[60px] text-center",
+        style: 'min-w-[60px] max-w-[60px] text-center',
       },
       {
-        name: "Customer",
-        value: "customer",
-        style: "min-w-[140px] max-w-[220px] text-center",
+        name: 'Customer',
+        value: 'customer',
+        style: 'min-w-[140px] max-w-[220px] text-center',
       },
       {
-        name: "Circle",
-        value: "circle",
-        style: "min-w-[120px] max-w-[180px] text-center",
+        name: 'Circle',
+        value: 'circle',
+        style: 'min-w-[120px] max-w-[180px] text-center',
       },
       {
-        name: "Project Group",
-        value: "projectGroup",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Project Group',
+        value: 'projectGroup',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
       {
-        name: "Project Type",
-        value: "projectType",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Project Type',
+        value: 'projectType',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
       {
-        name: "Project ID",
-        value: "projectId",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: 'Project ID',
+        value: 'projectId',
+        style: 'min-w-[140px] max-w-[200px] text-center',
       },
       {
-        name: "Sub Project",
-        value: "subProject",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Sub Project',
+        value: 'subProject',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
       {
-        name: "SSID",
-        value: "systemId",
-        style: "min-w-[120px] max-w-[180px] text-center",
+        name: 'SSID',
+        value: 'systemId',
+        style: 'min-w-[120px] max-w-[180px] text-center',
       },
       {
-        name: "Site Id",
-        value: "siteId",
-        style: "min-w-[120px] max-w-[180px] text-center",
+        name: 'Site Id',
+        value: 'siteId',
+        style: 'min-w-[120px] max-w-[180px] text-center',
       },
       {
-        name: "MS1 Completion Date",
-        value: "ms1CompletionDate",
-        style: "min-w-[180px] max-w-[240px] text-center",
+        name: 'MS1 Completion Date',
+        value: 'ms1CompletionDate',
+        style: 'min-w-[180px] max-w-[240px] text-center',
       },
       {
-        name: "MS2 Completion Date",
-        value: "ms2CompletionDate",
-        style: "min-w-[180px] max-w-[240px] text-center",
+        name: 'MS2 Completion Date',
+        value: 'ms2CompletionDate',
+        style: 'min-w-[180px] max-w-[240px] text-center',
       },
       {
-        name: "Unbilled MS1 Done",
-        value: "unbilledMs1Done",
-        style: "min-w-[180px] max-w-[240px] text-center",
+        name: 'Unbilled MS1 Done',
+        value: 'unbilledMs1Done',
+        style: 'min-w-[180px] max-w-[240px] text-center',
       },
       {
-        name: "Unbilled MS2 Done",
-        value: "unbilledMs2Done",
-        style: "min-w-[180px] max-w-[240px] text-center",
+        name: 'Unbilled MS2 Done',
+        value: 'unbilledMs2Done',
+        style: 'min-w-[180px] max-w-[240px] text-center',
       },
       {
-        name: "Total Unbilled",
-        value: "totalUnbilled",
-        style: "min-w-[160px] max-w-[220px] text-center",
+        name: 'Total Unbilled',
+        value: 'totalUnbilled',
+        style: 'min-w-[160px] max-w-[220px] text-center',
       },
       {
-        name: "Customer Project Type",
-        value: "customerProjectType",
-        style: "min-w-[200px] max-w-[260px] text-center",
+        name: 'Customer Project Type',
+        value: 'customerProjectType',
+        style: 'min-w-[200px] max-w-[260px] text-center',
       },
       {
-        name: "Final Ageing",
-        value: "finalAgeing",
-        style: "min-w-[140px] max-w-[200px] text-center",
+        name: 'Final Ageing',
+        value: 'finalAgeing',
+        style: 'min-w-[140px] max-w-[200px] text-center',
       },
       {
-        name: "YEAR",
-        value: "year",
-        style: "min-w-[100px] max-w-[140px] text-center",
+        name: 'YEAR',
+        value: 'year',
+        style: 'min-w-[100px] max-w-[140px] text-center',
       },
       {
-        name: "Current Unbilled Bucket",
-        value: "currentUnbilledBucket",
-        style: "min-w-[220px] max-w-[280px] text-center",
+        name: 'Current Unbilled Bucket',
+        value: 'currentUnbilledBucket',
+        style: 'min-w-[220px] max-w-[280px] text-center',
       },
       {
-        name: "Unbilled Sub-Bucket",
-        value: "unbilledSubBucket",
-        style: "min-w-[220px] max-w-[280px] text-center",
+        name: 'Unbilled Sub-Bucket',
+        value: 'unbilledSubBucket',
+        style: 'min-w-[220px] max-w-[280px] text-center',
       },
       // {
       //   name: "Edit",
@@ -234,7 +231,7 @@ console.log("userRole =>", userRole);
       //   style: "min-w-[100px] max-w-[100px] text-center",
       // },
 
-       ...(shouldIncludeEditColumn
+      ...(shouldIncludeEditColumn
         ? [
             {
               name: 'Edit',
@@ -255,9 +252,9 @@ console.log("userRole =>", userRole);
 
     filter: [
       {
-        label: "Customer",
-        type: "select",
-        name: "customer",
+        label: 'Customer',
+        type: 'select',
+        name: 'customer',
         option: customerList,
         props: {
           onChange: (e) => {
@@ -265,7 +262,7 @@ console.log("userRole =>", userRole);
               dispatch(
                 FilterActions.getfinancialWorkDoneProjectType(
                   true,
-                  "",
+                  '',
                   1,
                   e.target.value,
                 ),
@@ -282,39 +279,39 @@ console.log("userRole =>", userRole);
         },
       },
       {
-        label: "Project Group",
-        type: "text",
-        name: "projectGroup",
+        label: 'Project Group',
+        type: 'text',
+        name: 'projectGroup',
         props: {},
       },
       {
-        label: "Project ID",
-        type: "text",
-        name: "projectId",
+        label: 'Project ID',
+        type: 'text',
+        name: 'projectId',
         props: {},
       },
       {
-        label: "Site Id",
-        type: "text",
-        name: "siteId",
+        label: 'Site Id',
+        type: 'text',
+        name: 'siteId',
         props: {},
       },
     ],
   };
 
   const onTableViewSubmit = (data) => {
-    data["fileType"] = "formUnBilledUpload";
+    data['fileType'] = 'formUnBilledUpload';
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
         dispatch(FormssActions.getFormsUnBilled());
         setFileOpen(false);
-        resetting("");
+        resetting('');
       }),
     );
   };
 
   const onTableViewSubmit2 = (data) => {
-    data["fileType"] = "formUnBilledUpgrade";
+    data['fileType'] = 'formUnBilledUpgrade';
 
     dispatch(
       CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
@@ -349,13 +346,13 @@ console.log("userRole =>", userRole);
         ...itm,
         edit: (
           <CstmButton
-            className={"p-2"}
+            className={'p-2'}
             child={
               <EditButton
-                name={""}
+                name={''}
                 onClick={() => {
                   setModalFormValue(itm);
-                  setmodalHead("Edit UnBilled");
+                  setmodalHead('Edit UnBilled');
                   setModalKey((k) => k + 1);
                   setmodalOpen(true);
                 }}
@@ -438,11 +435,11 @@ console.log("userRole =>", userRole);
           <CstmButton
             child={
               <DeleteButton
-                name={""}
+                name={''}
                 onClick={() => {
                   let msgdata = {
                     show: true,
-                    icon: "warning",
+                    icon: 'warning',
                     buttons: [
                       <Button
                         classes="w-15 bg-rose-400"
@@ -464,17 +461,17 @@ console.log("userRole =>", userRole);
                           );
                           dispatch(ALERTS({ show: false }));
                         }}
-                        name={"OK"}
+                        name={'OK'}
                       />,
                       <Button
                         classes="w-auto"
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
-                        name={"Cancel"}
+                        name={'Cancel'}
                       />,
                     ],
-                    text: "Are you sure you want to Delete?",
+                    text: 'Are you sure you want to Delete?',
                   };
                   dispatch(ALERTS(msgdata));
                 }}
@@ -490,7 +487,7 @@ console.log("userRole =>", userRole);
   let dbConfigTotalCount = useSelector((state) => {
     let interdata = state?.formssData?.getFormsUnBilled;
     if (interdata.length > 0) {
-      return interdata[0]["overall_table_count"];
+      return interdata[0]['overall_table_count'];
     } else {
       return 0;
     }
@@ -501,7 +498,7 @@ console.log("userRole =>", userRole);
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
-            {" "}
+            {' '}
             {/* <ConditionalButton
               showType={getAccessType("Unbilled Tracking(Upgrade)")}
               name={"Upgrade"}
@@ -517,7 +514,7 @@ console.log("userRole =>", userRole);
                 onClick={() => {
                   let msgdata = {
                     show: true,
-                    icon: "warning",
+                    icon: 'warning',
 
                     buttons: [
                       <Button
@@ -525,7 +522,7 @@ console.log("userRole =>", userRole);
                         onClick={() => {
                           dispatch(
                             CommonActions.postApiCallerBulk(
-                              "/form/unbilled/multidelete",
+                              '/form/unbilled/multidelete',
                               {
                                 uniqueIds: selectedRows,
                               },
@@ -545,7 +542,7 @@ console.log("userRole =>", userRole);
                             ),
                           );
                         }}
-                        name={"OK"}
+                        name={'OK'}
                       />,
 
                       <Button
@@ -553,11 +550,11 @@ console.log("userRole =>", userRole);
                         onClick={() => {
                           dispatch(ALERTS({ show: false }));
                         }}
-                        name={"Cancel"}
+                        name={'Cancel'}
                       />,
                     ],
 
-                    text: "Are you sure you want to Delete?",
+                    text: 'Are you sure you want to Delete?',
                   };
 
                   dispatch(ALERTS(msgdata));
@@ -572,16 +569,35 @@ console.log("userRole =>", userRole);
               }}
             ></Button> */}
             <ConditionalButton
-              showType={getAccessType("Unbilled Tracking(Upload)")}
-              name={"Upload"}
+              showType={getAccessType('Unbilled Tracking(DeleteAll)')}
+              name={'Delete All'}
+              classes="w-auto"
+              onClick={() => {
+                dispatch(
+                  CommonActions.deleteApiCaller(
+                    `${Urls.unbilled_all_delete}`,
+                    () => {
+                      // dispatch(FormssActions.getFormsUnBilled());
+                      dispatch(
+                        FormssActions.getFormsUnBilled(true, defaultPagination),
+                      );
+                    },
+                  ),
+                );
+                dispatch(ALERTS({ show: false }));
+              }}
+            />
+            <ConditionalButton
+              showType={getAccessType('Unbilled Tracking(Upload)')}
+              name={'Upload'}
               classes="w-auto"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
             />
             <ConditionalButton
-              showType={getAccessType("Unbilled Tracking(Upgrade)")}
-              name={"Upgrade"}
+              showType={getAccessType('Unbilled Tracking(Upgrade)')}
+              name={'Upgrade'}
               classes="w-auto"
               onClick={() => {
                 setFileOpen2((prev) => !prev);
@@ -595,15 +611,15 @@ console.log("userRole =>", userRole);
               }}
             /> */}
             <ConditionalButton
-              showType={getAccessType("Unbilled Tracking(Export)")}
-              name={"Export"}
+              showType={getAccessType('Unbilled Tracking(Export)')}
+              name={'Export'}
               classes="w-auto"
               onClick={() => {
                 dispatch(
                   CommonActions.commondownloadpost(
-                    "/export/form/unbilled?" + strValFil,
-                    "Export_UnBilled.xlsx",
-                    "GET",
+                    '/export/form/unbilled?' + strValFil,
+                    'Export_UnBilled.xlsx',
+                    'GET',
                     {},
                   ),
                 );
@@ -614,7 +630,7 @@ console.log("userRole =>", userRole);
         table={table}
         filterAfter={onSubmit}
         data={checkArray(tableData) ? tableData : []}
-        tableName={"UnBilled Table"}
+        tableName={'UnBilled Table'}
         handleSubmit={handleSubmit}
         errors={errors}
         register={register}
@@ -622,14 +638,14 @@ console.log("userRole =>", userRole);
         getValues={getValues}
         totalCount={dbConfigTotalCount}
         // checkboxshow={shouldIncludeEditColumn}
-        
-        heading={"Total Count :-  "}
+
+        heading={'Total Count :-  '}
         //        checkboxshow={true}
         // delurl={"/form/unbilled/multidelete"}
         // geturl={FormssActions.getFormsUnBilled()}
       />
       <Modal
-        size={"sm"}
+        size={'sm'}
         modalHead={modalHead}
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
@@ -638,7 +654,7 @@ console.log("userRole =>", userRole);
           key={modalKey}
           formValue={modalFormValue}
           setIsOpen={setmodalOpen}
-           userRole={userRole}
+          userRole={userRole}
           refreshQuery={strValFil}
         />
       </Modal>
@@ -648,8 +664,8 @@ console.log("userRole =>", userRole);
         onTableViewSubmit={onTableViewSubmit}
         setIsOpen={setFileOpen}
         tempbtn={true}
-        tempbtnlink={["/template/formUnbilled.xlsx", "UnBilled_template.xlsx"]}
-        head={"Upload Unbilled File"}
+        tempbtnlink={['/template/formUnbilled.xlsx', 'UnBilled_template.xlsx']}
+        head={'Upload Unbilled File'}
       />
 
       <FileUploader
@@ -658,10 +674,10 @@ console.log("userRole =>", userRole);
         setIsOpen={setFileOpen2}
         tempbtn={true}
         tempbtnlink={[
-          "/template/formUnbilledUpgrade.xlsx",
-          "formUnbilledUpgrade.xlsx",
+          '/template/formUnbilledUpgrade.xlsx',
+          'formUnbilledUpgrade.xlsx',
         ]}
-        head={"Upload Upgrade File"}
+        head={'Upload Upgrade File'}
       />
     </>
   );
