@@ -160,6 +160,9 @@ import PTWTaskAllocation from "../pages/PMIS/Admin/PTWTaskAllocation/PTWTaskallo
 import OhsNitification from "../pages/PMIS/MyHome/OHS/OhsNitification";
 import FormsUnBilled from "../pages/PMIS/Formss/Unbilled/Unbilled";
 import UnbilledDashboard from "../pages/PMIS/FinancialCards/UnbilledDashboard";
+import UnbilledRegion from "../pages/PMIS/Admin/UnbilledRegion/UnbilledRegion";
+import SubUnbilledBucket from "../pages/PMIS/Admin/SubUnbilledBucket/SubUnbilledBucket";
+import CurrentUnbilledBucket from "../pages/PMIS/Admin/CurrentUnbilledBucket/CurrentUnbilledBucket";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -1228,6 +1231,45 @@ export const Sidebar_content = {
         />
       ),
     },
+
+    {
+      name: "Unbilled Region",
+      link: "/hr/superAdmin/UnbilledManagement",
+      subMenu: [],
+      component: <UnbilledRegion />,
+      icon: (
+        <Unicons.UilChannel
+          size="16"
+          className="hover:text-heading cursor-pointer"
+        />
+      ),
+    },
+    
+    {
+  name: "Unbilled Region",
+  link: "/hr/superAdmin/UnbilledManagement/current-unbilled-bucket",
+  component: <CurrentUnbilledBucket />,
+  icon: (
+    <Unicons.UilChannel
+      size="16"
+      className="hover:text-heading cursor-pointer"
+    />
+  ),
+  subMenu: [],
+},
+
+{
+  name: "Unbilled Region",
+  link: "/hr/superAdmin/UnbilledManagement/sub-unbilled-bucket",
+  component: <SubUnbilledBucket />,
+  icon: (
+    <Unicons.UilChannel
+      size="16"
+      className="hover:text-heading cursor-pointer"
+    />
+  ),
+  subMenu: [],
+},
 
     {
       name: "WCC",

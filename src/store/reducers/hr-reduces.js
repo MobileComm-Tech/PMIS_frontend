@@ -49,6 +49,12 @@ const initialState = {
   getPTWTask: [],
   postPTWTaskResponse: [],
   getPTWTaskTable: [],
+
+  // Unbilled Bucket
+  getCurrentUnbilledBucket: [],
+  postCurrentUnbilledBucketResponse: [],
+  getSubUnbilledBucket: [],
+  postSubUnbilledBucketResponse: [],
 };
 
 const hrReducer = createSlice({
@@ -104,6 +110,28 @@ const hrReducer = createSlice({
         state.getPTWTask = [payload.data, ...state.getPTWTask];
       }
     },
+
+    GET_CURRENT_UNBILLED_BUCKET: (state, { payload }) => {
+      if (payload.reset) {
+        state.getCurrentUnbilledBucket = payload.dataAll;
+      } else {
+        state.getCurrentUnbilledBucket = [
+          ...state.getCurrentUnbilledBucket,
+          ...payload.dataAll,
+        ];
+      }
+    },
+
+    POST_CURRENT_UNBILLED_BUCKET: (state, { payload }) => {
+      state.postCurrentUnbilledBucketResponse = payload;
+
+      if (payload?.data) {
+        state.getCurrentUnbilledBucket = [
+          payload.data,
+          ...state.getCurrentUnbilledBucket,
+        ];
+      }
+    },
     GET_PTW_TASK_TABLE: (state, { payload }) => {
       if (payload.reset) {
         state.getPTWTaskTable = payload.dataAll;
@@ -111,6 +139,28 @@ const hrReducer = createSlice({
         state.getPTWTaskTable = [...state.getPTWTaskTable, ...payload.dataAll];
       }
     },
+
+    GET_SUB_UNBILLED_BUCKET: (state, { payload }) => {
+  if (payload.reset) {
+    state.getSubUnbilledBucket = payload.dataAll;
+  } else {
+    state.getSubUnbilledBucket = [
+      ...state.getSubUnbilledBucket,
+      ...payload.dataAll,
+    ];
+  }
+},
+
+POST_SUB_UNBILLED_BUCKET: (state, { payload }) => {
+  state.postSubUnbilledBucketResponse = payload;
+
+  if (payload?.data) {
+    state.getSubUnbilledBucket = [
+      payload.data,
+      ...state.getSubUnbilledBucket,
+    ];
+  }
+},
   },
 });
 
@@ -121,5 +171,9 @@ export const {
   GET_PTW_TASK,
   POST_PTW_TASK,
   GET_PTW_TASK_TABLE,
+  GET_CURRENT_UNBILLED_BUCKET,
+  POST_CURRENT_UNBILLED_BUCKET,
+  GET_SUB_UNBILLED_BUCKET,
+  POST_SUB_UNBILLED_BUCKET,
 } = hrReducer.actions;
 export default hrReducer.reducer;

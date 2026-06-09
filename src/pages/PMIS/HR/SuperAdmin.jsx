@@ -208,6 +208,14 @@ const SuperAdmin = () => {
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],
+
+            [
+              "Unbilled Management",
+              "bg-pcol",
+              "/hr/superAdmin/UnbilledManagement",
+              <Unicons.UilPagerduty size="32" color="" />,
+              "border-b-[#b8e0d2]",
+            ],
           ].map((itm) => {
             return (
               <>

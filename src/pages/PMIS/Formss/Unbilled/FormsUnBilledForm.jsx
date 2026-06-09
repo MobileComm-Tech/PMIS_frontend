@@ -5,22 +5,40 @@ import Button from "../../../../components/Button";
 import { useDispatch } from "react-redux";
 import FormssActions from "../../../../store/actions/formss-actions";
 import moment from "moment";
-const FormsUnBilledForm = ({ setIsOpen, formValue = {}, refreshQuery }) => {
+// const FormsUnBilledForm = ({ setIsOpen, formValue = {}, refreshQuery }) => {
+  
+  const FormsUnBilledForm = ({
+  setIsOpen,
+  formValue = {},
+  refreshQuery,
+  userRole,
+}) => {
   const dispatch = useDispatch();
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    watch,
-    formState: { errors },
-  } = useForm();
+const {
+  register,
+  handleSubmit,
+  setValue,
+  getValues,
+  watch,
+  formState: { errors },
+} = useForm();
 
   const isEditMode = Object.entries(formValue).length > 0;
+  console.log("userRole =>", userRole);
+  // const canEditAll =
+  // userRole === "Admin" ||
+  // userRole === "PMO";
   const ms1Value = watch("unbilledMs1Done");
   const ms2Value = watch("unbilledMs2Done");
 
+const canEditAll = ["admin", "pmo"].includes(
+  (userRole || "").toLowerCase()
+);
+
+const editableFieldsForOthers = [
+  "currentUnbilledBucket",
+  "unbilledSubBucket",
+];
   const today = moment().format("YYYY-MM-DD");
   const Form = [
     {
@@ -178,13 +196,51 @@ const FormsUnBilledForm = ({ setIsOpen, formValue = {}, refreshQuery }) => {
   //     )
   //   );
   // };
-
+const finalForm = Form.map((field) => ({
+  ...field,
+  props: {
+    ...field.props,
+    disabled:
+      isEditMode &&
+      !canEditAll &&
+      !editableFieldsForOthers.includes(field.name),
+  },
+}));
   const onSubmit = (data) => {
-    const finalData = {
-      ...data,
-      uniqueId: formValue?.uniqueId,
-    };
+    // const finalData = {
+    //   ...data,
+    //   uniqueId: formValue?.uniqueId,
+    // };
+let finalData;
 
+// if (isEditMode && !canEditAll) {
+//   finalData = {
+//     uniqueId: formValue?.uniqueId,
+//     currentUnbilledBucket: data.currentUnbilledBucket,
+//     unbilledSubBucket: data.unbilledSubBucket,
+//   };
+// } else {
+//   finalData = {
+//     ...data,
+//     uniqueId: formValue?.uniqueId,
+//   };
+// }
+
+if (isEditMode && !canEditAll) {
+  finalData = {
+    ...formValue, // all existing values
+
+    currentUnbilledBucket: data.currentUnbilledBucket,
+    unbilledSubBucket: data.unbilledSubBucket,
+
+    uniqueId: formValue?.uniqueId,
+  };
+} else {
+  finalData = {
+    ...data,
+    uniqueId: formValue?.uniqueId,
+  };
+}
    dispatch(
   FormssActions.postFormsUnBilled(
     finalData,
@@ -229,14 +285,23 @@ useEffect(() => {
 
   return (
     <div className="mt-5">
-      <CommonForm
+      {/* <CommonForm
         classes={"grid-cols-2 gap-2"}
         Form={Form}
         errors={errors}
         register={register}
         setValue={setValue}
         getValues={getValues}
-      />
+      /> */}
+
+      <CommonForm
+  classes={"grid-cols-2 gap-2"}
+  Form={finalForm}
+  errors={errors}
+  register={register}
+  setValue={setValue}
+  getValues={getValues}
+/>
 
       <Button
         classes={"mt-4 w-sm text-center flex mx-auto"}

@@ -1,7 +1,10 @@
-// export const baseUrl = "https://devapi.mcpspmis.com";
-// export const backendassetUrl = "https://devapi.mcpspmis.com/";
-export const baseUrl = "https://api.mcpspmis.com";
-export const backendassetUrl = "https://api.mcpspmis.com/";
+export const baseUrl = "https://devapi.mcpspmis.com";
+export const backendassetUrl = "https://devapi.mcpspmis.com/";
+
+// export const baseUrl = " https://elevation-gold-modular-toxic.trycloudflare.com";
+// export const backendassetUrl = "https://elevation-gold-modular-toxic.trycloudflare.com";
+// export const baseUrl = "https://api.mcpspmis.com";
+// export const backendassetUrl = "https://api.mcpspmis.com/";
 // export const routesObjects = {
 //   partnerTeamForm: "/vendorPartnerForm",
 //   partnerTeam: "/vendor/partnerTeam",
@@ -472,7 +475,10 @@ export const Urls = {
   admin_vishal: "/vishal",
   myHome_personal_info: "/myHome/getPersonalInfo",
   Hr_Expense_Advance: "/hr/expenseAdavance",
+// HR Module/hr/unbilledSubBucket
+hr_unbilled_bucket: "/hr/unbilledBucket",
 
+hr_unbilled_sub_bucket: "/hr/unbilledSubBucket",
   MyHome: "/myHome/Cards",
   user_myTask: "/myHome/myTask",
   admin_assetRegistration: "/myHome/assetRegistration",

@@ -95,6 +95,11 @@ import {
   GET_PTW_TASK,
   GET_PTW_TASK_TABLE,
   POST_PTW_TASK,
+  GET_CURRENT_UNBILLED_BUCKET,
+  POST_CURRENT_UNBILLED_BUCKET,
+  GET_SUB_UNBILLED_BUCKET,
+  POST_SUB_UNBILLED_BUCKET,
+
 } from "../reducers/hr-reduces";
 
 const HrActions = {
@@ -287,5 +292,155 @@ const HrActions = {
         console.log("GET PTW TABLE ERROR:", error);
       }
     },
+
+    getCurrentUnbilledBucket:
+  (reset = true, uid = "", args = "") =>
+  async (dispatch) => {
+    try {
+      const res = await Api.get({
+        url: `${Urls.hr_unbilled_bucket}${
+          uid !== "" ? "/" + uid : ""
+        }${args !== "" ? "?" + args : ""}`,
+        reset,
+      });
+
+      if (res?.status !== 200) return;
+
+      dispatch(
+        GET_CURRENT_UNBILLED_BUCKET({
+          dataAll: res?.data?.data || [],
+          reset,
+        })
+      );
+    } catch (error) {
+      console.log("GET CURRENT UNBILLED BUCKET ERROR:", error);
+    }
+  },
+
+  postCurrentUnbilledBucket:
+  (reset = true, data, cb, uniqueId = "") =>
+  async (dispatch) => {
+    try {
+      const res = await Api.post({
+        url:
+          uniqueId !== ""
+            ? `${Urls.hr_unbilled_bucket}/${uniqueId}`
+            : Urls.hr_unbilled_bucket,
+        data,
+        reset,
+      });
+
+      if (res?.status !== 200 && res?.status !== 201) {
+        dispatch(
+          ALERTS({
+            show: true,
+            icon: "error",
+            type: 1,
+            text: res?.data?.msg || "Something went wrong",
+          })
+        );
+        return;
+      }
+
+      dispatch(POST_SUB_UNBILLED_BUCKET(res.data));
+
+      dispatch(
+        ALERTS({
+          show: true,
+          icon: "success",
+          type: 1,
+          text: res?.data?.msg || "Saved Successfully",
+        })
+      );
+
+      cb && cb();
+    } catch (error) {
+      console.log("POST CURRENT UNBILLED BUCKET ERROR:", error);
+
+      dispatch(
+        ALERTS({
+          show: true,
+          icon: "error",
+          type: 1,
+          text: "Server Error",
+        })
+      );
+    }
+  },
+
+  getSubUnbilledBucket:
+  (reset = true, args = "") =>
+  async (dispatch) => {
+    try {
+      const res = await Api.get({
+        url: `${Urls.hr_unbilled_sub_bucket}${
+          args !== "" ? "?" + args : ""
+        }`,
+      });
+
+      if (res?.status !== 200) return;
+
+      dispatch(
+        GET_SUB_UNBILLED_BUCKET({
+          dataAll: res?.data?.data,
+          reset,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  postSubUnbilledBucket:
+  (reset, data, cb, uniqueId) =>
+  async (dispatch) => {
+    try {
+      const res = await Api.post({
+        data,
+        url:
+          uniqueId == null
+            ? Urls.hr_unbilled_sub_bucket
+            : `${Urls.hr_unbilled_sub_bucket}/${uniqueId}`,
+        reset,
+      });
+
+     if (res?.status !== 200 && res?.status !== 201) {
+        dispatch(
+          ALERTS({
+            show: true,
+            icon: "error",
+            type: 1,
+            text: res?.data?.msg || "Something went wrong",
+          })
+        );
+        return;
+      }
+
+      dispatch(POST_SUB_UNBILLED_BUCKET(res.data));
+
+      dispatch(
+        ALERTS({
+          show: true,
+          icon: "success",
+          type: 1,
+          text: res?.data?.msg || "Saved Successfully",
+        })
+      );
+
+      cb && cb();
+    } catch (error) {
+      console.log("POST SUB UNBILLED BUCKET ERROR:", error);
+
+      dispatch(
+        ALERTS({
+          show: true,
+          icon: "error",
+          type: 1,
+          text: "Server Error",
+        })
+      );
+    }
+  },
+
 };
 export default HrActions;

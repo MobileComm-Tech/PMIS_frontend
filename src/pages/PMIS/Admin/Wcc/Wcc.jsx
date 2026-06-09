@@ -55,17 +55,7 @@ const Ptw = () => {
                     </>
                   )}
                   <div className="m-auto">{itm[0]}</div>
-                  {/* <div className="flex items-center justify-between w-full p-1">
-                    <div className="flex flex-col items-start">
-                      <div className="text-xl font-bold text-[#dd2d4a]">0</div>
-                      <div className="shining-text bg-black text-[12px] whitespace-nowrap font-extrabold bg-clip-text text-transparent ">
-                        {itm[0]}
-                      </div>
-                    </div>
-                    <div className="rotating-icon">{itm[3]}</div>
                   </div>
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-800 to-stone-900 opacity-30 pointer-events-none" /> */}
-                </div>
               </>
             );
           })}

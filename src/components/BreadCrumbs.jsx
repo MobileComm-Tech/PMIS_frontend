@@ -69,6 +69,10 @@ const BreadCrumbs = () => {
       name: "Super Admin",
       url: "/hr/superAdmin",
     },
+    UnbilledManagement: {
+      name: "UnbilledManagement",
+      url: "/hr/superAdmin/UnbilledManagement",
+    },
     claimType: {
       name: "Claim Type",
       url: "/hr/superAdmin/claimType",

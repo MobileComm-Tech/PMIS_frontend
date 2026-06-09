@@ -24,7 +24,7 @@ import DeleteButton from "../../../../components/DeleteButton";
 import { ALERTS } from "../../../../store/reducers/component-reducer";
 import FormsUnBilledForm from "./FormsUnBilledForm";
 import { useNavigate } from "react-router-dom";
-
+import ConditionalButton from "../../../../components/ConditionalButton";
 const FormsUnBilled = () => {
   const dispatch = useDispatch();
   const [fileOpen, setFileOpen] = useState(false);
@@ -41,6 +41,8 @@ const FormsUnBilled = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [modalOpen, setmodalOpen] = useState(false);
+  // const [fileOpen, setFileOpen] = useState(false);
+  const [fileOpen2, setFileOpen2] = useState(false);
   const [modalHead, setmodalHead] = useState("");
   const [modalKey, setModalKey] = useState(0);
   const navigate = useNavigate();
@@ -65,6 +67,14 @@ const FormsUnBilled = () => {
     });
   });
 
+
+    let showType = getAccessType('Unbilled Tracking(Actions)');
+  
+    let shouldIncludeEditColumn = false;
+  
+    if (showType === 'visible') {
+      shouldIncludeEditColumn = true;
+    }
   //   let projectTypeList = useSelector((state) => {
   //     return state?.filterData?.getfinancialworkdoneprojecttype.map((itm) => {
   //       return {
@@ -73,6 +83,30 @@ const FormsUnBilled = () => {
   //       };
   //     });
   //   });
+
+const reduxState = useSelector((state) => state);
+
+// useEffect(() => {
+//   console.log("REDUX STATE", reduxState);
+// }, [reduxState]);
+
+// const userData = useSelector((state) => state?.authData?.userData);
+// console.log("userData", userData);
+
+// const userRole = useSelector(
+//   (state) => state?.authData?.userData?.userRoleName
+// );
+
+const userRole = useSelector(
+  (state) => state?.auth?.user?.userRoleName
+);
+
+console.log("userRole =>", userRole);
+// const loginData = JSON.parse(localStorage.getItem("loginData") || "{}");
+
+// const userRole = loginData?.userRoleName;
+
+// console.log("userRole =>", userRole);
 
   const table = {
     columns: [
@@ -189,16 +223,31 @@ const FormsUnBilled = () => {
         value: "unbilledSubBucket",
         style: "min-w-[220px] max-w-[280px] text-center",
       },
-      {
-        name: "Edit",
-        value: "edit",
-        style: "min-w-[100px] max-w-[200px] text-center",
-      },
-      {
-        name: "Delete",
-        value: "delete",
-        style: "min-w-[100px] max-w-[100px] text-center",
-      },
+      // {
+      //   name: "Edit",
+      //   value: "edit",
+      //   style: "min-w-[100px] max-w-[200px] text-center",
+      // },
+      // {
+      //   name: "Delete",
+      //   value: "delete",
+      //   style: "min-w-[100px] max-w-[100px] text-center",
+      // },
+
+       ...(shouldIncludeEditColumn
+        ? [
+            {
+              name: 'Edit',
+              value: 'edit',
+              style: 'min-w-[100px] max-w-[200px] text-center',
+            },
+            {
+              name: 'Delete',
+              value: 'delete',
+              style: 'min-w-[100px] max-w-[100px] text-center',
+            },
+          ]
+        : []),
     ],
     properties: {
       rpp: [10, 20, 50, 100],
@@ -260,6 +309,17 @@ const FormsUnBilled = () => {
         dispatch(FormssActions.getFormsUnBilled());
         setFileOpen(false);
         resetting("");
+      }),
+    );
+  };
+
+  const onTableViewSubmit2 = (data) => {
+    data["fileType"] = "formUnBilledUpgrade";
+
+    dispatch(
+      CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
+        dispatch(FormssActions.getFormsUnBilled(true, strValFil));
+        setFileOpen2(false);
       }),
     );
   };
@@ -392,7 +452,12 @@ const FormsUnBilled = () => {
                               `${Urls.forms_UnBIlled}/${itm?.uniqueId}`,
                               () => {
                                 // dispatch(FormssActions.getFormsUnBilled());
-                                dispatch(FormssActions.getFormsUnBilled(true, strValFil));
+                                dispatch(
+                                  FormssActions.getFormsUnBilled(
+                                    true,
+                                    strValFil,
+                                  ),
+                                );
                               },
                               itm?.uniqueId,
                             ),
@@ -436,69 +501,101 @@ const FormsUnBilled = () => {
       <AdvancedTable
         headerButton={
           <div className="flex gap-1">
-           {selectedRows.length > 0 && (
-  <Button
-    name={`Delete (${selectedRows.length})`}
-    classes="w-auto bg-rose-400"
-    onClick={() => {
-      let msgdata = {
-        show: true,
-        icon: "warning",
+            {" "}
+            {/* <ConditionalButton
+              showType={getAccessType("Unbilled Tracking(Upgrade)")}
+              name={"Upgrade"}
+              classes="w-auto"
+              onClick={() => {
+                setFileOpen2((prev) => !prev);
+              }}
+            /> */}
+            {selectedRows.length > 0 && (
+              <Button
+                name={`Delete (${selectedRows.length})`}
+                classes="w-auto bg-rose-400"
+                onClick={() => {
+                  let msgdata = {
+                    show: true,
+                    icon: "warning",
 
-        buttons: [
-          <Button
-            classes="w-15 bg-rose-400"
-            onClick={() => {
-              dispatch(
-                CommonActions.postApiCallerBulk(
-                  "/form/unbilled/multidelete",
-                  {
-                    uniqueIds: selectedRows,
-                  },
-                  () => {
-                    dispatch(
-                      FormssActions.getFormsUnBilled(
-                        true,
-                        strValFil,
-                      ),
-                    );
+                    buttons: [
+                      <Button
+                        classes="w-15 bg-rose-400"
+                        onClick={() => {
+                          dispatch(
+                            CommonActions.postApiCallerBulk(
+                              "/form/unbilled/multidelete",
+                              {
+                                uniqueIds: selectedRows,
+                              },
+                              () => {
+                                dispatch(
+                                  FormssActions.getFormsUnBilled(
+                                    true,
+                                    strValFil,
+                                  ),
+                                );
 
-                    setSelectedRows([]);
-                    setSelectAll(false);
+                                setSelectedRows([]);
+                                setSelectAll(false);
 
-                    dispatch(ALERTS({ show: false }));
-                  },
-                ),
-              );
-            }}
-            name={"OK"}
-          />,
+                                dispatch(ALERTS({ show: false }));
+                              },
+                            ),
+                          );
+                        }}
+                        name={"OK"}
+                      />,
 
-          <Button
-            classes="w-auto"
-            onClick={() => {
-              dispatch(ALERTS({ show: false }));
-            }}
-            name={"Cancel"}
-          />,
-        ],
+                      <Button
+                        classes="w-auto"
+                        onClick={() => {
+                          dispatch(ALERTS({ show: false }));
+                        }}
+                        name={"Cancel"}
+                      />,
+                    ],
 
-        text: "Are you sure you want to Delete?",
-      };
+                    text: "Are you sure you want to Delete?",
+                  };
 
-      dispatch(ALERTS(msgdata));
-    }}
-  />
-)}
-
-            <Button
+                  dispatch(ALERTS(msgdata));
+                }}
+              />
+            )}
+            {/* <Button
               name={"Upload"}
               classes="w-auto"
               onClick={(e) => {
                 setFileOpen((prev) => !prev);
               }}
-            ></Button>
-            <Button
+            ></Button> */}
+            <ConditionalButton
+              showType={getAccessType("Unbilled Tracking(Upload)")}
+              name={"Upload"}
+              classes="w-auto"
+              onClick={(e) => {
+                setFileOpen((prev) => !prev);
+              }}
+            />
+            <ConditionalButton
+              showType={getAccessType("Unbilled Tracking(Upgrade)")}
+              name={"Upgrade"}
+              classes="w-auto"
+              onClick={() => {
+                setFileOpen2((prev) => !prev);
+              }}
+            />
+            {/* <ButtonUnbilled Tracking(Export)
+              name={"Upgrade"}
+              classes="w-auto"
+              onClick={() => {
+                setFileOpen2((prev) => !prev);
+              }}
+            /> */}
+            <ConditionalButton
+              showType={getAccessType("Unbilled Tracking(Export)")}
               name={"Export"}
               classes="w-auto"
               onClick={() => {
@@ -511,7 +608,7 @@ const FormsUnBilled = () => {
                   ),
                 );
               }}
-            ></Button>
+            />
           </div>
         }
         table={table}
@@ -524,6 +621,8 @@ const FormsUnBilled = () => {
         setValue={setValue}
         getValues={getValues}
         totalCount={dbConfigTotalCount}
+        // checkboxshow={shouldIncludeEditColumn}
+        
         heading={"Total Count :-  "}
         //        checkboxshow={true}
         // delurl={"/form/unbilled/multidelete"}
@@ -539,6 +638,7 @@ const FormsUnBilled = () => {
           key={modalKey}
           formValue={modalFormValue}
           setIsOpen={setmodalOpen}
+           userRole={userRole}
           refreshQuery={strValFil}
         />
       </Modal>
@@ -550,6 +650,18 @@ const FormsUnBilled = () => {
         tempbtn={true}
         tempbtnlink={["/template/formUnbilled.xlsx", "UnBilled_template.xlsx"]}
         head={"Upload Unbilled File"}
+      />
+
+      <FileUploader
+        isOpen={fileOpen2}
+        onTableViewSubmit={onTableViewSubmit2}
+        setIsOpen={setFileOpen2}
+        tempbtn={true}
+        tempbtnlink={[
+          "/template/formUnbilledUpgrade.xlsx",
+          "formUnbilledUpgrade.xlsx",
+        ]}
+        head={"Upload Upgrade File"}
       />
     </>
   );
