@@ -1594,6 +1594,22 @@ console.log(getManageEmpDetails,"___getManageEmpDetails__")
         { label: "O-", value: "O-" },
       ],
     },
+
+ {
+      label: "Employement Type",
+      name: "employementType",
+      value: "",
+      type: "select",
+      props: {},
+      required: true,
+      option: [
+        { label: "In-house Field", value: "inHouseField" },
+        { label: "In-house Backend", value: "inHouseBackend" },
+        { label: "Contractor", value: "contractor" },
+  
+      ],
+    },
+
   ];
 
   let ContactInformation = [
