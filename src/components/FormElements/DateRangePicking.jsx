@@ -3,10 +3,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 
-const DateRangePicking = ({ itm, errors, setValue }) => {
+const DateRangePicking = ({ itm, errors, setValue,getValues }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+// useEffect(() => {
+//   const saved = getValues?.(itm.name);
 
+//   setStartDate(saved?.start ? new Date(saved.start) : null);
+//   setEndDate(saved?.end ? new Date(saved.end) : null);
+// }, [getValues, itm.name]);
   const handleDateChange = (date) => {
     const [start, end] = date;
     setStartDate(start);
@@ -38,6 +43,7 @@ const DateRangePicking = ({ itm, errors, setValue }) => {
         // selected={null}
         onChange={handleDateChange}
         startDate={startDate}
+        
         endDate={endDate}
         selectsRange
         showIcon={true}
