@@ -80,7 +80,6 @@ const TreeStructure = ({ data }) => {
   return (
     <div className="px-4 flex space-x-4 h-[80vh] overflow-y-scroll mb-[300px]">
       {data.map((itm, index) => {
-        // console.log(itm , 'asdfasdfasdfasdfsdfsdfgsdfgsdfgdsfds')
         return (<div style={{
       display : getAccessType(itm.title) === 'invisible' ? 'none' : 'block'
     }} >

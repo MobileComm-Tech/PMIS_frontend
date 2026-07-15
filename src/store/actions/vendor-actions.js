@@ -257,6 +257,7 @@ import {
   GET_WCC_SUBMODULE,
   GET_PROJECT_TYPE_DETAILS,
   GET_SUB_PROJECT_DETAILS,
+  GET_VENDOR_COST_MILESTONE_SECOND,
 } from '../reducers/vendor-reducer';
 
 const VendorActions = {
@@ -654,6 +655,45 @@ const VendorActions = {
             uniqueId == null
               ? Urls.get_vendorCostMilestone
               : Urls.get_vendorCostMilestone + '/' + uniqueId,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: 'error',
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
+        }
+      } catch (error) {
+        return;
+      }
+    },
+     getVendorCostMilestoneSecond:
+    (reset = true, args = '') =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.get_vendorCostMilestoneSecond}${args != '' ? '?' + args : ''}`,
+          reset,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_VENDOR_COST_MILESTONE_SECOND({ dataAll, reset }));
+      } catch (error) {}
+    },
+  postVendorCostMilestoneSecond:
+    (reset, data, cb, uniqueId) => async (dispatch, _) => {
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? Urls.get_vendorCostMilestoneSecond
+              : Urls.get_vendorCostMilestoneSecond + '/' + uniqueId,
         });
         if (res?.status !== 201 && res?.status !== 200) {
           let msgdata = {

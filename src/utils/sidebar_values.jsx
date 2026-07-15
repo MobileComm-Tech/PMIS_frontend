@@ -163,6 +163,8 @@ import UnbilledDashboard from "../pages/PMIS/FinancialCards/UnbilledDashboard";
 import UnbilledRegion from "../pages/PMIS/Admin/UnbilledRegion/UnbilledRegion";
 import SubUnbilledBucket from "../pages/PMIS/Admin/SubUnbilledBucket/SubUnbilledBucket";
 import CurrentUnbilledBucket from "../pages/PMIS/Admin/CurrentUnbilledBucket/CurrentUnbilledBucket";
+import VendorActivity2 from "../pages/PMIS/Admin/VendorActivity2/VendorActivity2";
+import VendorCost2 from "../pages/PMIS/gpTracking/VendorCost2/VendorCost2";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -621,6 +623,13 @@ export const Sidebar_content = {
       icon: <Unicons.UilChannel size="16" />,
     },
     {
+      name: "Partner Acitivity 2",
+      link: "/hr/superAdmin/partnerActivity2",
+      subMenu: [],
+      component: <VendorActivity2 />,
+      icon: <Unicons.UilChannel size="16" />,
+    },
+    {
       name: "",
       link: "/hr/superAdmin/projectGroup",
       subMenu: [],
@@ -990,7 +999,7 @@ export const Sidebar_content = {
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },
-    // FORMS WCC COMPONENTS ENDS HERE
+
 
     {
       name: "",
@@ -1080,6 +1089,13 @@ export const Sidebar_content = {
       name: "",
       link: "/hr/superAdmin/vendorCost",
       component: <VendorCost />,
+      icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+      {
+      name: "",
+      link: "/hr/superAdmin/vendorCost2",
+      component: <VendorCost2 />,
       icon: <UilFileContract className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

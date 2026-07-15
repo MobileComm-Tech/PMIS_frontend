@@ -75,6 +75,7 @@ import {
   GET_COMPLIANCE_WORK_DESCRIPTION,
   GET_MS_LIST,
   GET_WCC_COMPLIANCE,
+  GET_PARTNER_ACTIVITY_SECOND,
 } from "../reducers/admin-reducer";
 import { ALERTS } from "../reducers/component-reducer";
 // import { GET_CUSTOMER } from "../reducers/gpTracking-reducer";
@@ -367,6 +368,46 @@ const AdminActions = {
       return;
     }
   },
+    getPartnerActivitySecond:
+    (reset = true, args = "", show = 1) =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.admin_partner_activity_second}${args != "" ? "?" + args : ""}`,
+          show: show,
+        });
+        if (res?.status !== 200) return;
+        let dataAll = res?.data?.data;
+        dispatch(GET_PARTNER_ACTIVITY_SECOND({ dataAll, reset }));
+      } catch (error) {}
+    },
+
+  postPartnerActivitySecond: (reset, data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.admin_partner_activity_second
+            : Urls.admin_partner_activity_second + "/" + uniqueId,
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+
 
   getManageCircle:
     (reset = true, args = "", show = 1) =>

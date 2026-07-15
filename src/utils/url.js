@@ -1,5 +1,5 @@
-// export const baseUrl = 'https://devapi.mcpspmis.com';
-// export const backendassetUrl = 'https://devapi.mcpspmis.com/';
+export const baseUrl = 'https://devapi.mcpspmis.com';
+export const backendassetUrl = 'https://devapi.mcpspmis.com/';
 
 // export const baseUrl = " https://elevation-gold-modular-toxic.trycloudflare.com";
 // export const backendassetUrl = "https://elevation-gold-modular-toxic.trycloudflare.com";
@@ -11,9 +11,9 @@
 
 // };
 
-export const baseUrl = "https://api.mcpspmis.com"
+// export const baseUrl = "https://api.mcpspmis.com"
 
-export const backendassetUrl = "https://api.mcpspmis.com/"
+// export const backendassetUrl = "https://api.mcpspmis.com/"
 
 // // export const baseUrl="https://androidapi.mcpspmis.com"
 // // export const backendassetUrl="https://androidapi.mcpspmis.com/"
@@ -423,6 +423,7 @@ export const Urls = {
   admin_circle: '/admin/manageCircle',
   admin_partner_work_description: '/admin/partnerWorkDescription',
   admin_partner_activity: '/admin/partnerActivity',
+  admin_partner_activity_second: '/admin/partnerActivitySecond',
   admin_zone: '/admin/manageZone',
   admin_cost_center: '/admin/manageCostCenter',
   admin_project_group: '/admin/manageProjectGroup',
@@ -492,6 +493,7 @@ export const Urls = {
   vendorProjects: '/vendor/ProjectType',
   filter_vendor_subProject: '/filter/vendor/subProject',
   get_vendorCostMilestone: '/vendor/milestone',
+  get_vendorCostMilestoneSecond: '/vendor/milestoneSecond',
   get_vendortCostMilestoeList: '/vendor/milestoneList',
   get_vendortCostProjectGroupList: '/vendorCost/projectGroupList',
   get_vendortCostProjectIdList: '/vendorCost/projectIdList',

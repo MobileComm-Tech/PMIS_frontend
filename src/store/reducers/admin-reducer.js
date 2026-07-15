@@ -42,7 +42,7 @@ const initialState = {
   getManageClaimTypeUnitRate: [],
   getManageClaimTypeDesignation: [],
   getManageExpenseAdvance: [],
-
+getPartnerActivitySecond:[],
   getSubProjectMultiDynamic: [],
   getProjectTypeMultiDynamic: [],
   getAccuralRevenueMasterProject: [],
@@ -229,6 +229,13 @@ const adminData = createSlice({
         state.getPartnerActivity = payload.dataAll;
       } else {
         state.getPartnerActivity = [...state.getPartnerActivity, ...payload.getPartnerActivity];
+      }
+    },
+     GET_PARTNER_ACTIVITY_SECOND: (state, { payload }) => {
+      if (payload.reset) {
+        state.getPartnerActivitySecond = payload.dataAll;
+      } else {
+        state.getPartnerActivitySecond = [...state.getPartnerActivitySecond, ...payload.getPartnerActivitySecond];
       }
     },
 
@@ -863,6 +870,8 @@ export const {
   GET_COMPLIANCE_DEGROW_TEMPLATE_DATA_USED_FIELDS,
   GET_PARTNER_WORK_DESCRIPTION,
   GET_PARTNER_ACTIVITY,
+  GET_PARTNER_ACTIVITY_SECOND,
+
   GET_ADMIN_DELIVERY_PVA,
   GET_ADMIN_SUB_PROJECT_DELIVERY_PVA,
   GET_EXCHANGE_RATE

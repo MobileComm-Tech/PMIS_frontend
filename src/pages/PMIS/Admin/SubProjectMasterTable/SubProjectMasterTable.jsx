@@ -44,13 +44,15 @@ const SubProjectMasterTable = () => {
     })
 
     let dbConfigTotalCount = useSelector((state) => {
-        let interdata = state?.adminData?.getProjectAllocation
+        let interdata = state?.adminData?.getDeliveryPVA || []
+        console.log(interdata,"ii")
         if (interdata.length > 0) {
             return interdata[0]["overall_table_count"]
         } else {
             return 0
         }
     })
+    console.log(dbConfigTotalCount,"db")
     const {register,handleSubmit,watch,setValue,setValues,getValues,formState: { errors },} = useForm()
 
     let table = {
@@ -89,7 +91,7 @@ const SubProjectMasterTable = () => {
         delete data.reseter
         let strVal=objectToQueryString(data)
         setstrVal(strVal)
-        dispatch(AdminActions.getProjectAllocation(value, objectToQueryString(data),strVal))
+        dispatch(AdminActions.getDeliveryPVA(value, objectToQueryString(data),strVal))
     }
 
     useEffect(() => {
@@ -99,7 +101,7 @@ const SubProjectMasterTable = () => {
     const onTableViewSubmit = (data) => { 
         data["fileType"]="userProjectAllocation"
         dispatch(CommonActions.fileSubmit(Urls.common_file_uploadr, data, () => {
-            dispatch(AdminActions.getProjectAllocation())
+            dispatch(AdminActions.getDeliveryPVA())
             setFileOpen(false)
         }))
     }

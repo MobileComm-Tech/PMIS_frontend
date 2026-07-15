@@ -159,6 +159,7 @@ const SuperAdmin = () => {
               <Unicons.UilPagerduty size="32" color="" />,
               "border-b-[#b8e0d2]",
             ],
+            
             // [
             //   "GP Tracking",
             //   "bg-pcol",
@@ -214,6 +215,21 @@ const SuperAdmin = () => {
               "bg-pcol",
               "/hr/superAdmin/UnbilledManagement",
               <Unicons.UilPagerduty size="32" color="" />,
+              "border-b-[#b8e0d2]",
+            ],
+               [
+              "Partner Acitivity 2",
+              "bg-pcol",
+              "/hr/superAdmin/partnerActivity2",
+              "border-b-[#b8e0d2]",
+            ],
+            [
+              "Vendor Cost 2",
+              "bg-pcol",
+              "/hr/superAdmin/vendorCost2",
+              <Unicons.UilPagerduty size="32" color="" />,
+
+
               "border-b-[#b8e0d2]",
             ],
           ].map((itm) => {
