@@ -7,6 +7,8 @@ const initialState = {
   getmyTask: [],
   getMyPolicy: [],
   getmyGlobal: [],
+  getCdhApprover:[],
+    getOciApprover:[],
   getwebClearNotify: [],
 };
 
@@ -27,6 +29,16 @@ const myHome = createSlice({
       } else {
         state.getWccCdhApprover = [
           ...state.getWccCdhApprover,
+          ...payload.dataAll,
+        ];
+      }
+    },
+    GET_WCC_OCI_APPROVER: (state, { payload }) => {
+      if (payload.reset) {
+        state.getOciApprover = payload.dataAll;
+      } else {
+        state.getOciApprover = [
+          ...state.getOciApprover,
           ...payload.dataAll,
         ];
       }
@@ -78,6 +90,7 @@ const myHome = createSlice({
 export const {
   GET_MY_HOME,
   GET_WCC_CDH_APPROVER,
+  GET_WCC_OCI_APPROVER,
   GET_PERSONAL_INFO,
   GET_MY_TASK,
   GET_MY_POLICY,

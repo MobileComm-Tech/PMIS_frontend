@@ -409,7 +409,10 @@ export const Urls = {
 
   //My home
   wcc_Chd_Approver: '/myHome/wcc/cdhApprover',
+    wcc_Oci_Approver: '/myHome/wcc/ociApprover',
+  
   wcc_Chd_Actions: '/myHome/wcc/cdhApprover/action',
+   wcc_Oci_Actions: '/myHome/wcc/ociApprover/action',
 
   // new urlP
   admin_userAccess: '/admin/userAccess',
@@ -738,6 +741,7 @@ export const Urls = {
 
   //FORMS
   wcc_Chd_MultiActions: '/myHome/wcc/cdhApprover/multiAction',
+  wcc_Oci_MultiActions: '/myHome/wcc/ociApprover/multiAction',
   getWccProjectGroup: '/wcc/projectGroup',
 
   getwebGlobal: '/webGlobalNotify',

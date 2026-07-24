@@ -1572,7 +1572,7 @@ const VendorCostForm = ({
         onChange: (e) => {},
       },
       required: true,
-      classes: "col-span-1",
+      classes: "col-span-1 relative",
       option: milestneList,
     },
   ];
@@ -1657,7 +1657,7 @@ const VendorCostForm = ({
         isOpen={modalOpen}
         setIsOpen={setmodalOpen}
       />
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-full pb-4">
+      <div className="relative mt-8 sm:mx-auto sm:w-full sm:max-w-full pb-4">
         <CommonForm
           classes={"grid-cols-2 gap-1"}
           Form={Form}

@@ -218,15 +218,15 @@ const SuperAdmin = () => {
               "border-b-[#b8e0d2]",
             ],
                [
-              "Partner Acitivity 2",
+              "Partner Acitivity July26",
               "bg-pcol",
-              "/hr/superAdmin/partnerActivity2",
+              "/hr/superAdmin/partnerActivityJuly26",
               "border-b-[#b8e0d2]",
             ],
             [
-              "Vendor Cost 2",
+              "Vendor Cost July26",
               "bg-pcol",
-              "/hr/superAdmin/vendorCost2",
+              "/hr/superAdmin/vendorCostJuly26",
               <Unicons.UilPagerduty size="32" color="" />,
 
 

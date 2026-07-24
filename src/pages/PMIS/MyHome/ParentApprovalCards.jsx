@@ -77,6 +77,12 @@ const ParentApproverCards = () => {
           href: "/home/Approval/cdhApprover",
           children: [],
         },
+         {
+          title: "OCI Approver",
+          use: true,
+          href: "/home/Approval/ociApprover",
+          children: [],
+        },
       ],
     },
   ];
@@ -107,10 +113,37 @@ const ParentApproverCards = () => {
           })
         : [],
     };
+    
 
-    // return [...complianceData, data, ...data3];
+   const wccChildren = [
+      {
+        title: "CDH Approver",
+        use: true,
+        href: "/home/Approval/cdhApprover",
+        children: [],
+      },
+    ];
+
+    // Conditionally push OCI Approver if the access check passes
+    if (getAccessType("OCI Approver") === "visible") {
+      wccChildren.push({
+        title: "OCI Approver",
+        use: true,
+        href: "/home/Approval/ociApprover",
+        children: [],
+      });
+    }
+
+    const DynamicWccData = [
+      {
+        title: "WCC Approver",
+        href: null,
+        children: wccChildren,
+      },
+    ];
+
     if (getAccessType("WCC Approver") === "visible") {
-      return [...complianceData, data, ...data3, ...WccData];
+      return [...complianceData, data, ...data3, ...DynamicWccData];
     } else {
       return [...complianceData, data, ...data3];
     }

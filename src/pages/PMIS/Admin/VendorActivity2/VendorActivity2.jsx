@@ -135,6 +135,8 @@ const VendorActivity2 = () => {
         dispatch(AdminActions.getPartnerActivitySecond())
     }, [])
 
+    
+
 
     return <>
         <AdvancedTable

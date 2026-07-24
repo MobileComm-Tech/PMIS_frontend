@@ -9,6 +9,7 @@ import {
   GET_WCC_CDH_APPROVER,
   GET_WEB_NOTIFY,
   GET_CLEAR_NOTIFICATION,
+  GET_WCC_OCI_APPROVER,
 } from "../reducers/myHome-reducer";
 
 const MyHomeActions = {
@@ -46,6 +47,29 @@ const MyHomeActions = {
         }
         let dataAll = res?.data?.data;
         dispatch(GET_WCC_CDH_APPROVER({ dataAll, reset }));
+      } catch (error) {}
+    },
+     getOciApprover:
+    (reset = true, args = "") =>
+    async (dispatch, _) => {
+      try {
+        const res = await Api.get({
+          url: `${Urls.wcc_Oci_Approver}${args != "" ? "?" + args : ""}`,
+          reset,
+        });
+        console.log(res?.data, "__Datta");
+        if (res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: "error",
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        }
+        let dataAll = res?.data?.data;
+        dispatch(GET_WCC_OCI_APPROVER({ dataAll, reset }));
       } catch (error) {}
     },
   postMyHome: (reset, data, cb, uniqueId) => async (dispatch, _) => {
@@ -100,6 +124,36 @@ const MyHomeActions = {
         return;
       }
     },
+     postOciMultiActions:
+    (data, cb, uniqueId, args = "") =>
+    async (dispatch, _) => {
+      // console.log(data,"__data")
+      try {
+        const res = await Api.post({
+          data: data,
+          url:
+            uniqueId == null
+              ? `${Urls.wcc_Oci_MultiActions}${args != "" ? "?" + args : ""}`
+              : `${Urls.wcc_Oci_MultiActions}${args != "" ? "?" + args : ""}` +
+                "/" +
+                uniqueId,
+        });
+        if (res?.status !== 201 && res?.status !== 200) {
+          let msgdata = {
+            show: true,
+            icon: "error",
+            buttons: [],
+            type: 1,
+            text: res?.data?.msg,
+          };
+          dispatch(ALERTS(msgdata));
+        } else {
+          cb();
+        }
+      } catch (error) {
+        return;
+      }
+    },
   postCdhActions: (data, cb, uniqueId) => async (dispatch, _) => {
     try {
       const res = await Api.post({
@@ -108,6 +162,32 @@ const MyHomeActions = {
           uniqueId == null
             ? Urls.wcc_Chd_Actions
             : Urls.wcc_Chd_Actions + "/" + uniqueId,
+        contentType: "multipart/form-data",
+      });
+      if (res?.status !== 201 && res?.status !== 200) {
+        let msgdata = {
+          show: true,
+          icon: "error",
+          buttons: [],
+          type: 1,
+          text: res?.data?.msg,
+        };
+        dispatch(ALERTS(msgdata));
+      } else {
+        cb();
+      }
+    } catch (error) {
+      return;
+    }
+  },
+    postOciActions: (data, cb, uniqueId) => async (dispatch, _) => {
+    try {
+      const res = await Api.post({
+        data: data,
+        url:
+          uniqueId == null
+            ? Urls.wcc_Oci_Actions
+            : Urls.wcc_Oci_Actions + "/" + uniqueId,
         contentType: "multipart/form-data",
       });
       if (res?.status !== 201 && res?.status !== 200) {
