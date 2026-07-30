@@ -166,6 +166,9 @@ import CurrentUnbilledBucket from "../pages/PMIS/Admin/CurrentUnbilledBucket/Cur
 import VendorActivity2 from "../pages/PMIS/Admin/VendorActivity2/VendorActivity2";
 import VendorCost2 from "../pages/PMIS/gpTracking/VendorCost2/VendorCost2";
 import OciApprover from "../pages/PMIS/MyHome/Wcc Approver/OCI Approver/OciApprover";
+import Oci from "../pages/PMIS/Admin/OCI/Oci";
+import OciApproverForm from "../pages/PMIS/MyHome/Wcc Approver/OCI Approver/OciApproverForm";
+import OciApprovertwo from "../pages/PMIS/Admin/OciApproverTwo/OciApprovertwo";
 
 let user = JSON.parse(localStorage.getItem("user"));
 let permission = JSON.parse(localStorage.getItem("permission")) || {};
@@ -1238,6 +1241,22 @@ export const Sidebar_content = {
       name: "WCC",
       link: "/superAdmin/WCC",
       component: <Wcc />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+    {
+      name: "OCI",
+      link: "/superAdmin/OCI",
+      component: <Oci />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+    {
+      name: "OCI",
+      link: "/superAdmin/OCI/ociApprover",
+      component: <OciApprovertwo />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

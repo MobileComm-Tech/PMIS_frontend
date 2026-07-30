@@ -668,6 +668,24 @@ export const Urls = {
   addComplianceForm: '/admin/addComplianceForm',
   getWccCompliance: 'wcc/getCompliance',
 
+  // OCI Approver
+ociApprover: "/wcc/oci_approver",
+getOciProjectId: "/wcc/getProjectId",
+getOciEmployee: "/wcc/getEmployee",
+getOciProjectGroup: "/wcc/getProjectGroup",
+
+getOciCustomers: "/Ptw/customers",
+
+getOciEmployee: "/Ptw/employee",
+
+getOciProjectType: "/Ptw/projectType",
+
+getOciProjectGroup: "/Ptw/projectGroup",
+
+getOciSubProjectType: "/admin/getsubProject",
+
+ociApprover: "/wcc/oci_approver",
+
   // cdh Approver
   wccApprover: '/wcc/cdh_approver',
   getWccEmployee: '/wcc/employee',

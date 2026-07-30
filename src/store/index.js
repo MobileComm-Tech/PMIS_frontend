@@ -24,6 +24,7 @@ import globalFiltersReducer from "./reducers/globalFilter-reducer";
 import appUpdateReducer from "./reducers/appUpdateReducer";
 
 import wccApproverData from "./reducers/wccApprover-reducers"
+import  ociApproverData  from "./reducers/ociApprover-reducers";
 
 const store = configureStore({
     reducer: {
@@ -51,6 +52,7 @@ const store = configureStore({
         globalFiltersReducer,
         appUpdateReducer,
         wccApproverData,
+        ociApproverData,
         
        
     },
