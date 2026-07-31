@@ -7,7 +7,7 @@ import FileUploader from "../../../../components/FIleUploader";
 import Button from "../../../../components/Button";
 import AdvancedTable from "../../../../components/AdvancedTable";
 
-import appUpdateAction from "../../../../store/actions/AppUpdateAction";
+import appUpdateAction from "../../../../store/actions/appUpdateAction";
 import CommonActions from "../../../../store/actions/common-actions";
 
 import { objectToQueryString } from "../../../../utils/commonFunnction";
