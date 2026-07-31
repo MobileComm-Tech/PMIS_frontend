@@ -11,7 +11,8 @@ const Oci = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    ["OCI Approver", "bg-pcol", "/superAdmin/OCI/ociApprover"],
+    // ["OCI Approver", "bg-pcol", "/superAdmin/OCI/ociApprover"],
+    ["OCI Approver", "bg-pcol", "/superAdmin/OCI/ociApprover"]
   ];
 
   return (

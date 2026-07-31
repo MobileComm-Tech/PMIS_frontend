@@ -1253,13 +1253,13 @@ export const Sidebar_content = {
       subMenu: [],
     },
 
-    {
-      name: "OCI",
-      link: "/superAdmin/OCI/ociApprover",
-      component: <OciApprovertwo />,
-      icon: <UilStore className="hover:text-heading cursor-pointer" />,
-      subMenu: [],
-    },
+    // {
+    //   name: "OCI",
+    //   link: "/superAdmin/OCI/ociApprover",
+    //   component: <OciApprovertwo />,
+    //   icon: <UilStore className="hover:text-heading cursor-pointer" />,
+    //   subMenu: [],
+    // },
 
     {
       name: "PTW Task Allocation",
@@ -1324,6 +1324,14 @@ export const Sidebar_content = {
       name: "WCC",
       link: "/superAdmin/WCC/CDH Approver",
       component: <WccL1Approver />,
+      icon: <UilStore className="hover:text-heading cursor-pointer" />,
+      subMenu: [],
+    },
+
+     {
+      name: "WCC",
+      link: "/superAdmin/WCC/oci Approver",
+      component: <OciApprovertwo />,
       icon: <UilStore className="hover:text-heading cursor-pointer" />,
       subMenu: [],
     },

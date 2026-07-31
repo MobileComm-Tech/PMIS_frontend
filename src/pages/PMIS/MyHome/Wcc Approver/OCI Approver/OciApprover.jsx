@@ -46,12 +46,6 @@ const OciApprover = () => {
       ? true
       : false;
 
-  // const [strValFil, setstrVal] = useState(false);
-
-  // useEffect(()=>{
-  //     dispatch(VendorActions.getWccSubmodule());
-  // },[])
-  // console.log(strValFil, '____strValFil');
   const {
     register,
     handleSubmit,
@@ -76,7 +70,6 @@ const OciApprover = () => {
       };
     });
   });
-  // console.log(projectTypeList, '__projectTypeList');
   const subProjectList = useSelector((state) => {
     return state?.vendorData?.getSubProjectDetails?.map((item) => ({
       label: item?.subProject,
@@ -88,29 +81,7 @@ const OciApprover = () => {
     columns: [
       {
         name: (
-          // <input
-          //   type="checkbox"
-          //   checked={
-          //     tableData?.length > 0 &&
-          //     tableData.every((itm) =>
-          //       checkedChildData?.some((d) => d.ssid === itm.ssid),
-          //     )
-          //   }
-          //   onChange={(e) => {
-          //     if (e.target.checked) {
-          //       const visibleData = tableData.map((itm) => ({
-          //         ssid: itm?.ssid,
-          //         vendorItemCode: itm?.vendorItemCode,
-          //       }));
-
-          //       setCheckData(visibleData);
-          //       setCheckChildData(visibleData);
-          //     } else {
-          //       setCheckData([]);
-          //       setCheckChildData([]);
-          //     }
-          //   }}
-          // />
+         
           <input
             type="checkbox"
             checked={
@@ -204,22 +175,12 @@ const OciApprover = () => {
         value: 'vendorRate',
         style: 'min-w-[50px] max-w-[140px] text-center',
       },
-      // {
-      //   name: "PO Value",
-      //   value: "poValue",
-      //   style: "min-w-[120px] max-w-[160px] text-center",
-      // },
-      // {
-      //   name: "Activity Month",
-      //   value: "activityMonth",
-      //   style: "min-w-[80px] max-w-[180px] text-center",
-      // },
       {
         name: 'PO No.',
         value: 'poNumber',
         style: 'min-w-[80px] max-w-[180px] text-center',
       },
-      ...(getAccessType('CDH Approver(Action)') === 'visible'
+      ...(getAccessType('OCI Approver(Action)') === 'visible'
         ? [
             {
               name: 'Action',
@@ -295,7 +256,7 @@ const OciApprover = () => {
         value: '',
         type: 'select',
         name: 'status',
-        // bg: "bg-[#3e454d] text-gray-300 border-[1.5px] border-solid border-[#64676d]",
+       
         option: [
           { label: 'Approved', value: 'Approved' },
           { label: 'Rejected', value: 'Rejected' },
@@ -471,48 +432,6 @@ const OciApprover = () => {
   tableData = tableData?.map((itm) => {
     return {
       ...itm,
-      // checkboxProject: (
-      //   <>
-      //     {CheckTrueOrFalseforApproval(itm?.cdh) ? (
-      //       <input
-      //         type={"checkbox"}
-      //         // id={itm.uniqueId}
-      //         // subId={itm.SubProjectId}
-      //         checked={
-      //           checkedData?.some((d) => d.ssid === itm.ssid) ||
-      //           checkedChildData?.some((d) => d.ssid === itm.ssid)
-      //         }
-      //         value={itm.uniqueId}
-      //         onChange={(e) => {
-      //           if (e?.target?.checked) {
-      //             const tempObj = {
-      //               ssid: itm?.ssid,
-      //               vendorItemCode: itm?.vendorItemCode,
-      //             };
-      //             setCheckChildData((prev) => [...prev, ...[tempObj]]);
-      //           } else {
-      //             // console.log(e?.target?.checked,"___peinfoes")
-      //             if (checkVariable(checkedData)) {
-      //               const data = checkedData?.filter(
-      //                 (CheckItm) => itm?.ssid !== CheckItm?.ssid,
-      //               );
-      //               setCheckChildData(data);
-      //               setCheckData([]);
-      //             } else {
-      //               const data = checkedChildData?.filter(
-      //                 (checkChildItm) => itm?.ssid !== checkChildItm?.ssid,
-      //               );
-      //               console.log(data, "CheckChldata");
-      //               setCheckChildData(data);
-      //             }
-      //           }
-      //         }}
-      //       />
-      //     ) : (
-      //       <></>
-      //     )}
-      //   </>
-      // ),
 
       checkboxProject: (
         <>
@@ -554,83 +473,7 @@ const OciApprover = () => {
           ) : null}
         </>
       ),
-      // action: (
-      //   <div className="flex justify-end gap-2">
-      //     {/* {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) && */}
-      //     {CheckTrueOrFalseforApproval(itm?.cdh) ? (
-      //       <>
-      //         {/* <button
-      //       onClick={(e) => {
-      //         // e.stopPropagation();
-      //         handleApprove(itm);
-      //       }}
-      //       className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
-      //       title="Approve"
-      //     >
-      //       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-      //         <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
-      //       </svg>
-
-      //     </button>
-      //      */}
-      //         <button
-      //           onClick={(e) => {
-      //             // e.stopPropagation();
-      //             handleApproveWithNofileUpload(itm);
-      //           }}
-      //           className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
-      //           title="Approve"
-      //         >
-      //           <svg
-      //             width="15"
-      //             height="15"
-      //             viewBox="0 0 24 24"
-      //             fill="currentColor"
-      //           >
-      //             <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
-      //           </svg>
-      //         </button>
-
-      //         {/* } */}
-      //         {/* {(type === 'l1Approver' ? ['Submitted'].includes(itm.status) : ['L1-Approved'].includes(itm.status)) &&  */}
-      //         <button
-      //           onClick={(e) => {
-      //             e.stopPropagation();
-      //             handleSingleReject(itm);
-      //           }}
-      //           className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
-      //           title="Reject"
-      //         >
-      //           <TbPlayerEjectFilled size={28} />
-      //         </button>
-      //       </>
-      //     ) : checkTrueOrFalseDynamic(itm?.cdh, "Approved") ? (
-      //       <></>
-      //     ) : checkTrueOrFalseDynamic(itm?.cdh, "Rejected") ? (
-      //       <button
-      //         onClick={(e) => {
-      //           // e.stopPropagation();
-      //           handleApprove(itm);
-      //         }}
-      //         className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
-      //         title="Approve"
-      //       >
-      //         <svg
-      //           width="15"
-      //           height="15"
-      //           viewBox="0 0 24 24"
-      //           fill="currentColor"
-      //         >
-      //           <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
-      //         </svg>
-      //       </button>
-      //     ) : (
-      //       <></>
-      //     )}
-
-      //     {/* } */}
-      //   </div>
-      // ),
+    
 
       action: (
         <div className="flex justify-end gap-2">
@@ -705,285 +548,17 @@ const OciApprover = () => {
       console.log('rinmondif');
       setstrVal({});
     }
-
-    // let strVal = objectToQueryString(data);
-
-    // setFilters({
-    //   ...filters,
-    //   ...data,
-    // });
     console.log('data___', data);
     dispatch(MyHomeActions.getOciApprover(true, objectToQueryString(data)));
     // setstrVal({});
   };
-  // console.log(strValFil, "strValFil");
+ 
   console.log(isRejectedView, isApprovedView, '____isFilteredView');
   return (
     <>
       <AdvancedTable
         setstrVal={setstrVal}
-        // headerButton={
-        //   <div className="flex">
-        //     {checkVariable(checkedData) ? (
-        //       <>
-        //         <div className="flex">
-        //           {/* <ConditionalButton
-        //             showType={"visible"}
-        //             classes="w-auto mr-1"
-        //             // onClick={() => navigate("/empdetails")}
-        //             onClick={() => {
-        //               setCheckData([]);
-        //               setCheckChildData([]);
-
-        //               dispatch(
-        //                 MyHomeActions.postCdhMultiActions(
-        //                   checkedData,
-        //                   () => {
-        //                     const defaultPagination = objectToQueryString({
-        //                       page: 1,
-        //                       limit: 50,
-        //                     });
-        //                     dispatch(
-        //                       MyHomeActions.getCdhApprover(
-        //                         true,
-        //                         defaultPagination,
-        //                       ),
-        //                     );
-        //                   },
-        //                   null,
-        //                   `status=Approved`,
-        //                 ),
-        //               );
-        //             }}
-        //             name={"Approve CDH"}
-        //           />
-        //           <ConditionalButton
-        //             showType={"visible"}
-        //             classes="w-auto mr-1 bg-[#EF4444]"
-        //             // onClick={() => navigate("/empdetails")}
-        //             onClick={() => {
-        //               handleReject();
-        //             }}
-        //             name={"Reject CDH"}
-        //           /> */}
-        //           {/* ❌ Hide Approve if already Approved */}
-        //           {!isApprovedView && (
-        //             <ConditionalButton
-        //               showType={"visible"}
-        //               classes="w-auto mr-1"
-        //               onClick={() => {
-        //                 setCheckData([]);
-        //                 setCheckChildData([]);
-
-        //                 dispatch(
-        //                   MyHomeActions.postCdhMultiActions(
-        //                     checkedData,
-        //                     () => {
-        //                       const defaultPagination = objectToQueryString({
-        //                         page: 1,
-        //                         limit: 50,
-        //                       });
-        //                       dispatch(
-        //                         MyHomeActions.getCdhApprover(
-        //                           true,
-        //                           defaultPagination,
-        //                         ),
-        //                       );
-        //                     },
-        //                     null,
-        //                     `status=Approved`,
-        //                   ),
-        //                 );
-        //               }}
-        //               name={"Approve CDH"}
-        //             />
-        //           )}
-
-        //           {/* ❌ Hide Reject if already Rejected */}
-        //           {!isRejectedView && (
-        //             <ConditionalButton
-        //               showType={"visible"}
-        //               classes="w-auto mr-1 bg-[#EF4444]"
-        //               onClick={() => {
-        //                 handleReject();
-        //               }}
-        //               name={"Reject CDH"}
-        //             />
-        //           )}
-        //         </div>
-        //       </>
-        //     ) : checkVariable(checkedChildData) ? (
-        //       <>
-        //         <div className="flex">
-        //           {/* <ConditionalButton
-        //             showType={"visible"}
-        //             classes="w-auto mr-1"
-        //             onClick={() => {
-        //               setCheckChildData([]);
-        //               setCheckData([]);
-        //               dispatch(
-        //                 MyHomeActions.postCdhMultiActions(
-        //                   checkedChildData,
-        //                   () => {
-        //                     const defaultPagination = objectToQueryString({
-        //                       page: 1,
-        //                       limit: 50,
-        //                     });
-        //                     dispatch(
-        //                       MyHomeActions.getCdhApprover(
-        //                         true,
-        //                         defaultPagination,
-        //                       ),
-        //                     );
-        //                   },
-        //                   null,
-        //                   `status=Approved`,
-        //                 ),
-        //               );
-        //             }}
-        //             name={"Approve CDH"}
-        //           />
-        //           <ConditionalButton
-        //             showType={"visible"}
-        //             classes="w-auto mr-1 bg-[#EF4444]"
-        //             onClick={() => {
-        //               setCheckChildData([]);
-        //               setCheckData([]);
-        //               dispatch(
-        //                 MyHomeActions.postCdhMultiActions(
-        //                   checkedChildData,
-        //                   () => {
-        //                     const defaultPagination = objectToQueryString({
-        //                       page: 1,
-        //                       limit: 50,
-        //                     });
-        //                     dispatch(
-        //                       MyHomeActions.getCdhApprover(
-        //                         true,
-        //                         defaultPagination,
-        //                       ),
-        //                     );
-        //                   },
-        //                   null,
-        //                   `status=Rejected`,
-        //                 ),
-        //               );
-        //             }}
-        //             name={"Reject CDH"}
-        //           /> */}
-        //           {/* ❌ Hide Approve if already Approved */}
-        //           {!isApprovedView && (
-        //             <ConditionalButton
-        //               showType={"visible"}
-        //               classes="w-auto mr-1"
-        //               onClick={() => {
-        //                 setCheckChildData([]);
-        //                 setCheckData([]);
-        //                 dispatch(
-        //                   MyHomeActions.postCdhMultiActions(
-        //                     checkedChildData,
-        //                     () => {
-        //                       const defaultPagination = objectToQueryString({
-        //                         page: 1,
-        //                         limit: 50,
-        //                       });
-        //                       dispatch(
-        //                         MyHomeActions.getCdhApprover(
-        //                           true,
-        //                           defaultPagination,
-        //                         ),
-        //                       );
-        //                     },
-        //                     null,
-        //                     `status=Approved`,
-        //                   ),
-        //                 );
-        //               }}
-        //               name={"Approve CDH"}
-        //             />
-        //           )}
-
-        //           {/* ❌ Hide Reject if already Rejected */}
-        //           {!isRejectedView && (
-        //             <ConditionalButton
-        //               showType={"visible"}
-        //               classes="w-auto mr-1 bg-[#EF4444]"
-        //               onClick={() => {
-        //                 setCheckChildData([]);
-        //                 setCheckData([]);
-        //                 dispatch(
-        //                   MyHomeActions.postCdhMultiActions(
-        //                     checkedChildData,
-        //                     () => {
-        //                       const defaultPagination = objectToQueryString({
-        //                         page: 1,
-        //                         limit: 50,
-        //                       });
-        //                       dispatch(
-        //                         MyHomeActions.getCdhApprover(
-        //                           true,
-        //                           defaultPagination,
-        //                         ),
-        //                       );
-        //                     },
-        //                     null,
-        //                     `status=Rejected`,
-        //                   ),
-        //                 );
-        //               }}
-        //               name={"Reject CDH"}
-        //             />
-        //           )}
-        //         </div>
-        //         {/* <ConditionalButton
-        //       showType={getAccessType("Upload(ManageEmployee)")}
-        //       name={"Delete"}
-        //       classes="w-auto mr-1"
-        //       onClick={() =>
-        //         // setFileOpen(true)
-        //           console.log("asdasd")
-        //       }
-        //     /> */}
-        //       </>
-        //     ) : (
-        //       <></>
-        //     )}
-        //     {/* <ConditionalButton
-        //       showType={getAccessType("Add New(ManageEmployee)")}
-        //       classes="w-auto mr-1"
-        //       // onClick={() => navigate("/empdetails")}
-        //       onClick={() => {
-        //         setmodalHead("Add Compliance");
-        //         setmodalBody(
-        //           <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
-        //         );
-        //         setmodalOpen(true);
-        //       }}
-        //       name={"Add New"}
-        //     /> */}
-        //     <ConditionalButton
-        //       showType={getAccessType("CDH Approver(Upload)")}
-        //       name={"Upload File"}
-        //       classes="w-auto mr-1"
-        //       onClick={() => setFileOpen(true)}
-        //     />
-        //     <ConditionalButton
-        //       showType={getAccessType("CDH Approver(Export)")}
-        //       name={"Export"}
-        //       classes="w-auto mr-1"
-        //       onClick={() =>
-        //         dispatch(
-        //           CommonActions.commondownloadpost(
-        //             `/export/myHome/wcc/cdhApproval${strValFil ? "?" + strValFil : ""}`,
-        //             // {exportTableName:"ptwBackupData"},
-        //             "WCC CDH Approval.xlsx",
-        //             "GET",
-        //           ),
-        //         )
-        //       }
-        //     />
-        //   </div>
-        // }
+       
 
         headerButton={
           <div className="flex">
@@ -1065,30 +640,21 @@ const OciApprover = () => {
                   ) : (
                     <></>
                   )}
-
-                  {/* {!isApprovedView ? (
-                    <ConditionalButton
-                      showType={"visible"}
-                      classes="w-auto mr-1 bg-[#EF4444]"
-                      onClick={() => handleReject()}
-                      name={"Reject CDH"}
-                    />
-                  ) : (
-                    <></>
-                  )} */}
                 </div>
               )}
             </>
 
             {/* ✅ ALWAYS VISIBLE BUTTONS */}
             <ConditionalButton
-              showType={getAccessType('CDH Approver(Upload)')}
+              // showType={getAccessType('CDH Approver(Upload)')}
+              showType={getAccessType('OCI Approver(Upload)')}
               name={'Upload File'}
               classes="w-auto mr-1"
               onClick={() => setFileOpen(true)}
             />
 
             <ConditionalButton
+              // showType={getAccessType('OCI Approver(Export)')}
               showType={getAccessType('OCI Approver(Export)')}
               name={'Export'}
               classes="w-auto mr-1"
@@ -1109,44 +675,7 @@ const OciApprover = () => {
             />
           </div>
         }
-        // headerButton={
-        //   <div className="flex">
-        //     <ConditionalButton
-        //       showType={getAccessType("Add New(ManageEmployee)")}
-        //       classes="w-auto mr-1"
-        //       // onClick={() => navigate("/empdetails")}
-        //       onClick={() => {
-        //         setmodalHead("Add Compliance");
-        //         setmodalBody(
-        //           <ComplianceForm modalBody={modalBody} setIsOpen={setmodalOpen} onClose={() => setmodalOpen(false)}  />
-        //         );
-        //         setmodalOpen(true);
-        //       }}
-        //       name={"Add New"}
-        //     />
-        //     <ConditionalButton
-        //       showType={getAccessType("Upload(ManageEmployee)")}
-        //       name={"Upload File"}
-        //       classes="w-auto mr-1"
-        //       onClick={() => setFileOpen(true)}
-        //     />
-        //     <ConditionalButton
-        //       showType={getAccessType("Upgrade(ManageEmployee)")}
-        //       name={"Export"}
-        //       classes="w-auto mr-1"
-        //       onClick={() => dispatch(
-        //            CommonActions.commondownloadpost(
-        //               "/export/wccCompliance",
-        //               // {exportTableName:"ptwBackupData"},
-        //               "WCC_Compliance.xlsx",
-        //               "GET",
-
-        //             )
-        //        )}
-        //     />
-
-        //   </div>
-        // }
+        
         table={table}
         filterAfter={onSubmit}
         tableName={'CDH Approver'}
@@ -1158,11 +687,7 @@ const OciApprover = () => {
         getValues={getValues}
         // totalCount={checkArray(tableData)?tableData?.length:0}
         totalCount={dbConfigTotalCount}
-        // checkboxshow={shouldIncludeEditColumn}
-        //  exportButton={[
-        //     "/export/subVendor",
-        //     "PartnerTeam.xlsx",
-        //     ]}
+       
         heading={'Total Count:-'}
       />
 

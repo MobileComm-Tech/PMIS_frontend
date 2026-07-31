@@ -31,6 +31,7 @@ const Ptw = () => {
           approveddata={[
             ["Compliance", "bg-pcol", "/superAdmin/WCC/Compliance"],
             ["CDH Approver", "bg-pcol", "/superAdmin/WCC/CDH Approver"],
+            ["OCI Approver", "bg-pcol", "/superAdmin/WCC/oci Approver"]
             // ["L2 Approver", "bg-pcol", "/superAdmin/wcc/l2approver"],
           ].map((itm) => {
             return (
