@@ -475,60 +475,116 @@ const OciApprover = () => {
       ),
     
 
-      action: (
-        <div className="flex justify-end gap-2">
-          {/* ✅ If status is APPROVED → only show REJECT */}
-          {checkTrueOrFalseDynamic(itm?.cdh, 'Approved') ? (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSingleReject(itm);
-              }}
-              className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
-              title="Reject"
-            >
-              <TbPlayerEjectFilled size={28} />
-            </button>
-          ) : /* ✅ If status is REJECTED → only show APPROVE */
-          checkTrueOrFalseDynamic(itm?.cdh, 'Rejected') ? (
-            <button
-              onClick={(e) => {
-                handleApproveWithNofileUpload(itm);
-              }}
-              className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
-              title="Approve"
-            >
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
-              </svg>
-            </button>
-          ) : CheckTrueOrFalseforApproval(itm?.cdh) ? (
-            <>
-              <button
-                onClick={() => handleApproveWithNofileUpload(itm)}
-                className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600"
-              >
-                ✔
-              </button>
+      // action: (
+      //   <div className="flex justify-end gap-2">
+      //     {/* ✅ If status is APPROVED → only show REJECT */}
+      //     {checkTrueOrFalseDynamic(itm?.cdh, 'Approved') ? (
+      //       <button
+      //         onClick={(e) => {
+      //           e.stopPropagation();
+      //           handleSingleReject(itm);
+      //         }}
+      //         className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+      //         title="Reject"
+      //       >
+      //         <TbPlayerEjectFilled size={28} />
+      //       </button>
+      //     ) : /* ✅ If status is REJECTED → only show APPROVE */
+      //     checkTrueOrFalseDynamic(itm?.cdh, 'Rejected') ? (
+      //       <button
+      //         onClick={(e) => {
+      //           handleApproveWithNofileUpload(itm);
+      //         }}
+      //         className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
+      //         title="Approve"
+      //       >
+      //         <svg
+      //           width="15"
+      //           height="15"
+      //           viewBox="0 0 24 24"
+      //           fill="currentColor"
+      //         >
+      //           <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+      //         </svg>
+      //       </button>
+      //     ) : CheckTrueOrFalseforApproval(itm?.cdh) ? (
+      //       <>
+      //         <button
+      //           onClick={() => handleApproveWithNofileUpload(itm)}
+      //           className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600"
+      //         >
+      //           ✔
+      //         </button>
 
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSingleReject(itm);
-                }}
-                className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600"
-              >
-                <TbPlayerEjectFilled size={18} />
-              </button>
-            </>
-          ) : null}
-        </div>
-      ),
+      //         <button
+      //           onClick={(e) => {
+      //             e.stopPropagation();
+      //             handleSingleReject(itm);
+      //           }}
+      //           className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600"
+      //         >
+      //           <TbPlayerEjectFilled size={18} />
+      //         </button>
+      //       </>
+      //     ) : null}
+      //   </div>
+      // ),
+
+      action: (
+  <div className="flex justify-end gap-2">
+    {/* When filtered by Approved -> show only Reject */}
+    {isApprovedView ? (
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSingleReject(itm);
+        }}
+        className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600 transition flex items-center gap-1"
+        title="Reject"
+      >
+        <TbPlayerEjectFilled size={28} />
+      </button>
+    ) : isRejectedView ? (
+      /* When filtered by Rejected -> show only Approve */
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleApproveWithNofileUpload(itm);
+        }}
+        className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600 transition flex items-center gap-1"
+        title="Approve"
+      >
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+        </svg>
+      </button>
+    ) : CheckTrueOrFalseforApproval(itm?.cdh) ? (
+      <>
+        <button
+          onClick={() => handleApproveWithNofileUpload(itm)}
+          className="bg-green-500 text-white text-xs p-1 px-2 rounded hover:bg-green-600"
+        >
+          ✔
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSingleReject(itm);
+          }}
+          className="bg-red-500 text-white text-xs px-2 p-1 rounded hover:bg-red-600"
+        >
+          <TbPlayerEjectFilled size={18} />
+        </button>
+      </>
+    ) : null}
+  </div>
+),
     };
   });
 
@@ -697,8 +753,8 @@ const OciApprover = () => {
         setIsOpen={setFileOpen}
         tempbtn={true}
         tempbtnlink={[
-          '/template/cdhApproverUpload.xlsx',
-          'CDH_Approver_template.xlsx',
+          '/template/OCI_Approver_template.xlsx',
+          'OCI_Approver_template.xlsx',
         ]}
         head={'Upload Upgrade File'}
       />
